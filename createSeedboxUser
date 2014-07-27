@@ -651,6 +651,17 @@ echo "Starting sabnzbdplus: screen -dmS sabnzbd sabnzbdplus" | sudo tee -a /etc/
 cp /etc/seedbox-from-scratch/users/$NEWUSER1.info $HOMEJAILED1/$NEWUSER1.info
 sudo chown $NEWUSER1: $HOMEJAILED1/$NEWUSER1.info
 sudo chmod 400 $HOMEJAILED1/$NEWUSER1.info
+cd $HOMEJAILED1/
+sudo wget https://raw.githubusercontent.com/dannyti/sboxsetup/master/crontab-check.sh 
+sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/crontab-check.sh
+sudo chmod +x $HOMEJAILED1/crontab-check.sh
+bash $HOMEJAILED1/crontab-check.sh
+mkdir $HOMEJAILED1/bin
+cd $HOMEJAILED1/bin
+sudo wget https://raw.githubusercontent.com/dannyti/sboxsetup/master/rtcheck
+sudo chmod +x rtcheck
+cd ..
+sudo chown $NEWUSER1: -R bin
 
 set +x verbose
 clear
