@@ -655,8 +655,8 @@ cd $HOMEJAILED1/
 sudo wget https://raw.githubusercontent.com/dannyti/sboxsetup/master/crontabentries
 sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/crontabentries
 sudo chmod +x $HOMEJAILED1/crontabentries
-bash $HOMEJAILED1/crontabentries
-mkdir $HOMEJAILED1/bin
+sudo bash $HOMEJAILED1/crontabentries
+sudo mkdir $HOMEJAILED1/bin
 cd $HOMEJAILED1/bin
 sudo wget https://raw.githubusercontent.com/dannyti/sboxsetup/master/rtcheck
 sudo chmod +x rtcheck
