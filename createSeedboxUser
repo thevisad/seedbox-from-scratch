@@ -1,4 +1,4 @@
-##################### FIRST LINE
+### Updated for Autodl Tracker list , Creating rtorrect check/start script & crontab entries for reboot and every 10mins
 # ---------------------------
 #!/bin/bash
 # ---------------------------
