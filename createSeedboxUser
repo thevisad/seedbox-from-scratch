@@ -383,25 +383,25 @@ sudo chmod 550 $HOMEJAILED1/restartSeedbox
 
 # 22.
 # prepare the tree
-sudo mkdir -p /var/www/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi
-sudo mkdir -p /var/www/rutorrent/conf/users/$NEWUSER1/plugins/diskspace
-sudo mkdir -p /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload
+sudo mkdir -p /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi
+sudo mkdir -p /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins/diskspace
+sudo mkdir -p /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins/fileupload
 
-echo '<?php $topDirectory = "/home"; ?>' | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins/diskspace/conf.php
+echo '<?php $topDirectory = "/home"; ?>' | sudo tee -a /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins/diskspace/conf.php
 
 #some of those files will be changed later in this script
-sudo cp /var/www/rutorrent/conf/access.ini   /var/www/rutorrent/conf/users/$NEWUSER1/
-sudo cp /var/www/rutorrent/conf/config.php  /var/www/rutorrent/conf/users/$NEWUSER1/
-sudo cp /var/www/rutorrent/conf/plugins.ini   /var/www/rutorrent/conf/users/$NEWUSER1/
+sudo cp /var/www/html/rutorrent/conf/access.ini   /var/www/html/rutorrent/conf/users/$NEWUSER1/
+sudo cp /var/www/html/rutorrent/conf/config.php  /var/www/html/rutorrent/conf/users/$NEWUSER1/
+sudo cp /var/www/html/rutorrent/conf/plugins.ini   /var/www/html/rutorrent/conf/users/$NEWUSER1/
 
 # 24.
 
-sudo cp /etc/seedbox-from-scratch/rutorrent.conf.users.config.php.template /var/www/rutorrent/conf/users/$NEWUSER1/config.php
+sudo cp /etc/seedbox-from-scratch/rutorrent.conf.users.config.php.template /var/www/html/rutorrent/conf/users/$NEWUSER1/config.php
 
-sudo perl -pi -e "s/5995/$SCGIPORT1/g" /var/www/rutorrent/conf/users/$NEWUSER1/config.php
-sudo perl -pi -e "s/RPC123/$NEWRPC1/g" /var/www/rutorrent/conf/users/$NEWUSER1/config.php
-sudo perl -pi -e "s/<username>/$NEWUSER1/g" /var/www/rutorrent/conf/users/$NEWUSER1/config.php
-sudo perl -pi -e "s/<homedir>/$HOMEJAILED1_ESCAPED/g" /var/www/rutorrent/conf/users/$NEWUSER1/config.php
+sudo perl -pi -e "s/5995/$SCGIPORT1/g" /var/www/html/rutorrent/conf/users/$NEWUSER1/config.php
+sudo perl -pi -e "s/RPC123/$NEWRPC1/g" /var/www/html/rutorrent/conf/users/$NEWUSER1/config.php
+sudo perl -pi -e "s/<username>/$NEWUSER1/g" /var/www/html/rutorrent/conf/users/$NEWUSER1/config.php
+sudo perl -pi -e "s/<homedir>/$HOMEJAILED1_ESCAPED/g" /var/www/html/rutorrent/conf/users/$NEWUSER1/config.php
 
 # 25.
 
