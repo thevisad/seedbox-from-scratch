@@ -417,15 +417,15 @@ if [ "$CHROOTJAIL1" == "YES" ]; then
   echo "[filemanager]" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
   echo "enabled = no" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
 else
-  echo "" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "[fileupload]" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "enabled = yes" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "[mediastream]" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "enabled = yes" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "[filemanager]" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "enabled = user-defined" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
+  echo "" | sudo tee -a /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins.ini
+  echo "[fileupload]" | sudo tee -a /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins.ini
+  echo "enabled = yes" | sudo tee -a /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins.ini
+  echo "" | sudo tee -a /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins.ini
+  echo "[mediastream]" | sudo tee -a /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins.ini
+  echo "enabled = yes" | sudo tee -a /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins.ini
+  echo "" | sudo tee -a /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins.ini
+  echo "[filemanager]" | sudo tee -a /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins.ini
+  echo "enabled = user-defined" | sudo tee -a /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins.ini
 fi
 
 # 26.
@@ -560,12 +560,12 @@ sudo chown -R $NEWUSER1: $HOMEJAILED1/.irssi
 
 # 29.3
 
-sudo cp /etc/seedbox-from-scratch/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template  /var/www/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
-sudo perl -pi -e "s/<PASSWORD>/$IRSSIPASSWORD1/g"  /var/www/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
-sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g" /var/www/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
+sudo cp /etc/seedbox-from-scratch/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template  /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
+sudo perl -pi -e "s/<PASSWORD>/$IRSSIPASSWORD1/g"  /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
+sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g" /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
 
-sudo cp /etc/seedbox-from-scratch/rutorrent.conf.users.plugins.fileupload.conf.php.template  /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload/config.php > /dev/null
-sudo chown -R www-data:www-data /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload/
+sudo cp /etc/seedbox-from-scratch/rutorrent.conf.users.plugins.fileupload.conf.php.template  /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins/fileupload/config.php > /dev/null
+sudo chown -R www-data:www-data /var/www/html/rutorrent/conf/users/$NEWUSER1/plugins/fileupload/
 
 sudo cp /etc/seedbox-from-scratch/home.user.autodl.autodl.cfg.template  $HOMEJAILED1/.autodl/autodl.cfg
 
