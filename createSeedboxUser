@@ -7,7 +7,8 @@
 #
 # The Seedbox From Scratch Script
 #   By Notos ---> https://github.com/Notos/
-# Updated by dannyti for Autodl tracker list , rtorrent check start scripts & its crontab entries
+#   Updated by dannytis ---> https://github.com/dannyti/ for 
+#   Autodl tracker list , rtorrent check start scripts & its crontab entries
 ######################################################################
 #
 #  Copyright (c) 2014 Notos (https://github.com/Notos/) & dannyti (https://github.com/dannyti/)
@@ -669,7 +670,7 @@ echo ""
 echo "<< The Seedbox From Scratch Script v$SBFSCURRENTVERSION >>"
 echo ""
 echo "Looks like your new user is created, here are some info about it:"
-echo ""
+echo "Here is Login info for SeedboxUser"
 cat /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
 ##################### LAST LINE ###########
