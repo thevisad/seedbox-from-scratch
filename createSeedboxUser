@@ -192,6 +192,19 @@ if [ "$USERINSUDOERS1" <> "YES" ]; then
   echo "$NEWUSER1" | sudo tee -a /etc/vsftpd.chroot_list &> /dev/null
 fi
 
+if [ $6 ]
+then
+  if [ "$6" == "YES" ] || [ "$6" == "NO" ]; then
+    CHR1=$6
+    CHR2=$6
+  else
+    getString NO  "Chroot this User?: " CHR1 NO
+  fi
+else
+  getString NO  "Chroot this User?: " CHR1 NO
+fi
+
+
 OS1=$(lsb_release -si)
 HOMEBASE1=/home/$NEWUSER1
 HOMEDIR1=$HOMEBASE1
@@ -389,6 +402,11 @@ sudo mkdir -p /var/www/rutorrent/conf/users/$NEWUSER1/plugins/diskspace
 sudo mkdir -p /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload
 
 echo '<?php $topDirectory = "/home"; ?>' | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins/diskspace/conf.php
+
+# 23. Chroot this User
+if [ "$CHR1" <> "YES" ]; then
+  sudo chown root:root $HOMEJAILED1
+fi
 
 #some of those files will be changed later in this script
 sudo cp /var/www/rutorrent/conf/access.ini   /var/www/rutorrent/conf/users/$NEWUSER1/
