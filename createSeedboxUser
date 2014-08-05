@@ -50,7 +50,7 @@ function getString
     echo "#"
     echo "# The Seedbox From Scratch Script"
     echo "#   By Notos ---> https://github.com/Notos/"
-    echo "#"
+    echo "#   Updated by dannyti ---> https://github.com/dannyti/"
     echo "#"
     echo "#"
     echo
