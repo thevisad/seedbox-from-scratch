@@ -195,15 +195,14 @@ fi
 if [ $6 ]
 then
   if [ "$6" == "YES" ] || [ "$6" == "NO" ]; then
-    CHR1=$6
-    CHR2=$6
+    USERISCHROOT1=$6
+    USERISCHROOT2=$6
   else
-    getString NO  "Chroot this User?: " CHR1 NO
+    getString NO  "Chroot this User?: " USERISCHROOT1 NO
   fi
 else
-  getString NO  "Chroot this User?: " CHR1 NO
+  getString NO  "Chroot this User?: " USERISCHROOT1 NO
 fi
-
 
 OS1=$(lsb_release -si)
 HOMEBASE1=/home/$NEWUSER1
@@ -319,6 +318,11 @@ fi
 
 # 3.4
 
+if [ "$USERISCHROOT1" == "YES" ]; then
+  sudo addgroup $NEWUSER1 sftponly
+  sudo chown root:root $HOMEJAILED1
+fi
+
 if [ "$USERINSUDOERS1" == "YES" ]; then
   if [ "$OS1" = "Debian" ]; then
     sudo addgroup $NEWUSER1 sudo
@@ -330,6 +334,8 @@ fi
 if [ "$USERHASSSHACCESS1" == "YES" ]; then
   sudo addgroup $NEWUSER1 sshdusers
 fi
+
+
 
 sudo service ssh restart
 
@@ -404,9 +410,7 @@ sudo mkdir -p /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload
 echo '<?php $topDirectory = "/home"; ?>' | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins/diskspace/conf.php
 
 # 23. Chroot this User
-if [ "$CHR1" == "YES" ]; then
-  sudo chown root:root $HOMEJAILED1
-fi
+
 
 #some of those files will be changed later in this script
 sudo cp /var/www/rutorrent/conf/access.ini   /var/www/rutorrent/conf/users/$NEWUSER1/
