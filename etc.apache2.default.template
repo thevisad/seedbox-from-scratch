@@ -22,7 +22,9 @@
 <VirtualHost *:80>
   ServerAdmin webmaster@localhost
   ServerName <servername>
-  Redirect 301 / https://<servername>/
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule (.*) https://%{HTTP_HOST}:443%{REQUEST_URI} 
   DocumentRoot /var/www/
 
   <Directory />
