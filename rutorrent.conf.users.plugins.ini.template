@@ -151,7 +151,7 @@ enabled = no
 enabled = yes
 
 [check_port]
-enabled = no
+enabled = yes
 
 [retrackers]
 enabled = no
