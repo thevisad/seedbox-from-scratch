@@ -68,29 +68,5 @@ sudo make -j2
 sudo make install
 sudo ldconfig
 
-#################################################################
 
-cd /etc/seedbox-from-scratch/source/
-tar xfz libtorrent-0.13.4.tar.gz
-tar xfz rtorrent-0.9.4.tar.gz
 
-#configure & make xmlrpc
-cd xmlrpc
-./configure --prefix=/usr --enable-libxml2-backend --disable-libwww-client --disable-wininet-client --disable-abyss-server --disable-cgi-server
-make
-sudo make install
-
-#configure & make libtorrent
-cd ../libtorrent-0.13.4
-./autogen.sh
-./configure --prefix=/usr
-make
-sudo make install
-
-#configure & make rtorrent
-cd ../rtorrent-0.9.4
-./autogen.sh
-./configure --prefix=/usr --with-xmlrpc-c
-make
-sudo make install
-sudo ldconfig
