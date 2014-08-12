@@ -25,6 +25,7 @@
   ServerName <servername>
   RewriteEngine On
   RewriteCond %{HTTPS} off
+  RewriteCond %{REQUEST_URI} !^\/share\/
   RewriteRule (.*) https://%{HTTP_HOST}:443%{REQUEST_URI} 
   DocumentRoot /var/www/
 
