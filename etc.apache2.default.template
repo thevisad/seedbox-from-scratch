@@ -63,6 +63,16 @@
     Allow from all
     Satisfy any
   </Directory>
+  
+<Directory /var/www/seedboxInfo.php>
+Options FollowSymLinks
+AllowOverride All
+AuthType Digest
+AuthName "Info for your Seedbox"
+AuthDigestProvider file
+AuthUserFile /etc/apache2/htpasswd
+Require user <username>
+</Directory>
 
   ErrorLog /var/log/apache2/error.log
 
@@ -128,6 +138,16 @@
     Allow from all
     Satisfy any
   </Directory>
+  
+<Directory /var/www/seedboxInfo.php>
+Options FollowSymLinks
+AllowOverride All
+AuthType Digest
+AuthName "Info for your Seedbox"
+AuthDigestProvider file
+AuthUserFile /etc/apache2/htpasswd
+Require user <username>
+</Directory>
 
   ErrorLog /var/log/apache2/error.log
   # Possible values include: debug, info, notice, warn, error, crit,
