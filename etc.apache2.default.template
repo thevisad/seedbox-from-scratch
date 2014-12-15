@@ -72,7 +72,7 @@
     AuthDigestProvider file
     AuthUserFile /etc/apache2/htpasswd
     Require user <username>
- </Directory>
+  </Directory>
 
   ErrorLog /var/log/apache2/error.log
 
@@ -147,7 +147,7 @@
     AuthDigestProvider file
     AuthUserFile /etc/apache2/htpasswd
     Require user <username>
- </Directory>
+  </Directory>
 
   ErrorLog /var/log/apache2/error.log
   # Possible values include: debug, info, notice, warn, error, crit,
