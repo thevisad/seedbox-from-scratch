@@ -97,7 +97,6 @@
 <VirtualHost *:443>
   ServerAdmin webmaster@localhost
   ServerName <servername>
-  NameVirtualHost *:443
   SSLEngine on
   SSLCertificateFile /etc/seedbox-from-scratch/ssl/cert.pem
   SSLCertificateKeyFile /etc/seedbox-from-scratch/ssl/key.pem
