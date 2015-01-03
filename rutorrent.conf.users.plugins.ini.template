@@ -133,7 +133,7 @@ enabled = no
 enabled = yes
 
 [history]
-enabled = no
+enabled = yes
 
 [instantsearch]
 enabled = no

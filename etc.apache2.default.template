@@ -64,15 +64,15 @@
     Satisfy any
   </Directory>
   
-  <Directory /var/www/seedboxInfo.php>
-    Options FollowSymLinks
-    AllowOverride All
+  <Files /var/www/seedboxInfo.php>
     AuthType Digest
-    AuthName "Info for your Seedbox"
+    AuthName "SB Info"
+    AuthDigestDomain /var/www/rutorrent/ https://<servername>/rutorrent
     AuthDigestProvider file
     AuthUserFile /etc/apache2/htpasswd
-    Require user <username>
-  </Directory>
+    Require valid-user
+    SetEnv R_ENV "/var/www/rutorrent"
+  </Files>
 
   ErrorLog /var/log/apache2/error.log
 
@@ -138,15 +138,15 @@
     Satisfy any
   </Directory>
   
-  <Directory /var/www/seedboxInfo.php>
-    Options FollowSymLinks
-    AllowOverride All
+  <Files /var/www/seedboxInfo.php>
     AuthType Digest
-    AuthName "Info for your Seedbox"
+    AuthName "SB Info"
+    AuthDigestDomain /var/www/rutorrent/ https://<servername>/rutorrent
     AuthDigestProvider file
     AuthUserFile /etc/apache2/htpasswd
-    Require user <username>
-  </Directory>
+    Require valid-user
+    SetEnv R_ENV "/var/www/rutorrent"
+  </Files>
 
   ErrorLog /var/log/apache2/error.log
   # Possible values include: debug, info, notice, warn, error, crit,
