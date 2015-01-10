@@ -1,15 +1,18 @@
 ## The Seedbox From Scratch Script
-#### Current version = 2.1.9
-#### Last stable version = 2.1.8
+#### Current version = 14.06
+#### Last stable version = 14.05
 
-This is a script I've being working for some time now. I decided to share it here because it has some good things to add:
+Forked from Notos's script, Updated it for Ubuntu 14.04 and Debian 7.0
+This script will accept ssl only links, Sorry http :(
+
+This script has the following features
 
 * A multi-user enviroment, you'll have scripts to add and delete users.
 * Linux Quota, to control how much space every user can use in your box.
 
 ## Installed software
 * ruTorrent 3.4 + official plugins
-* rTorrent 0.9.2 or 0.9.3 (you can choose, downgrade and upgrade at any time)
+* rTorrent 0.9.2 or 0.9.3 or 0.9.4(you can choose, downgrade and upgrade at any time)
 * Deluge 1.3.5 or 0.9.3 (you can choose, downgrade and upgrade at any time)
 * libTorrrent 0.13.2 or 0.12.9
 * mktorrent
@@ -19,7 +22,7 @@ This is a script I've being working for some time now. I decided to share it her
 * PHP 5 and PHP-FPM (FastCGI to increase performance)
 * Linux Quota
 * SSH Server (for SSH terminal and sFTP connections)
-* vsftpd (Very Secure FTP Deamon)
+* vsftpd (Very Secure FTP Deamon) <-- Working 
 * IRSSI
 * Webmin (use it to manage your users quota)
 * sabnzbd: http://sabnzbd.org/
@@ -36,10 +39,10 @@ autotoolscpuload, diskspace, erasedata, extratio, extsearch, feeds, filedrop, fi
 * Fileshare Plugin (http://forums.rutorrent.org/index.php?topic=705.0)
 * MediaStream (to watch your videos right from your seedbox)
 * Logoff
-* Theme: Oblivion
+* Theme: Oblivion & Agent 46
 
 ## Before installation
-You need to have a "blank" server installation, if you have a Kimsufi, just do a "reinstall" on it, using Ubuntu Server 12.04.
+You need to have a Fresh "blank" server installation.
 After that access your box using a SSH client, like PuTTY.
 
 ## Warnings
@@ -55,14 +58,9 @@ DO NOT upgrade anything in your box, ask in the thread before even thinking abou
 DO NOT try to reconfigure packages using other tutorials.
 
 ## How to install
-Just copy and paste those commands on your terminal:
+That is the question you must ask yourself.
 
-```
-wget -N https://raw.github.com/Notos/seedbox-from-scratch/v2.1.9/seedbox-from-scratch.sh
-time bash ~/seedbox-from-scratch.sh
-```
-
-####You must be logged as root to run this installation or use sudo on it.
+####You must be logged in as root to run this installation or use sudo on it.
 
 ## Commands
 After installing you will have access to the following commands to be used directly in terminal
@@ -97,10 +95,11 @@ http://<Server IP or Server Name>/rutorrent/vpn.zip` and use it in any OpenVPN c
 ## Supported and tested servers
 * Ubuntu Server 12.10.0 - 64bit (on VM environment)
 * Ubuntu Server 12.04.x - 64bit (on VM environment)
-* Ubuntu Server 12.04.x - 32bit (OVH's Kimsufi 2G and 16G - Precise)
-* Ubuntu Server 12.04.x - 64bit (OVH's Kimsufi 2G and 16G - Precise)
+* Ubuntu Server 14.04.x - 32bit (OVH's Kimsufi 2G and 16G - Precise)
+* Ubuntu Server 14.04.x - 64bit (OVH's Kimsufi 2G and 16G - Precise)
 * Debian 6.0.6 - 32 and 64bit (OVH's Kimsufi 2G - Squeeze)
 * Debian 6.0.6 - 32 and 64bit (on VM environment)
+* Debian 7.0 - 32 and 64 bit
 
 ## Quota
 Quota is disabled by default in your box. To enable and use it, you'll have to open Webmin, using the address you can find in one of the tables box above this. After you sucessfully logged on Webmin, enable it by clicking
@@ -122,8 +121,7 @@ There is no real support for this script, but people is talking a lot about it [
 
 
 ## License
-
-Copyright (c) 2013 Notos (https://github.com/Notos/) 
+Copyright (c) 2015 dannyti (https://github.com/dannyti/) 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: 
 
