@@ -32,11 +32,6 @@
   <Directory />
     Options FollowSymLinks
     AllowOverride All
-    AuthType Digest
-    AuthName "documentroot"
-    AuthDigestProvider file
-    AuthUserFile /etc/apache2/htpasswd
-    Require user <username>
   </Directory>
 
   <Directory /var/www/>
@@ -44,6 +39,11 @@
     AllowOverride None
     Order allow,deny
     allow from all
+    AuthType Digest
+    AuthName "documentroot"
+    AuthDigestProvider file
+    AuthUserFile /etc/apache2/htpasswd
+    Require user <username>
   </Directory>
 
   <Directory /var/www/share/>
@@ -64,15 +64,6 @@
     Satisfy any
   </Directory>
   
-  <Files /var/www/seedboxInfo.php>
-    AuthType Digest
-    AuthName "SB Info"
-    AuthDigestDomain /var/www/rutorrent/ https://<servername>/rutorrent
-    AuthDigestProvider file
-    AuthUserFile /etc/apache2/htpasswd
-    Require valid-user
-    SetEnv R_ENV "/var/www/rutorrent"
-  </Files>
 
   ErrorLog /var/log/apache2/error.log
 
@@ -106,11 +97,6 @@
   <Directory />
     Options FollowSymLinks
     AllowOverride All
-    AuthType Digest
-    AuthName "documentroot"
-    AuthDigestProvider file
-    AuthUserFile /etc/apache2/htpasswd
-    Require user <username>
   </Directory>
 
   <Directory /var/www/>
@@ -118,6 +104,11 @@
     AllowOverride None
     Order allow,deny
     allow from all
+    AuthType Digest
+    AuthName "documentroot"
+    AuthDigestProvider file
+    AuthUserFile /etc/apache2/htpasswd
+    Require user <username>
   </Directory>
 
   <Directory /var/www/share/>
@@ -137,22 +128,12 @@
     Allow from all
     Satisfy any
   </Directory>
-  
-  <Files /var/www/seedboxInfo.php>
-    AuthType Digest
-    AuthName "SB Info"
-    AuthDigestDomain /var/www/rutorrent/ https://<servername>/rutorrent
-    AuthDigestProvider file
-    AuthUserFile /etc/apache2/htpasswd
-    Require valid-user
-    SetEnv R_ENV "/var/www/rutorrent"
-  </Files>
 
   ErrorLog /var/log/apache2/error.log
   # Possible values include: debug, info, notice, warn, error, crit,
   # alert, emerg.
   LogLevel warn
-
+  ErrorLog /var/www/logs/error_log
   CustomLog /var/log/apache2/access.log combined
   <Directory /var/www/rutorrent>
     AuthType Digest
