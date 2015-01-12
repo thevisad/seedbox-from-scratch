@@ -273,5 +273,5 @@ else
 	echo ""
 	echo "Finished!"
 	echo ""
-	echo "Your client config is available at /var/www/rutorrent/$CLIENT.ovpn"
+	echo "Now you just download https://$IPADDRESS1/rutorrent/$CLIENT.ovpn to use in any OpenVPN client."
 fi
