@@ -84,8 +84,10 @@ if [[ -e /etc/openvpn/server.conf ]]; then
 			"$EASY_RSA/pkitool" $CLIENT
 			# Generate the client.ovpn
 			newclient "$CLIENT"
-			echo ""
-			echo "Client $CLIENT added, certs available at ~/$CLIENT.ovpn"
+			zip $CLIENT.zip $CLIENT.ovpn
+			mv ~/$CLIENT.zip /var/www/rutorrent
+			echo "$CLIENT.ovpn is zipped into $CLIENT.zip""
+			echo "Client $CLIENT added, certs available at https://$IPADDRESS1/rutorrent/$CLIENT.zip to use in any OpenVPN client"
 			exit
 			;;
 			2)
@@ -269,9 +271,10 @@ else
 	sed -i "s|remote my-server-1 1194|remote $IP $PORT|" /usr/share/doc/openvpn/examples/sample-config-files/client.conf
 	# Generate the client.ovpn
 	newclient "$CLIENT"
-	mv $CLIENT.ovpn /var/www/rutorrent
+	zip $CLIENT.zip $CLIENT.ovpn
+	mv ~/$CLIENT.zip /var/www/rutorrent
 	echo ""
 	echo "Finished!"
-	echo ""
-	echo "Now you just download https://$IPADDRESS1/rutorrent/$CLIENT.ovpn to use in any OpenVPN client."
+	echo "$CLIENT.ovpn is zipped into $CLIENT.zip"
+	echo "Now you just download https://$IPADDRESS1/rutorrent/$CLIENT.zip to use in any OpenVPN client."
 fi
