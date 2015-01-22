@@ -7,7 +7,7 @@
 #
 ######################################################################
 #
-#  Copyright (c) 2013 Notos (https://github.com/Notos/)
+#  Copyright (c) 2015 dannyti (https://github.com/dannyti/)
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 #
@@ -26,7 +26,10 @@
   RewriteEngine On
   RewriteCond %{HTTPS} off
   RewriteCond %{REQUEST_URI} !^\/share\/
+  RewriteCond %{REQUEST_URI} !^\/private\/
   RewriteRule (.*) https://%{HTTP_HOST}:443%{REQUEST_URI} 
+  RewriteCond %{LA-U:remote_user} !^$
+  RewriteRule ^/private(.*) /home/%{LA-U:remote_user}/private$1
   DocumentRoot /var/www/
 
   <Directory />
@@ -45,6 +48,15 @@
     AuthUserFile /etc/apache2/htpasswd
     Require user <username>
   </Directory>
+
+  <Location /private>
+    AuthType Digest
+    AuthName "private"
+    AuthDigestDomain /var/www/private
+    AuthDigestProvider file
+    AuthUserFile /etc/apache2/htpasswd
+    Require valid-user
+  </Location>
 
   <Directory /var/www/share/>
     Order Deny,Allow
@@ -91,9 +103,12 @@
   SSLEngine on
   SSLCertificateFile /etc/seedbox-from-scratch/ssl/cert.pem
   SSLCertificateKeyFile /etc/seedbox-from-scratch/ssl/key.pem
-
   DocumentRoot /var/www/
+  RewriteEngine On
+  RewriteCond %{LA-U:remote_user} !^$
+  RewriteRule ^/private(.*) /home/%{LA-U:remote_user}/private$1
 
+  
   <Directory />
     Options FollowSymLinks
     AllowOverride All
@@ -110,6 +125,15 @@
     AuthUserFile /etc/apache2/htpasswd
     Require user <username>
   </Directory>
+
+  <Location /private>
+    AuthType Digest
+    AuthName "private"
+    AuthDigestDomain /var/www/private
+    AuthDigestProvider file
+    AuthUserFile /etc/apache2/htpasswd
+    Require valid-user
+  </Location>
 
   <Directory /var/www/share/>
     Order Deny,Allow

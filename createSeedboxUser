@@ -7,11 +7,11 @@
 #
 # The Seedbox From Scratch Script
 #   By Notos ---> https://github.com/Notos/
-#   Updated by dannytis ---> https://github.com/dannyti/ for 
-#   Autodl tracker list , rtorrent check start scripts & its crontab entries
+#   Updated by dannytis ---> https://github.com/dannyti/ for Download directory, 
+#   Multi user login info via same url , Autodl tracker list , rtorrent check-start scripts & its crontab entries
 ######################################################################
 #
-#  Copyright (c) 2014 Notos (https://github.com/Notos/) & dannyti (https://github.com/dannyti/)
+#  Copyright (c) 2015 dannyti (https://github.com/dannyti/)
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 #
@@ -362,7 +362,7 @@ sudo perl -pi -e "s/^$SABNZBDHTTPPORT1.*\n$//g" /etc/seedbox-from-scratch/ports.
 # 12.
 
 sudo bash /etc/seedbox-from-scratch/changeUserPassword $NEWUSER1 $PASSWORD1 rutorrent
-
+sudo bash /etc/seedbox-from-scratch/changeUserPassword $NEWUSER1 $PASSWORD1 private
 # 19.
 sudo cp /etc/seedbox-from-scratch/rtorrent.rc.template  $HOMEJAILED1/.rtorrent.rc > /dev/null
 
@@ -605,7 +605,7 @@ fi
 sudo chown -R $NEWUSER1:$NEWUSER1  $HOMEJAILED1/.autodl
 sudo chown -R $NEWUSER1:$NEWUSER1  $HOMEJAILED1/.irssi
 
-echo "https://$IPADDRESS1/seedboxInfo.php" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
+echo "http://$IPADDRESS1/private/SBinfo.html" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
 echo "" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "User personal info" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
@@ -650,8 +650,10 @@ echo "-----" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 if [ -f /etc/seedbox-from-scratch/sabnzbd/SABnzbd.py ]; then
   echo "SABnzbd: https://$IPADDRESS1:$SABNZBDHTTPSPORT1/sabnzbd/" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 fi
-echo "ruTorrent: http://$IPADDRESS1/rutorrent/" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
+
 echo "ruTorrent: https://$IPADDRESS1/rutorrent/" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
+echo "Downloads Directory: http://$IPADDRESS1/private/Downloads" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
+
 echo "Webmin: https://$IPADDRESS1:10000" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "FTP: ftp://$IPADDRESS1:$NEWFTPPORT1/" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 if [ -f /etc/seedbox-from-scratch/rapidleech.info ]; then
@@ -660,7 +662,7 @@ fi
 if [ "$DELUGEINSTALLED1" == "YES" ]; then
   echo "Deluge: http://$IPADDRESS1:$WEBPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 fi
-echo "OpenVPN config: https://$IPADDRESS1/rutorrent/vpn.zip" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
+echo "OpenVPN config: https://$IPADDRESS1/rutorrent/client.zip" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
 echo "" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "Starting and restartring commands" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
@@ -671,9 +673,14 @@ echo "Starting RTorrent: screen -d -m -S rtorrent rtorrent" | sudo tee -a /etc/s
 echo "Starting IRSSI: screen -d -m -S irssi irssi" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "Starting sabnzbdplus: screen -dmS sabnzbd sabnzbdplus" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
-cp /etc/seedbox-from-scratch/users/$NEWUSER1.info $HOMEJAILED1/$NEWUSER1.info
-sudo chown $NEWUSER1: $HOMEJAILED1/$NEWUSER1.info
-sudo chmod 400 $HOMEJAILED1/$NEWUSER1.info
+sudo mkdir $HOMEJAILED1/private
+sudo cp /etc/seedbox-from-scratch/users/$NEWUSER1.info $HOMEJAILED1/private/SBinfo.html
+#sudo chown $NEWUSER1: $HOMEJAILED1/$NEWUSER1.info
+#sudo mv $HOMEJAILED1/$NEWUSER1.info $HOMEJAILED1/private/SBinfo.html
+sudo cd $HOMEJAILED1/private/
+sudo ln -s $HOMEJAILED1/downloads/manual Downloads
+sudo chown $NEWUSER1: -R $HOMEJAILED1/private
+#sudo chmod 400 $HOMEJAILED1/$NEWUSER1.info
 cd $HOMEJAILED1/
 sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/crontabentries
 sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/crontabentries
@@ -689,9 +696,13 @@ sudo chown $NEWUSER1: -R bin
 set +x verbose
 clear
 echo ""
-echo "<< The Seedbox From Scratch Script v$SBFSCURRENTVERSION >>"
+echo "<< The Seedbox From Scratch Script v$SBFSCURRENTVERSION ; Modified by dannyti >>"
 echo ""
-echo "Looks like your new user is created, here are some info about it:"
+echo "Looks like your new user is created"
+echo "User Login info can be found at https://$IPADDRESS1/private/SBinfo.html"
+echo "Download Data Directory is located at http://$IPADDRESS1/private/   <==== Remember: http only"
+echo ""
+echo ""
 echo "Here is Login info for SeedboxUser"
 cat /etc/seedbox-from-scratch/users/$NEWUSER1.info
 

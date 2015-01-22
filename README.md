@@ -3,22 +3,24 @@
 #### Last stable version = 14.05
 
 Forked from Notos's script, Updated it for Ubuntu 14.04 and Debian 7.0
-This script will accept ssl only links, Sorry http :(
+This script will provide ssl only links, Sorry http :(
 
 This script has the following features
 
 * A multi-user enviroment, you'll have scripts to add and delete users.
 * Linux Quota, to control how much space every user can use in your box.
+* Individual User Login Info https://Server-IP/private/SBinfo.html
+* Individual User Http Downloads directory (http://Server-IP/private/Downloads)
 
 ## Installed software
 * ruTorrent 3.4 + official plugins
-* rTorrent 0.9.2 or 0.9.3 or 0.9.4(you can choose, downgrade and upgrade at any time)
+* rTorrent 0.9.2 or 0.9.3 or 0.9.4(you can choose)
 * Deluge 1.3.5 or 0.9.3 (you can choose, downgrade and upgrade at any time)
 * libTorrrent 0.13.2 or 0.12.9
 * mktorrent
 * Fail2ban - to avoid apache and ssh exploits. Fail2ban bans IPs that show malicious signs -- too many password failures, seeking for exploits, etc.
 * Apache (SSL)
-* OpenVPN
+* OpenVPN - Fixed
 * PHP 5 and PHP-FPM (FastCGI to increase performance)
 * Linux Quota
 * SSH Server (for SSH terminal and sFTP connections)
@@ -33,7 +35,7 @@ autotoolscpuload, diskspace, erasedata, extratio, extsearch, feeds, filedrop, fi
 
 ## Additional ruTorrent plugins
 * Autodl-IRSSI (with an updated list of trackers)
-* A modified version of Diskpace to support quota (by me)
+* A modified version of Diskpace to support quota (by Notos)
 * Filemanager (modified to handle rar, zip, unzip, tar and bzip)
 * Fileupload
 * Fileshare Plugin (http://forums.rutorrent.org/index.php?topic=705.0)
@@ -83,13 +85,13 @@ After installing you will have access to the following commands to be used direc
 ## Services
 To access services installed on your new server point your browser to the following address:
 ```
-https://<Server IP or Server Name>/seedboxInfo.php
+https://<Server IP or Server Name>/private/SBinfo.html
 ```
 
 ####OpenVPN
 To use your VPN you will need a VPN client compatible with [OpenVPN](http://openvpn.net/index.php?option=com_content&id=357), necessary files to configure your connection are in this link in your box:
 ```
-http://<Server IP or Server Name>/rutorrent/vpn.zip` and use it in any OpenVPN client.
+http://<Server IP or Server Name>/rutorrent/client.zip` and use it in any OpenVPN client.
 ```
 
 ## Supported and tested servers
@@ -117,7 +119,7 @@ Take a look at seedbox-from-scratch.sh, it's all there.
 
 ## Support
 
-There is no real support for this script, but people is talking a lot about it [here](http://www.torrent-invites.com/seedbox-tutorials/207635-seedbox-scratch-script-multi-user-quota-sabnzbd-deluge.html) and you may find solutions for your problems in the thread.
+There is no real support for this script, but nerds are talking a lot about it [here](http://www.torrent-invites.com/showthread.php?t=272859) and you may find solutions for your problems in that thread.
 
 
 ## License

@@ -160,7 +160,7 @@ function getString
     echo "#"
     echo "# The Seedbox From Scratch Script"
     echo "#   By Notos ---> https://github.com/Notos/"
-    echo "#"
+    echo "# This is the Old scipt"
     echo "#"
     echo "#"
     echo
