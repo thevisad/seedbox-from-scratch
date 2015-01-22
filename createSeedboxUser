@@ -677,7 +677,7 @@ sudo mkdir $HOMEJAILED1/private
 sudo cp /etc/seedbox-from-scratch/users/$NEWUSER1.info $HOMEJAILED1/private/SBinfo.html
 #sudo chown $NEWUSER1: $HOMEJAILED1/$NEWUSER1.info
 #sudo mv $HOMEJAILED1/$NEWUSER1.info $HOMEJAILED1/private/SBinfo.html
-sudo cd $HOMEJAILED1/private/
+sudo cd $HOMEJAILED1/private
 sudo ln -s $HOMEJAILED1/downloads/manual Downloads
 sudo chown $NEWUSER1: -R $HOMEJAILED1/private
 #sudo chmod 400 $HOMEJAILED1/$NEWUSER1.info
