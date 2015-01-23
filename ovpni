@@ -76,10 +76,12 @@ export EASY_RSA="${EASY_RSA:-.}"
 "$EASY_RSA/pkitool" $CLIENT
 # Generate the client.ovpn
 newclient "$CLIENT"
-sudo zip $CLIENT.zip $CLIENT.ovpn
+cd /root
+zip $CLIENT.zip /root/$CLIENT.ovpn
 sudo mv ~/$CLIENT.zip /var/www/rutorrent
 echo ""
-echo "Client $CLIENT added, certs available at ~/$CLIENT.ovpn"
+echo "$CLIENT.ovpn is zipped into $CLIENT.zip"
+echo "Client $CLIENT added, cert available at https://$IPADDRESS1/rutorrent/$CLIENT.zip to use in any OpenVPN client"
 exit
 ;;
 2)
@@ -267,11 +269,14 @@ fi
 sed -i "s|remote my-server-1 1194|remote $IP $PORT|" /usr/share/doc/openvpn/examples/sample-config-files/client.conf
 # Generate the client.ovpn
 newclient "$CLIENT"
-sudo zip $CLIENT.zip $CLIENT.ovpn
+cd /root
+zip $CLIENT.zip /root/$CLIENT.ovpn
 sudo mv ~/$CLIENT.zip /var/www/rutorrent
 echo ""
 echo "Finished!"
 echo ""
-echo "Your client config is available at ~/$CLIENT.ovpn"
+echo "$CLIENT.ovpn is zipped into $CLIENT.zip"
+echo "Client $CLIENT added, cert available at https://$IPADDRESS1/rutorrent/$CLIENT.zip to use in any OpenVPN client"
+echo ""
 echo "If you want to add more clients, you simply need to run this script another time!"
 fi
