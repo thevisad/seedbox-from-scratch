@@ -674,7 +674,7 @@ echo "Starting IRSSI: screen -d -m -S irssi irssi" | sudo tee -a /etc/seedbox-fr
 echo "Starting sabnzbdplus: screen -dmS sabnzbd sabnzbdplus" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
 sudo mkdir $HOMEJAILED1/private
-sudo cp /etc/seedbox-from-scratch/users/$NEWUSER1.info $HOMEJAILED1/private/SBinfo.html
+sudo cp /etc/seedbox-from-scratch/users/$NEWUSER1.info $HOMEJAILED1/private/SBinfo.txt
 #sudo chown $NEWUSER1: $HOMEJAILED1/$NEWUSER1.info
 #sudo mv $HOMEJAILED1/$NEWUSER1.info $HOMEJAILED1/private/SBinfo.html
 sudo cd $HOMEJAILED1/private
@@ -699,7 +699,7 @@ echo ""
 echo "<< The Seedbox From Scratch Script v$SBFSCURRENTVERSION ; Modified by dannyti >>"
 echo ""
 echo "Looks like your new user is created"
-echo "User Login info can be found at https://$IPADDRESS1/private/SBinfo.html"
+echo "User Login info can be found at https://$IPADDRESS1/private/SBinfo.txt"
 echo "Download Data Directory is located at http://$IPADDRESS1/private/   <==== Remember: http only"
 echo ""
 echo ""
