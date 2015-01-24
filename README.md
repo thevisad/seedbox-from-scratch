@@ -10,7 +10,7 @@ This script has the following features
 * A multi-user enviroment, you'll have scripts to add and delete users.
 * Linux Quota, to control how much space every user can use in your box.
 * Individual User Login Info https://Server-IP/private/SBinfo.txt
-* Individual User Http Downloads directory (http://Server-IP/private/Downloads)
+* Individual User Https Downloads directory (https://Server-IP/private/Downloads)
 
 ## Installed software
 * ruTorrent 3.4 + official plugins
@@ -88,10 +88,16 @@ To access services installed on your new server point your browser to the follow
 https://<Server IP or Server Name>/private/SBinfo.txt
 ```
 
+## Download Directory
+To access Downloaded data directory on your new server; point your browser to the following address:
+```
+https://<Server IP or Server Name>/private/Downloads
+```
+
 ####OpenVPN
 To use your VPN you will need a VPN client compatible with [OpenVPN](http://openvpn.net/index.php?option=com_content&id=357), necessary files to configure your connection are in this link in your box:
 ```
-http://<Server IP or Server Name>/rutorrent/CLIENT-NAME.zip` and use it in any OpenVPN client.
+https://<Server IP or Server Name>/rutorrent/CLIENT-NAME.zip` and use it in any OpenVPN client.
 ```
 
 ## Supported and tested servers
