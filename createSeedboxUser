@@ -700,7 +700,7 @@ echo "<< The Seedbox From Scratch Script v$SBFSCURRENTVERSION ; Modified by dann
 echo ""
 echo "Looks like your new user is created"
 echo "User Login info can be found at https://$IPADDRESS1/private/SBinfo.txt"
-echo "Download Data Directory is located at http://$IPADDRESS1/private/   <==== Remember: http only"
+echo "Download Data Directory is located at https://$IPADDRESS1/private "
 echo ""
 echo ""
 echo "Here is Login info for SeedboxUser"
