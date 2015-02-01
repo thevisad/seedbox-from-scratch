@@ -76,7 +76,7 @@ zip $CLIENT.zip /root/$CLIENT.ovpn
 sudo mv ~/$CLIENT.zip /var/www/rutorrent
 echo ""
 echo "$CLIENT.ovpn is zipped into $CLIENT.zip"
-echo "Client $CLIENT added, cert available at https://$IPADDRESS1/rutorrent/$CLIENT.zip to use in any OpenVPN client"
+echo "Client $CLIENT added, cert available at https://$IP/rutorrent/$CLIENT.zip to use in any OpenVPN client"
 exit
 ;;
 2)
@@ -271,7 +271,7 @@ echo ""
 echo "Finished!"
 echo ""
 echo "$CLIENT.ovpn is zipped into $CLIENT.zip"
-echo "Client $CLIENT added, cert available at https://$IPADDRESS1/rutorrent/$CLIENT.zip to use in any OpenVPN client"
+echo "Client $CLIENT added, cert available at https://$IP/rutorrent/$CLIENT.zip to use in any OpenVPN client"
 echo ""
 echo "If you want to add more clients, you simply need to run this script another time!"
 fi
