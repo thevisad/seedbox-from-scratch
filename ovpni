@@ -20,10 +20,6 @@
 ######################################################################
 
 OPENVPNPORT1=`cat /etc/seedbox-from-scratch/openvpn.info`
-if [[ ! -e /dev/net/tun ]]; then
-echo "TUN/TAP is not available"
-exit
-fi
 
 newclient () {
 # Generates the client.ovpn
