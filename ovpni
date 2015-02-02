@@ -1,3 +1,4 @@
+
 #!/bin/bash
 #
 #
@@ -20,6 +21,8 @@
 ######################################################################
 
 OPENVPNPORT1=`cat /etc/seedbox-from-scratch/openvpn.info`
+IPADDRESS1=`ifconfig | sed -n 's/.*inet addr:\([0-9.]\+\)\s.*/\1/p' | grep -v 127 | head -n 1`
+IP1=$(wget -qO- ipv4.icanhazip.com)
 
 newclient () {
 # Generates the client.ovpn
@@ -71,12 +74,12 @@ export EASY_RSA="${EASY_RSA:-.}"
 "$EASY_RSA/pkitool" $CLIENT
 # Generate the client.ovpn
 newclient "$CLIENT"
-cd /root
-zip $CLIENT.zip /root/$CLIENT.ovpn
-sudo mv ~/$CLIENT.zip /var/www/rutorrent
+
 echo ""
 echo "$CLIENT.ovpn is zipped into $CLIENT.zip"
-echo "Client $CLIENT added, cert available at https://$IP/rutorrent/$CLIENT.zip to use in any OpenVPN client"
+echo "Client $CLIENT added, cert available at https://$IP1/rutorrent/$CLIENT.zip to use in any OpenVPN client"
+zip $CLIENT.zip ~/$CLIENT.ovpn
+sudo mv $CLIENT.zip /var/www/rutorrent
 exit
 ;;
 2)
@@ -264,14 +267,14 @@ fi
 sed -i "s|remote my-server-1 1194|remote $IP $PORT|" /usr/share/doc/openvpn/examples/sample-config-files/client.conf
 # Generate the client.ovpn
 newclient "$CLIENT"
-cd /root
-zip $CLIENT.zip /root/$CLIENT.ovpn
-sudo mv ~/$CLIENT.zip /var/www/rutorrent
+
 echo ""
 echo "Finished!"
 echo ""
 echo "$CLIENT.ovpn is zipped into $CLIENT.zip"
-echo "Client $CLIENT added, cert available at https://$IP/rutorrent/$CLIENT.zip to use in any OpenVPN client"
+echo "Client $CLIENT added, cert available at https://$IP1/rutorrent/$CLIENT.zip to use in any OpenVPN client"
 echo ""
 echo "If you want to add more clients, you simply need to run this script another time!"
+zip $CLIENT.zip ~/$CLIENT.ovpn
+sudo mv $CLIENT.zip /var/www/rutorrent
 fi
