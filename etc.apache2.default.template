@@ -31,7 +31,6 @@
   RewriteCond %{LA-U:remote_user} !^$
   RewriteRule ^/private(.*) /home/%{LA-U:remote_user}/private$1
 
-
   <Directory />
     Options FollowSymLinks
     AllowOverride All
@@ -39,6 +38,7 @@
 
   <Directory /var/www/>
     Options Indexes FollowSymLinks MultiViews
+    IndexOptions +FancyIndexing +SuppressDescription
     AllowOverride None
     Order allow,deny
     allow from all
@@ -50,6 +50,8 @@
   </Directory>
 
   <Location /private>
+    Options Indexes FollowSymLinks MultiViews
+    IndexOptions +FancyIndexing +SuppressDescription
     AuthType Digest
     AuthName "private"
     AuthDigestDomain /var/www/private
@@ -107,7 +109,6 @@
   RewriteEngine On
   RewriteCond %{LA-U:remote_user} !^$
   RewriteRule ^/private(.*) /home/%{LA-U:remote_user}/private$1
-
   
   <Directory />
     Options FollowSymLinks
@@ -116,6 +117,7 @@
 
   <Directory /var/www/>
     Options Indexes FollowSymLinks MultiViews
+    IndexOptions +FancyIndexing +SuppressDescription
     AllowOverride None
     Order allow,deny
     allow from all
@@ -127,6 +129,8 @@
   </Directory>
 
   <Location /private>
+    Options Indexes FollowSymLinks MultiViews
+    IndexOptions +FancyIndexing +SuppressDescription
     AuthType Digest
     AuthName "private"
     AuthDigestDomain /var/www/private

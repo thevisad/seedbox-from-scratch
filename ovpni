@@ -120,7 +120,7 @@ esac
 done
 else
 clear
-echo 'Welcome to this quick OpenVPN "road warrior" installer'
+echo ""
 echo ""
 # OpenVPN setup and first user creation
 echo "I need to ask you a few questions before starting the setup"
@@ -128,7 +128,7 @@ echo "You can leave the default options and just press enter if you are ok with 
 echo ""
 echo "First I need to know the IPv4 address of the network interface you want OpenVPN"
 echo "listening to."
-read -p "IP address: " -e -i $IP IP
+read -p "IP address: " -e -i $IP1 IP
 echo ""
 echo "What port do you want for OpenVPN?"
 read -p "Port: " -e -i $OPENVPNPORT1 PORT
