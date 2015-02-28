@@ -605,7 +605,7 @@ fi
 sudo chown -R $NEWUSER1:$NEWUSER1  $HOMEJAILED1/.autodl
 sudo chown -R $NEWUSER1:$NEWUSER1  $HOMEJAILED1/.irssi
 
-echo "http://$IPADDRESS1/private/SBinfo.html" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
+echo "http://$IPADDRESS1/private/SBinfo.txt" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
 echo "" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "User personal info" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
