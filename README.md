@@ -1,5 +1,5 @@
 ## The Seedbox From Scratch Script
-
+Buy me a Beer : BTC address: 1M8eoTeNwLKohHxieY3Av1tSbMMYi97bcq
 #### Current version = 14.06
 #### Last stable version = 14.05
 
