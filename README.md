@@ -1,5 +1,5 @@
 ## The Seedbox From Scratch Script
-Donate by buying me a Beer : BTC address: 1M8eoTeNwLKohHxieY3Av1tSbMMYi97bcq
+Donate by buying me a Beer : BTC address: 1ACi4NRpfzkCNDaTgwFpCFcHoMMRCCT4wC
 #### Current version = 14.06
 #### Last stable version = 14.05
 
