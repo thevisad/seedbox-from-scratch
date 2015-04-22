@@ -14,7 +14,7 @@ This script has the following features
 * Individual User Https Downloads directory (https://Server-IP/private/Downloads)
 
 ## Installed software
-* ruTorrent 3.4 + official plugins
+* ruTorrent 3.7 + official plugins
 * rTorrent 0.9.2 or 0.9.3 or 0.9.4(you can choose)
 * Deluge 1.3.5 or 0.9.3 (you can choose, downgrade and upgrade at any time)
 * libTorrrent 0.13.2 or 0.12.9
