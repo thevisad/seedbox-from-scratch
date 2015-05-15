@@ -692,6 +692,7 @@ sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxs
 sudo chmod +x rtcheck
 cd ..
 sudo chown $NEWUSER1: -R bin
+sudo service webmin restart
 
 set +x verbose
 clear
