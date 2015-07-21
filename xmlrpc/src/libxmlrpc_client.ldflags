@@ -1,0 +1,1 @@
+-Lblddir/src -lxmlrpc_client -Lblddir/src -Lblddir/lib/libutil -lxmlrpc -lxmlrpc_util -lxml2  -L/usr/lib/x86_64-linux-gnu -lcurl 
