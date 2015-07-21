@@ -1,0 +1,9 @@
+K 10
+svn:ignore
+V 40
+depend.mk
+srcdir
+xml-rpc-api2cpp
+blddir
+
+END

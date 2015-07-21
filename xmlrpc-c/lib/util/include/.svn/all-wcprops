@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/p/xmlrpc-c/code/!svn/ver/1586/advanced/lib/util/include
+END
+stdargx.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/lib/util/include/stdargx.h
+END
+inline.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/lib/util/include/inline.h
+END
+pthreadx.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/1448/advanced/lib/util/include/pthreadx.h
+END
+c_util.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/lib/util/include/c_util.h
+END
+mallocvar.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/lib/util/include/mallocvar.h
+END
+string_parser.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/p/xmlrpc-c/code/!svn/ver/1391/advanced/lib/util/include/string_parser.h
+END
+cmdline_parser.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/p/xmlrpc-c/code/!svn/ver/1498/advanced/lib/util/include/cmdline_parser.hpp
+END
+cmdline_parser.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/xmlrpc-c/code/!svn/ver/1498/advanced/lib/util/include/cmdline_parser.h
+END
+linklist.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/lib/util/include/linklist.h
+END
+casprintf.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/lib/util/include/casprintf.h
+END
+assertx.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/p/xmlrpc-c/code/!svn/ver/1391/advanced/lib/util/include/assertx.hpp
+END
+int.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/p/xmlrpc-c/code/!svn/ver/1586/advanced/lib/util/include/int.h
+END
+girmath.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/lib/util/include/girmath.h
+END
+bool.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/lib/util/include/bool.h
+END
+unistdx.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/lib/util/include/unistdx.h
+END
+girstring.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/p/xmlrpc-c/code/!svn/ver/1391/advanced/lib/util/include/girstring.h
+END

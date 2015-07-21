@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/p/xmlrpc-c/code/!svn/ver/1602/advanced/tools/xmlrpc_cpp_proxy
+END
+systemProxy.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/tools/xmlrpc_cpp_proxy/systemProxy.hpp
+END
+xmlrpcMethod.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/p/xmlrpc-c/code/!svn/ver/1368/advanced/tools/xmlrpc_cpp_proxy/xmlrpcMethod.hpp
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/p/xmlrpc-c/code/!svn/ver/1602/advanced/tools/xmlrpc_cpp_proxy/Makefile
+END
+proxyClass.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/tools/xmlrpc_cpp_proxy/proxyClass.hpp
+END
+xmlrpcType.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/tools/xmlrpc_cpp_proxy/xmlrpcType.hpp
+END
+systemProxy.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/tools/xmlrpc_cpp_proxy/systemProxy.cpp
+END
+xmlrpcMethod.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/tools/xmlrpc_cpp_proxy/xmlrpcMethod.cpp
+END
+proxyClass.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/tools/xmlrpc_cpp_proxy/proxyClass.cpp
+END
+xmlrpcType.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/tools/xmlrpc_cpp_proxy/xmlrpcType.cpp
+END
+xmlrpc_cpp_proxy.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/p/xmlrpc-c/code/!svn/ver/1368/advanced/tools/xmlrpc_cpp_proxy/xmlrpc_cpp_proxy.cpp
+END

@@ -1,0 +1,245 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/p/xmlrpc-c/code/!svn/ver/1831/advanced/include/xmlrpc-c
+END
+abyss_unixsock.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/include/xmlrpc-c/abyss_unixsock.h
+END
+server.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/p/xmlrpc-c/code/!svn/ver/1545/advanced/include/xmlrpc-c/server.h
+END
+server_abyss.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/p/xmlrpc-c/code/!svn/ver/1766/advanced/include/xmlrpc-c/server_abyss.h
+END
+registry.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/p/xmlrpc-c/code/!svn/ver/1766/advanced/include/xmlrpc-c/registry.hpp
+END
+time_int.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/include/xmlrpc-c/time_int.h
+END
+base.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/p/xmlrpc-c/code/!svn/ver/1766/advanced/include/xmlrpc-c/base.hpp
+END
+client.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/1401/advanced/include/xmlrpc-c/client.hpp
+END
+inttypes.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/include/xmlrpc-c/inttypes.h
+END
+c_util.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/p/xmlrpc-c/code/!svn/ver/1602/advanced/include/xmlrpc-c/c_util.h
+END
+girmem.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/include/xmlrpc-c/girmem.hpp
+END
+abyss.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/p/xmlrpc-c/code/!svn/ver/1757/advanced/include/xmlrpc-c/abyss.h
+END
+sleep_int.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/include/xmlrpc-c/sleep_int.h
+END
+timeout.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/p/xmlrpc-c/code/!svn/ver/1517/advanced/include/xmlrpc-c/timeout.hpp
+END
+server_cgi.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/include/xmlrpc-c/server_cgi.h
+END
+client_global.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/include/xmlrpc-c/client_global.h
+END
+base64_int.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/p/xmlrpc-c/code/!svn/ver/1757/advanced/include/xmlrpc-c/base64_int.h
+END
+server_w32httpsys.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/include/xmlrpc-c/server_w32httpsys.h
+END
+xml.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/include/xmlrpc-c/xml.hpp
+END
+server_pstream.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/p/xmlrpc-c/code/!svn/ver/1831/advanced/include/xmlrpc-c/server_pstream.hpp
+END
+oldxmlrpc.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/include/xmlrpc-c/oldxmlrpc.h
+END
+abyss_opensslsock.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/include/xmlrpc-c/abyss_opensslsock.h
+END
+server_abyss.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/xmlrpc-c/code/!svn/ver/1766/advanced/include/xmlrpc-c/server_abyss.hpp
+END
+base.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/p/xmlrpc-c/code/!svn/ver/1806/advanced/include/xmlrpc-c/base.h
+END
+xmlparser.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/include/xmlrpc-c/xmlparser.h
+END
+util.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/p/xmlrpc-c/code/!svn/ver/1602/advanced/include/xmlrpc-c/util.h
+END
+client.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/include/xmlrpc-c/client.h
+END
+abyss_winsock.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/p/xmlrpc-c/code/!svn/ver/1498/advanced/include/xmlrpc-c/abyss_winsock.h
+END
+packetsocket.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/xmlrpc-c/code/!svn/ver/1602/advanced/include/xmlrpc-c/packetsocket.hpp
+END
+string_int.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/p/xmlrpc-c/code/!svn/ver/1806/advanced/include/xmlrpc-c/string_int.h
+END
+oldcppwrapper.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/xmlrpc-c/code/!svn/ver/1602/advanced/include/xmlrpc-c/oldcppwrapper.hpp
+END
+base64.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/include/xmlrpc-c/base64.hpp
+END
+base_int.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/1806/advanced/include/xmlrpc-c/base_int.h
+END
+util_int.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/include/xmlrpc-c/util_int.h
+END
+client_simple.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/include/xmlrpc-c/client_simple.hpp
+END
+server_cgi.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/p/xmlrpc-c/code/!svn/ver/1545/advanced/include/xmlrpc-c/server_cgi.hpp
+END
+client_int.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/include/xmlrpc-c/client_int.h
+END
+select_int.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/include/xmlrpc-c/select_int.h
+END
+girerr.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/1602/advanced/include/xmlrpc-c/girerr.hpp
+END
+client_transport.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/p/xmlrpc-c/code/!svn/ver/1401/advanced/include/xmlrpc-c/client_transport.hpp
+END
+transport.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/include/xmlrpc-c/transport.h
+END

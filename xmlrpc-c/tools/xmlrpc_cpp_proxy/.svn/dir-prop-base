@@ -1,0 +1,9 @@
+K 10
+svn:ignore
+V 41
+xmlrpc_cpp_proxy
+depend.mk
+srcdir
+blddir
+
+END

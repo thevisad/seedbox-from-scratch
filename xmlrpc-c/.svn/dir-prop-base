@@ -1,0 +1,21 @@
+K 10
+svn:ignore
+V 208
+config.mk
+srcdir.mk
+config.log
+stamp-h
+stamp-h1
+config.cache
+config.status
+xmlrpc_config.h
+xmlrpc_amconfig.h
+shell_config
+xmlrpc-c-config
+xmlrpc-c-config.test
+transport_config.h
+version.h
+TAGS
+autom4te.cache
+
+END

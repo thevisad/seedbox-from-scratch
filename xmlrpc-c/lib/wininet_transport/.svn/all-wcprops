@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/p/xmlrpc-c/code/!svn/ver/1602/advanced/lib/wininet_transport
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/p/xmlrpc-c/code/!svn/ver/1602/advanced/lib/wininet_transport/Makefile
+END
+xmlrpc_wininet_transport.c
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/p/xmlrpc-c/code/!svn/ver/1498/advanced/lib/wininet_transport/xmlrpc_wininet_transport.c
+END

@@ -1,0 +1,215 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/p/xmlrpc-c/code/!svn/ver/1831/advanced/src
+END
+double.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/xmlrpc-c/code/!svn/ver/1429/advanced/src/double.h
+END
+xmlrpc_client_global.c
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/src/xmlrpc_client_global.c
+END
+system_method.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/p/xmlrpc-c/code/!svn/ver/1693/advanced/src/system_method.c
+END
+xmlrpc_server_w32httpsys.c
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/p/xmlrpc-c/code/!svn/ver/1793/advanced/src/xmlrpc_server_w32httpsys.c
+END
+system_method.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/src/system_method.h
+END
+xmlrpc_server_abyss.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/p/xmlrpc-c/code/!svn/ver/1766/advanced/src/xmlrpc_server_abyss.c
+END
+xmlrpc_data.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/p/xmlrpc-c/code/!svn/ver/1806/advanced/src/xmlrpc_data.c
+END
+xmlrpc_libxml2.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/p/xmlrpc-c/code/!svn/ver/1545/advanced/src/xmlrpc_libxml2.c
+END
+xmlrpc_parse.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/p/xmlrpc-c/code/!svn/ver/1705/advanced/src/xmlrpc_parse.c
+END
+xmlrpc_decompose.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/src/xmlrpc_decompose.c
+END
+xmlrpc_server_info.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/p/xmlrpc-c/code/!svn/ver/1784/advanced/src/xmlrpc_server_info.c
+END
+registry.c
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/p/xmlrpc-c/code/!svn/ver/1545/advanced/src/registry.c
+END
+xmlrpc_base64.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/src/xmlrpc_base64.c
+END
+xmlrpc_struct.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/p/xmlrpc-c/code/!svn/ver/1498/advanced/src/xmlrpc_struct.c
+END
+xmlrpc_server_cgi.c
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/src/xmlrpc_server_cgi.c
+END
+registry.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/src/registry.h
+END
+xmlrpc_authcookie.c
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/src/xmlrpc_authcookie.c
+END
+method.c
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/xmlrpc-c/code/!svn/ver/1806/advanced/src/method.c
+END
+xmlrpc_datetime.c
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/p/xmlrpc-c/code/!svn/ver/1806/advanced/src/xmlrpc_datetime.c
+END
+xmlrpc_build.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/src/xmlrpc_build.c
+END
+method.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/xmlrpc-c/code/!svn/ver/1545/advanced/src/method.h
+END
+version.c
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/src/version.c
+END
+parse_datetime.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/p/xmlrpc-c/code/!svn/ver/1831/advanced/src/parse_datetime.c
+END
+resource.c
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/src/resource.c
+END
+parse_datetime.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/p/xmlrpc-c/code/!svn/ver/1806/advanced/src/parse_datetime.h
+END
+xmlrpc_string.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/p/xmlrpc-c/code/!svn/ver/1766/advanced/src/xmlrpc_string.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/xmlrpc-c/code/!svn/ver/1806/advanced/src/Makefile
+END
+trace.c
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/src/trace.c
+END
+xmlrpc_array.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/src/xmlrpc_array.c
+END
+xmlrpc_client.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/p/xmlrpc-c/code/!svn/ver/1705/advanced/src/xmlrpc_client.c
+END
+xmlrpc_expat.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/p/xmlrpc-c/code/!svn/ver/1071/advanced/src/xmlrpc_expat.c
+END
+parse_value.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/p/xmlrpc-c/code/!svn/ver/1806/advanced/src/parse_value.c
+END
+double.c
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/xmlrpc-c/code/!svn/ver/1688/advanced/src/double.c
+END
+parse_value.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/p/xmlrpc-c/code/!svn/ver/1498/advanced/src/parse_value.h
+END
+xmlrpc_serialize.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/p/xmlrpc-c/code/!svn/ver/1806/advanced/src/xmlrpc_serialize.c
+END

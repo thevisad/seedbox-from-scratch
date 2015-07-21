@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/p/xmlrpc-c/code/!svn/ver/1679/advanced/lib/expat/xmlparse
+END
+xmlparse.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/lib/expat/xmlparse/xmlparse.h
+END
+xmlparse.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/p/xmlrpc-c/code/!svn/ver/1294/advanced/lib/expat/xmlparse/xmlparse.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/1679/advanced/lib/expat/xmlparse/Makefile
+END

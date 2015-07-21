@@ -1,0 +1,14 @@
+K 10
+svn:ignore
+V 57
+depend.mk
+*.osh
+*.so
+*.so.*
+*.a
+blddir
+srcdir
+version.h
+
+
+END

@@ -1,0 +1,9 @@
+K 10
+svn:ignore
+V 41
+depend.mk
+srcdir
+xmlrpc_transport
+blddir
+
+END

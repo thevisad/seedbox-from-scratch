@@ -1,0 +1,11 @@
+K 10
+svn:ignore
+V 42
+depend.mk
+*.osh
+*.so
+*.so.*
+*.a
+nametab.h
+
+END
