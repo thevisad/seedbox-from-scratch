@@ -1,83 +1,0 @@
-10
-
-dir
-1831
-http://svn.code.sf.net/p/xmlrpc-c/code/advanced/lib
-http://svn.code.sf.net/p/xmlrpc-c/code
-
-
-
-2009-10-19T19:05:11.241274Z
-1818
-giraffedata
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-98333e67-4a24-44d7-a75c-e53540dd3050
-
-abyss
-dir
-
-curl_transport
-dir
-
-expat
-dir
-
-libutil
-dir
-
-libwww_transport
-dir
-
-wininet_transport
-dir
-
-util
-dir
-
-Makefile
-file
-
-
-
-
-2014-04-18T10:57:33.251493Z
-e94c69fea8e19874c83f6b6bdd10aea8
-2008-06-28T19:37:40.310789Z
-1498
-giraffedata
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1110
-
