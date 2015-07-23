@@ -38,7 +38,7 @@ connJob(void * const userHandle) {
 
     (connectionP->job)(connectionP);
 
-    connectionP->finished = true;
+    connectionP->finished = TRUE;
         /* Note that if we are running in a forked process, setting
            connectionP->finished has no effect, because it's just our own
            copy of *connectionP.  In this case, Parent must update his own
@@ -68,7 +68,7 @@ connDone(TConn * const connectionP) {
     /* In the forked case, this is designed to run in the parent
        process after the child has terminated.
     */
-    connectionP->finished = true;
+    connectionP->finished = TRUE;
 
     if (connectionP->done)
         connectionP->done(connectionP);
@@ -97,12 +97,12 @@ makeThread(TConn *             const connectionP,
            
     switch (foregroundBackground) {
     case ABYSS_FOREGROUND:
-        connectionP->hasOwnThread = false;
+        connectionP->hasOwnThread = FALSE;
         *errorP = NULL;
         break;
     case ABYSS_BACKGROUND: {
         const char * error;
-        connectionP->hasOwnThread = true;
+        connectionP->hasOwnThread = TRUE;
         ThreadCreate(&connectionP->threadP, connectionP,
                      &connJob, &threadDone, useSigchld,
                      CONNJOB_STACK + jobStackSize,
@@ -143,7 +143,7 @@ ConnCreate(TConn **            const connectionPP,
    function 'job' once.  Some connections can do that autonomously, as
    soon as the connection is created.  Others don't until Caller
    subsequently calls ConnProcess.  Some connections complete the
-   processing before ConnProcess returns, while others may run the
+   processing before ConnProcess return, while others may run the
    connection asynchronously to the creator, in the background, via a
    TThread thread.  'foregroundBackground' determines which.
 
@@ -169,7 +169,7 @@ ConnCreate(TConn **            const connectionPP,
         connectionP->buffer.b[0]  = '\0';
         connectionP->buffersize   = 0;
         connectionP->bufferpos    = 0;
-        connectionP->finished     = false;
+        connectionP->finished     = FALSE;
         connectionP->job          = job;
         connectionP->done         = done;
         connectionP->inbytes      = 0;
@@ -208,7 +208,7 @@ ConnProcess(TConn * const connectionP) {
         /* No background thread.  We just handle it here while Caller waits. */
         (connectionP->job)(connectionP);
         connDone(connectionP);
-        retval = true;
+        retval = TRUE;
     }
     return retval;
 }
@@ -229,7 +229,7 @@ ConnWaitAndRelease(TConn * const connectionP) {
 
 bool
 ConnKill(TConn * const connectionP) {
-    connectionP->finished = true;
+    connectionP->finished = TRUE;
     return ThreadKill(connectionP->threadP);
 }
 
@@ -386,13 +386,13 @@ readFromChannel(TConn *       const connectionP,
     else {
         *errorP = NULL;
         if (bytesRead > 0) {
-            *eofP = false;
+            *eofP = FALSE;
             traceChannelRead(connectionP, bytesRead);
             connectionP->inbytes += bytesRead;
             connectionP->buffersize += bytesRead;
             connectionP->buffer.t[connectionP->buffersize] = '\0';
         } else
-            *eofP = true;
+            *eofP = TRUE;
     }
 }
 
@@ -464,8 +464,8 @@ ConnRead(TConn *       const connectionP,
         /* Arithmetic overflow */
         xmlrpc_asprintf(errorP, "Timeout value is too large");
     else {
-        bool const waitForRead  = true;
-        bool const waitForWrite = false;
+        bool const waitForRead  = TRUE;
+        bool const waitForWrite = FALSE;
 
         bool readyForRead;
         bool failed;
@@ -486,7 +486,7 @@ ConnRead(TConn *       const connectionP,
                 */
                 traceReadTimeout(connectionP, timeout);
                 *errorP = NULL;
-                eof = false;
+                eof = FALSE;
             }
             if (!*errorP)
                 dealWithReadTimeout(timedOutP, !readyForRead, timeout, errorP);
@@ -548,7 +548,7 @@ ConnWriteFromFile(TConn *       const connectionP,
 
     success = FileSeek(fileP, start, SEEK_SET);
     if (!success)
-        retval = false;
+        retval = FALSE;
     else {
         uint64_t const totalBytesToRead = last - start + 1;
         uint64_t bytesread;

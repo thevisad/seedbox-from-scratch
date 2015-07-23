@@ -55,81 +55,77 @@
 ** List
 *********************************************************************/
 
-void
-ListInit(TList * const listP) {
-
-    listP->item     = NULL;
-    listP->size     = 0;
-    listP->maxsize  = 0;
-    listP->autofree = false;
+void ListInit(TList * const sl)
+{
+    sl->item=NULL;
+    sl->size=sl->maxsize=0;
+    sl->autofree=FALSE;
 }
 
-void
-ListInitAutoFree(TList * const listP) {
-
-    listP->item     = NULL;
-    listP->size     = 0;
-    listP->maxsize  = 0;
-    listP->autofree = true;
+void ListInitAutoFree(TList * const sl)
+{
+    sl->item=NULL;
+    sl->size=sl->maxsize=0;
+    sl->autofree=TRUE;
 }
 
 
 
 void
-ListFree(TList * const listP) {
+ListFree(TList * const sl) {
 
-    if (listP->item) {
-        if (listP->autofree) {
+    if (sl->item) {
+        if (sl->autofree) {
             unsigned int i;
-            for (i = listP->size; i > 0; --i)
-                free(listP->item[i-1]);
+            for (i = sl->size; i > 0; --i)
+                free(sl->item[i-1]);
             
         }
-        free(listP->item);
+        free(sl->item);
     }
-    listP->item    = NULL;
-    listP->size    = 0;
-    listP->maxsize = 0;
+    sl->item = NULL;
+    sl->size = 0;
+    sl->maxsize = 0;
 }
 
 
 
 void
-ListFreeItems(TList * const listP) {
+ListFreeItems(TList * const sl) {
 
-    if (listP->item) {
+    if (sl->item) {
         unsigned int i;
-        for (i = listP->size; i > 0; --i)
-            free(listP->item[i-1]);
+        for (i = sl->size; i > 0; --i)
+            free(sl->item[i-1]);
     }
 }
 
 
 
 bool
-ListAdd(TList * const listP,
+ListAdd(TList * const sl,
         void *  const str) {
 /*----------------------------------------------------------------------------
    Add an item to the end of the list.
 -----------------------------------------------------------------------------*/
     bool success;
 
-    if (listP->size >= listP->maxsize) {
-        uint16_t newSize = listP->maxsize + 16;
+    if (sl->size >= sl->maxsize) {
+        uint16_t newSize = sl->maxsize + 16;
         void **newitem;
         
-        newitem = realloc(listP->item, newSize * sizeof(void *));
+        newitem = realloc(sl->item, newSize * sizeof(void *));
         if (newitem) {
-            listP->item    = newitem;
-            listP->maxsize = newSize;
+            sl->item    = newitem;
+            sl->maxsize = newSize;
         }
     }
 
-    if (listP->size >= listP->maxsize)
-        success = false;
+    if (sl->size >= sl->maxsize)
+        success = FALSE;
     else {
-        success = true;
-        listP->item[listP->size++] = str;
+        success = TRUE;
+        sl->item[sl->size++] = str;
     }
     return success;
 }
@@ -137,38 +133,38 @@ ListAdd(TList * const listP,
 
 
 void
-ListRemove(TList * const listP) {
+ListRemove(TList * const sl) {
 /*----------------------------------------------------------------------------
    Remove the last item from the list.
 -----------------------------------------------------------------------------*/
 
-    assert(listP->size > 0);
+    assert(sl->size > 0);
 
-    --listP->size;
+    --sl->size;
 }
 
 
 
 bool
-ListAddFromString(TList *      const listP,
+ListAddFromString(TList *      const list,
                   const char * const stringArg) {
 
     bool retval;
     
     if (!stringArg)
-        retval = true;
+        retval = TRUE;
     else {
         char * buffer;
         
         buffer = strdup(stringArg);
         if (!buffer)
-            retval = false;
+            retval = FALSE;
         else {
             bool endOfString;
             bool error;
             char * c;
 
-            for (c = &buffer[0], endOfString = false, error = false;
+            for (c = &buffer[0], endOfString = FALSE, error = FALSE;
                  !endOfString && !error;
                 ) {
                 const char * t;
@@ -179,7 +175,7 @@ ListAddFromString(TList *      const listP,
                 
                 t = GetToken(&c);
                 if (!t)
-                    endOfString = true;
+                    endOfString = TRUE;
                 else {
                     char * p;
 
@@ -188,10 +184,10 @@ ListAddFromString(TList *      const listP,
                     
                     if (t[0] != '\0') {
                         bool added;
-                        added = ListAdd(listP, (void*)t);
+                        added = ListAdd(list, (void*)t);
                         
                         if (!added)
-                            error = true;
+                            error = TRUE;
                     }
                 }
             }
@@ -207,19 +203,19 @@ ListAddFromString(TList *      const listP,
 bool
 ListFindString(TList *      const listP,
                const char * const str,
-               uint16_t *   const indexP) {
-
+               uint16_t *   const indexP)
+{
     if (listP->item && str) {
         unsigned int i;
 
         for (i = 0; i < listP->size; ++i) {
             if (xmlrpc_streq(str, (char *)(listP->item[i]))) {
                 *indexP = i;
-                return true;
+                return TRUE;
             }
         }
     }
-    return false;
+    return FALSE;
 }
 
 /*********************************************************************
@@ -236,12 +232,12 @@ BufferAlloc(TBuffer *       const buf,
     if (buf->data)
     {
         buf->size=memsize;
-        return true;
+        return TRUE;
     }
     else
     {
         buf->size=0;
-        return false;
+        return FALSE;
     };
 }
 
@@ -272,14 +268,14 @@ BufferRealloc(TBuffer *       const buf,
         TBuffer b;
 
         if (memsize<=buf->size)
-            return true;
+            return TRUE;
 
         if (BufferAlloc(&b,memsize))
         {
             memcpy(b.data,buf->data,buf->size);
             BufferFree(buf);
             *buf=b;
-            return true;
+            return TRUE;
         }
     }
     else
@@ -291,11 +287,11 @@ BufferRealloc(TBuffer *       const buf,
         {
             buf->data=d;
             buf->size=memsize;
-            return true;
+            return TRUE;
         }
     }
 
-    return false;
+    return FALSE;
 }
 
 
@@ -313,9 +309,9 @@ StringAlloc(TString * const stringP) {
     succeeded = BufferAlloc(&stringP->buffer, 256);
     if (succeeded) {
         *(char *)(stringP->buffer.data) = '\0';
-        return true;
+        return TRUE;
     } else
-        return false;
+        return FALSE;
 }
 
 
@@ -332,11 +328,11 @@ StringConcat(TString *    const stringP,
             &stringP->buffer,
             ((len + stringP->size + 1 + 256) / 256) * 256);
         if (!succeeded)
-            return false;
+            return FALSE;
     }
     strcat((char *)(stringP->buffer.data), string2);
     stringP->size += len;
-    return true;
+    return TRUE;
 }
 
 
@@ -354,13 +350,13 @@ StringBlockConcat(TString *    const stringP,
             &stringP->buffer,
             ((len + stringP->size + 1 + 256) / 256) * 256);
         if (!succeeded)
-            return false;
+            return FALSE;
     }
     *ref = (char *)(stringP->buffer.data) + stringP->size;
     memcpy(*ref, string2, len);
     stringP->size += len;
 
-    return true;
+    return TRUE;
 }
 
 
@@ -445,11 +441,11 @@ TableFindIndex(TTable *     const t,
                 if (xmlrpc_streq(t->item[i].name,name))
                 {
                     *index=i;
-                    return true;
+                    return TRUE;
                 };
     };
 
-    return false;
+    return FALSE;
 }
 
 
@@ -473,7 +469,7 @@ TableAddReplace(TTable *     const t,
                 t->item[i]=t->item[t->size];
         };
 
-        return true;
+        return TRUE;
     }
     else
         return TableAdd(t,name,value);
@@ -496,7 +492,7 @@ TableAdd(TTable *     const t,
             t->item=newitem;
         else {
             t->maxsize-=16;
-            return false;
+            return FALSE;
         }
     }
 
@@ -506,7 +502,7 @@ TableAdd(TTable *     const t,
 
     ++t->size;
 
-    return true;
+    return TRUE;
 }
 
 
@@ -567,13 +563,13 @@ PoolCreate(TPool *  const poolP,
         if (firstZoneP != NULL) {
             poolP->firstzone   = firstZoneP;
             poolP->currentzone = firstZoneP;
-            success = true;
+            success = TRUE;
         } else
-            success = false;
+            success = FALSE;
         if (!success)
             poolP->lockP->destroy(poolP->lockP);
     } else
-        success = false;
+        success = FALSE;
 
     return success;
 }

@@ -1,7 +1,6 @@
 #ifndef LOCK_WINDOWS_H_INCLUDED
 #define LOCK_WINDOWS_H_INCLUDED
 
-#include "xmlrpc-c/c_util.h"  /* For XMLRPC_DLLEXPORT */
 #include "lock.h"
 
 /*

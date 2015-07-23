@@ -20,7 +20,6 @@ using girerr::error;
 #include "registry.hpp"
 #include "server_abyss.hpp"
 #include "server_pstream.hpp"
-#include "abyss.hpp"
 #include "tools.hpp"
 
 using namespace xmlrpc_c;
@@ -361,7 +360,6 @@ main(int argc, char**) {
         serverAbyssTestSuite().run(0);
         serverPstreamTestSuite().run(0);
         clientTestSuite().run(0);
-        abyssTestSuite().run(0);
 
         testXmlRpcCpp();
 

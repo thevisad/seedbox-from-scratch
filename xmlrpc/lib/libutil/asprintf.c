@@ -55,42 +55,35 @@ newVsnprintf(char *       const buffer,
 
 
 
-static __inline__ int
-simpleVasprintf(char **      const resultP,
+static __inline__ void
+simpleVasprintf(char **      const retvalP,
                 const char * const fmt,
                 va_list            varargs) {
 /*----------------------------------------------------------------------------
    This is a poor man's implementation of vasprintf(), of GNU fame.
 -----------------------------------------------------------------------------*/
-    int retval;
-    char * buffer;
+    char * result;
     size_t bufferSize;
     bool outOfMemory;
 
-    for (buffer = NULL, bufferSize = 4096, outOfMemory = false;
-         !buffer && !outOfMemory;
+    for (result = NULL, bufferSize = 4096, outOfMemory = false;
+         !result && !outOfMemory;
         ) {
 
-        buffer = malloc(bufferSize);
-        if (!buffer)
+        result = malloc(bufferSize);
+        if (!result)
             outOfMemory = true;
         else {
             size_t bytesNeeded;
-            newVsnprintf(buffer, bufferSize, fmt, varargs, &bytesNeeded);
+            newVsnprintf(result, bufferSize, fmt, varargs, &bytesNeeded);
             if (bytesNeeded > bufferSize) {
-                free(buffer);
-                buffer = NULL;
+                free(result);
+                result = NULL;
                 bufferSize = bytesNeeded;
             }
         }
     }
-    if (outOfMemory)
-        retval = -1;
-    else {
-        retval = strlen(buffer);
-        *resultP = buffer;
-    }
-    return retval;
+    *retvalP = result;
 }
 
 
@@ -126,15 +119,14 @@ xmlrpc_vasprintf(const char ** const retvalP,
                  va_list             varargs) {
     
     char * string;
-    int rc;
 
 #if HAVE_ASPRINTF
-    rc = vasprintf(&string, fmt, varargs);
+    vasprintf(&string, fmt, varargs);
 #else
-    rc = simpleVasprintf(&string, fmt, varargs);
+    simpleVasprintf(&string, fmt, varargs);
 #endif
 
-    if (rc < 0)
+    if (string == NULL)
         *retvalP = xmlrpc_strsol;
     else
         *retvalP = string;

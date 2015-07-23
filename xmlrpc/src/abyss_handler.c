@@ -76,8 +76,6 @@ sendResponse(xmlrpc_env *      const envP,
 
    This is meant to run in the context of an Abyss URI handler for
    Abyss session 'abyssSessionP'.
-
-   'chunked' means to make it a chunked response if possible.
 -----------------------------------------------------------------------------*/
     const char * http_cookie = NULL;
         /* This used to set http_cookie to getenv("HTTP_COOKIE"), but
@@ -207,13 +205,12 @@ getBody(xmlrpc_env *        const envP,
     body = xmlrpc_mem_block_new(envP, 0);
     if (!envP->fault_occurred) {
         size_t bytesRead;
+        const char * chunkPtr;
+        size_t chunkLen;
 
         bytesRead = 0;
 
         while (!envP->fault_occurred && bytesRead < contentSize) {
-            const char * chunkPtr;
-            size_t chunkLen;
-
             SessionGetReadData(abyssSessionP, contentSize - bytesRead, 
                                &chunkPtr, &chunkLen);
             bytesRead += chunkLen;
@@ -272,10 +269,10 @@ processContentLength(TSession *    const httpRequestP,
         RequestHeaderValue(httpRequestP, "content-length");
 
     if (content_length == NULL) {
-        *missingP = true;
+        *missingP = TRUE;
         *errorP = NULL;
     } else {
-        *missingP = false;
+        *missingP = FALSE;
         *inputLenP = 0;  /* quiet compiler warning */
         if (content_length[0] == '\0')
             xmlrpc_asprintf(errorP, "The value in your content-length "
@@ -356,18 +353,10 @@ processCall(TSession *            const abyssSessionP,
    Handle an RPC request.  This is an HTTP request that has the proper form
    to be an XML-RPC call.
 
-   We get the body of the request, which is the text of the call,
-   via the Abyss session 'abyssSessionP'.
+   The text of the call is available through the Abyss session
+   'abyssSessionP'.
 
    Its content length is 'contentSize' bytes.
-
-   We send the response to the request (which may contain the RPC response,
-   but may be an error indication) via the Abyss session 'abyssSessionP'.
-
-   We use 'xmlProcessor', with argument 'xmlProcessorArg' to execute the
-   RPC, i.e. turn the XML-RPC call into an XML-RPC response.
-
-   'wantChunk' means Caller wants the HTTP reponse chunked.
 -----------------------------------------------------------------------------*/
     xmlrpc_env env;
 
@@ -541,7 +530,7 @@ xmlrpc_handleIfXmlrpcReq(void *        const handlerArg,
    call for this XML-RPC server, we handle it.  If it's not, we refuse
    it and Abyss can try some other handler.
 
-   We return *handledP true to mean we handled it; false to mean we didn't.
+   Our return code is TRUE to mean we handled it; FALSE to mean we didn't.
 
    Note that failing the request counts as handling it, and not handling
    it does not mean we failed it.
@@ -564,9 +553,9 @@ xmlrpc_handleIfXmlrpcReq(void *        const handlerArg,
         /* It's not for the path (e.g. "/RPC2") that we're supposed to
            handle.
         */
-        *handledP = false;
+        *handledP = FALSE;
     else {
-        *handledP = true;
+        *handledP = TRUE;
 
         switch (requestInfoP->method) {
         case m_post:
@@ -632,7 +621,7 @@ xmlrpc_serverAbyssDefaultUriHandler(TSession * const sessionP) {
 
     xmlrpc_strfree(explanation);
 
-    return true;
+    return TRUE;
 }
 
 

@@ -66,11 +66,13 @@ translateTypeSpecifierToName(xmlrpc_env *  const envP,
                 
 
 
+#if defined(_MSC_VER)
 /* MSVC 8 complains that const char ** is incompatible with void * in the
    REALLOCARRAY.  It's not.
 */
 #pragma warning(push)
 #pragma warning(disable:4090)
+#endif
 
 static void
 makeRoomInArgList(xmlrpc_env *              const envP,
@@ -87,7 +89,9 @@ makeRoomInArgList(xmlrpc_env *              const envP,
     }
 }
 
+#if defined(_MSC_VER)
 #pragma warning(pop)
+#endif
 
 
 

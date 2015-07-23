@@ -14,7 +14,6 @@
 #include "int.h"
 #include "mallocvar.h"
 #include "xmlrpc-c/util_int.h"
-#include "xmlrpc-c/string_int.h"
 #include "xmlrpc-c/abyss.h"
 #ifdef _WIN32
   #include "socket_win.h"
@@ -60,7 +59,7 @@ ChanSwitchInit(const char ** const errorP) {
         if (SwitchTraceIsActive)
             fprintf(stderr, "Abyss channel switch layer will trace "
                     "channel connection activity "
-                    "because of ABYSS_TRACE_SWITCH environment variable\n");
+                    "due to ABYSS_TRACE_SWITCH environment variable\n");
     }
 }
 
@@ -134,9 +133,6 @@ ChanSwitchListen(TChanSwitch * const chanSwitchP,
         fprintf(stderr, "Channel switch %p listening.\n", chanSwitchP);
 
     (*chanSwitchP->vtbl.listen)(chanSwitchP, backlog, errorP);
-
-    if (!*errorP)
-        chanSwitchP->isListening = true;
 }
 
 
@@ -147,22 +143,15 @@ ChanSwitchAccept(TChanSwitch * const chanSwitchP,
                  void **       const channelInfoPP,
                  const char ** const errorP) {
 
-    if (!chanSwitchP->isListening)
-        xmlrpc_asprintf(errorP, "Attempt to accept next connection from a "
-                        "channel switch that is not listening "
-                        "for connections");
-    else {
-        if (SwitchTraceIsActive)
-            fprintf(stderr, "Getting a connection from Channel switch %p...\n",
-                    chanSwitchP);
+    if (SwitchTraceIsActive)
+        fprintf(stderr, "Getting a connection from Channel switch %p...\n",
+                chanSwitchP);
 
-        (*chanSwitchP->vtbl.accept)(chanSwitchP,
-                                    channelPP, channelInfoPP, errorP);
+    (*chanSwitchP->vtbl.accept)(chanSwitchP, channelPP, channelInfoPP, errorP);
 
-        if (SwitchTraceIsActive)
-            fprintf(stderr, "Got connection from channel switch.  "
-                    "Channel = %p\n", *channelPP);
-    }
+    if (SwitchTraceIsActive)
+        fprintf(stderr, "Got connection from channel switch.  "
+                "Channel = %p\n", *channelPP);
 }
 
 

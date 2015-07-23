@@ -159,8 +159,7 @@ xmlrpc_read_datetime_str(xmlrpc_env *         const envP,
             if (usecs != 0) {
                 char usecString[64];
                 assert(usecs < 1000000);
-                XMLRPC_SNPRINTF(usecString, sizeof(usecString),
-                                ".%06u", usecs);
+                snprintf(usecString, sizeof(usecString), ".%06u", usecs);
                 STRSCAT(dtString, usecString);
             }
 
@@ -561,7 +560,7 @@ xmlrpc_datetime_new_str(xmlrpc_env * const envP,
 
         /* Note that parseDatetimeString() can generate an invalid datetime
            value, e.g. Hour 25 or February 30.  Ideally, we would catch that
-           here, but because of laziness, we simply accept the possibility of
+           here, but due to laziness, we simply accept the possibility of
            invalid xmlrpc_datetime in xmlrpc_value and whoever uses the the
            xmlrpc_value has to deal with it.
         */

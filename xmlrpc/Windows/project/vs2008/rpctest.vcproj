@@ -4,7 +4,6 @@
 	Version="9,00"
 	Name="rpctest"
 	ProjectGUID="{4CFB235E-56AE-4BF2-BE67-8FD4AF5F1722}"
-	RootNamespace="rpctest"
 	TargetFrameworkVersion="0"
 	>
 	<Platforms>
@@ -756,10 +755,6 @@
 			>
 			<File
 				RelativePath="..\..\..\test\abyss.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\base_global.c"
 				>
 			</File>
 			<File

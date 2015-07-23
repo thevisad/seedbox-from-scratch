@@ -15,15 +15,12 @@
 #include "xmlrpc-c/girerr.hpp"
 using girerr::throwf;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <features.h>  // for __BEGIN_DECLS
 
+__BEGIN_DECLS
 #include "dumpvalue.h"  /* An internal Xmlrpc-c header file ! */
+__END_DECLS
 
-#ifdef __cplusplus
-}
-#endif
 
 #include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/client.hpp>

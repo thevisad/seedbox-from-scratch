@@ -175,15 +175,8 @@ public:
     ~registry();
 
     void
-    addMethod(std::string        const name,
-              xmlrpc_c::method * const methodP);
-
-    void
     addMethod(std::string         const name,
               xmlrpc_c::methodPtr const methodP);
-
-    void
-    setDefaultMethod(xmlrpc_c::defaultMethod * const methodP);
 
     void
     setDefaultMethod(xmlrpc_c::defaultMethodPtr const methodP);

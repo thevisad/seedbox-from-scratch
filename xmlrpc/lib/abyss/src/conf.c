@@ -75,7 +75,7 @@ ConfReadLine(TFile *  const fileP,
     uint32_t len;
 
     len = lenArg;  /* initial value */
-    r = true;  /* initial value */
+    r = TRUE;  /* initial value */
     z = buffer;  /* initial value */
 
     while (--len > 0) {
@@ -84,11 +84,11 @@ ConfReadLine(TFile *  const fileP,
         bytesRead = FileRead(fileP, z, 1);
         if (bytesRead < 1) {
             if (z == buffer)
-                r = false;
+                r = FALSE;
             break;
         };
 
-        if (*z == '\r' || *z == '\n')
+        if (*z == CR || *z == LF)
             break;
 
         ++z;
@@ -96,7 +96,7 @@ ConfReadLine(TFile *  const fileP,
 
     if (len == 0)
         while (FileRead(fileP, &c, 1) == 1)
-            if (c == '\r' || c == '\n')
+            if (c == CR || c == LF)
                 break;
 
     *z = '\0';
@@ -121,9 +121,9 @@ ConfNextToken(char ** const p) {
             (*p)++;
             break;
         case '\0':
-            return false;
+            return FALSE;
         default:
-            return true;
+            return TRUE;
         };
 }
 
@@ -136,8 +136,8 @@ ConfGetToken(char **p) {
         {
         case '\t':
         case ' ':
-        case '\r':
-        case '\n':
+        case CR:
+        case LF:
         case '\0':
             if (p0==*p)
                 return NULL;
@@ -163,7 +163,7 @@ ConfReadInt(const char * const p,
    Convert string 'p' to integer *n.
 
    If it isn't a valid integer or is not with the bounds [min, max],
-   return false.  Otherwise, return true.
+   return FALSE.  Otherwise, return TRUE.
 -----------------------------------------------------------------------------*/
     char * e;
 
@@ -184,13 +184,13 @@ ConfReadBool(const char * const token,
     bool succeeded;
 
     if (xmlrpc_strcaseeq(token, "yes")) {
-        *bP = true;
-        succeeded = true;
+        *bP = TRUE;
+        succeeded = TRUE;
     } else if (xmlrpc_strcaseeq(token, "no")) {
-        *bP = false;
-        succeeded = true;
+        *bP = FALSE;
+        succeeded = TRUE;
     } else
-        succeeded = false;
+        succeeded = FALSE;
 
     return succeeded;
 }
@@ -232,13 +232,13 @@ readMIMETypesFile(const char * const filename,
                 }
             }
             FileClose(fileP);
-            success = true;
+            success = TRUE;
         } else
-            success = false;
+            success = FALSE;
         if (!success)
             MIMETypeDestroy(MIMETypeP);
     } else
-        success = false;
+        success = FALSE;
 
     if (success)
         *MIMETypePP = MIMETypeP;
@@ -315,7 +315,7 @@ ConfReadServerFile(const char * const filename,
     TFileStat fs;
 
     if (!FileOpen(&fileP, filename, O_RDONLY))
-        return false;
+        return FALSE;
 
     lineNum = 0;
 
@@ -393,5 +393,5 @@ ConfReadServerFile(const char * const filename,
     }
 
     FileClose(fileP);
-    return true;
+    return TRUE;
 }
