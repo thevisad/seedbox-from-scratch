@@ -26,7 +26,7 @@ $fm["tempdir"] = "/tmp";                // path were to store temporary data ; m
 $fm["mkdperm"] = 755;           // default permission to set to new created directories
 
 // set with fullpath to binary or leave empty
-$pathToExternals["rar"] = "/usr/bin/rar";
+$pathToExternals["rar"] = "/usr/bin/unrar";
 $pathToExternals["zip"] = "/usr/bin/zip";
 $pathToExternals["unzip"] = "/usr/bin/unzip";
 $pathToExternals["tar"] = "/bin/tar";
