@@ -10,7 +10,7 @@ This script has the following features
 
 * A multi-user enviroment, you'll have scripts to add and delete users.
 * Linux Quota, to control how much space every user can use in your box.
-* Individual User Login Info ## https://Server-IP/private/SBinfo.txt
+* Individual User Login Info https://Server-IP/private/SBinfo.txt
 * Individual User Https Downloads directory (https://Server-IP/private/Downloads)
 
 ## Installed software
