@@ -3,7 +3,6 @@ Donate by buying me a Beer : BTC address: 1ACi4NRpfzkCNDaTgwFpCFcHoMMRCCT4wC
 #### Current version = 14.06
 #### Last stable version = 14.05
 
-Forked from Notos's script, Updated it for Ubuntu 14.04 and Debian 7.0
 This script will provide ssl only links, Sorry http :(
 
 This script has the following features
