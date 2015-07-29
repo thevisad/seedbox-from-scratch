@@ -74,10 +74,8 @@ After installing you will have access to the following commands to be used direc
 * installOpenVPN
 * installSABnzbd
 * installWebmin
-* installDeluge
 * updategitRepository
 * removeWebmin
-* upgradeRTorrent
 * installRTorrent
 * restartSeedbox
 
@@ -106,9 +104,12 @@ https://<Server IP or Server Name>/rutorrent/CLIENT-NAME.zip` and use it in any 
 * Ubuntu Server 12.04.x - 64bit (on VM environment)
 * Ubuntu Server 14.04.x - 32bit (OVH's Kimsufi 2G and 16G - Precise)
 * Ubuntu Server 14.04.x - 64bit (OVH's Kimsufi 2G and 16G - Precise)
+* Ubuntu Server 14.10 - 32 and 64 bit
+* Ubuntu Server 15.04 - 32 and 64 bit
 * Debian 6.0.6 - 32 and 64bit (OVH's Kimsufi 2G - Squeeze)
 * Debian 6.0.6 - 32 and 64bit (on VM environment)
 * Debian 7.0 - 32 and 64 bit
+* Debian 8.1 - 32 and 64 bit
 
 ## Quota
 Quota is disabled by default in your box. To enable and use it, you'll have to open Webmin, using the address you can find in one of the tables box above this. After you sucessfully logged on Webmin, enable it by clicking
@@ -122,7 +123,7 @@ System => Disk Quotas => /home => <username> => Configure the "Soft kilobyte lim
 As soon as you save it, your seedbox will also update the available space to all your users.
 
 ## Changelog
-Take a look at seedbox-from-scratch.sh, it's all there.
+Take a look at seedbox-from-scratch.sh and github commit history, it's all there.
 
 ## Support
 
