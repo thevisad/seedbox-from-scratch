@@ -75,7 +75,6 @@ After installing you will have access to the following commands to be used direc
 * installWebmin
 * updategitRepository
 * removeWebmin
-* installRTorrent
 * restartSeedbox
 
 * While executing them, if sudo is needed, they will ask for a password.
