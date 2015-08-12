@@ -1,10 +1,12 @@
-#!/bin/bash
+#!/bin/bash 
+
+## This script to run after install to install latest znc
 
 wget http://znc.in/releases/znc-latest.tar.gz
-tar -xzvf znc*.*.gz
+tar -xzvf znc*.*gz
 cd znc-*
 ./configure --prefix=$HOME/znc
 make
 make install
 rm -r ~/znc-*
-~/znc/bin/znc -makeconf
+~/znc/bin/znc --makeconf
