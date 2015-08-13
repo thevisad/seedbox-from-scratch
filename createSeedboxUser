@@ -674,12 +674,20 @@ sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxs
 sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/crontabentries
 sudo chmod +x $HOMEJAILED1/crontabentries
 sudo bash $HOMEJAILED1/crontabentries
+if [ "$NEWUSER1" = "$MAINUSER1" ]; then
+  sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/startznc
+  sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/startznc
+  sudo chmod +x $HOMEJAILED1/startznc
+  sudo bash $HOMEJAILED1/startznc
+fi
 sudo mkdir $HOMEJAILED1/bin
 cd $HOMEJAILED1/bin
 sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/rtcheck
 sudo chmod +x rtcheck
 cd ..
 sudo chown $NEWUSER1: -R bin
+sudo rm $HOMEJAILED1/crontabentries
+sudo rm $HOMEJAILED1/startznc
 sudo service webmin restart
 
 set +x verbose
