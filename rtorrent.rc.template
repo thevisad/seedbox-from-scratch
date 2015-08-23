@@ -138,7 +138,7 @@ schedule = watch_directory,5,5,load_start=/home/<username>/downloads/watch/*.tor
 schedule = untied_directory,5,5,stop_untied= 
  
 # close torrents when diskspace is low. */ 
-schedule = low_diskspace,5,60,close_low_diskspace=100M 
+schedule = low_diskspace,5,60,close_low_diskspace=5000M 
  
 # stop torrents when reaching upload ratio in percent,
 # when also reaching total upload in bytes, or when
