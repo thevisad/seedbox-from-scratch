@@ -1,0 +1,5 @@
+#!/bin/bash
+git clone https://github.com/scarygliders/X11RDP-o-Matic.git
+cd X11RDP-o-Matic
+sudo ./X11rdp-o-matic.sh --justdoit
+sudo ./RDPsesconfig.sh
