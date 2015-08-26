@@ -689,6 +689,8 @@ sudo chown $NEWUSER1: -R bin
 sudo rm $HOMEJAILED1/crontabentries
 sudo rm $HOMEJAILED1/startznc
 sudo service webmin restart
+## Entry for xrdp sessions file
+echo mate-session >$HOMEJAILED1/.xsession
 
 set +x verbose
 clear
