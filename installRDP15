@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ "cat ~/bin/rdp" = "RDP" ]; then
+  sudo apt-get -y install policykit-1
+  sudo apt-get -y install tightvncserver
+  sudo dpkg -i /etc/seedbox-from-scratch/xrdp_0.6.1-1_`uname -m`.deb
+  sudo apt-get -f -y install
+  sudo apt-get -y --force-yes install mate-core mate-desktop-environment mate-notification-daemon
+  sudo apt-get -y install chromium
+  echo mate-session >~/.xsession
+else
+  echo mate-session >~/.xsession
+fi
