@@ -1,17 +1,25 @@
 #!/bin/bash
+echo "$(lsb_release -rs)" >~/v
 
+OSV1=$(sed 's/\..*//' ~/v)
 
-sudo apt-get purge policykit-1
-sudo apt-get update
-sudo systemctl reboot
-sudo apt-get install policykit-1
+if [ "$OSV1" = "15" ]; then
+  echo ""
+  echo ""
+  echo ""
+  echo ""
+  echo "This is Ubuntu 15, Due to a bug with policykit; Your server will reboot and then you have to run installRDP15 from cmdline"
+  echo ""
+  echo ""
+  echo ""
+  sudo apt-get -y purge policykit-1
+  sudo apt-get update
+  sudo systemctl reboot
+fi
 
-sudo apt-get -y install tightvncserver
+sudo apt-get -y install tightvncserver
 sudo dpkg -i /etc/seedbox-from-scratch/xrdp_0.6.1-1_`uname -m`.deb
 sudo apt-get -f -y install
-if 15.04
-
-
 sudo apt-get -y --force-yes install mate-core mate-desktop-environment mate-notification-daemon
 sudo apt-get -y install chromium
 
