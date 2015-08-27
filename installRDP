@@ -9,7 +9,7 @@ OSV1=$(sed 's/\..*//' ~/v)
 if [ "$(cat ~/bin/rdp)" = "RDP" ] || [ "$(cat ~/bin/nm)" = "RDP" ]; then
   echo "###########################################"
   echo ""
-  echo "Wrong Command, You should use RDPconfig.sh"
+  echo "Wrong Command, You should use *sudo RDPconfig.sh* "
   echo ""
   echo "###########################################"
   rm ~/name
@@ -23,7 +23,7 @@ elif [ "$OSV1" = "15" ]; then
   echo "This is Ubuntu 15.XX, Due to a bug with policykit; Your server will reboot and "
   echo "then after reboot you have to run installRDP15 from cmdline"
   echo ""
-  echo "Remember installRDP15"
+  echo "Remember installRDP15 after this reboot"
   echo ""
   echo "###############################################################################"
   rm ~/name
