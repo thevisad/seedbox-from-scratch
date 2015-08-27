@@ -681,6 +681,9 @@ if [ "$NEWUSER1" = "$MAINUSER1" ]; then
   sudo chmod +x $HOMEJAILED1/startznc
   sudo bash $HOMEJAILED1/startznc
 fi
+if [ "$NEWUSER1" = "$MAINUSER1" ]; then
+  sudo mv /etc/seedbox-from-scratch/RDPconfig.sh $HOMEJAILED1/RDPconfig.sh
+fi
 sudo mkdir $HOMEJAILED1/bin
 cd $HOMEJAILED1/bin
 sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/rtcheck
@@ -690,9 +693,6 @@ sudo chown $NEWUSER1: -R bin
 sudo rm $HOMEJAILED1/crontabentries
 sudo rm $HOMEJAILED1/startznc
 sudo service webmin restart
-## Entry for xrdp sessions file
-echo mate-session >$HOMEJAILED1/.xsession
-
 set +x verbose
 clear
 echo ""

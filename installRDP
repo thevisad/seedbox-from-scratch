@@ -6,24 +6,26 @@ if [ "$MU1" = "$MAINUSER1" ]; then
   echo "$(lsb_release -rs)" > ~/v
 fi
 OSV1=$(sed 's/\..*//' ~/v)
-if [ "cat ~/bin/rdp" = "RDP" ] || [ "cat ~/bin/nm" = "RDP" ]; then
-  echo ""
+if [ "$(cat ~/bin/rdp)" = "RDP" ] || [ "$(cat ~/bin/nm)" = "RDP" ]; then
+  echo "###########################################"
   echo ""
   echo "Wrong Command, You should use RDPconfig.sh"
   echo ""
-  echo ""
+  echo "###########################################"
   rm ~/name
   exit 1
 elif [ "$OSV1" = "15" ]; then
   echo "RDP" >~/bin/nm
+  echo "###############################################################################"
   echo ""
   echo ""
   echo ""
+  echo "This is Ubuntu 15.XX, Due to a bug with policykit; Your server will reboot and "
+  echo "then after reboot you have to run installRDP15 from cmdline"
   echo ""
-  echo "This is Ubuntu 15.XX, Due to a bug with policykit; Your server will reboot and then you have to re-run "installRDP15" from cmdline"
+  echo "Remember installRDP15"
   echo ""
-  echo ""
-  echo ""
+  echo "###############################################################################"
   rm ~/name
   sudo apt-get -y purge policykit-1
   sudo apt-get update
@@ -39,7 +41,7 @@ else
   sleep 2
   clear
   echo "RDP" > ~/bin/rdp
-  RDPconfig.sh
+  sudo RDPconfig.sh
 fi
 
 

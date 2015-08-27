@@ -9,7 +9,7 @@ id=`id -u`
 #################################################################
 
 INTERACTIVE=1
-Identify Distro
+#Identify Distro
 Dist=`lsb_release -d -s` 
 
 backtitle="Mate Desktop RDP Config"
@@ -47,7 +47,7 @@ select_local_user_accounts_to_config()
 {
 	if [ -e ./usernames.tmp ]
 	then
-	  rm ./usernames.tmp
+	  rm -f ./usernames.tmp
 	fi
 	getent passwd>/tmp/passwd
 	userlist=""
@@ -142,5 +142,5 @@ select_local_user_accounts_to_config
 create_xsession
 rm /tmp/passwd
 
-dialogtext="\nAll selected operations are complete!\n\nThe users you configured will be able to log in via RDP now and be presented with the desktop you configured for them.\n\nIf you wish for RDP users to be able to perform certain tasks like \"local\" users, please see the configuration files located at /usr/share/polkit-1/actions/ .\n\nSee http://scarygliders.net for details on PolicyKit.\n\nClick OK to exit the utility.\n\n"
+dialogtext="\nAll selected operations are complete!\n\nThe users you configured will be able to log in via RDP now and be presented with the Mate desktop.\n\n\n\nClick OK to exit the utility.\n\n"
 info_window
