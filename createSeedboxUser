@@ -683,6 +683,8 @@ if [ "$NEWUSER1" = "$MAINUSER1" ]; then
 fi
 if [ "$NEWUSER1" = "$MAINUSER1" ]; then
   sudo mv /etc/seedbox-from-scratch/RDPconfig.sh $HOMEJAILED1/RDPconfig.sh
+  sudo chmod +x $HOMEJAILED1/RDPconfig.sh
+  sudo chown $NEWUSER1:$NEWUSER1 $HOMEJAILED1/RDPconfig.sh
 fi
 sudo mkdir $HOMEJAILED1/bin
 cd $HOMEJAILED1/bin
