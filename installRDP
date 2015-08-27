@@ -10,12 +10,12 @@ if [ "$MU1" = "$MAINUSER1" ]; then
   echo "$(lsb_release -rs)" > ~/v
 fi
 OSV1=$(sed 's/\..*//' ~/v)
-if [ "$(cat ~/bin/rdp)" = "RDP" ] || [ "$(cat ~/bin/nm)" = "RDP" ]; then
-  echo "###########################################"
+if [ "$(cat ~/bin/rdp >> $logfile 2>&1)" = "RDP" ] || [ "$(cat ~/bin/nm >> $logfile 2>&1)" = "RDP" ]; then
+  echo "###################################################"
   echo ""
   echo "Wrong Command, You should use *sudo ./RDPconfig.sh* "
   echo ""
-  echo "###########################################"
+  echo "###################################################"
   rm ~/name
   exit 1
 elif [ "$OSV1" = "15" ]; then
@@ -25,9 +25,9 @@ elif [ "$OSV1" = "15" ]; then
   echo ""
   echo ""
   echo "This is Ubuntu 15.XX, Due to a bug with policykit; Your server will reboot and "
-  echo "then after reboot you have to run installRDP15 from cmdline"
+  echo "then after reboot you have to run *installRDP15* from cmdline"
   echo ""
-  echo "Remember installRDP15 after this reboot"
+  echo "Remember *installRDP15* after this reboot"
   echo ""
   echo "###############################################################################"
   rm ~/name
@@ -38,7 +38,11 @@ else
   sudo apt-get -y install tightvncserver >> $logfile 2>&1
   sleep 1
   sudo dpkg -i /etc/seedbox-from-scratch/xrdp_0.6.1-1_`uname -m`.deb 
-  sudo apt-get -f -y install 
+  sudo apt-get -f -y install
+  echo "........"
+  echo "............."
+  echo "Work in Progres..........   "
+  echo "Please Standby................   "
   sudo apt-get -y --force-yes install mate-core mate-desktop-environment mate-notification-daemon >> $logfile 2>&1
   sudo apt-get -y install chromium >> $logfile 2>&1
   sudo apt-get -y install firefox >> $logfile 2>&1

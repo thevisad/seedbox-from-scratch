@@ -1,11 +1,15 @@
 #!/bin/bash
 logfile="/dev/null"
 
-if [ "$(cat ~/bin/nm)" = "RDP" ]; then
+if [ "$(cat ~/bin/nm >> $logfile 2>&1)" = "RDP" ]; then
   sudo apt-get -y install policykit-1 >> $logfile 2>&1
   sudo apt-get -y install tightvncserver >> $logfile 2>&1
   sudo dpkg -i /etc/seedbox-from-scratch/xrdp_0.6.1-1_`uname -m`.deb 
-  sudo apt-get -f -y install 
+  sudo apt-get -f -y install
+  echo "........"
+  echo "............."
+  echo "Work in Progres..........   "
+  echo "Please Standby................   "
   sudo apt-get -y --force-yes install mate-core mate-desktop-environment mate-notification-daemon >> $logfile 2>&1
   sudo apt-get -y install firefox
   sleep 1
