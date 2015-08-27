@@ -1,6 +1,7 @@
 #!/bin/bash
 MAINUSER1=`cat /etc/seedbox-from-scratch/mainuser.info`
 echo `whoami` > ~/name
+sleep 2
 MU1=`cat ~/name`
 if [ "$MU1" = "$MAINUSER1" ]; then
   echo "$(lsb_release -rs)" > ~/v
