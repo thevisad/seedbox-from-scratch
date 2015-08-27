@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+#
 MAINUSER1=`cat /etc/seedbox-from-scratch/mainuser.info`
 echo `whoami` > ~/name
 sleep 1
