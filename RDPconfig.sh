@@ -12,7 +12,7 @@ INTERACTIVE=1
 #Identify Distro
 Dist=`lsb_release -d -s` 
 
-backtitle="Mate Desktop RDP Config"
+backtitle="LXDE Desktop RDP Config"
 questiontitle="Which Users..."
 title="Configurator"
 DIALOG="dialog"
@@ -122,7 +122,7 @@ create_xsession()
 		do
 			homedir=`grep "^$username:" /tmp/passwd | cut -d":" -f6`
 			sudo echo "Creating .xsession file for $username in $homedir" 2>&1
-			sudo echo "mate-session" > $homedir/.xsession
+			sudo echo "lxsession -s LXDE -e LXDE" > $homedir/.xsession
 			usergroup=`id -gn $username`
 			sudo chown $username:$usergroup $homedir/.xsession
 			sudo chmod u+x $homedir/.xsession

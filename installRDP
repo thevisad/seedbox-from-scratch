@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 #
+sudo apt-get -y remove apt-listchanges
 MAINUSER1=`cat /etc/seedbox-from-scratch/mainuser.info`
 echo `whoami` > ~/name
 sleep 1
@@ -10,7 +11,7 @@ if [ "$MU1" = "$MAINUSER1" ]; then
   echo "$(lsb_release -rs)" > ~/v
 fi
 OSV1=$(sed 's/\..*//' ~/v)
-if [ "$(cat ~/bin/rdp >> $logfile 2>&1)" = "RDP" ] || [ "$(cat ~/bin/nm >> $logfile 2>&1)" = "RDP" ]; then
+if [ "$(cat ~/bin/rdp)" = "RDP" ] || [ "$(cat ~/bin/nm)" = "RDP" ]; then
   echo "###################################################"
   echo ""
   echo "Wrong Command, You should use *sudo ./RDPconfig.sh* "
@@ -31,25 +32,32 @@ elif [ "$OSV1" = "15" ]; then
   echo ""
   echo "###############################################################################"
   rm ~/name
-  sudo apt-get -y purge policykit-1 >> $logfile 2>&1
-  sudo apt-get update >> $logfile 2>&1
+  sudo apt-get -y purge policykit-1 #hello
+  sudo apt-get update #hello
   sudo systemctl reboot
 else
-  sudo apt-get -y install tightvncserver >> $logfile 2>&1
-  sleep 1
+  sudo apt-get -y install tightvncserver #hello
+  sleep 2
   sudo dpkg -i /etc/seedbox-from-scratch/xrdp_0.6.1-1_`uname -m`.deb 
   sudo apt-get -f -y install
   echo "........"
   echo "............."
   echo "Work in Progres..........   "
   echo "Please Standby................   "
-  sudo apt-get -y --force-yes install mate-core mate-desktop-environment mate-notification-daemon >> $logfile 2>&1
-  sudo apt-get -y install chromium >> $logfile 2>&1
-  sudo apt-get -y install firefox >> $logfile 2>&1
+  sudo apt-get -y install lxde #hello
+  sudo apt-get -y install chromium #hello
+  sudo apt-get -y install firefox #hello
   rm ~/v
   rm ~/name
   sleep 2
   clear
   echo "RDP" > ~/bin/rdp
   sudo ./RDPconfig.sh
+fi
+if [ "$OSV1" = "7" ] || [ "$OSV1" = "6" ]; then
+  echo "deb http://ftp.debian.org/debian sid main" | sudo tee -a /etc/apt/sources.list.d/sid-main.list
+  sudo apt-get update 
+  sudo apt-get -t sid install libc6 libc6-dev libc6-dbg 
+  sudo dpkg -i /etc/seedbox-from-scratch/xrdp_0.6.1-1_`uname -m`.deb 
+  sudo rm /etc/apt/sources.list.d/sid-main.list
 fi
