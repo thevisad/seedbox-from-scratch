@@ -44,5 +44,3 @@ else
   echo "RDP" > ~/bin/rdp
   sudo ./RDPconfig.sh
 fi
-
-
