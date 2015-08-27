@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "cat ~/bin/rdp" = "RDP" ]; then
+if [ "cat ~/bin/nm" = "RDP" ] && [ ]; then
   sudo apt-get -y install policykit-1
   sudo apt-get -y install tightvncserver
   sudo dpkg -i /etc/seedbox-from-scratch/xrdp_0.6.1-1_`uname -m`.deb
@@ -9,5 +9,5 @@ if [ "cat ~/bin/rdp" = "RDP" ]; then
   sudo apt-get -y install chromium
   sleep 2
   clear
-  sudo bash RDPconfig.sh
+  RDPconfig.sh
 fi

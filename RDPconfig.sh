@@ -2,12 +2,7 @@
 export LANG="C"
 
 id=`id -u`
-if [ $id -ne 0 ]
-	then
-		clear
-		echo "You tried running the Desktop User Config as a non-priveleged user. Please run with sudo."
-		exit 1
-fi
+
 
 #################################################################
 # Initialise variables and parse any command line switches here #
@@ -43,7 +38,7 @@ ask_question()
 
 apt_update_interactive()
 {
-  apt-get update | dialog --progressbox "Updating package databases..." 30 100
+  sudo apt-get update | dialog --progressbox "Updating package databases..." 30 100
 }
 
 
@@ -126,11 +121,11 @@ create_xsession()
 (		for username in $selectedusers
 		do
 			homedir=`grep "^$username:" /tmp/passwd | cut -d":" -f6`
-			echo "Creating .xsession file for $username in $homedir" 2>&1
-			echo "mate-session" > $homedir/.xsession
+			sudo echo "Creating .xsession file for $username in $homedir" 2>&1
+			sudo echo "mate-session" > $homedir/.xsession
 			usergroup=`id -gn $username`
-			chown $username:$usergroup $homedir/.xsession
-			chmod u+x $homedir/.xsession
+			sudo chown $username:$usergroup $homedir/.xsession
+			sudo chmod u+x $homedir/.xsession
 		done) | dialog --backtitle "$backtitle" --title "creating .xsession files..." --progressbox "Processing..." 12 80
 		sleep 3
 }
