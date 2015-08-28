@@ -32,11 +32,11 @@ elif [ "$OSV1" = "15" ]; then
   echo ""
   echo "###############################################################################"
   rm ~/name
-  sudo apt-get -y purge policykit-1 #hello
-  sudo apt-get update #hello
+  sudo apt-get -y purge policykit-1 >> $logfile 2>&1
+  sudo apt-get update >> $logfile 2>&1
   sudo systemctl reboot
 else
-  sudo apt-get -y install tightvncserver #hello
+  sudo apt-get -y install tightvncserver >> $logfile 2>&1
   sleep 2
   sudo dpkg -i /etc/seedbox-from-scratch/xrdp_0.6.1-1_`uname -m`.deb 
   sudo apt-get -f -y install
@@ -44,9 +44,9 @@ else
   echo "............."
   echo "Work in Progres..........   "
   echo "Please Standby................   "
-  sudo apt-get -y install lxde #hello
-  sudo apt-get -y install chromium #hello
-  sudo apt-get -y install firefox #hello
+  sudo apt-get -y install lxde >> $logfile 2>&1
+  sudo apt-get -y install chromium >> $logfile 2>&1
+  sudo apt-get -y install firefox >> $logfile 2>&1
   rm ~/v
   rm ~/name
   sleep 2
@@ -57,7 +57,7 @@ fi
 if [ "$OSV1" = "7" ] || [ "$OSV1" = "6" ]; then
   echo "deb http://ftp.debian.org/debian sid main" | sudo tee -a /etc/apt/sources.list.d/sid-main.list
   sudo apt-get update 
-  sudo apt-get -t sid install libc6 libc6-dev libc6-dbg 
+  sudo apt-get -y sid install libc6 libc6-dev libc6-dbg 
   sudo dpkg -i /etc/seedbox-from-scratch/xrdp_0.6.1-1_`uname -m`.deb 
   sudo rm /etc/apt/sources.list.d/sid-main.list
 fi
