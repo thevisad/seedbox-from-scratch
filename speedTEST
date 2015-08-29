@@ -1,2 +1,2 @@
 #!/bin/bash
-speedtest.py --share --simple
+speedtest.py --share
