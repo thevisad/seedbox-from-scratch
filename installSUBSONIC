@@ -1,6 +1,7 @@
-#/bin/bash
+#!/bin/bash
 MAINUSER1=`cat /etc/seedbox-from-scratch/mainuser.info`
 logfile="/dev/null"
+echo "Installing Subsonic . . . . "
 #Subsonic
 sudo apt-get -y install openjdk-7-jre >> $logfile 2>&1
 wget http://subsonic.org/download/subsonic-5.2.1.deb >> $logfile 2>&1
@@ -11,8 +12,8 @@ sudo service subsonic restart
 echo ""
 echo ""
 echo "Subsonic is installed."
-echo ""
-echo "To get all features check this thread:"
+echo "By default, Subsonic has trial license."
+echo "To get all features, check this thread:"
 echo " http://www.torrent-invites.com/showthread.php?t=232744 "
 echo ""
 echo ""

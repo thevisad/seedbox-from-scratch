@@ -1,5 +1,6 @@
 #!/bin/bash
 logfile="/dev/null"
+echo "Installing Plex Media Server . . . ."
 if [ `getconf LONG_BIT` = "64" ]; then
   wget -c https://downloads.plex.tv/plex-media-server/0.9.12.11.1406-8403350/plexmediaserver_0.9.12.11.1406-8403350_amd64.deb >> $logfile 2>&1
   sudo dpkg -i plexmediaserver_0.9.12.11.1406-8403350_amd64.deb >> $logfile 2>&1
@@ -15,6 +16,6 @@ echo ""
 echo "Plex Media Server is installed"
 echo ""
 echo "To enable remote access, set up ssh tunnel;"
-echo "And access - http://Your-Sever-IP:32400/web"
+echo "and access - http://Your-Sever-IP:32400/web"
 echo ""
 echo ""
