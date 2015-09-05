@@ -10,4 +10,3 @@ sudo wget http://cheapseedboxes.com/csickrage -P /etc/default/ >> $logfile 2>&1
 sudo update-rc.d sickrage defaults >> $logfile 2>&1
 sudo service sickrage start
 
-
