@@ -1,4 +1,5 @@
 #!/bin/bash
+IPADDRESS1=`cat /etc/seedbox-from-scratch/hostname.info`
 logfile="/dev/null"
 echo "Installing Plex Media Server . . . ."
 if [ `getconf LONG_BIT` = "64" ]; then
@@ -16,6 +17,6 @@ echo ""
 echo "Plex Media Server is installed"
 echo ""
 echo "To enable remote access, set up ssh tunnel;"
-echo "and access - http://Your-Sever-IP:32400/web"
+echo "and access - http://$IPADDRESS1:32400/web"
 echo ""
 echo ""
