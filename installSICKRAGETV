@@ -1,4 +1,5 @@
 #!/bin/bash
+IPADDRESS1=`cat /etc/seedbox-from-scratch/hostname.info`
 logfile="/dev/null"
 #Sickrage
 echo "Installing SiCKRAGETV . . ."
@@ -11,4 +12,5 @@ sudo update-rc.d sickrage defaults >> $logfile 2>&1
 sudo service sickrage start
 echo ""
 echo "SiCKRAGETV Installed"
+echo "Access - http://$IPADDRESS1:8081 and setup username & password"
 echo ""
