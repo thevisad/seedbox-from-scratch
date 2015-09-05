@@ -1,0 +1,18 @@
+#/bin/bash
+MAINUSER1=`cat /etc/seedbox-from-scratch/mainuser.info`
+logfile="/dev/null"
+#Subsonic
+sudo apt-get -y install openjdk-7-jre >> $logfile 2>&1
+wget http://subsonic.org/download/subsonic-5.2.1.deb >> $logfile 2>&1
+sudo dpkg -i subsonic-5.2.1.deb >> $logfile 2>&1
+sudo chmod -R 755 /etc/default/subsonic
+sudo perl -pi -e "s/root/$MAINUSER1/g" /etc/default/subsonic
+sudo service subsonic restart
+echo ""
+echo ""
+echo "Subsonic is installed."
+echo ""
+echo "To get all features check this thread:"
+echo " http://www.torrent-invites.com/showthread.php?t=232744 "
+echo ""
+echo ""

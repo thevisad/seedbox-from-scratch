@@ -1,0 +1,11 @@
+#!/bin/bash
+logfile="/dev/null"
+#Sickrage
+echo "Installing SiCKRAGETV . . ."
+sudo apt-get -y install python-cheetah python >> $logfile 2>&1
+sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/SickRage >> $logfile 2>&1
+sudo wget http://cheapseedboxes.com/sickrage -P /etc/init.d/ >> $logfile 2>&1
+sudo chmod +x /etc/init.d/sickrage
+sudo wget http://cheapseedboxes.com/csickrage -P /etc/default/ >> $logfile 2>&1
+sudo update-rc.d sickrage defaults >> $logfile 2>&1
+sudo service sickrage start
