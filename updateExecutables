@@ -43,5 +43,6 @@ sudo chmod +x /etc/seedbox-from-scratch/installDeluge
 sudo chmod +x /etc/seedbox-from-scratch/installRTorrent
 sudo chmod +x /etc/seedbox-from-scratch/installruTorrentStreamPlugin
 sudo chmod +x /etc/seedbox-from-scratch/installCurl
+sudo chmod +x /etc/seedbox-from-scratch/installSICKRAGETV
 
 ##################### LAST LINE ###########
