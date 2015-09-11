@@ -664,6 +664,10 @@ echo "Starting sabnzbdplus: screen -dmS sabnzbd sabnzbdplus" | sudo tee -a /etc/
 sudo mkdir $HOMEJAILED1/private
 sudo cp /etc/seedbox-from-scratch/users/$NEWUSER1.info $HOMEJAILED1/private/SBinfo.txt
 
+if [ "$NEWUSER1" = "$MAINUSER1" ]; then
+  (crontab -u "$NEWUSER1" -l; echo "@reboot ~/bin/rtcheck" ) | crontab -u "$NEWUSER1" -
+fi
+
 cd $HOMEJAILED1/private
 sudo ln -s $HOMEJAILED1/downloads/manual Downloads
 cd ..
