@@ -60,7 +60,7 @@ nsCertType          = server
 [ req ]
 default_bits        = 2048
 default_keyfile     = key.pem
-default_md          = md5
+default_md          = sha256
 string_mask         = nombstr   # permitted characters
 distinguished_name  = req_distinguished_name
 prompt              = no
