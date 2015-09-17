@@ -68,7 +68,7 @@ That is the question you must ask yourself.
 After installing you will have access to the following commands to be used directly in terminal
 * createSeedboxUser
 * deleteSeedboxUser
-* changeUserPassword
+* changeUserPassword  [ changeUserPassword <username> <NewPassword> rutorrent ]
 * installRapidleech
 * installOpenVPN
 * installSABnzbd
