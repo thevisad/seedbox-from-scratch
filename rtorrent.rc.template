@@ -63,4 +63,3 @@ max_memory_usage = 3500M
 # The following line initialises rutorrent plugins without needing to open the web interface
 execute = {sh,-c,/usr/bin/php /var/www/rutorrent/php/initplugins.php <username> &}
 
-method.set_key = event.download.erased, remove_file,"execute={rm,-drf,--,$d.get_base_path=}"
