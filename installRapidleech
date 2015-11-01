@@ -25,7 +25,8 @@
 
 cd ~
 sudo rm -r /var/www/rapidleech
-sudo svn checkout http://rapidleech.googlecode.com/svn/trunk/ /var/www/rapidleech
+sudo git clone https://github.com/Th3-822/rapidleech.git rapidleech
+#sudo svn checkout http://rapidleech.googlecode.com/svn/trunk/ /var/www/rapidleech
 sudo chown -R www-data: /var/www/rapidleech/files
 sudo chown -R www-data: /var/www/rapidleech/configs
 
