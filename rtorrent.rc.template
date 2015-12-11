@@ -48,8 +48,8 @@ network.http.ssl_verify_peer.set=0
 
 use_udp_trackers = yes 
 encryption = allow_incoming,enable_retry,prefer_plaintext
-network.max_open_files.set = 191 
-network.max_open_sockets.set = 1536 
+#network.max_open_files.set = 191 
+#network.max_open_sockets.set = 1536 
 network.http.max_open.set = 32 
 network.send_buffer.size.set = 4M 
 network.receive_buffer.size.set = 4M
