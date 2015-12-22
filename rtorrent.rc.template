@@ -47,7 +47,7 @@ network.scgi.open_port = 127.0.0.1:5995
 network.http.ssl_verify_peer.set=0
 
 use_udp_trackers = yes 
-encryption = allow_incoming,enable_retry,prefer_plaintext
+encryption = allow_incoming,try_outgoing,enable_retry
 #network.max_open_files.set = 191 
 #network.max_open_sockets.set = 1536 
 network.http.max_open.set = 32 
