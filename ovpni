@@ -78,6 +78,7 @@ newclient "$CLIENT"
 echo ""
 echo "$CLIENT.ovpn is zipped into $CLIENT.zip"
 echo "Client $CLIENT added, cert available at https://$IP1/rutorrent/$CLIENT.zip to use in any OpenVPN client"
+sudo chown --reference=restartSeedbox *.ovpn
 zip $CLIENT.zip ~/$CLIENT.ovpn
 sudo mv $CLIENT.zip /var/www/rutorrent
 exit
@@ -275,6 +276,7 @@ echo "$CLIENT.ovpn is zipped into $CLIENT.zip"
 echo "Client $CLIENT added, cert available at https://$IP1/rutorrent/$CLIENT.zip to use in any OpenVPN client"
 echo ""
 echo "If you want to add more clients, you simply need to run this script another time!"
+sudo chown --reference=restartSeedbox *.ovpn
 zip $CLIENT.zip ~/$CLIENT.ovpn
 sudo mv $CLIENT.zip /var/www/rutorrent
 fi
