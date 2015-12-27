@@ -562,7 +562,12 @@ fi
 sudo rm -R $HOMEJAILED1/.irssi
 sudo git clone https://github.com/autodl-community/autodl-irssi.git $HOMEJAILED1/.irssi/scripts/
 sudo mkdir -p $HOMEJAILED1/.irssi/scripts/autorun
-sudo git clone https://github.com/autodl-community/autodl-trackers.git $HOMEJAILED1/.irssi/scripts/AutodlIrssi/trackers
+#sudo git clone https://github.com/autodl-community/autodl-trackers.git $HOMEJAILED1/.irssi/scripts/AutodlIrssi/trackers
+sudo wget --quiet -O $HOMEJAILED1/.irssi/scripts/autodl-trackers.zip https://github.com/autodl-community/autodl-trackers/archive/master.zip
+unzip -q -o $HOMEJAILED1/.irssi/scripts/autodl-trackers.zip
+sudo rm $HOMEJAILED1/.irssi/scripts/autodl-trackers.zip
+sudo mv $HOMEJAILED1/.irssi/scripts/autodl-trackers-master/*.tracker $HOMEJAILED1/.irssi/scripts/AutodlIrssi/trackers/
+sudo rm -r $HOMEJAILED1/.irssi/scripts/autodl-trackers-master
 cd $HOMEJAILED1/.irssi/scripts
 sudo cp autodl-irssi.pl autorun/
 sudo mkdir -p $HOMEJAILED1/.autodl
