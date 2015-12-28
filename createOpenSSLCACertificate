@@ -35,7 +35,7 @@ cd /etc/seedbox-from-scratch/ssl/CA
 
 echo '01' > serial  && touch index.txt
 cp /etc/seedbox-from-scratch/root.ca.cacert.conf.template /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
-perl -pi -e "s/<username>/$RANDOM1/g" /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
+perl -pi -e "s/<username>/$NEWUSER1/g" /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
 perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
 
 openssl req -new -x509 -extensions v3_ca -keyout private/cakey.pem -passout pass:$CERTPASS1 -out cacert.pem -days 3650 -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
