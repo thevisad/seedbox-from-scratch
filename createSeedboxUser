@@ -31,6 +31,8 @@
 #    createSeedboxUser <username> <password>
 #
 #
+trlt="$(curl -s https://api.github.com/repos/autodl-community/autodl-trackers/releases/latest | sed -rn 's/(.*)"tag_name": "community-v(.*)",/\2/p')"
+dltrkrs="https://github.com/autodl-community/autodl-trackers/releases/download/community-v$trlt/autodl-trackers-v$trlt.zip"
 function getString
 {
   local ISPASSWORD=$1
@@ -562,8 +564,11 @@ fi
 sudo rm -R $HOMEJAILED1/.irssi
 sudo git clone https://github.com/autodl-community/autodl-irssi.git $HOMEJAILED1/.irssi/scripts/
 sudo mkdir -p $HOMEJAILED1/.irssi/scripts/autorun
-sudo git clone https://github.com/autodl-community/autodl-trackers.git $HOMEJAILED1/.irssi/scripts/AutodlIrssi/trackers
+#sudo git clone https://github.com/autodl-community/autodl-trackers.git $HOMEJAILED1/.irssi/scripts/AutodlIrssi/trackers
 #Testing script starts
+sudo wget -qO $HOMEJAILED1/autodl-trackers.zip "$dltrkrs"
+sudo unzip -qo $HOMEJAILED1/autodl-trackers.zip -d $HOMEJAILED1/.irssi/scripts/AutodlIrssi/trackers/
+sudo rm -f $HOMEJAILED1/autodl-{irssi,trackers}.zip $HOMEJAILED1/.irssi/scripts/{README*,CONTRIBUTING.md,autodl-irssi.pl}
 #sudo wget --quiet -O $HOMEJAILED1/.irssi/scripts/autodl-trackers.zip https://github.com/autodl-community/autodl-trackers/archive/master.zip
 #unzip -q -o $HOMEJAILED1/.irssi/scripts/autodl-trackers.zip
 #sudo rm $HOMEJAILED1/.irssi/scripts/autodl-trackers.zip
