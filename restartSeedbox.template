@@ -39,15 +39,17 @@ rm -f $HOME/downloads/.session/rtorrent.lock
 sleep 1
 
 echo "Wiping screen..."
-screen -wipe
+screen -wipe > /dev/null 2>&1
 
-sleep 3
+sleep 1
 echo "Starting rTorrent..."
 screen -d -m -S rtorrent rtorrent
 
-sleep 3
+sleep 2
 echo "Starting IRSSI..."
 screen -d -m -S irssi irssi
+sleep 1
+screen -S irssi -p 0 -X stuff '/autodl update^M'
 
 if [ -f /etc/seedbox-from-scratch/sabnzbd/SABnzbd.py ]; then
   sleep 3
