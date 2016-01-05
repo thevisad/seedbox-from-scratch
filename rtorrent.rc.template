@@ -19,7 +19,7 @@
 ######################################################################
 max_downloads_global = 0
 max_uploads_global = 0
-min_peers = 30 
+min_peers = 1 
 max_peers = 150 
 min_peers_seed = 1 
 max_peers_seed = 150
