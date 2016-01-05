@@ -51,8 +51,8 @@ encryption = allow_incoming,try_outgoing,enable_retry
 #network.max_open_files.set = 191 
 #network.max_open_sockets.set = 1536 
 network.http.max_open.set = 32 
-network.send_buffer.size.set = 4M 
-network.receive_buffer.size.set = 4M
+network.send_buffer.size.set = 1M 
+network.receive_buffer.size.set = 1M
 dht = disable
 peer_exchange = no
 
