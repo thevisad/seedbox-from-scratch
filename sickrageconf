@@ -1,0 +1,8 @@
+setuid <username>
+
+start on runlevel [2345]
+stop on runlevel [016]
+
+respawn
+
+exec /opt/sickrage/SickBeard.py
