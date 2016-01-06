@@ -9,13 +9,16 @@ echo "Installing SiCKRAGETV . . ."
 sudo apt-get -y install python-cheetah python
 sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/SickRage
 sudo chown $(whoami):$(whoami) -R /opt/SickRage
-#systemd or upstart
+
 if [ "$OSV1" = "15.04" ] || [ "$OSV1" = "15.10" ] || [ "$OSV11" = "8" ]; then
   sudo perl -pi -e "s/<username>/$(whoami)/g" /etc/seedbox-from-scratch/sickrageservice
   mv /etc/seedbox-from-scratch/sickrageservice /etc/systemd/system/sickrage.service
   sudo systemctl enable sickrage.service
   sudo service sickrage start
 else
+  #sudo perl -pi -e "s/<username>/$(whoami)/g" /etc/seedbox-from-scratch/sickrageconf
+  #mv /etc/seedbox-from-scratch/sickrageconf /etc/init/sickrage.conf
+  #sudo apt-get install upstart	
   sudo wget http://cheapseedboxes.com/sickrage -P /etc/init.d/
   sudo chmod +x /etc/init.d/sickrage
   sudo wget http://cheapseedboxes.com/csickrage -P /etc/default/
@@ -28,4 +31,3 @@ echo ""
 echo "SiCKRAGETV Installed"
 echo "Access - http://$IPADDRESS1:8081 and setup username & password"
 echo ""
-
