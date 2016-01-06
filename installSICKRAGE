@@ -5,7 +5,7 @@ OSV1=$(lsb_release -rs)
 OSV11=$(sed 's/\..*//' /etc/debian_version)
 logfile="/dev/null"
 #Sickrage
-echo "Installing SiCKRAGETV . . ."
+echo "Installing SiCKRAGE . . ."
 sudo apt-get -y install python-cheetah python
 sudo git clone https://github.com/SickRage/SickRage.git /opt/SickRage
 sudo chown $(whoami):$(whoami) -R /opt/SickRage
@@ -28,6 +28,6 @@ else
   sudo service sickrage start
 fi
 echo ""
-echo "SiCKRAGETV Installed"
+echo "SiCKRAGE Installed"
 echo "Access - http://$IPADDRESS1:8081 and setup username & password"
 echo ""
