@@ -1,0 +1,12 @@
+[Unit]
+Description=SickRage Daemon
+
+[Service]
+User=<username>
+Group=<username>
+Type=forking
+GuessMainPID=no
+ExecStart=/usr/bin/python /opt/sickrage/SickBeard.py -q --daemon --nolaunch --datadir=/opt/sickrage
+
+[Install]
+WantedBy=multi-user.target
