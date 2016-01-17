@@ -2,21 +2,23 @@
 
 ## This script to run after install to install latest znc
 MAINUSER1=`cat /etc/seedbox-from-scratch/mainuser.info`
-NU='logname'
-## Work in Progress
-#if [ "$NU" = "$MAINUSER1" ]; then 
-#   sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/startznc 
-#   sudo perl -pi -e "s/USERNAME/$NU/g" $HOMEJAILED1/startznc 
-#   sudo chmod +x $HOMEJAILED1/startznc 
-#   sudo bash $HOMEJAILED1/startznc 
-#fi 
-
-
-wget http://znc.in/releases/znc-latest.tar.gz
-tar -xzvf znc*.*gz
-cd znc-*
-./configure --prefix=$HOME/znc
-make
-make install
-rm -r ~/znc-*
-~/znc/bin/znc --makeconf
+ 
+## Crontab to start ZNC on reboot
+if [ `logname` = "$MAINUSER1" ]; then
+  cd ~
+  sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/startznc
+  sudo perl -pi -e "s/USERNAME/`logname`/g" startznc
+  sudo chmod +x startznc
+  sudo bash startznc
+  wget http://znc.in/releases/znc-latest.tar.gz
+  tar -xzvf znc*.*gz
+  cd znc-*
+  ./configure --prefix=$HOME/znc
+  make
+  make install
+  rm -r ~/znc-*
+  ~/znc/bin/znc --makeconf
+  rm /home/`logname`/startznc
+else
+  echo "Please install ZNC as Main User"
+fi
