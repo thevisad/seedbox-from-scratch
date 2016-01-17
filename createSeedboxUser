@@ -690,13 +690,8 @@ sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxs
 sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/crontabentries
 sudo chmod +x $HOMEJAILED1/crontabentries
 sudo bash $HOMEJAILED1/crontabentries
-## Crontab to start ZNC on reboot
-if [ "$NEWUSER1" = "$MAINUSER1" ]; then
-  sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/startznc
-  sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/startznc
-  sudo chmod +x $HOMEJAILED1/startznc
-  sudo bash $HOMEJAILED1/startznc
-fi
+cp restartSeedbox bin/
+
 ## To be used when xrdp is ready to be released
 #if [ "$NEWUSER1" = "$MAINUSER1" ]; then
 #  sudo mv /etc/seedbox-from-scratch/RDPconfig.sh $HOMEJAILED1/RDPconfig.sh
@@ -713,7 +708,7 @@ make && make install DESTDIR=~
 cd && rm -rf unrar{,.tar.gz}
 sudo chown $NEWUSER1: -R $HOMEJAILED1/bin
 sudo rm $HOMEJAILED1/crontabentries
-sudo rm $HOMEJAILED1/startznc
+
 sudo service webmin restart
 set +x verbose
 clear
