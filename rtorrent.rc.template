@@ -60,6 +60,8 @@ check_hash = no
 pieces.preload.type.set = 1
 max_memory_usage = 3500M
 
+system.file_allocate.set = yes
+
 # The following line initialises rutorrent plugins without needing to open the web interface
 execute = {sh,-c,/usr/bin/php /var/www/rutorrent/php/initplugins.php <username> &}
 
