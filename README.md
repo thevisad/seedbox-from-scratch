@@ -63,7 +63,7 @@ DO NOT upgrade anything in your box, ask in the thread before even thinking abou
 DO NOT try to reconfigure packages using other tutorials.
 
 ## How to install
-That is the question you must ask yourself. <b>:(<b>
+That is the question you must ask yourself. <b>:(</b>
 
 ####You must be logged in as root to run this installation or use sudo on it.
 
