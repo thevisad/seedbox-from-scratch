@@ -30,6 +30,8 @@ This script has the following features
 * sabnzbd (http://sabnzbd.org)
 * Rapidleech (http://www.rapidleech.com)
 * SiCKRAGE
+* Subsonic
+* ZNC
 * PLEX
 * Loadavg - Access via http://SERVER-IP/loadavg
 
@@ -76,6 +78,8 @@ After installing you will have access to the following commands to be used direc
 * installWebmin
 * installSICKRAGE
 * installPLEX
+* installSUBSONIC
+* installZNC
 * speedTEST >>> To do commandline speedtest
 * updategitRepository
 * removeWebmin
