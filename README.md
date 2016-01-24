@@ -69,19 +69,19 @@ That is the question you must ask yourself. <b>:(</b>
 After installing you will have access to the following commands to be used directly in terminal
 * createSeedboxUser
 * deleteSeedboxUser
-* changeUserPassword  [ changeUserPassword USERNAME NEWPASSWORD rutorrent ]
+* changeUserPassword  >>> [ changeUserPassword USERNAME NEWPASSWORD rutorrent ]
 * installRapidleech
 * installOpenVPN
 * installSABnzbd
 * installWebmin
 * installSICKRAGE
 * installPLEX
-* speedTEST <-- To do commandline speedtest
+* speedTEST >>> To do commandline speedtest
 * updategitRepository
 * removeWebmin
 * restartSeedbox
 
-* While executing them, if sudo is needed, they will ask for a password.
+<b>While executing them, if sudo is needed, they will ask for a password.</b>
 
 ## Services
 To access services installed on your new server point your browser to the following address:
