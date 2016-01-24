@@ -31,7 +31,7 @@ This script has the following features
 * Rapidleech (http://www.rapidleech.com)
 * SiCKRAGE
 * PLEX
-* Loadavg - Access hXXp://SERVER-IP/loadavg
+* Loadavg - Access via http://SERVER-IP/loadavg
 
 ## Main ruTorrent plugins
 autotools, cpuload, diskspace, erasedata, extratio, extsearch, feeds, filedrop, filemanager, geoip, history, logoff, mediainfo, mediastream, rss, scheduler, screenshots, theme, trafic and unpack
@@ -63,7 +63,7 @@ DO NOT upgrade anything in your box, ask in the thread before even thinking abou
 DO NOT try to reconfigure packages using other tutorials.
 
 ## How to install
-That is the question you must ask yourself. :/
+That is the question you must ask yourself. <b>:(<b>
 
 ####You must be logged in as root to run this installation or use sudo on it.
 
