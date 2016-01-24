@@ -14,9 +14,9 @@ This script has the following features
 
 ## Installed software
 * ruTorrent 3.7 + official plugins
-* rTorrent 0.9.2 or 0.9.3 or 0.9.4(you can choose)
-* Deluge 1.3.5 or 0.9.3 (you can choose, downgrade and upgrade at any time)
-* libTorrrent 0.13.2 or 0.12.9
+* rTorrent 0.9.6 or 0.9.3 or 0.9.4(you can choose)
+* Deluge 1.3.5 
+* libTorrrent 0.13.6 or 0.13.3 or 0.13.4
 * mktorrent
 * Fail2ban - to avoid apache and ssh exploits. Fail2ban bans IPs that show malicious signs -- too many password failures, seeking for exploits, etc.
 * Apache (SSL)
@@ -29,9 +29,10 @@ This script has the following features
 * Webmin (use it to manage your users quota)
 * sabnzbd: http://sabnzbd.org/
 * Rapidleech (http://www.rapidleech.com)
+* SiCKRAGE
 
 ## Main ruTorrent plugins
-autotoolscpuload, diskspace, erasedata, extratio, extsearch, feeds, filedrop, filemanager, geoip, history, logoff, mediainfo, mediastream, rss, scheduler, screenshots, theme, trafic and unpack
+autotools, cpuload, diskspace, erasedata, extratio, extsearch, feeds, filedrop, filemanager, geoip, history, logoff, mediainfo, mediastream, rss, scheduler, screenshots, theme, trafic and unpack
 
 ## Additional ruTorrent plugins
 * Autodl-IRSSI (with an updated list of trackers)
@@ -53,14 +54,14 @@ After that access your box using a SSH client, like PuTTY.
 
 DO NOT install this script on a non OVH Host. It is doable, but you'll have to know Linux to solve some problems.
 
-DO NOT use capital letters, all your usernames should be written in lowercase.
+DO NOT use capital letters, all your usernames/passwords should be written in lowercase without space.
 
 DO NOT upgrade anything in your box, ask in the thread before even thinking about it.
 
 DO NOT try to reconfigure packages using other tutorials.
 
 ## How to install
-That is the question you must ask yourself.
+That is the question you must ask yourself. :/
 
 ####You must be logged in as root to run this installation or use sudo on it.
 
@@ -73,6 +74,8 @@ After installing you will have access to the following commands to be used direc
 * installOpenVPN
 * installSABnzbd
 * installWebmin
+* installSICKRAGE
+* speedTEST
 * updategitRepository
 * removeWebmin
 * restartSeedbox
@@ -98,16 +101,17 @@ https://<Server IP or Server Name>/rutorrent/CLIENT-NAME.zip` and use it in any 
 ```
 
 ## Supported and tested servers
-* Ubuntu Server 12.10.0 - 64bit (on VM environment)
-* Ubuntu Server 12.04.x - 64bit (on VM environment)
-* Ubuntu Server 14.04.x - 32bit (OVH's Kimsufi 2G and 16G - Precise)
-* Ubuntu Server 14.04.x - 64bit (OVH's Kimsufi 2G and 16G - Precise)
+* Ubuntu Server 12.10.0 - 64 bit (on VM environment)
+* Ubuntu Server 12.04.x - 64 bit (on VM environment)
+* Ubuntu Server 14.04.x - 32 bit (OVH's Kimsufi 2G and 16G - Precise)
+* Ubuntu Server 14.04.x - 64 bit (OVH's Kimsufi 2G and 16G - Precise)
 * Ubuntu Server 14.10 - 32 and 64 bit
 * Ubuntu Server 15.04 - 32 and 64 bit
-* Debian 6.0.6 - 32 and 64bit (OVH's Kimsufi 2G - Squeeze)
-* Debian 6.0.6 - 32 and 64bit (on VM environment)
+* Ubuntu Server 15.10 - 32 and 64 bit
+* Debian 6.0.6 - 32 and 64 bit 
+* Debian 6.0.6 - 32 and 64 bit
 * Debian 7.0 - 32 and 64 bit
-* Debian 8.1 - 32 and 64 bit
+* Debian 8.X - 32 and 64 bit
 
 ## Quota
 Quota is disabled by default in your box. To enable and use it, you'll have to open Webmin, using the address you can find in one of the tables box above this. After you sucessfully logged on Webmin, enable it by clicking
@@ -125,7 +129,7 @@ Take a look at seedbox-from-scratch.sh and github commit history, it's all there
 
 ## Support
 
-There is no real support for this script, but nerds are talking a lot about it [here](http://www.torrent-invites.com/showthread.php?t=272859) and you may find solutions for your problems in that thread.
+There is no real support for this script, but nerds are talking a lot about it [HERE](http://www.torrent-invites.com/showthread.php?t=272859) and you may find solutions for your problems in that thread.
 
 
 ## License
