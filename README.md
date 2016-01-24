@@ -52,8 +52,6 @@ After that access your box using a SSH client, like PuTTY.
 
 ## Warnings
 
-####If you don't know Linux ENOUGH:
-
 DO NOT install this script on a non OVH Host. It is doable, but you'll have to know Linux to solve some problems.
 
 DO NOT use capital letters, all your usernames/passwords should be written in lowercase without space.
@@ -65,7 +63,7 @@ DO NOT try to reconfigure packages using other tutorials.
 ## How to install
 That is the question you must ask yourself. <b>:(</b>
 
-####You must be logged in as root to run this installation or use sudo on it.
+## You must be logged in as root to run this installation or use sudo on it.
 
 ## Commands
 After installing you will have access to the following commands to be used directly in terminal
