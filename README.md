@@ -27,9 +27,11 @@ This script has the following features
 * vsftpd (Very Secure FTP Deamon) <-- Working 
 * IRSSI
 * Webmin (use it to manage your users quota)
-* sabnzbd: http://sabnzbd.org/
+* sabnzbd (http://sabnzbd.org)
 * Rapidleech (http://www.rapidleech.com)
 * SiCKRAGE
+* PLEX
+* Loadavg
 
 ## Main ruTorrent plugins
 autotools, cpuload, diskspace, erasedata, extratio, extsearch, feeds, filedrop, filemanager, geoip, history, logoff, mediainfo, mediastream, rss, scheduler, screenshots, theme, trafic and unpack
@@ -75,7 +77,8 @@ After installing you will have access to the following commands to be used direc
 * installSABnzbd
 * installWebmin
 * installSICKRAGE
-* speedTEST
+* installPLEX
+* speedTEST <-- To do commandline speedtest
 * updategitRepository
 * removeWebmin
 * restartSeedbox
@@ -97,7 +100,7 @@ https://<Server IP or Server Name>/private/Downloads
 ####OpenVPN
 To use your VPN you will need a VPN client compatible with [OpenVPN](http://openvpn.net/index.php?option=com_content&id=357), necessary files to configure your connection are in this link in your box:
 ```
-https://<Server IP or Server Name>/rutorrent/CLIENT-NAME.zip` and use it in any OpenVPN client.
+https://<Server IP or Server Name>/rutorrent/CLIENT-NAME.zip and use it in any OpenVPN client.
 ```
 
 ## Supported and tested servers
