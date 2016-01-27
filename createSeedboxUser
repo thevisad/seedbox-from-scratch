@@ -700,6 +700,8 @@ sudo bash $HOMEJAILED1/crontabentries
 ## Aliases
 sudo echo "alias port='sudo netstat -tulpn | grep' " | tee -a $HOMEJAILED1/.profile
 sudo echo "alias ro='screen -dr root' " | tee -a $HOMEJAILED1/.profile
+sudo echo "alias ll='ls -alF' " | tee -a $HOMEJAILED1/.profile
+. $HOMEJAILED1/.profile
 
 sudo mkdir $HOMEJAILED1/bin
 cd $HOMEJAILED1/bin
