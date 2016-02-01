@@ -698,9 +698,9 @@ sudo bash $HOMEJAILED1/crontabentries
 #  sudo chown $NEWUSER1:$NEWUSER1 $HOMEJAILED1/RDPconfig.sh
 #fi
 ## Aliases
-sudo echo "alias port='sudo netstat -tulpn | grep' " | tee -a $HOMEJAILED1/.profile
-sudo echo "alias ro='screen -dr root' " | tee -a $HOMEJAILED1/.profile
-sudo echo "alias ll='ls -alF' " | tee -a $HOMEJAILED1/.profile
+sudo echo "alias port='sudo netstat -tulpn | grep' " | sudo tee -a $HOMEJAILED1/.profile
+sudo echo "alias ro='screen -dr root' " | sudo tee -a $HOMEJAILED1/.profile
+sudo echo "alias ll='ls -alF' " | sudo tee -a $HOMEJAILED1/.profile
 
 
 if [ "$NEWUSER1" = "$MAINUSER1" ]; then
