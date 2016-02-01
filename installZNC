@@ -6,10 +6,12 @@ MAINUSER1=`cat /etc/seedbox-from-scratch/mainuser.info`
 ## Crontab to start ZNC on reboot
 if [ `logname` = "$MAINUSER1" ]; then
   cd ~
+  if [ "$(crontab -l 2> /dev/null | grep -c znc)" == "0" ]; then
   wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/startznc
   perl -pi -e "s/USERNAME/`logname`/g" startznc
   chmod +x startznc
   bash startznc
+  fi
   wget http://znc.in/releases/znc-latest.tar.gz
   tar -xzvf znc*.*gz
   cd znc-*
@@ -17,8 +19,12 @@ if [ `logname` = "$MAINUSER1" ]; then
   make
   make install
   rm -r ~/znc-*
+  echo
+  echo -e "\033[0;32;148mPlease configure ZNC...\033[39m"
+  echo
   ~/znc/bin/znc --makeconf
   rm /home/`logname`/startznc
 else
   echo "Please install ZNC as Main User"
+  echo -e "\033[0;32;148mPlease install ZNC as Main User.\033[39m"
 fi
