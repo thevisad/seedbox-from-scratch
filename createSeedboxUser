@@ -701,7 +701,7 @@ sudo bash $HOMEJAILED1/crontabentries
 sudo echo "alias port='sudo netstat -tulpn | grep' " | tee -a $HOMEJAILED1/.profile
 sudo echo "alias ro='screen -dr root' " | tee -a $HOMEJAILED1/.profile
 sudo echo "alias ll='ls -alF' " | tee -a $HOMEJAILED1/.profile
-. $HOMEJAILED1/.profile
+
 
 ##########################################
 sudo echo "$NEWUSER1 soft nofile 300000" >>/etc/security/limits.conf
@@ -711,13 +711,9 @@ sudo mkdir $HOMEJAILED1/bin
 cd $HOMEJAILED1/bin
 sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/rtcheck
 sudo chmod +x rtcheck
-wget -qO ~/unrar.tar.gz http://www.rarlab.com/rar/unrarsrc-5.3.4.tar.gz
-sudo tar xf ~/unrar.tar.gz && cd ~/unrar
-make && make install DESTDIR=~
-cd && rm -rf unrar{,.tar.gz}
-sudo chown $NEWUSER1: -R $HOMEJAILED1/bin
 sudo rm $HOMEJAILED1/crontabentries
-cp $HOMEJAILED1/restartSeedbox $HOMEJAILED1/bin/
+sudo cp $HOMEJAILED1/restartSeedbox $HOMEJAILED1/bin/
+sudo chown $NEWUSER1: -R $HOMEJAILED1/bin
 
 sudo service webmin restart
 set +x verbose
