@@ -266,7 +266,15 @@ maxretry = 2
 enabled = true
 port    = http,https
 filter  = php-url-fopen
-logpath = /var/www/*/logs/access_log
+logpath = /var/log/apache*/*access.log
+
+[apache-badbots]
+
+enabled  = true
+port     = http,https
+filter   = apache-badbots
+logpath  = /var/log/apache*/*error.log
+maxretry = 2
 
 # A simple PHP-fastcgi jail which works with lighttpd.
 # If you run a lighttpd server, then you probably will
