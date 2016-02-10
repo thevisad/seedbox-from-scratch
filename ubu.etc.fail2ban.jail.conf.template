@@ -221,7 +221,7 @@ action = %(action_)s
 #
 
 [sshd]
-
+enabled = true
 port    = ssh
 logpath = %(sshd_log)s
 
@@ -230,6 +230,7 @@ logpath = %(sshd_log)s
 # This jail corresponds to the standard configuration in Fail2ban.
 # The mail-whois action send a notification e-mail with a whois request
 # in the body.
+enabled = true
 port    = ssh
 logpath = %(sshd_log)s
 
@@ -253,6 +254,7 @@ logpath  = %(auditd_log)s
 
 [apache-auth]
 
+enabled = true
 port     = http,https
 logpath  = %(apache_error_log)s
 
@@ -267,20 +269,20 @@ maxretry = 1
 
 
 [apache-noscript]
-
+enabled = true
 port     = http,https
 logpath  = %(apache_error_log)s
 
 
 [apache-overflows]
-
+enabled = true
 port     = http,https
 logpath  = %(apache_error_log)s
 maxretry = 2
 
 
 [apache-nohome]
-
+enabled = true
 port     = http,https
 logpath  = %(apache_error_log)s
 maxretry = 2
@@ -288,13 +290,14 @@ maxretry = 2
 
 [apache-botsearch]
 
+enabled = true
 port     = http,https
 logpath  = %(apache_error_log)s
 maxretry = 2
 
 
 [apache-fakegooglebot]
-
+enabled = true
 port     = http,https
 logpath  = %(apache_access_log)s
 maxretry = 1
@@ -309,7 +312,7 @@ maxretry = 2
 
 
 [apache-shellshock]
-
+enabled = true
 port    = http,https
 logpath = %(apache_error_log)s
 maxretry = 1
@@ -347,7 +350,7 @@ maxretry = 2
 # of usage in production environments.
 
 [php-url-fopen]
-
+enabled = true
 port    = http,https
 logpath = %(nginx_access_log)s
           %(apache_access_log)s
@@ -431,10 +434,10 @@ logpath  = /var/log/monit
 
 
 [webmin-auth]
-
+enabled = true
 port    = 10000
 logpath = %(syslog_authpriv)s
-backend = %(syslog_backend)s
+
 
 
 [froxlor-auth]
@@ -499,6 +502,7 @@ backend  = %(wuftpd_backend)s
 # logpath = %(syslog_authpriv)s
 # if you want to rely on PAM failed login attempts
 # vsftpd's failregex should match both of those formats
+enabled = true
 port     = ftp,ftp-data,ftps,ftps-data
 logpath  = %(vsftpd_log)s
 
@@ -830,3 +834,4 @@ logpath  = /var/log/mumble-server/mumble-server.log
 # For Mac OS Screen Sharing Service (VNC)
 logpath  = /var/log/system.log
 logencoding = utf-8
+
