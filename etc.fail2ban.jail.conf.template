@@ -241,13 +241,6 @@ filter   = apache-overflows
 logpath  = /var/log/apache*/*error.log
 maxretry = 2
 
-[apache-modsecurity]
-
-enabled  = true
-filter   = apache-modsecurity
-port     = http,https
-logpath  = /var/log/apache*/*error.log
-maxretry = 2
 
 [apache-nohome]
 
