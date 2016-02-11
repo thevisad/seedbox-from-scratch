@@ -48,9 +48,9 @@ network.http.ssl_verify_peer.set=0
 
 use_udp_trackers = yes 
 encryption = allow_incoming,try_outgoing,enable_retry
-#network.max_open_files.set = 191 
+network.max_open_files.set = 2500 
 #network.max_open_sockets.set = 1536 
-network.http.max_open.set = 32 
+network.http.max_open.set = 256 
 network.send_buffer.size.set = 1M 
 network.receive_buffer.size.set = 1M
 dht = disable
