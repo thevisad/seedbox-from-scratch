@@ -703,10 +703,10 @@ sudo echo "alias ro='screen -dr root' " | sudo tee -a $HOMEJAILED1/.profile
 sudo echo "alias ll='ls -alF' " | sudo tee -a $HOMEJAILED1/.profile
 
 
-if [ "$NEWUSER1" = "$MAINUSER1" ]; then
-  sudo echo "$NEWUSER1 soft nofile 300000" >>/etc/security/limits.conf
-  sudo echo "$NEWUSER1 hard nofile 300000" >>/etc/security/limits.conf
-fi
+#if [ "$NEWUSER1" = "$MAINUSER1" ]; then
+#  sudo echo "$NEWUSER1 soft nofile 300000" >>/etc/security/limits.conf
+#  sudo echo "$NEWUSER1 hard nofile 300000" >>/etc/security/limits.conf
+#fi
 sudo mkdir $HOMEJAILED1/bin
 cd $HOMEJAILED1/bin
 sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/rtcheck
