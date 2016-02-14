@@ -36,6 +36,7 @@ kill -9 `ps aux | grep <username> | grep SABnzbd | grep -v grep | awk '{print $2
 sleep 1
 kill -9 `ps aux | grep <username> | grep deluge | grep -v grep | awk '{print $2}' | cut -d. -f 1` &> /dev/null
 rm -f $HOME/downloads/.session/rtorrent.lock
+rm -f $HOME/.config/deluge/ipc/deluge-gtk.lock &> /dev/null
 sleep 1
 
 echo "Wiping screen..."
