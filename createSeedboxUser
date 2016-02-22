@@ -316,6 +316,9 @@ if [ "$CHROOTJAIL1" == "YES" ]; then
   sudo mkdir -p /var/www/rutorrent/share/users/$NEWUSER1/settings
   sudo chmod -R 777 /var/www/rutorrent/share/users/$NEWUSER1
   sudo chmod a-w $HOMEJAILED1
+  chown -R $NEWUSER1:$NEWUSER1 /home/$NEWUSER1
+  chown root:$NEWUSER1 /home/$NEWUSER1
+  chmod 755 /home/$NEWUSER1
 fi
 
 # 3.4
