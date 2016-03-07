@@ -37,6 +37,7 @@ port_random = yes
 
 # Directories
 schedule = watch_directory,5,5,load_start=/home/<username>/downloads/watch/*.torrent
+schedule = tied_directory,5,5,start_tied=
 schedule = untied_directory,5,5,stop_untied= 
 schedule = low_diskspace,5,10,close_low_diskspace=2000M 
 
