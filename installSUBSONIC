@@ -5,11 +5,11 @@ logfile="/dev/null"
 echo "Installing Subsonic . . . . "
 #Subsonic
 sudo apt-get -y install openjdk-7-jre >> $logfile 2>&1
-wget http://subsonic.org/download/subsonic-5.2.1.deb >> $logfile 2>&1
-sudo dpkg -i subsonic-5.2.1.deb >> $logfile 2>&1
+wget http://subsonic.org/download/subsonic-6.0.deb >> $logfile 2>&1
+sudo dpkg -i subsonic-6.0.deb >> $logfile 2>&1
 sudo chmod -R 755 /etc/default/subsonic
 sudo perl -pi -e "s/root/$MAINUSER1/g" /etc/default/subsonic
-rm subsonic-5.2.1.deb
+rm subsonic-6.0.deb
 sudo service subsonic restart
 echo ""
 echo ""
