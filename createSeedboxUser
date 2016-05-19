@@ -701,9 +701,11 @@ sudo bash $HOMEJAILED1/crontabentries
 #  sudo chown $NEWUSER1:$NEWUSER1 $HOMEJAILED1/RDPconfig.sh
 #fi
 ## Aliases
-sudo echo "alias port='sudo netstat -tulpn | grep' " | sudo tee -a $HOMEJAILED1/.profile
-sudo echo "alias ro='screen -dr root' " | sudo tee -a $HOMEJAILED1/.profile
-sudo echo "alias ll='ls -alF' " | sudo tee -a $HOMEJAILED1/.profile
+sudo echo "alias port='sudo netstat -tulpn | grep' " | sudo tee -a $HOMEJAILED1/.bashrc
+sudo echo "alias ro='screen -dr root' " | sudo tee -a $HOMEJAILED1/.bashrc
+sudo echo "alias vcsd5='vcs *.mp4 -U0 -i 5m -c 3 -H 200 -a 300/200 -o ~/movieinfo/save-filename.jpg'      " | sudo tee -a $HOMEJAILED1/.bashrc
+sudo echo "alias vcsd10='vcs *.mp4 -U0 -i 10m -c 3 -H 200 -a 300/200 -o ~/movieinfo/save-filename.jpg'      " | sudo tee -a $HOMEJAILED1/.bashrc
+sudo echo "alias vcsd15='vcs *.mp4 -U0 -i 15m -c 3 -H 200 -a 300/200 -o ~/movieinfo/save-filename.jpg'      " | sudo tee -a $HOMEJAILED1/.bashrc
 
 
 #if [ "$NEWUSER1" = "$MAINUSER1" ]; then
