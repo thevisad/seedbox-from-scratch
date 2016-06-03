@@ -712,10 +712,17 @@ sudo echo "alias vcsd15='vcs *.mp4 -U0 -i 15m -c 3 -H 200 -a 300/200 -o ~/moviei
 #  sudo echo "$NEWUSER1 soft nofile 300000" >>/etc/security/limits.conf
 #  sudo echo "$NEWUSER1 hard nofile 300000" >>/etc/security/limits.conf
 #fi
+#Installing Font for MTN
+cd
+wget http://ftp.us.debian.org/debian/pool/main/f/fonts-liberation/fonts-liberation_1.07.4-1_all.deb && ar x fonts-liberation_1.07.4-1_all.deb && tar xf data.tar.xz
+rm mtn.tar.gz control.tar.gz  data.tar.xz  debian-binary  fonts-liberation_1.07.4-1_all.deb
+
 sudo mkdir $HOMEJAILED1/bin
 cd $HOMEJAILED1/bin
 sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/rtcheck
+sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/mtn.sh
 sudo chmod +x rtcheck
+sudo chmod +x mtn.sh
 sudo rm $HOMEJAILED1/crontabentries
 sudo cp $HOMEJAILED1/restartSeedbox $HOMEJAILED1/bin/
 sudo chown $NEWUSER1: -R $HOMEJAILED1/bin
