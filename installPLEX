@@ -3,22 +3,16 @@ IPADDRESS1=`cat /etc/seedbox-from-scratch/hostname.info`
 logfile="/dev/null"
 OS1=$(lsb_release -si)
 echo "Installing Plex Media Server . . . ."
-if [ "$OS1" = "Debian" ]; then
-  sudo apt-get -y install curl
-  echo "deb http://shell.ninthgate.se/packages/debian squeeze main" | sudo tee -a /etc/apt/sources.list.d/plexmediaserver.list
-  sudo curl http://shell.ninthgate.se/packages/shell-ninthgate-se-keyring.key | sudo apt-key add -
-  sudo apt-get update >> $logfile 2>&1
-  sudo apt-get -y install plexmediaserver >> $logfile 2>&1
-elif [ `getconf LONG_BIT` = "64" ]; then
-  wget -c https://downloads.plex.tv/plex-media-server/0.9.12.11.1406-8403350/plexmediaserver_0.9.12.11.1406-8403350_amd64.deb >> $logfile 2>&1
-  sudo dpkg -i plexmediaserver_0.9.12.11.1406-8403350_amd64.deb >> $logfile 2>&1
+if [ `getconf LONG_BIT` = "64" ]; then
+  wget -c https://downloads.plex.tv/plex-media-server/1.0.2.2413-7caf41d/plexmediaserver_1.0.2.2413-7caf41d_amd64.deb >> $logfile 2>&1
+  sudo dpkg -i plexmediaserver_1.0.2.2413-7caf41d_amd64.deb >> $logfile 2>&1
   sudo apt-get install -f >> $logfile 2>&1
-  rm plexmediaserver_0.9.12.11.1406-8403350_amd64.deb
+  rm plexmediaserver_1.0.2.2413-7caf41d_amd64.deb
 else
-  wget -c https://downloads.plex.tv/plex-media-server/0.9.12.11.1406-8403350/plexmediaserver_0.9.12.11.1406-8403350_i386.deb >> $logfile 2>&1
-  sudo dpkg -i plexmediaserver_0.9.12.11.1406-8403350_i386.deb >> $logfile 2>&1
+  wget -c https://downloads.plex.tv/plex-media-server/1.0.2.2413-7caf41d/plexmediaserver_1.0.2.2413-7caf41d_i386.deb >> $logfile 2>&1
+  sudo dpkg -i plexmediaserver_1.0.2.2413-7caf41d_i386.deb >> $logfile 2>&1
   sudo apt-get install -f >> $logfile 2>&1
-  rm plexmediaserver_0.9.12.11.1406-8403350_i386.deb
+  rm plexmediaserver_1.0.2.2413-7caf41d_i386.deb
 fi
 
 echo ""
