@@ -462,7 +462,11 @@ if [ "$OS1" = "Debian" ]; then
   apt-get --yes install vsftpd
 else
   apt-get --yes install libcap-dev libpam0g-dev libwrap0-dev
+  if [ "uname -m" = "x86_64" ]; then
+  dpkg -i /etc/seedbox-from-scratch/vsftpd_3.0.3-3ubuntu2_amd64.deb
+  else
   dpkg -i /etc/seedbox-from-scratch/vsftpd_2.3.2-3ubuntu5.1_`uname -m`.deb
+  fi  
 fi
 
 perl -pi -e "s/anonymous_enable\=YES/\#anonymous_enable\=YES/g" /etc/vsftpd.conf
