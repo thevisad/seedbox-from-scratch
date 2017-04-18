@@ -247,20 +247,20 @@ PASSWORD2=b
 getString NO  "You need to create an user for your seedbox: " NEWUSER1
 getString YES "Password for user $NEWUSER1: " PASSWORD1
 getString NO  "IP address or hostname of your box: " IPADDRESS1 $IPADDRESS1
-getString NO  "SSH port: " NEWSSHPORT1 21976
+getString NO  "SSH port: " NEWSSHPORT1 22
 getString NO  "vsftp port (usually 21): " NEWFTPPORT1 21201
 getString NO  "OpenVPN port: " OPENVPNPORT1 31195
 #getString NO  "Do you want to have some of your users in a chroot jail? " CHROOTJAIL1 YES
 getString NO  "Install Webmin? " INSTALLWEBMIN1 YES
-getString NO  "Install Fail2ban? " INSTALLFAIL2BAN1 YES
+getString NO  "Install Fail2ban? " INSTALLFAIL2BAN1 NO
 getString NO  "Install OpenVPN? " INSTALLOPENVPN1 YES
-getString NO  "Install SABnzbd? " INSTALLSABNZBD1 YES
+getString NO  "Install SABnzbd? " INSTALLSABNZBD1 NO
 getString NO  "Install Rapidleech? " INSTALLRAPIDLEECH1 YES
 getString NO  "Install Deluge? " INSTALLDELUGE1 YES
-getString NO  "Wich RTorrent version would you like to install, '0.9.2' or '0.9.3'? " RTORRENT1 0.9.2
+getString NO  "Wich RTorrent version would you like to install, '0.8.9', '0.9.2', '0.9.3', '0.9.6'? " RTORRENT1 0.9.6
 
-if [ "$RTORRENT1" != "0.9.3" ] && [ "$RTORRENT1" != "0.9.2" ]; then
-  echo "$RTORRENT1 typed is not 0.9.3 or 0.9.2!"
+if [ "$RTORRENT1" != "0.9.3" ] && [ "$RTORRENT1" != "0.9.2" ]&& [ "$RTORRENT1" != "0.9.6" ]&& [ "$RTORRENT1" != "0.8.9" ]; then
+  echo "$RTORRENT1 typed is not 0.8.9, 0.9.2, 0.9.3 or 0.9.6!"
   exit 1
 fi
 
@@ -317,7 +317,7 @@ apt-get --yes upgrade
 #install all needed packages
 
 apt-get --yes build-dep znc
-apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php5 libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php5 php5-cli php5-dev php5-curl php5-geoip php5-mcrypt php5-gd php5-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake1.9 flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl znc tcpdump
+apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php php-cli php-dev php-curl php-geoip php-mcrypt php-gd php-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl znc tcpdump
 if [ $? -gt 0 ]; then
   set +x verbose
   echo
@@ -348,17 +348,17 @@ apt-get --yes install dnsutils
 
 if [ "$CHROOTJAIL1" = "YES" ]; then
   cd /etc/seedbox-from-scratch
-  tar xvfz jailkit-2.15.tar.gz -C /etc/seedbox-from-scratch/source/
-  cd source/jailkit-2.15
+  tar xvfz jailkit-2.19.tar.gz -C /etc/seedbox-from-scratch/source/
+  cd source/jailkit-2.19
   ./debian/rules binary
   cd ..
-  dpkg -i jailkit_2.15-1_*.deb
+  dpkg -i jailkit_2.19-1_*.deb
 fi
 
 # 8.1 additional packages for Ubuntu
 # this is better to be apart from the others
-apt-get --yes install php5-fpm
-apt-get --yes install php5-xcache
+apt-get --yes install php-fpm
+apt-get --yes install php-xcache
 
 #Check if its Debian an do a sysvinit by upstart replacement:
 
@@ -657,10 +657,6 @@ c_rehash
 
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
   bash /etc/seedbox-from-scratch/installOpenVPN
-fi
-
-if [ "$INSTALLSABNZBD1" = "YES" ]; then
-  bash /etc/seedbox-from-scratch/installSABnzbd
 fi
 
 if [ "$INSTALLRAPIDLEECH1" = "YES" ]; then
