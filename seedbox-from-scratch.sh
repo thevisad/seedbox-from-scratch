@@ -504,7 +504,7 @@ a2ensite default-ssl
 #apt-get --yes install libxmlrpc-core-c3-dev
 
 # 15.
-tar xvfz /etc/seedbox-from-scratch/xmlrpc-c-1.16.42.tgz -C /etc/seedbox-from-scratch/source/
+tar xvfz /etc/seedbox-from-scratch/xmlrpc-c-1.39.12.tgz -C /etc/seedbox-from-scratch/source/
 cd /etc/seedbox-from-scratch/source/
 unzip ../xmlrpc-c-1.31.06.zip
 
@@ -538,8 +538,8 @@ cp /etc/seedbox-from-scratch/favicon.ico /var/www/
 
 # 26.
 cd /tmp
-wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.56_GNU_FromSource.tar.bz2
-tar jxvf MediaInfo_CLI_0.7.56_GNU_FromSource.tar.bz2
+wget https://superb-sea2.dl.sourceforge.net/project/mediainfo/binary/mediainfo/0.7.94/MediaInfo_CLI_0.7.94_GNU_FromSource.tar.bz2
+tar jxvf MediaInfo_CLI_0.7.94_GNU_FromSource.tar.bz2
 cd MediaInfo_CLI_GNU_FromSource/
 sh CLI_Compile.sh
 cd MediaInfo/Project/GNU/CLI
