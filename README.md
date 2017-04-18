@@ -14,14 +14,14 @@ This script has the following features
 
 ## Installed software
 * ruTorrent 3.7 + official plugins
-* rTorrent 0.9.6 or 0.9.3 or 0.9.4(you can choose)
+* rTorrent 0.8.9, 0.9.2, 0.9.3 or 0.9.6
 * Deluge 1.3.5 
 * libTorrrent 0.13.6 or 0.13.3 or 0.13.4
 * mktorrent
 * Fail2ban - to avoid apache and ssh exploits. Fail2ban bans IPs that show malicious signs -- too many password failures, seeking for exploits, etc.
 * Apache (SSL)
 * OpenVPN - Fixed
-* PHP 5 and PHP-FPM (FastCGI to increase performance)
+* OS Specific PHP and PHP-FPM (FastCGI to increase performance)
 * Linux Quota
 * SSH Server (for SSH terminal and sFTP connections)
 * vsftpd (Very Secure FTP Deamon) <-- Working 
