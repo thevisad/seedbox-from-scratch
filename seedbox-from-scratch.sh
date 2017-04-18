@@ -3,12 +3,12 @@
 #
 #
 # The Seedbox From Scratch Script
-#   By Notos ---> https://github.com/Notos/
+#   ---> https://github.com/thevisad/
 #
 #
 ######################################################################
 #
-#  Copyright (c) 2013 Notos (https://github.com/Notos/) 
+#  (https://github.com/thevisad/) 
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: 
 #
@@ -20,15 +20,21 @@
 #
 ######################################################################
 #
-#  git clone -b master https://github.com/Notos/seedbox-from-scratch.git /etc/seedbox-from-scratch
+#  git clone -b master https://github.com/thevisad/seedbox-from-scratch.git /etc/seedbox-from-scratch
 #  sudo git stash; sudo git pull
 #
 #
-  SBFSCURRENTVERSION1=2.1.9
+  SBFSCURRENTVERSION1=2.3.0
   OS1=$(lsb_release -si)
 #
 # Changelog
-#
+#  Version 2.3.0 
+#   April 18 2017 1:57 GMT-5
+#     - RTorrent 0.9.6 support (optionally installed)
+#     - New installRTorrent script: move to RTorrent 0.9.2,0.9.3 or 0.9.6
+#     - Deluge v1.3.5 multi-user installation script (it will install the last stable version): installDeluge
+#     - Optionally install Deluge when you first install your seedbox-from-scratch box
+
 #  Version 2.1.9 (not stable yet)
 #   Dec 26 2012 17:37 GMT-3
 #     - RTorrent 0.9.3 support (optionally installed)
@@ -159,7 +165,7 @@ function getString
     echo "#"
     echo "#"
     echo "# The Seedbox From Scratch Script"
-    echo "#   By Notos ---> https://github.com/Notos/"
+    echo "#   ---> https://github.com/thevisad/"
     echo "# This is the Old scipt"
     echo "#"
     echo "#"
@@ -259,7 +265,7 @@ getString NO  "Install Rapidleech? " INSTALLRAPIDLEECH1 YES
 getString NO  "Install Deluge? " INSTALLDELUGE1 YES
 getString NO  "Wich RTorrent version would you like to install, '0.8.9', '0.9.2', '0.9.3', '0.9.6'? " RTORRENT1 0.9.6
 
-if [ "$RTORRENT1" != "0.9.3" ] && [ "$RTORRENT1" != "0.9.2" ]&& [ "$RTORRENT1" != "0.9.6" ]&& [ "$RTORRENT1" != "0.8.9" ]; then
+if [ "$RTORRENT1" != "0.9.3" ] && [ "$RTORRENT1" != "0.9.2" ] && [ "$RTORRENT1" != "0.9.6" ] && [ "$RTORRENT1" != "0.8.9" ]; then
   echo "$RTORRENT1 typed is not 0.8.9, 0.9.2, 0.9.3 or 0.9.6!"
   exit 1
 fi
@@ -268,7 +274,7 @@ apt-get --yes update
 apt-get --yes install whois sudo makepasswd git
 
 rm -f -r /etc/seedbox-from-scratch
-git clone -b v$SBFSCURRENTVERSION1 https://github.com/Notos/seedbox-from-scratch.git /etc/seedbox-from-scratch
+git clone -b v$SBFSCURRENTVERSION1 https://github.com/thevisad/seedbox-from-scratch.git /etc/seedbox-from-scratch
 mkdir -p cd /etc/seedbox-from-scratch/source
 mkdir -p cd /etc/seedbox-from-scratch/users
 

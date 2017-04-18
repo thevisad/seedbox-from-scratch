@@ -6,7 +6,7 @@
 #
 #
 # The Seedbox From Scratch Script
-#   By Notos ---> https://github.com/Notos/
+#   ---> https://github.com/thevisad/
 #   Updated by dannytis ---> https://github.com/dannyti/ for Download directory, 
 #   Multi user login info via same url , Autodl tracker list , rtorrent check-start scripts & its crontab entries
 ######################################################################
@@ -51,7 +51,7 @@ function getString
     echo "#"
     echo "#"
     echo "# The Seedbox From Scratch Script"
-    echo "#   By Notos ---> https://github.com/Notos/"
+    echo "#   ---> https://github.com/thevisad/"
     echo "#   Updated by dannyti ---> https://github.com/dannyti/"
     echo "#"
     echo "#"
