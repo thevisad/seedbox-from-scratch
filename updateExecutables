@@ -1,4 +1,3 @@
-##################### FIRST LINE
 # ---------------------------
 #!/bin/bash
 # ---------------------------
@@ -7,53 +6,39 @@
 # The Seedbox From Scratch Script
 #   ---> https://github.com/thevisad/
 #
-#
-######################################################################
-#
-#  (https://github.com/thevisad/)
-#
-#  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-#
-#  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-#
-#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-#
-#  --> Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
-#
-######################################################################
-#
 
-sudo chmod +x /etc/seedbox-from-scratch/ovpni
-sudo chmod +x /etc/seedbox-from-scratch/installSICKRAGETV
-sudo chmod +x /etc/seedbox-from-scratch/createSeedboxUser
-sudo chmod +x /etc/seedbox-from-scratch/deleteSeedboxUser
-sudo chmod +x /etc/seedbox-from-scratch/changeUserPassword
-sudo chmod +x /etc/seedbox-from-scratch/installRapidleech
-sudo chmod +x /etc/seedbox-from-scratch/installOpenVPN
-sudo chmod +x /etc/seedbox-from-scratch/installWebmin
-sudo chmod +x /etc/seedbox-from-scratch/updategitRepository
-sudo chmod +x /etc/seedbox-from-scratch/removeWebmin
-sudo chmod +x /etc/seedbox-from-scratch/installRTorrent
-sudo chmod +x /etc/seedbox-from-scratch/installZNC 
-sudo chmod +x /etc/seedbox-from-scratch/restartSeedbox
-sudo chmod +x /etc/seedbox-from-scratch/installSUBSONIC
-sudo chmod +x /etc/seedbox-from-scratch/installSICKRAGE
-sudo chmod +x /etc/seedbox-from-scratch/installPLEX  
-sudo chmod +x /etc/seedbox-from-scratch/speedTEST
-sudo chmod +x /etc/seedbox-from-scratch/downgradeRTorrent
-sudo chmod +x /etc/seedbox-from-scratch/seedbox-from-scratch.sh
-sudo chmod +x /etc/seedbox-from-scratch/updateExecutables
-sudo chmod +x /etc/seedbox-from-scratch/updatejkinit
-sudo chmod +x /etc/seedbox-from-scratch/upgradeRTorrent
-sudo chmod +x /etc/seedbox-from-scratch/installUploader
-sudo chmod +x /etc/seedbox-from-scratch/upgradeSeedbox
-sudo chmod +x /etc/seedbox-from-scratch/installCurl
-sudo chmod +x /etc/seedbox-from-scratch/installDeluge
-sudo chmod +x /etc/seedbox-from-scratch/installDiskspacePlugin
-sudo chmod +x /etc/seedbox-from-scratch/installruTorrentStreamPlugin
-sudo chmod +x /etc/seedbox-from-scratch/installSABnzbd
-sudo chmod +x /etc/seedbox-from-scratch/installVNC
-sudo chmod +x /etc/seedbox-from-scratch/createOpenSSLCACertificate
-sudo chmod +x /etc/seedbox-from-scratch/createOpenSSLServiceCertificate
+
+sudo chmod +x ovpni
+sudo chmod +x installSICKRAGETV
+sudo chmod +x createSeedboxUser
+sudo chmod +x deleteSeedboxUser
+sudo chmod +x changeUserPassword
+sudo chmod +x installRapidleech
+sudo chmod +x installOpenVPN
+sudo chmod +x installWebmin
+sudo chmod +x updategitRepository
+sudo chmod +x removeWebmin
+sudo chmod +x installRTorrent
+sudo chmod +x installZNC 
+sudo chmod +x restartSeedbox
+sudo chmod +x installSUBSONIC
+sudo chmod +x installSICKRAGE
+sudo chmod +x installPLEX  
+sudo chmod +x speedTEST
+sudo chmod +x downgradeRTorrent
+sudo chmod +x seedbox-from-scratch.sh
+sudo chmod +x updateExecutables
+sudo chmod +x updatejkinit
+sudo chmod +x upgradeRTorrent
+sudo chmod +x installUploader
+sudo chmod +x upgradeSeedbox
+sudo chmod +x installCurl
+sudo chmod +x installDeluge
+sudo chmod +x installDiskspacePlugin
+sudo chmod +x installruTorrentStreamPlugin
+sudo chmod +x installSABnzbd
+sudo chmod +x installVNC
+sudo chmod +x createOpenSSLCACertificate
+sudo chmod +x createOpenSSLServiceCertificate
 
 ##################### LAST LINE ###########
