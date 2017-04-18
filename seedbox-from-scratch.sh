@@ -24,14 +24,15 @@
 #  sudo git stash; sudo git pull
 #
 #
-  SBFSCURRENTVERSION1=2.3.0
+  SBFSCURRENTVERSION1=14.06
   OS1=$(lsb_release -si)
 #
 # Changelog
-#  Version 2.3.0 
+#  Version 14.06
 #   April 18 2017 1:57 GMT-5
-#     - RTorrent 0.9.6 support (optionally installed)
-#     - New installRTorrent script: move to RTorrent 0.9.2,0.9.3 or 0.9.6
+#     - RTorrent 0.9.6 support
+#	  - Version bump
+#     - New installRTorrent script: move to RTorrent 0.9.2, 0.9.3 or 0.9.6
 #     - Deluge v1.3.5 multi-user installation script (it will install the last stable version): installDeluge
 #     - Optionally install Deluge when you first install your seedbox-from-scratch box
 
