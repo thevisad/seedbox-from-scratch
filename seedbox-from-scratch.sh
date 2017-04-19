@@ -23,6 +23,7 @@
 #     - Upgrade webmin to 1.831
 #     - Upgrade jailkit to 2.19
 #     - Upgrade autodl-trackers to the latest version
+#     - Upgrade PLEX to the latest version of Plexpass
 #     - Added libtorrent-0.13.6
 #     - Defaulted SABnzbd to off
 #     - Changed default SSH port to 22101
@@ -254,6 +255,8 @@ PASSWORD2=b
 getString NO  "You need to create an user for your seedbox: " NEWUSER1
 getString YES "Password for user $NEWUSER1: " PASSWORD1
 getString NO  "IP address or hostname of your box: " IPADDRESS1 $IPADDRESS1
+getString NO  "ssl pem certificate (make sure it is in the /opt/seedbox-from-scratch/ folder hit enter to use self signed): " SSLCERT NULL
+getString NO  "ssl key file (make sure it is in the /opt/seedbox-from-scratch/ folder hit enter to use self signed): " SSLKEY NULL
 getString NO  "SSH port: " NEWSSHPORT1 22101
 getString NO  "vsftp port (usually 21): " NEWFTPPORT1 21201
 getString NO  "OpenVPN port: " OPENVPNPORT1 31195
@@ -499,15 +502,38 @@ echo "chroot_list_file=/etc/vsftpd.chroot_list" | tee -a /etc/vsftpd.conf >> /de
 mv /etc/apache2/sites-available/default /etc/apache2/sites-available/default.ORI
 rm -f /etc/apache2/sites-available/default
 
-cp /etc/seedbox-from-scratch/etc.apache2.default.template /etc/apache2/sites-available/default
-perl -pi -e "s/http\:\/\/.*\/rutorrent/http\:\/\/$IPADDRESS1\/rutorrent/g" /etc/apache2/sites-available/default
-perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/apache2/sites-available/default
-perl -pi -e "s/<username>/$NEWUSER1/g" /etc/apache2/sites-available/default
+cp /etc/seedbox-from-scratch/etc.apache2.default.template /etc/apache2/sites-available/default.conf
+perl -pi -e "s/http\:\/\/.*\/rutorrent/http\:\/\/$IPADDRESS1\/rutorrent/g" /etc/apache2/sites-available/default.conf
+perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/apache2/sites-available/default.conf
+perl -pi -e "s/<username>/$NEWUSER1/g" /etc/apache2/sites-available/default.conf
 
 echo "ServerName $IPADDRESS1" | tee -a /etc/apache2/apache2.conf > /dev/null
 
+
+# 13.1 SSLCERT
+if [ "$SSLCERT" = "NULL" ]; then
+else
+	cp /opt/seedbox-from-scratch/$SSLCERT /etc/seedbox-from-scratch/ssl/$SSLCERT
+	perl -pi -e "s/cacert.pem/$SSLCERT/g" /etc/apache2/sites-available/default.conf
+fi  
+
+if [ "$SSLKEY" = "NULL" ]; then
+	if [ "$SSLCERT" = "NULL" ]; then
+	else
+		perl -pi -e "s/SSLCertificateKeyFile/#SSLCertificateKeyFile/g" /etc/apache2/sites-available/default.conf
+	fi
+else
+	cp /opt/seedbox-from-scratch/$SSLKEY /etc/seedbox-from-scratch/ssl/$SSLKEY
+	perl -pi -e "s/cakey.pem/$SSLKEY/g" /etc/apache2/sites-available/default.conf
+fi  
+  
 # 14.
-a2ensite default-ssl
+a2ensite default.conf
+a2dissite 000-default.conf
+a2dissite default-ssl.conf
+sudo a2enmod rewrite
+apache service reload
+apache service restart
 
 #14.1
 #ln -s /etc/apache2/mods-available/scgi.load /etc/apache2/mods-enabled/scgi.load

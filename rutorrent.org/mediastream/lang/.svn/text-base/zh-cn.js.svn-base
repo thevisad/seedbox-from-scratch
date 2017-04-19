@@ -1,1 +1,0 @@
-theUILang.mediastream	= 'Video player';

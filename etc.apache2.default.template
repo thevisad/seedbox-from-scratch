@@ -90,8 +90,8 @@
   ServerAdmin webmaster@localhost
   ServerName <servername>
   SSLEngine on
-  SSLCertificateFile /etc/seedbox-from-scratch/ssl/cert.pem
-  SSLCertificateKeyFile /etc/seedbox-from-scratch/ssl/key.pem
+  SSLCertificateFile /etc/seedbox-from-scratch/ssl/cacert.pem
+  SSLCertificateKeyFile /etc/seedbox-from-scratch/ssl/cakey.pem
   DocumentRoot /var/www/
   RewriteEngine On
   RewriteCond %{LA-U:remote_user} !^$
