@@ -32,7 +32,7 @@ This script has the following features
 * SiCKRAGE
 * Subsonic
 * ZNC
-* PLEX
+* Docker Plex (https://github.com/timhaak/docker-plex)
 * Loadavg - Access via http://SERVER-IP/loadavg
 
 ## Main ruTorrent plugins

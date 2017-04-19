@@ -25,6 +25,8 @@ sleep 1
 kill -9 `ps aux | grep <username> | grep deluge | grep -v grep | awk '{print $2}' | cut -d. -f 1` &> /dev/null
 sleep 1
 kill -9 `ps aux | grep <username> | grep rtorrent | grep -v grep | awk '{print $2}' | cut -d. -f 1` &> /dev/null
+sleep 1
+kill -9 `ps aux | grep <username> | grep irssi | grep -v grep | awk '{print $2}' | cut -d. -f 1` &> /dev/null
 rm -f $HOME/downloads/.session/rtorrent.lock
 rm -f $HOME/.config/deluge/ipc/deluge-gtk.lock &> /dev/null
 sleep 1

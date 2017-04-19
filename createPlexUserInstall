@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function getString
+{
+  local USERNAME=$1
+  local PLEXPORT=$2
+  local PLEXUSERNAME=$3
+  local PLEXPASSWORD=$4
+}
+
+getString NO  "Plex User (DEFAULT 32400): " USERNAME $USERNAME
+getString NO  " (DEFAULT 32400): " PLEXPORT $PLEXPORT
+
+#docker run --restart=always -d --name $USERNAME_plex -v /home/$USERNAME:/home/$USERNAME -h media.hngamers.com -e PLEX_USERNAME=$PLEXUSERNAME -e PLEX_PASSWORD=$PLEXPASSWORD -e PLEX_EXTERNALPORT=$PLEXPORT -p $PLEXPORT:$PLEXPORT timhaak/plex
+
