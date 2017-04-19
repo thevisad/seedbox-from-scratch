@@ -1,3 +1,4 @@
+## See Readme.md for License ###
 #!/bin/bash
 echo "This will remove quotaspace plugin and install Diskspace plugin for Single user"
 echo "Remember, this process is not reversible, if you are in doubt, press Ctrl+C"
