@@ -42,5 +42,6 @@ sudo chmod +x /etc/seedbox-from-scratch/installSABnzbd
 sudo chmod +x /etc/seedbox-from-scratch/installVNC
 sudo chmod +x /etc/seedbox-from-scratch/createOpenSSLCACertificate
 sudo chmod +x /etc/seedbox-from-scratch/createOpenSSLServiceCertificate
+sudo chmod +x /etc/seedbox-from-scratch/createPlexUserInstall
 
 ##################### LAST LINE ###########

@@ -40,5 +40,6 @@ sudo chmod +x installSABnzbd
 sudo chmod +x installVNC
 sudo chmod +x createOpenSSLCACertificate
 sudo chmod +x createOpenSSLServiceCertificate
+sudo chmod +x createPlexUserInstall
 
 ##################### LAST LINE ###########
