@@ -6,19 +6,6 @@
 #   ---> https://github.com/thevisad/
 #
 #
-######################################################################
-#
-#  (https://github.com/thevisad/) 
-#
-#  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: 
-#
-#  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. 
-#
-#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-#
-#  --> Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
-#
-######################################################################
 #
 #  git clone -b master https://github.com/thevisad/seedbox-from-scratch.git /etc/seedbox-from-scratch
 #  sudo git stash; sudo git pull
@@ -30,8 +17,30 @@
 # Changelog
 #  Version 14.06
 #   April 18 2017 1:57 GMT-5
+#     - Corrected major issues with script downloading from multiple repositories that simply do not exist, are different from the download repository and other issues.
 #     - RTorrent 0.9.6 support
-#	  - Version bump
+#     - Upgrade SABnxbd to 2.0.0
+#     - Upgrade xmlrpc-c to 1.39.12
+#     - Upgrade webmin to 1.831
+#     - Upgrade jailkit to 2.19
+#     - Upgrade autodl-trackers to the latest version
+#     - Added libtorrent-0.13.6
+#     - Defaulted SABnzbd to off
+#     - Changed default SSH port to 22101
+#     - Defaulted FAIL2BAN to off
+#     - Moved to OS Specific Plowshare install
+#     - Updated VSFTP to version 3.0.3
+#     - Updated MediaInfo CLI to 0.7.94
+#     - Updated Rtorrent logoff to 1.3
+#     - Updated all rutorrent third party plugins to the latest version (filemanager, fileshare, fileupload, mediastream)
+#     - 
+#     - 
+#     - 
+#     - 
+#     - 
+#     - 
+#     - 
+#     - 
 #     - New installRTorrent script: move to RTorrent 0.9.2, 0.9.3 or 0.9.6
 #     - Deluge v1.3.5 multi-user installation script (it will install the last stable version): installDeluge
 #     - Optionally install Deluge when you first install your seedbox-from-scratch box
@@ -254,7 +263,7 @@ PASSWORD2=b
 getString NO  "You need to create an user for your seedbox: " NEWUSER1
 getString YES "Password for user $NEWUSER1: " PASSWORD1
 getString NO  "IP address or hostname of your box: " IPADDRESS1 $IPADDRESS1
-getString NO  "SSH port: " NEWSSHPORT1 22
+getString NO  "SSH port: " NEWSSHPORT1 22101
 getString NO  "vsftp port (usually 21): " NEWFTPPORT1 21201
 getString NO  "OpenVPN port: " OPENVPNPORT1 31195
 #getString NO  "Do you want to have some of your users in a chroot jail? " CHROOTJAIL1 YES
@@ -324,7 +333,7 @@ apt-get --yes upgrade
 #install all needed packages
 
 apt-get --yes build-dep znc
-apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php php-cli php-dev php-curl php-geoip php-mcrypt php-gd php-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl znc tcpdump
+apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php php-cli php-dev php-curl php-geoip php-mcrypt php-gd php-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl znc tcpdump plowshare4
 if [ $? -gt 0 ]; then
   set +x verbose
   echo
@@ -534,10 +543,12 @@ bash /etc/seedbox-from-scratch/installRTorrent $RTORRENT1
 # 22.
 cd /var/www
 rm -f -r rutorrent
-svn checkout http://rutorrent.googlecode.com/svn/trunk/rutorrent
-svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins
-rm -r -f rutorrent/plugins
-mv plugins rutorrent/
+git clone https://github.com/Novik/ruTorrent
+mv ruTorrent rutorrent
+#svn checkout http://rutorrent.googlecode.com/svn/trunk/rutorrent
+#svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins
+#rm -r -f rutorrent/plugins
+#mv plugins rutorrent/
 
 cp /etc/seedbox-from-scratch/action.php.template /var/www/rutorrent/plugins/diskspace/action.php
 
@@ -579,11 +590,11 @@ bash /etc/seedbox-from-scratch/updatejkinit
 # Installing poweroff button on ruTorrent
 
 cd /var/www/rutorrent/plugins/
-wget http://rutorrent-logoff.googlecode.com/files/logoff-1.0.tar.gz
-tar -zxf logoff-1.0.tar.gz
-rm -f logoff-1.0.tar.gz
+wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/rutorrent-logoff/logoff-1.3.tar.gz
+tar -zxf logoff-1.3.tar.gz
+rm -f logoff-1.3.tar.gz
 
-# Installing Filemanager and MediaStream
+# Installing File Manager and MediaStream, File Share and File Upload
 
 rm -f -R /var/www/rutorrent/plugins/filemanager
 rm -f -R /var/www/rutorrent/plugins/fileupload
@@ -591,10 +602,12 @@ rm -f -R /var/www/rutorrent/plugins/mediastream
 rm -f -R /var/www/stream
 
 cd /var/www/rutorrent/plugins/
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/mediastream
+git clone https://github.com/nelu/rutorrent-thirdparty-plugins /tmp/plugins/
+mv /tmp/plugins/* . -R
+#svn co http://svn.rutorrent.org/svn/filemanager/trunk/mediastream
 
-cd /var/www/rutorrent/plugins/
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
+#cd /var/www/rutorrent/plugins/
+#svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
 
 cp /etc/seedbox-from-scratch/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php
 
@@ -606,12 +619,13 @@ chown www-data: /var/www/stream/view.php
 echo "<?php \$streampath = 'http://$IPADDRESS1/stream/view.php'; ?>" | tee /var/www/rutorrent/plugins/mediastream/conf.php > /dev/null
 
 # 32.2 # FILEUPLOAD
-cd /var/www/rutorrent/plugins/
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileupload
-chmod 775 /var/www/rutorrent/plugins/fileupload/scripts/upload
-wget -O /tmp/plowshare.deb http://plowshare.googlecode.com/files/plowshare_1~git20120930-1_all.deb
-dpkg -i /tmp/plowshare.deb
-apt-get --yes -f install
+#Handled with the git clone from above
+#cd /var/www/rutorrent/plugins/
+#svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileupload
+#chmod 775 /var/www/rutorrent/plugins/fileupload/scripts/upload
+#wget -O /tmp/plowshare.deb http://plowshare.googlecode.com/files/plowshare_1~git20120930-1_all.deb
+#dpkg -i /tmp/plowshare.deb
+#apt-get --yes -f install
 
 # 32.2
 chown -R www-data:www-data /var/www/rutorrent
@@ -635,12 +649,12 @@ perl -pi -e "s/\$defaultTheme \= \"\"\;/\$defaultTheme \= \"Oblivion\"\;/g" /var
 ln -s /etc/seedbox-from-scratch/seedboxInfo.php.template /var/www/seedboxInfo.php
 
 # 32.5
-
-cd /var/www/rutorrent/plugins/
-rm -r /var/www/rutorrent/plugins/fileshare
-rm -r /var/www/share
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileshare
-mkdir /var/www/share
+#handled in he git upload from above no need to handle this any longer here, we just need to link the files that are downloaded
+#cd /var/www/rutorrent/plugins/
+#rm -r /var/www/rutorrent/plugins/fileshare
+#rm -r /var/www/share
+#svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileshare
+#mkdir /var/www/share
 ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/share.php
 ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/index.php
 chown -R www-data:www-data /var/www/share
@@ -668,6 +682,10 @@ c_rehash
 
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
   bash /etc/seedbox-from-scratch/installOpenVPN
+fi
+
+if [ "$INSTALLSABNZBD1" = "YES" ]; then
+  bash /etc/seedbox-from-scratch/installSABnzbd
 fi
 
 if [ "$INSTALLRAPIDLEECH1" = "YES" ]; then
