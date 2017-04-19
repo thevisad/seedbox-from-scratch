@@ -1,6 +1,4 @@
 #!/bin/bash
-
-#
 #
 # The Seedbox From Scratch Script
 #   ---> https://github.com/thevisad/
@@ -11,12 +9,13 @@
 #  sudo git stash; sudo git pull
 #
 #
-  SBFSCURRENTVERSION1=14.06
+  SBFSCURRENTVERSION1=16.00
   OS1=$(lsb_release -si)
 #
 # Changelog
-#  Version 14.06
+#  Version 16.00
 #   April 18 2017 1:57 GMT-5
+#     - Version bump to correspond to the supported version of Ubuntu
 #     - Corrected major issues with script downloading from multiple repositories that simply do not exist, are different from the download repository and other issues.
 #     - RTorrent 0.9.6 support
 #     - Upgrade SABnxbd to 2.0.0
@@ -33,14 +32,6 @@
 #     - Updated MediaInfo CLI to 0.7.94
 #     - Updated Rtorrent logoff to 1.3
 #     - Updated all rutorrent third party plugins to the latest version (filemanager, fileshare, fileupload, mediastream)
-#     - 
-#     - 
-#     - 
-#     - 
-#     - 
-#     - 
-#     - 
-#     - 
 #     - New installRTorrent script: move to RTorrent 0.9.2, 0.9.3 or 0.9.6
 #     - Deluge v1.3.5 multi-user installation script (it will install the last stable version): installDeluge
 #     - Optionally install Deluge when you first install your seedbox-from-scratch box
