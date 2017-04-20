@@ -1,6 +1,4 @@
-# ---------------------------
 #!/bin/bash
-# ---------------------------
 #
 #
 # The Seedbox From Scratch Script
@@ -13,6 +11,7 @@ sudo chmod +x changeUserPassword
 sudo chmod +x createOpenSSLCACertificate
 sudo chmod +x createOpenSSLServiceCertificate
 sudo chmod +x createPlexUserInstall
+sudo chmod +x createDelugeUserInstall
 sudo chmod +x createSeedboxUser
 sudo chmod +x createUbooquityUserInstall
 sudo chmod +x deletePexUserDocker

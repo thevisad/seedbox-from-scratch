@@ -1,10 +1,5 @@
 #!/bin/bash
-# Use -gt 1 to consume two arguments per pass in the loop (e.g. each
-# argument has a corresponding value to go with it).
-# Use -gt 0 to consume one or more arguments per pass in the loop (e.g.
-# some arguments don't have a corresponding value to go with it such
-# as in the --default example).
-# note: if this is set to -gt 0 the /etc/hosts part is not recognized ( may be a bug )
+
 if [[ $EUID -ne 0 ]]; then
   echo "This script must be run as root" 1>&2
   exit 1
@@ -37,8 +32,8 @@ case $key in
 esac
 shift # past argument or value
 done
-echo FILE EXTENSION  = "${USERNAME}"
-echo SEARCH PATH     = "${PLEXPORT}"
+echo USERNAME  = "${USERNAME}"
+echo PLEXPORT     = "${PLEXPORT}"
 echo PLEX USERNAME    = "${PLEXUSERNAME}"
 mkdir /home/${USERNAME}/plexconfig
 docker run --restart=always -d --name ${USERNAME}_plex -v /home/${USERNAME}:/home/${USERNAME} -h media.hngamers.com -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/plexconfig:/config -p ${PLEXPORT}:32400 timhaak/plex

@@ -15,16 +15,16 @@ do
 key="$1"
 
 case $key in
-    -u|--user)
+    -u|--username)
     USERNAME="$2"
     shift # past argument
     ;;
-	-p|--port)
+    -p|--port)
     SERVERPORT="$2"
     shift # past argument
     ;;
-	-mm|--maxmemory)
-    MAXMEM="$2"
+	-t|--timezone)
+    TIMEZONE="$2"
     shift # past argument
     ;;
     *)
@@ -34,12 +34,11 @@ esac
 shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
-mkdir /home/${USERNAME}/ubooquity
-mkdir /home/${USERNAME}/ubooquity/comics
-mkdir /home/${USERNAME}/ubooquity/books
-mkdir /home/${USERNAME}/ubooquity/config
-mkdir /home/${USERNAME}/ubooquity/files
-docker run --restart=always -d --name=${USERNAME}_ubooquity -v /home/${USERNAME}/ubooquity/config:/config -v /home/${USERNAME}/ubooquity/books:/books -v /home/${USERNAME}/ubooquity/comics:/comics -v /home/${USERNAME}/ubooquity/files:/files -e MAXMEM=$MAXMEM -p $SERVERPORT:2202 linuxserver/ubooquity -webadmin
+echo SERVERPORT     = "${SERVERPORT}"
+echo TIMEZONE    = "${TIMEZONE}"
+mkdir /home/${USERNAME}/deluge
+mkdir /home/${USERNAME}/deluge/config
+docker run --restart=always -d --name ${USERNAME}_deluge --net=host -h media.hngamers.com  -v /home/${USERNAME}/downloads/manual:/downloads -v home/${USERNAME}/deluge/config:/config -p ${SERVERPORT}:8112 -e ${TIMEZONE} linuxserver/deluge
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
