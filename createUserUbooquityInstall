@@ -15,20 +15,16 @@ do
 key="$1"
 
 case $key in
-    -u|--username)
+    -u|--user)
     USERNAME="$2"
     shift # past argument
     ;;
-    -p|--port)
-    PLEXPORT="$2"
+	-p|--port)
+    SERVERPORT="$2"
     shift # past argument
     ;;
-    -pu|--plexuser)
-    PLEXUSERNAME="$2"
-    shift # past argument
-    ;;
-    -pp|--plexpass)
-    PLEXPASSWORD="$2"
+	-mm|--maxmemory)
+    MAXMEM="$2"
     shift # past argument
     ;;
     *)
@@ -37,11 +33,13 @@ case $key in
 esac
 shift # past argument or value
 done
-echo FILE EXTENSION  = "${USERNAME}"
-echo SEARCH PATH     = "${PLEXPORT}"
-echo PLEX USERNAME    = "${PLEXUSERNAME}"
-mkdir /home/${USERNAME}/plexconfig
-docker run --restart=always -d --name ${USERNAME}_plex -v /home/${USERNAME}:/home/${USERNAME} -h media.hngamers.com -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/plexconfig:/config -p ${PLEXPORT}:32400 timhaak/plex
+echo USERNAME  = "${USERNAME}"
+mkdir /home/${USERNAME}/ubooquity
+mkdir /home/${USERNAME}/ubooquity/comics
+mkdir /home/${USERNAME}/ubooquity/books
+mkdir /home/${USERNAME}/ubooquity/config
+mkdir /home/${USERNAME}/ubooquity/files
+docker run --restart=always -d --name=${USERNAME}_ubooquity -v /home/${USERNAME}/ubooquity/config:/home/${USERNAME}/ubooquity/config -v mkdir /home/${USERNAME}/ubooquity/books:mkdir /home/${USERNAME}/ubooquity/books -v mkdir /home/${USERNAME}/ubooquity/comics:mkdir /home/${USERNAME}/ubooquity/comics -v mkdir /home/${USERNAME}/ubooquity/files -e MAXMEM=$MAXMEM -p $SERVERPORT:2202 linuxserver/ubooquity
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

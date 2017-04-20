@@ -13,7 +13,6 @@ sudo apt-get --yes install python python-geoip python-libtorrent python-notify p
 
 sudo kill -9 `sudo ps aux | grep deluge | grep -v grep | awk '{print $2}' | cut -d. -f 1` &> /dev/null
 sudo rm -r /etc/seedbox-from-scratch/source/deluge
-sudo wget -N --no-check-certificate -O $SCRIPT
 sudo wget -N --no-check-certificate -O /etc/seedbox-from-scratch/source/deluge-$DELUGE_VERSION.tar.gz http://download.deluge-torrent.org/source/deluge-$DELUGE_VERSION.tar.gz
 cd /etc/seedbox-from-scratch/source
 sudo tar xvfz deluge-$DELUGE_VERSION.tar.gz
