@@ -1,9 +1,7 @@
 ## The Seedbox From Scratch Script
-Donate by buying me a Beer : BTC address: 1ACi4NRpfzkCNDaTgwFpCFcHoMMRCCT4wC
-## [Wiki](https://github.com/dannyti/sboxsetup/wiki)    ||    [FAQ](https://github.com/dannyti/sboxsetup/wiki/FAQ)
+Donate by buying me a Beer : paypal address: visad@yahoo.com
+## [Wiki](https://github.com/thevisad/seedbox-from-scratch/wiki)
 ## Current version = 14.06
-
-This script will provide ssl only links, Sorry http :(
 
 This script has the following features
 
@@ -52,18 +50,22 @@ autotools, cpuload, diskspace, erasedata, extratio, extsearch, feeds, filedrop, 
 You need to have a Fresh "blank" server installation.
 After that access your box using a SSH client, like PuTTY.
 
-## Warnings
-
-DO NOT install this script on a non OVH Host. It is doable, but you'll have to know Linux to solve some problems.
-
-DO NOT use capital letters, all your usernames/passwords should be written in lowercase without space.
-
-DO NOT upgrade anything in your box, ask in the thread before even thinking about it.
-
-DO NOT try to reconfigure packages using other tutorials.
-
 ## How to install
-That is the question you must ask yourself. <b>:(</b>
+Download the repository using the following 
+
+cd /opt
+sudo git clone https://github.com/thevisad/seedbox-from-scratch
+cd seedbox-from-scratch
+*All scripts should be executable by default, if there is any issue with them you can run ( sudo chmod +x /opt/seedbox-from-scratch/updateExecutables )
+sudo ./seedbox-from-scratch.sh
+
+## How to update
+
+cd /opt/seedbox-from-scratch
+sudo git reset --hard
+sudo git pull 
+*All scripts should be executable by default, if there is any issue with them you can run ( sudo chmod +x /opt/seedbox-from-scratch/updateInstalledScripts )
+sudo ./updateInstalledScripts
 
 ## You must be logged in as root to run this installation or use sudo on it.
 
@@ -113,6 +115,8 @@ https://<Server IP or Server Name>/rutorrent/CLIENT-NAME.zip and use it in any O
 * Ubuntu Server 14.10 - 32 and 64 bit
 * Ubuntu Server 15.04 - 32 and 64 bit
 * Ubuntu Server 15.10 - 32 and 64 bit
+* Ubuntu Server 16.04 - 32 and 64 bit
+* Ubuntu Server 16.10 - 32 and 64 bit
 * Debian 6.0.6 - 32 and 64 bit 
 * Debian 6.0.6 - 32 and 64 bit
 * Debian 7.0 - 32 and 64 bit
