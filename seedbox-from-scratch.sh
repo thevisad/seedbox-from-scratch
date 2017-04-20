@@ -357,7 +357,7 @@ fi
 apt-get --yes install dnsutils
 
 if [ "$CHROOTJAIL1" = "YES" ]; then
-  cd /etc/seedbox-from-scratch
+  cd /etc/seedbox-from-scratch/installs
   tar xvfz jailkit-2.19.tar.gz -C /etc/seedbox-from-scratch/source/
   cd source/jailkit-2.19
   ./debian/rules binary
@@ -426,7 +426,7 @@ fi
 if [ "$INSTALLFAIL2BAN1" = "YES" ]; then
   apt-get --yes install fail2ban
   cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf.original
-  cp /etc/seedbox-from-scratch/etc.fail2ban.jail.conf.template /etc/fail2ban/jail.conf
+  cp /etc/seedbox-from-scratch/templates/etc.fail2ban.jail.conf.template /etc/fail2ban/jail.conf
   fail2ban-client reload
 fi
 
@@ -475,7 +475,7 @@ else
   if [ "uname -m" = "x86_64" ]; then
   dpkg -i /etc/seedbox-from-scratch/vsftpd_3.0.3-3ubuntu2_amd64.deb
   else
-  dpkg -i /etc/seedbox-from-scratch/vsftpd_2.3.2-3ubuntu5.1_`uname -m`.deb
+  dpkg -i /etc/seedbox-from-scratch/vsftpd_3.0.3-3ubuntu2_`uname -m`.deb
   fi  
 fi
 
@@ -502,7 +502,7 @@ echo "chroot_list_file=/etc/vsftpd.chroot_list" | tee -a /etc/vsftpd.conf >> /de
 mv /etc/apache2/sites-available/default /etc/apache2/sites-available/default.ORI
 rm -f /etc/apache2/sites-available/default
 
-cp /etc/seedbox-from-scratch/etc.apache2.default.template /etc/apache2/sites-available/default.conf
+cp /etc/seedbox-from-scratch/templates/etc.apache2.default.template /etc/apache2/sites-available/default.conf
 perl -pi -e "s/http\:\/\/.*\/rutorrent/http\:\/\/$IPADDRESS1\/rutorrent/g" /etc/apache2/sites-available/default.conf
 perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/apache2/sites-available/default.conf
 perl -pi -e "s/<username>/$NEWUSER1/g" /etc/apache2/sites-available/default.conf
@@ -567,7 +567,7 @@ mv ruTorrent rutorrent
 #rm -r -f rutorrent/plugins
 #mv plugins rutorrent/
 
-cp /etc/seedbox-from-scratch/action.php.template /var/www/rutorrent/plugins/diskspace/action.php
+cp /etc/seedbox-from-scratch/templates/action.php.template /var/www/rutorrent/plugins/diskspace/action.php
 
 groupadd admin
 
@@ -629,7 +629,7 @@ mv /tmp/plugins/* . -R
 #cd /var/www/rutorrent/plugins/
 #svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
 
-cp /etc/seedbox-from-scratch/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php
+cp /etc/seedbox-from-scratch/templates/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php
 
 mkdir -p /var/www/stream/
 ln -s /var/www/rutorrent/plugins/mediastream/view.php /var/www/stream/view.php
@@ -658,7 +658,7 @@ perl -pi -e "s/\\\$this\-\>userdir \= addslash\(\\\$topDirectory\)\;/\\\$this\-\
 perl -pi -e "s/\\\$topDirectory/\\\$homeDirectory/g" /var/www/rutorrent/plugins/filemanager/settings.js.php
 
 #32.4
-unzip /etc/seedbox-from-scratch/rutorrent-oblivion.zip -d /var/www/rutorrent/plugins/
+unzip /etc/seedbox-from-scratch/installs/rutorrent-oblivion.zip -d /var/www/rutorrent/plugins/
 echo "" | tee -a /var/www/rutorrent/css/style.css > /dev/null
 echo "/* for Oblivion */" | tee -a /var/www/rutorrent/css/style.css > /dev/null
 echo ".meter-value-start-color { background-color: #E05400 }" | tee -a /var/www/rutorrent/css/style.css > /dev/null
@@ -666,7 +666,7 @@ echo ".meter-value-end-color { background-color: #8FBC00 }" | tee -a /var/www/ru
 echo "::-webkit-scrollbar {width:12px;height:12px;padding:0px;margin:0px;}" | tee -a /var/www/rutorrent/css/style.css > /dev/null
 perl -pi -e "s/\$defaultTheme \= \"\"\;/\$defaultTheme \= \"Oblivion\"\;/g" /var/www/rutorrent/plugins/theme/conf.php
 
-ln -s /etc/seedbox-from-scratch/seedboxInfo.php.template /var/www/seedboxInfo.php
+ln -s /etc/seedbox-from-scratch/templates/seedboxInfo.php.template /var/www/seedboxInfo.php
 
 # 32.5
 #handled in he git upload from above no need to handle this any longer here, we just need to link the files that are downloaded
@@ -678,7 +678,7 @@ ln -s /etc/seedbox-from-scratch/seedboxInfo.php.template /var/www/seedboxInfo.ph
 ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/share.php
 ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/index.php
 chown -R www-data:www-data /var/www/share
-cp /etc/seedbox-from-scratch/rutorrent.plugins.fileshare.conf.php.template /var/www/rutorrent/plugins/fileshare/conf.php
+cp /etc/seedbox-from-scratch/templates/rutorrent.plugins.fileshare.conf.php.template /var/www/rutorrent/plugins/fileshare/conf.php
 perl -pi -e "s/<servername>/$IPADDRESS1/g" /var/www/rutorrent/plugins/fileshare/conf.php
 
 # 33.

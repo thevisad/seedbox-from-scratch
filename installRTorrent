@@ -39,8 +39,8 @@ if [ "$RTORRENT1" = "0.9.4" ]; then
 fi
 
 if [ ! -d /etc/seedbox-from-scratch/source/rtorrent-$RTORRENT1/ ]; then
-  sudo tar xvfz /etc/seedbox-from-scratch/rtorrent-$RTORRENT1.tar.gz -C /etc/seedbox-from-scratch/source/
-  sudo tar xvfz /etc/seedbox-from-scratch/libtorrent-$LIBTORRENT1.tar.gz -C /etc/seedbox-from-scratch/source/
+  sudo tar xvfz /etc/seedbox-from-scratch/installs/rtorrent-$RTORRENT1.tar.gz -C /etc/seedbox-from-scratch/source/
+  sudo tar xvfz /etc/seedbox-from-scratch/installs/libtorrent-$LIBTORRENT1.tar.gz -C /etc/seedbox-from-scratch/source/
 fi
 
 sudo killall rtorrent

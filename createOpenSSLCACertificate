@@ -21,7 +21,7 @@ mkdir -p /etc/seedbox-from-scratch/ssl/CA/private
 cd /etc/seedbox-from-scratch/ssl/CA
 
 echo '01' > serial  && touch index.txt
-cp /etc/seedbox-from-scratch/root.ca.cacert.conf.template /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
+cp /etc/seedbox-from-scratch/templates/root.ca.cacert.conf.template /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
 perl -pi -e "s/<username>/$RANDOM1/g" /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
 #perl -pi -e "s/<username>/$NEWUSER1/g" /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
 perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf

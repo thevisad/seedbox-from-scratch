@@ -17,7 +17,7 @@ key="$1"
 case $key in
     -u|--username)
     USERNAME="$2"
-    shift # past argument
+    shift # past argument 
     ;;
     -p|--port)
     SERVERPORT="$2"

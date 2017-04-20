@@ -7,7 +7,7 @@
 ## See Readme.md for License ###
 #
 
-cd /etc/seedbox-from-scratch
+cd /etc/seedbox-from-scratch/installs
 sudo apt-get --yes purge sabnzbdplus
 sudo apt-get --yes install python-cheetah
 sudo apt-get --yes install python-pyopenssl

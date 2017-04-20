@@ -356,7 +356,7 @@ sudo perl -pi -e "s/^$SABNZBDHTTPPORT1.*\n$//g" /etc/seedbox-from-scratch/ports.
 sudo bash /etc/seedbox-from-scratch/changeUserPassword $NEWUSER1 $PASSWORD1 rutorrent
 sudo bash /etc/seedbox-from-scratch/changeUserPassword $NEWUSER1 $PASSWORD1 private
 # 19.
-sudo cp /etc/seedbox-from-scratch/rtorrent.rc.template  $HOMEJAILED1/.rtorrent.rc > /dev/null
+sudo cp /etc/seedbox-from-scratch/templates/rtorrent.rc.template  $HOMEJAILED1/.rtorrent.rc > /dev/null
 
 sudo perl -pi -e "s/<username>/$NEWUSER1$ADDHOME1/g" $HOMEJAILED1/.rtorrent.rc
 sudo perl -pi -e "s/5995/$SCGIPORT1/g" $HOMEJAILED1/.rtorrent.rc
@@ -377,15 +377,15 @@ sudo chmod 770 $HOMEJAILED1/log
 # 21.
 
 if [ "$CHROOTJAIL1" == "YES" ]; then
-  sudo cp /etc/seedbox-from-scratch/rtorrent.jailed.conf.template /etc/init/rtorrent.$NEWUSER1.conf
+  sudo cp /etc/seedbox-from-scratch/templates/rtorrent.jailed.conf.template /etc/init/rtorrent.$NEWUSER1.conf
 else
-  sudo cp /etc/seedbox-from-scratch/rtorrent.conf.template /etc/init/rtorrent.$NEWUSER1.conf
+  sudo cp /etc/seedbox-from-scratch/templates/rtorrent.conf.template /etc/init/rtorrent.$NEWUSER1.conf
   sudo perl -pi -e "s/<username>/$NEWUSER1/g" /etc/init/rtorrent.$NEWUSER1.conf
 fi
 sudo perl -pi -e "s/<homedir>/$HOMEJAILED1_ESCAPED/g" /etc/init/rtorrent.$NEWUSER1.conf
 sudo perl -pi -e "s/<username>/$NEWUSER1/g" /etc/init/rtorrent.$NEWUSER1.conf
 sudo perl -pi -e "s/<jaildir>/$JAILDIR1_ESCAPED/g" /etc/init/rtorrent.$NEWUSER1.conf
-sudo cp /etc/seedbox-from-scratch/restartSeedbox.template $HOMEJAILED1/restartSeedbox
+sudo cp /etc/seedbox-from-scratch/templates/restartSeedbox.template $HOMEJAILED1/restartSeedbox
 sudo perl -pi -e "s/<homedir>/$HOMEJAILED1_ESCAPED/g" $HOMEJAILED1/restartSeedbox
 sudo perl -pi -e "s/<username>/$NEWUSER1/g" $HOMEJAILED1/restartSeedbox
 sudo perl -pi -e "s/<https_port>/$SABNZBDHTTPSPORT1/g" $HOMEJAILED1/restartSeedbox
@@ -411,7 +411,7 @@ sudo cp /var/www/rutorrent/conf/plugins.ini   /var/www/rutorrent/conf/users/$NEW
 
 # 24.
 
-sudo cp /etc/seedbox-from-scratch/rutorrent.conf.users.config.php.template /var/www/rutorrent/conf/users/$NEWUSER1/config.php
+sudo cp /etc/seedbox-from-scratch/templates/rutorrent.conf.users.config.php.template /var/www/rutorrent/conf/users/$NEWUSER1/config.php
 
 sudo perl -pi -e "s/5995/$SCGIPORT1/g" /var/www/rutorrent/conf/users/$NEWUSER1/config.php
 sudo perl -pi -e "s/RPC123/$NEWRPC1/g" /var/www/rutorrent/conf/users/$NEWUSER1/config.php
@@ -420,7 +420,7 @@ sudo perl -pi -e "s/<homedir>/$HOMEJAILED1_ESCAPED/g" /var/www/rutorrent/conf/us
 
 # 25.
 
-sudo cp /etc/seedbox-from-scratch/rutorrent.conf.users.plugins.ini.template /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
+sudo cp /etc/seedbox-from-scratch/templates/rutorrent.conf.users.plugins.ini.template /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
 if [ "$CHROOTJAIL1" == "YES" ]; then
   echo "" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
   echo "[fileupload]" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
@@ -491,9 +491,9 @@ if [ "$DELUGEINSTALLED1" == "YES" ]; then
   sleep 5
   sudo kill -9 `sudo ps aux | grep $NEWUSER1 | grep deluge | grep -v grep | awk '{print $2}' | cut -d. -f 1` &> /dev/null
 
-  sudo cp /etc/seedbox-from-scratch/home.user.config.deluge.core.conf.template $HOMEJAILED1/.config/deluge/core.conf
-  sudo cp /etc/seedbox-from-scratch/home.user.config.deluge.web.conf.template $HOMEJAILED1/.config/deluge/web.conf
-  sudo cp /etc/seedbox-from-scratch/home.user.config.deluge.hostlist.conf.1.2.template $HOMEJAILED1/.config/deluge/hostlist.conf.1.2
+  sudo cp /etc/seedbox-from-scratch/templates/home.user.config.deluge.core.conf.template $HOMEJAILED1/.config/deluge/core.conf
+  sudo cp /etc/seedbox-from-scratch/templates/home.user.config.deluge.web.conf.template $HOMEJAILED1/.config/deluge/web.conf
+  sudo cp /etc/seedbox-from-scratch/templates/home.user.config.deluge.hostlist.conf.1.2.template $HOMEJAILED1/.config/deluge/hostlist.conf.1.2
 
   SALT1=$(genPasswd 32)
   SHAPASSWORD1=`python /etc/seedbox-from-scratch/deluge.password.py $PASSWORD1 $SALT1`
@@ -573,14 +573,14 @@ sudo chown -R $NEWUSER1: $HOMEJAILED1/.irssi
 
 # 29.3
 
-sudo cp /etc/seedbox-from-scratch/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template  /var/www/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
+sudo cp /etc/seedbox-from-scratch/templates/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template  /var/www/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
 sudo perl -pi -e "s/<PASSWORD>/$IRSSIPASSWORD1/g"  /var/www/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
 sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g" /var/www/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
 
-sudo cp /etc/seedbox-from-scratch/rutorrent.conf.users.plugins.fileupload.conf.php.template  /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload/config.php > /dev/null
+sudo cp /etc/seedbox-from-scratch/templates/rutorrent.conf.users.plugins.fileupload.conf.php.template  /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload/config.php > /dev/null
 sudo chown -R www-data:www-data /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload/
 
-sudo cp /etc/seedbox-from-scratch/home.user.autodl.autodl.cfg.template  $HOMEJAILED1/.autodl/autodl.cfg
+sudo cp /etc/seedbox-from-scratch/templates/home.user.autodl.autodl.cfg.template  $HOMEJAILED1/.autodl/autodl.cfg
 
 sudo perl -pi -e "s/<PASSWORD>/$IRSSIPASSWORD1/g"  $HOMEJAILED1/.autodl/autodl.cfg
 sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g"  $HOMEJAILED1/.autodl/autodl.cfg

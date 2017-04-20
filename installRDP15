@@ -5,7 +5,7 @@ if [ "$(cat ~/bin/nm)" = "RDP" ]; then
   echo "Work in Progress......   "
   sudo apt-get -y install policykit-1 >> $logfile 2>&1
   sudo apt-get -y install tightvncserver >> $logfile 2>&1
-  sudo dpkg -i /etc/seedbox-from-scratch/xrdp_0.6.1-1_`uname -m`.deb 
+  sudo dpkg -i /etc/seedbox-from-scratch/installs/xrdp_0.6.1-1_`uname -m`.deb 
   sudo apt-get -f -y install
   echo "........"
   echo "............."

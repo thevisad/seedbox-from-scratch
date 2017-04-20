@@ -38,7 +38,7 @@ elif [ "$OSV1" = "15" ]; then
 else
   sudo apt-get -y install tightvncserver >> $logfile 2>&1
   sleep 2
-  sudo dpkg -i /etc/seedbox-from-scratch/xrdp_0.6.1-1_`uname -m`.deb 
+  sudo dpkg -i /etc/seedbox-from-scratch/installs/xrdp_0.6.1-1_`uname -m`.deb 
   sudo apt-get -f -y install
   echo "........"
   echo "............."
@@ -58,6 +58,6 @@ if [ "$OSV1" = "7" ] || [ "$OSV1" = "6" ]; then
   echo "deb http://ftp.debian.org/debian sid main" | sudo tee -a /etc/apt/sources.list.d/sid-main.list
   sudo apt-get update 
   sudo apt-get -y sid install libc6 libc6-dev libc6-dbg 
-  sudo dpkg -i /etc/seedbox-from-scratch/xrdp_0.6.1-1_`uname -m`.deb 
+  sudo dpkg -i /etc/seedbox-from-scratch/installs/xrdp_0.6.1-1_`uname -m`.deb 
   sudo rm /etc/apt/sources.list.d/sid-main.list
 fi
