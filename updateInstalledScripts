@@ -1,3 +1,32 @@
 #!/bin/bash
-sudo rsync -avz --exclude='/.git' /opt/seedbox-from-scratch/ /etc/seedbox-from-scratch/
-sudo /etc/seedbox-from-scratch/updateExecutables
+rsync -avz --exclude='/.git' /opt/seedbox-from-scratch/ /etc/seedbox-from-scratch/
+/etc/seedbox-from-scratch/updateExecutables
+
+for f in /etc/seedbox-from-scratch/users/*.info; do
+	f=${f##*/}
+	cp /opt/seedbox-from-scratch/restartSeedbox.template /home/${f%.info}/restartSeedbox
+	cp /opt/seedbox-from-scratch/restartPlex.template /home/${f%.info}/restartPlex
+	cp /opt/seedbox-from-scratch/restartDeluge.template /home/${f%.info}/restartDeluge
+	cp /opt/seedbox-from-scratch/restartUbooquity.template /home/${f%.info}/restartUbooquity
+	
+	cp /opt/seedbox-from-scratch/startDeluge.template /home/${f%.info}/startDeluge
+	cp /opt/seedbox-from-scratch/startPlex.template /home/${f%.info}/startPlex
+	cp /opt/seedbox-from-scratch/startUbooquity.template /home/${f%.info}/startUbooquity
+	
+	cp /opt/seedbox-from-scratch/stopDeluge.template /home/${f%.info}/stopDeluge
+	cp /opt/seedbox-from-scratch/stopPlex.template /home/${f%.info}/stopPlex
+	cp /opt/seedbox-from-scratch/stopUbooquity.template /home/${f%.info}/stopUbooquity
+	
+	chmod +x /home/${f%.info}/restartSeedbox
+	chmod +x /home/${f%.info}/restartPlex
+	chmod +x /home/${f%.info}/restartDeluge
+	chmod +x /home/${f%.info}/restartUbooquity
+	
+	chmod +x /home/${f%.info}/startDeluge
+	chmod +x /home/${f%.info}/startPlex
+	chmod +x /home/${f%.info}/startUbooquity
+	
+	chmod +x /home/${f%.info}/stopDeluge
+	chmod +x /home/${f%.info}/stopPlex
+	chmod +x /home/${f%.info}/stopUbooquity
+done

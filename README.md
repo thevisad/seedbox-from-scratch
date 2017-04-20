@@ -133,8 +133,6 @@ System => Disk Quotas => /home => <username> => Configure the "Soft kilobyte lim
 
 As soon as you save it, your seedbox will also update the available space to all your users.
 
-## Changelog
-Take a look at seedbox-from-scratch.sh and github commit history, it's all there.
 
 ## Support
 
