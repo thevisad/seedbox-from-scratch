@@ -39,7 +39,7 @@ mkdir /home/${USERNAME}/ubooquity/comics
 mkdir /home/${USERNAME}/ubooquity/books
 mkdir /home/${USERNAME}/ubooquity/config
 mkdir /home/${USERNAME}/ubooquity/files
-docker run --restart=always -d --name=${USERNAME}_ubooquity -v /home/${USERNAME}/ubooquity/config:/home/${USERNAME}/ubooquity/config -v mkdir /home/${USERNAME}/ubooquity/books:mkdir /home/${USERNAME}/ubooquity/books -v mkdir /home/${USERNAME}/ubooquity/comics:mkdir /home/${USERNAME}/ubooquity/comics -v mkdir /home/${USERNAME}/ubooquity/files -e MAXMEM=$MAXMEM -p $SERVERPORT:2202 linuxserver/ubooquity
+docker run --restart=always -d --name=${USERNAME}_ubooquity -v /home/${USERNAME}/ubooquity/config:/home/${USERNAME}/ubooquity/config -v /home/${USERNAME}/ubooquity/books:/home/${USERNAME}/ubooquity/books -v /home/${USERNAME}/ubooquity/comics:/home/${USERNAME}/ubooquity/comics -v /home/${USERNAME}/ubooquity/files:/home/${USERNAME}/ubooquity/files -e MAXMEM=$MAXMEM -p $SERVERPORT:2202 linuxserver/ubooquity
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
