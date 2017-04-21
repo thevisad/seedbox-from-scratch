@@ -19,7 +19,7 @@ case $key in
     shift # past argument
     ;;
     *)
-            # unknown option
+    # unknown option
     ;;
 esac
 shift # past argument or value
@@ -27,8 +27,9 @@ done
 
 CHECK="do while"
 while [[ ! -z $CHECK ]]; do
-	PORT=$(awk -v min=${STARTPORT} -v max=${ENDPORT} 'BEGIN{srand(); print int(min+rand()*(max-min+1))})
-    CHECK=$(sudo netstat -ap | grep $PORT)
+    #PORT=$(( ( RANDOM % $TRUESTARTPORT )  + $PORTDIFF ))
+	PORT=$(awk -v min=${STARTPORT} -v max=${ENDPORT} 'BEGIN{srand(); print int(min+rand()*(max-min+1))}')
+    CHECK=$(sudo netstat -ap | grep ${PORT})
 done
 
 echo $PORT

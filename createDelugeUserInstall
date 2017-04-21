@@ -14,25 +14,31 @@ case $key in
     USERNAME="$2"
     shift # past argument 
     ;;
-    -p|--port)
-    SERVERPORT="$2"
-    shift # past argument
-    ;;
-	-wp|--webport)
-    WEBSERVERPORT="$2"
-    shift # past argument
-    ;;
     *)
             # unknown option
     ;;
 esac
 shift # past argument or value
 done
+
+WEBSERVERPORT=$(/opt/seedbox-from-scratch/getAvailablePort -sp 8113 -ep 8212)
+SERVERPORT=$(/opt/seedbox-from-scratch/getAvailablePort -sp 58847 -ep 58946)
+
 echo USERNAME  = "${USERNAME}"
 echo SERVERPORT     = "${SERVERPORT}"
 echo WEBSERVERPORT     = "${SERVERPORT}"
-mkdir /home/${USERNAME}/deluge
-mkdir /home/${USERNAME}/deluge/config
+
+if [ ! -d "mkdir /home/${USERNAME}/deluge" ]; then
+  mkdir /home/${USERNAME}/deluge
+fi
+if [ ! -d "/home/${USERNAME}/deluge/config" ]; then
+  mkdir /home/${USERNAME}/deluge/config
+fi
+
+echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/deluge.txt
+echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/deluge.txt
+echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.txt
+
 docker run --restart=always -d --name ${USERNAME}_deluge --net=host -h media.hngamers.com  -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/deluge/config:/config -p ${WEBSERVERPORT}:8112 -p ${SERVERPORT}:58846 -v /etc/localtime:/etc/localtime:ro linuxserver/deluge
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
