@@ -22,7 +22,10 @@ case $key in
     ROOTPASSWORD="$2"
     shift # past argument
     ;;
-
+	-rb|--rebuild)
+    REBUILDSERVER="$2"
+    shift # past argument
+    ;;
     *)
             # unknown option
     ;;
@@ -32,6 +35,15 @@ done
 echo USERNAME  = "${USERNAME}"
 echo SERVERPORT     = "${SERVERPORT}"
 mkdir /home/${USERNAME}/mysql
+if [ ! -f /home/${USERNAME}/mysql/my.cnf ]; then
+	cp /etc/seedbox-from-scratch/templates/my.cnf.template /home/${USERNAME}/mysql/my.cnf
+	
+fi
+if [(${REBUILDSERVER} = "YES")]
+	rm -rf /home/${USERNAME}/mysql
+	cp /etc/seedbox-from-scratch/templates/my.cnf.template /home/${USERNAME}/mysql/my.cnf
+fi
+
 docker run --restart=always -d --name ${USERNAME}_mysql --net=host -h media.hngamers.com -v /home/${USERNAME}/mysql:/var/lib/mysql -v /home/${USERNAME}/mysql/my.cnf:/etc/my.cnf -p ${SERVERPORT}:3306 -e MYSQL_ROOT_HOST=172.17.0.1 -e MYSQL_ROOT_PASSWORD=${ROOTPASSWORD} -v /etc/localtime:/etc/localtime:ro mysql/mysql-server
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
