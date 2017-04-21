@@ -45,7 +45,7 @@ echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.txt
 echo "PREPORT: $PREPORT" >> /home/${USERNAME}/private/rutorrent.txt
 echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/rutorrent.txt
 
-docker run --restart=always -d --name ${USERNAME}_rutorrent --net=host -h media.hngamers.com  -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -p ${WEBSERVERPORT}:80 -p ${PREPORT}:5000 -p ${SERVERPORT}:51413 -p ${UDPPORT}:6881 -v /etc/localtime:/etc/localtime:ro linuxserver/rutorrent
+docker run --restart=always -d --name ${USERNAME}_rutorrent -h media.hngamers.com  -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -p ${WEBSERVERPORT}:80 -p ${PREPORT}:5000 -p ${SERVERPORT}:51413 -p ${UDPPORT}:6881 -v /etc/localtime:/etc/localtime:ro linuxserver/rutorrent
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
