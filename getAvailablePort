@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root" 1>&2
+  exit 1
+fi
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -sp|--startport)
+    STARTPORT="$2"
+    shift # past argument
+    ;;
+	-ep|--endport)
+    ENDPORT="$2"
+    shift # past argument
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+CHECK="do while"
+while [[ ! -z $CHECK ]]; do
+    #PORT=$(( ( RANDOM % $TRUESTARTPORT )  + $PORTDIFF ))
+	PORT=$((awk -v min=$STARTPORT -v max=$ENDPORT 'BEGIN{srand(); print int(min+rand()*(max-min+1))}'))
+    CHECK=$(sudo netstat -ap | grep $PORT)
+done
+
+echo $PORT
