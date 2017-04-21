@@ -27,8 +27,7 @@ done
 
 CHECK="do while"
 while [[ ! -z $CHECK ]]; do
-    #PORT=$(( ( RANDOM % $TRUESTARTPORT )  + $PORTDIFF ))
-	PORT=$((awk -v min=$STARTPORT -v max=$ENDPORT 'BEGIN{srand(); print int(min+rand()*(max-min+1))}'))
+	PORT=$(awk -v min=${STARTPORT} -v max=${ENDPORT} 'BEGIN{srand(); print int(min+rand()*(max-min+1))})
     CHECK=$(sudo netstat -ap | grep $PORT)
 done
 

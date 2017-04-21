@@ -532,6 +532,7 @@ a2ensite default.conf
 a2dissite 000-default.conf
 a2dissite default-ssl.conf
 sudo a2enmod rewrite
+#sudo a2dismod userdir
 apache service reload
 apache service restart
 

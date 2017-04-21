@@ -33,7 +33,7 @@ echo SERVERPORT     = "${SERVERPORT}"
 echo WEBSERVERPORT     = "${SERVERPORT}"
 mkdir /home/${USERNAME}/deluge
 mkdir /home/${USERNAME}/deluge/config
-docker run --restart=always -d --name ${USERNAME}_deluge --net=host -h media.hngamers.com  -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/deluge/config:/config -p ${WEBSERVERPORT}:8112 -p ${SERVERPORT}:58846:tcp -p ${SERVERPORT}:58846:udp -v /etc/localtime:/etc/localtime:ro linuxserver/deluge
+docker run --restart=always -d --name ${USERNAME}_deluge --net=host -h media.hngamers.com  -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/deluge/config:/config -p ${WEBSERVERPORT}:8112 -p ${SERVERPORT}:58846 -v /etc/localtime:/etc/localtime:ro linuxserver/deluge
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
