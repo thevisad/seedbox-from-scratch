@@ -13,10 +13,6 @@ This script has been heavily modified from the original, you can upgrade the ori
 * Individual User Https Downloads directory (https://Server-IP/private/Downloads)
 
 ## Installed software
-* ruTorrent 3.7 + official plugins
-* rTorrent 0.8.9, 0.9.2, 0.9.3 or 0.9.6
-* Deluge 1.3.14
-* libTorrrent 0.13.3, 0.13.4 or 0.13.6
 * mktorrent
 * Fail2ban - to avoid apache and ssh exploits. Fail2ban bans IPs that show malicious signs -- too many password failures, seeking for exploits, etc.
 * Apache (SSL)
@@ -28,29 +24,30 @@ This script has been heavily modified from the original, you can upgrade the ori
 * IRSSI
 * Webmin (use it to manage your users quota)
 * sabnzbd (http://sabnzbd.org)
-* Rapidleech (http://www.rapidleech.com)
 * SiCKRAGE
 * Subsonic
 * ZNC
 * Docker Plex (https://github.com/timhaak/docker-plex)
-* Loadavg - Access via http://SERVER-IP/loadavg
+* Docker MySQL https://github.com/linuxserver/docker-mysql
+* Docker Deluge https://github.com/linuxserver/docker-deluge
+* Docker RuTorrent https://github.com/linuxserver/docker-rutorrent
+* Docker Ubooquity https://github.com/linuxserver/docker-ubooquity
 
-## Main ruTorrent plugins
-autotools, cpuload, diskspace, erasedata, extratio, extsearch, feeds, filedrop, filemanager, geoip, history, logoff, mediainfo, mediastream, rss, scheduler, screenshots, theme, trafic and unpack
+Pending Removal
+* ruTorrent 3.7 + official plugins
+* rTorrent 0.8.9, 0.9.2, 0.9.3 or 0.9.6
+* libTorrrent 0.13.3, 0.13.4 or 0.13.6
 
-## Additional ruTorrent plugins
-* Autodl-IRSSI (with an updated list of trackers)
-* A modified version of Diskpace to support quota (by Notos)
-* Filemanager (modified to handle rar, zip, unzip, tar and bzip)
-* Fileupload
-* Fileshare Plugin (http://forums.rutorrent.org/index.php?topic=705.0)
-* MediaStream (to watch your videos right from your seedbox)
-* Logoff
-* Theme: Oblivion & Agent 46
+Pending Additions
+* https://github.com/linuxserver/docker-piwigo
+* Docker Rapidleech 
+* Docker sabnzbd https://github.com/linuxserver/docker-sabnzbd
 
 ## Before installation
 You need to have a Fresh "blank" server installation.
-After that access your box using a SSH client, like PuTTY.
+After that access your box using a SSH client, like PuTTY and then type the following command.
+
+sudo apt-get install -y git
 
 ## How to install
 Download the repository using the following 
@@ -109,20 +106,9 @@ To use your VPN you will need a VPN client compatible with [OpenVPN](http://open
 https://<Server IP or Server Name>/rutorrent/CLIENT-NAME.zip and use it in any OpenVPN client.
 ```
 
-## Supported and tested servers
-* Ubuntu Server 12.10.0 - 64 bit (on VM environment)
-* Ubuntu Server 12.04.x - 64 bit (on VM environment)
-* Ubuntu Server 14.04.x - 32 bit (OVH's Kimsufi 2G and 16G - Precise)
-* Ubuntu Server 14.04.x - 64 bit (OVH's Kimsufi 2G and 16G - Precise)
-* Ubuntu Server 14.10 - 32 and 64 bit
-* Ubuntu Server 15.04 - 32 and 64 bit
-* Ubuntu Server 15.10 - 32 and 64 bit
+## Tested servers (should work on any system support debian commands)
 * Ubuntu Server 16.04 - 32 and 64 bit
 * Ubuntu Server 16.10 - 32 and 64 bit
-* Debian 6.0.6 - 32 and 64 bit 
-* Debian 6.0.6 - 32 and 64 bit
-* Debian 7.0 - 32 and 64 bit
-* Debian 8.X - 32 and 64 bit
 
 ## Quota
 Quota is disabled by default in your box. To enable and use it, you'll have to open Webmin, using the address you can find in one of the tables box above this. After you sucessfully logged on Webmin, enable it by clicking
