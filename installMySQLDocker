@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "Installing ruTorrent ..."
+
+docker pull mysql/mysql-server
+
+echo ""
+echo "ruTorrent is installed"

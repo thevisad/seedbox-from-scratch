@@ -1,11 +1,13 @@
-## The Seedbox From Scratch Script
+## The Seedbox From Scratch Mod 2 Script
 Donate by buying me a Beer : paypal address: visad@yahoo.com
+
 ## [Wiki](https://github.com/thevisad/seedbox-from-scratch/wiki)
-## Current version = 14.06
+## Current version = 16.00
 
-This script has the following features
+This script has been heavily modified from the original, you can upgrade the original to this version with a little effort. A script may be created later to handle the upgrade process
 
-* A multi-user enviroment, you'll have scripts to add and delete users.
+* A true multi-user enviroment
+* 
 * Linux Quota, to control how much space every user can use in your box.
 * Individual User Login Info https://Server-IP/private/SBinfo.txt
 * Individual User Https Downloads directory (https://Server-IP/private/Downloads)
@@ -18,11 +20,11 @@ This script has the following features
 * mktorrent
 * Fail2ban - to avoid apache and ssh exploits. Fail2ban bans IPs that show malicious signs -- too many password failures, seeking for exploits, etc.
 * Apache (SSL)
-* OpenVPN - Fixed
+* OpenVPN 
 * OS Specific PHP and PHP-FPM (FastCGI to increase performance)
 * Linux Quota
 * SSH Server (for SSH terminal and sFTP connections)
-* vsftpd (Very Secure FTP Deamon) <-- Working 
+* vsftpd (Very Secure FTP Deamon)
 * IRSSI
 * Webmin (use it to manage your users quota)
 * sabnzbd (http://sabnzbd.org)

@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Installing Deluge . . . ."
+echo "Installing Deluge ..."
 
 docker pull linuxserver/deluge
 

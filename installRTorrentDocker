@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "Installing ruTorrent ..."
+
+docker pull linuxserver/rutorrent
+
+echo ""
+echo "ruTorrent is installed"

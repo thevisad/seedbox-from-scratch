@@ -22,6 +22,14 @@ case $key in
     WEBSERVERPORT="$2"
     shift # past argument
     ;;
+	-up|--udpport)
+    UDPPORT="$2"
+    shift # past argument
+    ;;
+	-pp|--preport)
+    PREPORT="$2"
+    shift # past argument
+    ;;
     *)
             # unknown option
     ;;
@@ -33,7 +41,7 @@ echo SERVERPORT     = "${SERVERPORT}"
 echo WEBSERVERPORT     = "${SERVERPORT}"
 mkdir /home/${USERNAME}/deluge
 mkdir /home/${USERNAME}/deluge/config
-docker run --restart=always -d --name ${USERNAME}_deluge --net=host -h media.hngamers.com  -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/deluge/config:/config -p ${WEBSERVERPORT}:8112 -p ${SERVERPORT}:58846:tcp -p ${SERVERPORT}:58846:udp -v /etc/localtime:/etc/localtime:ro linuxserver/deluge
+docker run --restart=always -d --name ${USERNAME}_rutorrent --net=host -h media.hngamers.com  -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/deluge/config:/config -p ${WEBSERVERPORT}:80:tcp -p ${SERVERPORT}:5000:tcp -p ${SERVERPORT}:51413:tcp -p ${SERVERPORT}:6881:udp -v /etc/localtime:/etc/localtime:ro linuxserver/rutorrent
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
