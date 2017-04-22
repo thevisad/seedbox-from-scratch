@@ -52,99 +52,100 @@ There is no real support for this script, but nerds are talking a lot about it [
 
 
 
-Changelog
- Version 16.00
+## Changelog
+
+###Version 16.00
   April 18 2017 1:57 GMT-5
-    - Version bump to correspond to the supported version of Ubuntu
-    - Corrected major issues with script downloading from multiple repositories that simply do not exist, are different from the download repository and other issues.
-    - RTorrent 0.9.6 support
-    - Upgrade SABnxbd to 2.0.0
-    - Upgrade xmlrpc-c to 1.39.12
-    - Upgrade webmin to 1.831
-    - Upgrade jailkit to 2.19
-    - Upgrade autodl-trackers to the latest version
-    - Upgrade PLEX to a Docker container version toallow multiple plex users per server
-    - Added libtorrent-0.13.6
-    - Defaulted SABnzbd to off
-    - Changed default SSH port to 22101
-    - Defaulted FAIL2BAN to off
-    - Moved to OS Specific Plowshare install
-    - Updated VSFTP to version 3.0.3
-    - Updated MediaInfo CLI to 0.7.94
-    - Updated Rtorrent logoff to 1.3
-    - Updated all rutorrent third party plugins to the latest version (filemanager, fileshare, fileupload, mediastream)
-    - New installRTorrent script: move to RTorrent 0.9.2, 0.9.3 or 0.9.6
-    - Deluge v1.3.5 multi-user installation script (it will install the last stable version): installDeluge
-    - Optionally install Deluge when you first install your seedbox-from-scratch box
+   - Version bump to correspond to the supported version of Ubuntu
+   - Corrected major issues with script downloading from multiple repositories that simply do not exist, are different from the download repository and other issues.
+   - RTorrent 0.9.6 support
+   - Upgrade SABnxbd to 2.0.0
+   - Upgrade xmlrpc-c to 1.39.12
+   - Upgrade webmin to 1.831
+   - Upgrade jailkit to 2.19
+   - Upgrade autodl-trackers to the latest version
+   - Upgrade PLEX to a Docker container version toallow multiple plex users per server
+   - Added libtorrent-0.13.6
+   - Defaulted SABnzbd to off
+   - Changed default SSH port to 22101
+   - Defaulted FAIL2BAN to off
+   - Moved to OS Specific Plowshare install
+   - Updated VSFTP to version 3.0.3
+   - Updated MediaInfo CLI to 0.7.94
+   - Updated Rtorrent logoff to 1.3
+   - Updated all rutorrent third party plugins to the latest version (filemanager, fileshare, fileupload, mediastream)
+   - New installRTorrent script: move to RTorrent 0.9.2, 0.9.3 or 0.9.6
+   - Deluge v1.3.5 multi-user installation script (it will install the last stable version): installDeluge
+   - Optionally install Deluge when you first install your seedbox-from-scratch box
 
-Version 2.1.9 (not stable yet)
+###Version 2.1.9 (not stable yet)
   Dec 26 2012 17:37 GMT-3
-    - RTorrent 0.9.3 support (optionally installed)
-    - New installRTorrent script: move to RTorrent 0.9.3 or back to 0.9.2 at any time
-    - Deluge v1.3.5 multi-user installation script (it will install the last stable version): installDeluge
-    - Optionally install Deluge when you first install your seedbox-from-scratch box
+   - RTorrent 0.9.3 support (optionally installed)
+   - New installRTorrent script: move to RTorrent 0.9.3 or back to 0.9.2 at any time
+   - Deluge v1.3.5 multi-user installation script (it will install the last stable version): installDeluge
+   - Optionally install Deluge when you first install your seedbox-from-scratch box
 
-Version 2.1.8 (stable)
-    - Bug fix release
+###Version 2.1.8 (stable)
+   - Bug fix release
 
-Version 2.1.4 (stable)
+###Version 2.1.4 (stable)
   Dec 11 2012 2:34 GMT-3
-    - Debian 6 (Squeeze) Compatibile
-    - Check if user root is running the script
-    - vsftpd - FTP access with SSL (AUTH SSL - Explicit)
-    - vsftpd downgraded on Ubuntu to 2.3.2 (oneiric)
-    - iptables tweaked to make OpenVPN work as it should both on Ubuntu and Debian
-    - SABnzbd is now being installed from sources and works better
-    - New script: changeUserPassword <username> <password> <realm> --- example:  changeUserPassword notos 133t rutorrent
-    - restartSeedbox now kill processes even if there are users attached on screens
-    - Installs rar, unrar and zip separately from main installations to prevent script from breaking on bad sources from non-OVH providers
+   - Debian 6 (Squeeze) Compatibile
+   - Check if user root is running the script
+   - vsftpd - FTP access with SSL (AUTH SSL - Explicit)
+   - vsftpd downgraded on Ubuntu to 2.3.2 (oneiric)
+   - iptables tweaked to make OpenVPN work as it should both on Ubuntu and Debian
+   - SABnzbd is now being installed from sources and works better
+   - New script: changeUserPassword <username> <password> <realm> --- example:  changeUserPassword notos 133t rutorrent
+   - restartSeedbox now kill processes even if there are users attached on screens
+   - Installs rar, unrar and zip separately from main installations to prevent script from breaking on bad sources from non-OVH providers
 
-Version 2.1.2 (stable)
+###Version 2.1.2 (stable)
   Nov 16 2012 20:48 GMT-3
-    - new upgradeSeedbox script (to download git files for a new version, it will not really upgrade it, at least for now :)
-    - ruTorrent fileshare Plugin (http://forums.rutorrent.org/index.php?topic=705.0)
-    - rapidleech (http://www.rapidleech.com/ - http://www.rapidleech.com/index.php?showtopic=2226|Go ** tutorial: http://www.seedm8.com/members/knowledgebase/24/Installing-Rapidleech-on-your-Seedbox.html
+   - new upgradeSeedbox script (to download git files for a new version, it will not really upgrade it, at least for now :)
+   - ruTorrent fileshare Plugin (http://forums.rutorrent.org/index.php?topic=705.0)
+   - rapidleech (http://www.rapidleech.com/ - http://www.rapidleech.com/index.php?showtopic=2226|Go ** tutorial: http://www.seedm8.com/members/knowledgebase/24/Installing-Rapidleech-on-your-Seedbox.html
 
-Version 2.1.1 (stable)
+###Version 2.1.1 (stable)
   Nov 12 2012 20:15
-    - OpenVPN was not working as expected (fixed)
-    - OpenVPN port now is configurable (at main install) and you can change it anytime before reinstalling: /etc/seedbox-from-scratch/openvpn.info
+   - OpenVPN was not working as expected (fixed)
+   - OpenVPN port now is configurable (at main install) and you can change it anytime before reinstalling: /etc/seedbox-from-scratch/openvpn.info
 
-Version 2.1.0 (not stable yet)
+###Version 2.1.0 (not stable yet)
   Nov 11 2012 20:15
-    - sabnzbd: http://wiki.sabnzbd.org/install-ubuntu-repo
-    - restartSeedbox script for each user
-    - User info files in /etc/seedbox-from-scratch/users
-    - Info about all users in https://hostname.tld/seedboxInfo.php
-    - Password protected webserver Document Root (/var/www/)
+   - sabnzbd: http://wiki.sabnzbd.org/install-ubuntu-repo
+   - restartSeedbox script for each user
+   - User info files in /etc/seedbox-from-scratch/users
+   - Info about all users in https://hostname.tld/seedboxInfo.php
+   - Password protected webserver Document Root (/var/www/)
 
-Version 2.0.0 (stable)
+###Version 2.0.0 (stable)
   Oct 31 2012 23:59
-    - chroot jail for users, using JailKit (http://olivier.sessink.nl/jailkit/)
-    - Fail2ban for ssh and apache - it bans IPs that show the malicious signs -- too many password failures, seeking for exploits, etc.
-    - OpenVPN (after install you can download your key from http://<IP address or host name of your box>/rutorrent/vpn.zip)
-    - createSeedboxUser script now asks if you want your user jailed, to have SSH access and if it should be added to sudoers
-    - Optionally install packages JailKit, Webmin, Fail2ban and OpenVPN
-    - Choose between RTorrent 0.8.9 and 0.9.2 (and their respective libtorrent libraries)
-    - Upgrade and downgrade RTorrent at any time
-    - Full automated install, now you just have to download script and run it in your box:
+   - chroot jail for users, using JailKit (http://olivier.sessink.nl/jailkit/)
+   - Fail2ban for ssh and apache - it bans IPs that show the malicious signs -- too many password failures, seeking for exploits, etc.
+   - OpenVPN (after install you can download your key from http://<IP address or host name of your box>/rutorrent/vpn.zip)
+   - createSeedboxUser script now asks if you want your user jailed, to have SSH access and if it should be added to sudoers
+   - Optionally install packages JailKit, Webmin, Fail2ban and OpenVPN
+   - Choose between RTorrent 0.8.9 and 0.9.2 (and their respective libtorrent libraries)
+   - Upgrade and downgrade RTorrent at any time
+   - Full automated install, now you just have to download script and run it in your box:
        > wget -N https://raw.github.com/Notos/seedbox-from-scratch/v2.x.x/seedbox-from-scratch.sh
        > time bash ~/seedbox-from-scratch.sh
-    - Due to a recent outage of Webmin site and SourceForge's svn repositories, some packages are now in git and will not be downloaded from those sites
-    - Updated list of trackers in Autodl-irssi
-    - vsftpd FTP Server (working in chroot jail)
-    - New ruTorrent default theme: Oblivion
+   - Due to a recent outage of Webmin site and SourceForge's svn repositories, some packages are now in git and will not be downloaded from those sites
+   - Updated list of trackers in Autodl-irssi
+   - vsftpd FTP Server (working in chroot jail)
+   - New ruTorrent default theme: Oblivion
 
-Version 1.30
+###Version 1.30
   Oct 23 2012 04:54:29
-    - Scripts now accept a full install without having to create variables and do anything else
+   - Scripts now accept a full install without having to create variables and do anything else
 
-Version 1.20
+###Version 1.20
   Oct 19 2012 03:24 (by Notos)
    - Install OpenVPN - (BETA) Still not in the script, just an outside script
      Tested client: http://openvpn.net/index.php?option=com_content&id=357
 
-Version 1.11
+###Version 1.11
   Oct 18 2012 05:13 (by Notos)
    - Added scripts to downgrade and upgrade RTorrent
 
@@ -152,7 +153,7 @@ Version 1.11
      depositfiles, divshare, dl_free_fr, euroshare_eu, extabit, filebox, filemates, filepost, freakshare, go4up, hotfile, mediafire, megashares, mirrorcreator, multiupload, netload_in,
      oron, putlocker, rapidgator, rapidshare, ryushare, sendspace, shareonline_biz, turbobit, uploaded_net, uploadhero, uploading, uptobox, zalaa, zippyshare
 
-Version 1.10
+###Version 1.10
   06/10/2012 14:18 (by Notos)
    - Added Fileupload plugin
 
@@ -160,33 +161,33 @@ Version 1.10
      depositfiles, divshare, dl_free_fr, euroshare_eu, extabit, filebox, filemates, filepost, freakshare, go4up, hotfile, mediafire, megashares, mirrorcreator, multiupload, netload_in,
      oron, putlocker, rapidgator, rapidshare, ryushare, sendspace, shareonline_biz, turbobit, uploaded_net, uploadhero, uploading, uptobox, zalaa, zippyshare
 
-Version 1.00
+###Version 1.00
   30/09/2012 14:18 (by Notos)
    - Changing some file names and depoying version 1.00
 
-Version 0.99b
+###Version 0.99b
   27/09/2012 19:39 (by Notos)
    - Quota for users
    - Download dir inside user home
 
-Version 0.99a
+###Version 0.99a
   27/09/2012 19:39 (by Notos)
    - Quota for users
    - Download dir inside user home
 
-Version 0.92a
+###Version 0.92a
   28/08/2012 19:39 (by Notos)
    - Also working on Debian now
 
-Version 0.91a
+###Version 0.91a
   24/08/2012 19:39 (by Notos)
    - First multi-user version sent to public
 
-Version 0.90a
+###Version 0.90a
   22/08/2012 19:39 (by Notos)
    - Working version for OVH Kimsufi 2G Server - Ubuntu Based
 
-Version 0.89a
+###Version 0.89a
   17/08/2012 19:39 (by Notos)
 
 
