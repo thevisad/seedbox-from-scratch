@@ -53,12 +53,6 @@
     Satisfy any
   </Directory>
 
-  <Directory /var/www/rapidleech/>
-    Order Deny,Allow
-    Allow from all
-    Satisfy any
-  </Directory>
-
   <Directory /var/www/stream/>
     Order Deny,Allow
     Allow from all
@@ -127,12 +121,6 @@
   </Location>
 
   <Directory /var/www/share/>
-    Order Deny,Allow
-    Allow from all
-    Satisfy any
-  </Directory>
-
-  <Directory /var/www/rapidleech/>
     Order Deny,Allow
     Allow from all
     Satisfy any

@@ -22,6 +22,10 @@ case $key in
     PLEXPASSWORD="$2"
     shift # past argument
     ;;
+	-h|--hostname)
+    SYSTEMHOSTNAME="$2"
+    shift # past argument 
+    ;;
     *)
             # unknown option
     ;;
@@ -29,7 +33,7 @@ esac
 shift # past argument or value
 done
 
-PLEXPORT=$(/opt/seedbox-from-scratch/getAvailablePort -sp 32401 -ep 32500)
+PLEXPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 32401 -ep 32500)
 
 echo USERNAME  = "${USERNAME}"
 echo PLEXPORT     = "${PLEXPORT}"
@@ -44,7 +48,7 @@ echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/plex.txt
 echo "PLEXPORT: $PLEXPORT" >> /home/${USERNAME}/private/plex.txt
 echo "PLEXUSERNAME: $PLEXUSERNAME" >> /home/${USERNAME}/private/plex.txt
 
-docker run --restart=always -d --name ${USERNAME}_plex -v /home/${USERNAME}:/home/${USERNAME} -h media.hngamers.com -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/plex/config:/config -p ${PLEXPORT}:32400 timhaak/plex
+docker run --restart=always -d --name ${USERNAME}_plex -v /home/${USERNAME}:/home/${USERNAME} -h ${SYSTEMHOSTNAME} -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/plex/config:/config -p ${PLEXPORT}:32400 timhaak/plex
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

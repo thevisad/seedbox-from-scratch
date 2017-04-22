@@ -23,7 +23,7 @@ sudo chmod +x deleteRTorrentUserDocker
 sudo chmod +x deleteSeedboxUser
 sudo chmod +x deleteUserUbooquityDocker
 sudo chmod +x downgradeRTorrent
-sudo chmod +x getAvailablePort
+sudo chmod +x sfsgetAvailablePort
 sudo chmod +x installCurl
 sudo chmod +x installDelugeDocker
 sudo chmod +x installDiskspacePlugin
