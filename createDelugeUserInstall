@@ -33,7 +33,7 @@ echo USERUID  = "${USERUID}"
 echo USERGID  = "${USERGID}"
 echo USERNAME  = "${USERNAME}"
 echo SERVERPORT     = "${SERVERPORT}"
-echo WEBSERVERPORT     = "${SERVERPORT}"
+echo WEBSERVERPORT     = "${WEBSERVERPORT}"
 
 if [ ! -d "mkdir /home/${USERNAME}/deluge" ]; then
   mkdir /home/${USERNAME}/deluge

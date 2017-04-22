@@ -44,11 +44,11 @@ echo UDPPORT     = "${UDPPORT}"
 if [ ! -d "/home/${USERNAME}/rtorrent/config" ]; then
   mkdir /home/${USERNAME}/rtorrent
   mkdir /home/${USERNAME}/rtorrent/config
-  echo "$(/etc/seedbox-from-scratch/sfsGenerateUserHtpassword -u ${USERNAME})" > /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htpasswd
-  echo "AuthType Basic" > /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
-  echo "AuthName \"rutorrent\"" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
-  echo "AuthUserFile  \"/home/${USERNAME}/rtorrent/config/rutorrent/settings/.htpasswd\"" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
-  echo "require valid-user" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
+   echo "$(/etc/seedbox-from-scratch/sfsGenerateUserHtpassword -u ${USERNAME})" > /home/${USERNAME}/rtorrent/config/.htpasswd
+   echo "AuthType Basic" > /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
+   echo "AuthName \"rutorrent\"" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
+   echo "AuthUserFile  \"/home/${USERNAME}/rtorrent/config/.htpasswd\"" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
+   echo "require valid-user" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
 fi
 
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/rutorrent.txt

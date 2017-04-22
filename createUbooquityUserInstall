@@ -19,10 +19,6 @@ case $key in
     USERNAME="$2"
     shift # past argument
     ;;
-	-p|--port)
-    SERVERPORT="$2"
-    shift # past argument
-    ;;
 	-mm|--maxmemory)
     MAXMEM="$2"
     shift # past argument
@@ -33,16 +29,26 @@ case $key in
 esac
 shift # past argument or value
 done
+
+SERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 2203 -ep 2302)
+
 echo USERNAME  = "${USERNAME}"
+echo SERVERPORT     = "${SERVERPORT}"
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 echo USERUID  = "${USERUID}"
 echo USERGID  = "${USERGID}"
-mkdir /home/${USERNAME}/ubooquity
-mkdir /home/${USERNAME}/ubooquity/comics
-mkdir /home/${USERNAME}/ubooquity/books
-mkdir /home/${USERNAME}/ubooquity/config
-mkdir /home/${USERNAME}/ubooquity/files
+echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/ubooquity.txt
+echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/ubooquity.txt
+
+if [ ! -d "mkdir /home/${USERNAME}/ubooquity" ]; then
+  mkdir /home/${USERNAME}/ubooquity
+  mkdir /home/${USERNAME}/ubooquity/comics
+  mkdir /home/${USERNAME}/ubooquity/books
+  mkdir /home/${USERNAME}/ubooquity/config
+  mkdir /home/${USERNAME}/ubooquity/files 
+fi
+
 docker run --restart=always -d --name=${USERNAME}_ubooquity -v /home/${USERNAME}/ubooquity/config:/config -v /home/${USERNAME}/ubooquity/books:/books -v /home/${USERNAME}/ubooquity/comics:/comics -v /home/${USERNAME}/ubooquity/files:/files -e MAXMEM=${MAXMEM} -e PGID=${USERGID} -e PUID=${USERUID} -p ${SERVERPORT}:2202 linuxserver/ubooquity -webadmin
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
