@@ -27,7 +27,10 @@ done
 
 WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8113 -ep 8212)
 SERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 58847 -ep 58946)
-
+USERUID=$(id -u ${USERNAME})
+USERGID=$(id -g ${USERNAME})
+echo USERUID  = "${USERUID}"
+echo USERGID  = "${USERGID}"
 echo USERNAME  = "${USERNAME}"
 echo SERVERPORT     = "${SERVERPORT}"
 echo WEBSERVERPORT     = "${SERVERPORT}"
@@ -43,7 +46,7 @@ echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/deluge.txt
 echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/deluge.txt
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.txt
 
-docker run --restart=always -d --name ${USERNAME}_deluge -h ${SYSTEMHOSTNAME}  -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/deluge/config:/config -p ${WEBSERVERPORT}:8112 -p ${SERVERPORT}:58846 -v /etc/localtime:/etc/localtime:ro linuxserver/deluge
+docker run --restart=always -d --name ${USERNAME}_deluge -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/deluge/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8112 -p ${SERVERPORT}:58846 -v /etc/localtime:/etc/localtime:ro linuxserver/deluge
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

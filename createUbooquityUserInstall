@@ -34,12 +34,16 @@ esac
 shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
+USERUID=$(id -u ${USERNAME})
+USERGID=$(id -g ${USERNAME})
+echo USERUID  = "${USERUID}"
+echo USERGID  = "${USERGID}"
 mkdir /home/${USERNAME}/ubooquity
 mkdir /home/${USERNAME}/ubooquity/comics
 mkdir /home/${USERNAME}/ubooquity/books
 mkdir /home/${USERNAME}/ubooquity/config
 mkdir /home/${USERNAME}/ubooquity/files
-docker run --restart=always -d --name=${USERNAME}_ubooquity -v /home/${USERNAME}/ubooquity/config:/config -v /home/${USERNAME}/ubooquity/books:/books -v /home/${USERNAME}/ubooquity/comics:/comics -v /home/${USERNAME}/ubooquity/files:/files -e MAXMEM=$MAXMEM -p $SERVERPORT:2202 linuxserver/ubooquity -webadmin
+docker run --restart=always -d --name=${USERNAME}_ubooquity -v /home/${USERNAME}/ubooquity/config:/config -v /home/${USERNAME}/ubooquity/books:/books -v /home/${USERNAME}/ubooquity/comics:/comics -v /home/${USERNAME}/ubooquity/files:/files -e MAXMEM=${MAXMEM} -e PGID=${USERGID} -e PUID=${USERUID} -p ${SERVERPORT}:2202 linuxserver/ubooquity -webadmin
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
