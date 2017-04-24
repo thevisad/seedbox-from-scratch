@@ -22,6 +22,10 @@ case $key in
     SYSTEMHOSTNAME="$2"
     shift # past argument 
     ;;
+	-v|--version)
+    VERSION="$2"
+    shift # past argument 
+    ;;
     *)
             # unknown option
     ;;
@@ -42,15 +46,16 @@ echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/mysql.txt
 echo "ROOTPASSWORD: $ROOTPASSWORD" >> /home/${USERNAME}/private/mysql.txt
 
 if [ ! -d "/home/${USERNAME}/mysql" ]; then
-  mkdir 
+  mkdir /home/${USERNAME}/mysql
 fi
 
 if [ ! -f /home/${USERNAME}/mysql/my.cnf ]; then
 	cp /etc/seedbox-from-scratch/templates/my.cnf.template /home/${USERNAME}/mysql/my.cnf
-	
+	chown ${USERNAME}:${USERNAME} /home/${USERNAME}/mysql/my.cnf
+	chown ${USERNAME}:${USERNAME} /home/${USERNAME}/mysql/ -R
 fi
 
-docker run --restart=always -d --name ${USERNAME}_mysql -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/mysql:/var/lib/mysql -v /home/${USERNAME}/mysql/my.cnf:/etc/my.cnf -e PGID=${USERGID} -e PUID=${USERUID} -p ${SERVERPORT}:3306 -e MYSQL_ROOT_HOST=172.17.0.1 -e MYSQL_ROOT_PASSWORD=${ROOTPASSWORD} -v /etc/localtime:/etc/localtime:ro mysql/mysql-server
+docker run --restart=always -d --name ${USERNAME}_mysql -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/mysql:/var/lib/mysql -v /home/${USERNAME}/mysql/my.cnf:/etc/my.cnf -e PGID=${USERGID} -e PUID=${USERUID} -p ${SERVERPORT}:3306 -e MYSQL_ROOT_HOST=172.17.0.1 -e MYSQL_ROOT_PASSWORD=${ROOTPASSWORD} -v /etc/localtime:/etc/localtime:ro mysql-docker${VERSION}
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

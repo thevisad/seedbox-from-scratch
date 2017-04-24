@@ -1,0 +1,57 @@
+#!/bin/bash
+mkdir /etc/seedbox-from-scratch/dockers/
+mkdir /etc/seedbox-from-scratch/dockers/hnseedbase-docker
+
+cp /etc/seedbox-from-scratch/templates/hnseedbase.entrypoint.sh.template /etc/seedbox-from-scratch/dockers/hnseedbase-docker/entrypoint.sh
+cp /etc/seedbox-from-scratch/templates/hnseedbase.Dockerfile.template /etc/seedbox-from-scratch/dockers/hnseedbase-docker/Dockerfile
+
+cd /etc/seedbox-from-scratch/dockers/hnseedbase-docker/
+docker build -t hnseedbase-docker .
+
+cd /etc/seedbox-from-scratch/dockers/
+
+git clone https://github.com/binhex/arch-deluge.git
+git clone https://github.com/cromigon/ubooquity-docker.git
+git clone https://github.com/linuxserver/docker-rutorrent.git
+git clone https://github.com/mysql/mysql-docker.git
+git clone https://github.com/linuxserver/docker-letsencrypt.git
+git clone https://github.com/timhaak/docker-plex.git
+
+chmod 666 /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.7/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile)" > /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile)" > /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/mysql-docker/5.7/Dockerfile)" > /etc/seedbox-from-scratch/dockers/mysql-docker/5.7/Dockerfile
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile)" > /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile)" > /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile)" > /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile
+chmod 644 /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.7/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile
+
+cd /etc/seedbox-from-scratch/dockers/ubooquity-docker
+docker build -t ubooquity-docker .
+
+cd /etc/seedbox-from-scratch/dockers/docker-rutorrent/
+docker build -t docker-rutorrent .
+
+cd /etc/seedbox-from-scratch/dockers/arch-deluge
+docker build -t arch-deluge .
+
+cd /etc/seedbox-from-scratch/dockers/mysql-docker/5.5
+docker build -t mysql-docker5.5 .
+
+cd /etc/seedbox-from-scratch/dockers/mysql-docker/5.6
+docker build -t mysql-docker5.6 .
+
+cd /etc/seedbox-from-scratch/dockers/mysql-docker/5.7
+docker build -t mysql-docker5.7 .
+
+cd /etc/seedbox-from-scratch/dockers/mysql-docker/8.0
+docker build -t mysql-docker8.0 .
+
+cd /etc/seedbox-from-scratch/dockers/docker-letsencrypt
+docker build -t docker-letsencrypt .
+
+cd /etc/seedbox-from-scratch/dockers/docker-plex
+docker build -t docker-plex .

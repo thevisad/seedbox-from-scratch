@@ -53,7 +53,7 @@ if [ ! -d "mkdir /home/${USERNAME}/ubooquity" ]; then
   mkdir /home/${USERNAME}/ubooquity/files 
 fi
 
-docker run --restart=always -d --name=${USERNAME}_ubooquity -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/ubooquity/config:/config -v /home/${USERNAME}/ubooquity/books:/books -v /home/${USERNAME}/ubooquity/comics:/comics -v /home/${USERNAME}/ubooquity/files:/files -e MAXMEM=${MAXMEM} -e PGID=${USERGID} -e PUID=${USERUID} -p ${SERVERPORT}:2202 cromigon/ubooquity -webadmin
+docker run --restart=always -d --name=${USERNAME}_ubooquity -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/ubooquity/config:/config -v /home/${USERNAME}/ubooquity/books:/books -v /home/${USERNAME}/ubooquity/comics:/comics -v /home/${USERNAME}/ubooquity/files:/files -e MAXMEM=${MAXMEM} -e PGID=${USERGID} -e PUID=${USERUID} -p ${SERVERPORT}:2202 ubooquity-docker -webadmin
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

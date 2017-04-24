@@ -127,10 +127,7 @@ getString NO  "OpenVPN port: " OPENVPNPORT1 31195
 getString NO  "Install Webmin? " INSTALLWEBMIN1 YES
 getString NO  "Install Fail2ban? " INSTALLFAIL2BAN1 NO
 getString NO  "Install OpenVPN? " INSTALLOPENVPN1 YES
-getString NO  "Install SABnzbd? " INSTALLSABNZBD1 NO
-getString NO  "Install Rapidleech? " INSTALLRAPIDLEECH1 YES
-getString NO  "Install Deluge? " INSTALLDELUGE1 YES
-getString NO  "Wich RTorrent version would you like to install, '0.8.9', '0.9.2', '0.9.3', '0.9.6'? " RTORRENT1 0.9.6
+getString NO  "Which version of RTorrent would you like to install? '0.8.9', '0.9.2', '0.9.3', '0.9.6'? " RTORRENT1 0.9.6
 
 if [ "$RTORRENT1" != "0.9.3" ] && [ "$RTORRENT1" != "0.9.2" ] && [ "$RTORRENT1" != "0.9.6" ] && [ "$RTORRENT1" != "0.8.9" ]; then
   echo "$RTORRENT1 typed is not 0.8.9, 0.9.2, 0.9.3 or 0.9.6!"
@@ -374,20 +371,18 @@ echo "ServerName $IPADDRESS1" | tee -a /etc/apache2/apache2.conf > /dev/null
 
 
 # 13.1 SSLCERT
-if [ "$SSLCERT" = "NULL" ]; then
-else
+if [ !"$SSLCERT" = "NULL" ]; then
 	cp /opt/seedbox-from-scratch/$SSLCERT /etc/seedbox-from-scratch/ssl/$SSLCERT
 	perl -pi -e "s/cacert.pem/$SSLCERT/g" /etc/apache2/sites-available/default.conf
 fi  
 
-if [ "$SSLKEY" = "NULL" ]; then
-	if [ "$SSLCERT" = "NULL" ]; then
-	else
-		perl -pi -e "s/SSLCertificateKeyFile/#SSLCertificateKeyFile/g" /etc/apache2/sites-available/default.conf
-	fi
-else
+if [ !"$SSLKEY" = "NULL" ]; then
 	cp /opt/seedbox-from-scratch/$SSLKEY /etc/seedbox-from-scratch/ssl/$SSLKEY
 	perl -pi -e "s/cakey.pem/$SSLKEY/g" /etc/apache2/sites-available/default.conf
+else
+	if [ !"$SSLCERT" = "NULL" ]; then
+		perl -pi -e "s/SSLCertificateKeyFile/#SSLCertificateKeyFile/g" /etc/apache2/sites-available/default.conf
+	fi
 fi  
   
 # 14.
@@ -562,32 +557,24 @@ wget -P /usr/share/ca-certificates/ --no-check-certificate https://certs.godaddy
 update-ca-certificates
 c_rehash
 
-# 96.
+# 37
 
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
   bash /etc/seedbox-from-scratch/installOpenVPN
 fi
 
-if [ "$INSTALLSABNZBD1" = "YES" ]; then
-  bash /etc/seedbox-from-scratch/installSABnzbd
-fi
-
-if [ "$INSTALLRAPIDLEECH1" = "YES" ]; then
-  bash /etc/seedbox-from-scratch/installRapidleech
-fi
-
-if [ "$INSTALLDELUGE1" = "YES" ]; then
-  bash /etc/seedbox-from-scratch/installDeluge
-fi
-
-# 97.
+# 38.
 
 #first user will not be jailed
 #  createSeedboxUser <username> <password> <user jailed?> <ssh access?> <?>
 bash /etc/seedbox-from-scratch/createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YES
 
 
-# 98.
+# 38 Implement HNSeedbox begin the process to build the dockers
+
+bash /etc/seedbox-from-scratch/implementHNSeedbaseDockerImageSettings
+
+# 98: end of script
 
 set +x verbose
 
@@ -597,7 +584,6 @@ echo ""
 echo "<<< The Seedbox From Scratch Script >>>"
 echo ""
 echo ""
-echo ""
 echo "Looks like everything is set."
 echo ""
 echo "Remember that your SSH port is now ======> $NEWSSHPORT1"
@@ -605,10 +591,7 @@ echo ""
 echo "System will reboot now, but don't close this window until you take note of the port number: $NEWSSHPORT1"
 echo ""
 echo ""
-echo ""
-echo ""
-echo ""
-echo ""
+
 echo ""
 
 # 99.
