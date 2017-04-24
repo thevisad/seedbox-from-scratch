@@ -9,26 +9,26 @@
 #
 #
 ## See Readme.md for License ####
-
 CERTPASS1=`cat /etc/seedbox-from-scratch/certpass.info`
-IPADDRESS1=`cat /etc/seedbox-from-scratch/hostname.info`
+#IPADDRESS1=`cat /etc/seedbox-from-scratch/hostname.info`
+IPADDRESS1=`ip route get 8.8.8.8 | tr -s ' ' | cut -d' ' -f7`
 NEWUSER1=`cat /etc/seedbox-from-scratch/mainuser.info`
-RANDOM1=`cat /etc/seedbox-from-scratch/sslca.info`
+#RANDOM1=`cat /etc/seedbox-from-scratch/sslca.info`
 cd /etc/seedbox-from-scratch/
 rm -r /etc/seedbox-from-scratch/ssl/CA
 mkdir -p /etc/seedbox-from-scratch/ssl/CA/newcerts
 mkdir -p /etc/seedbox-from-scratch/ssl/CA/private
 cd /etc/seedbox-from-scratch/ssl/CA
 
-echo '01' > serial  && touch index.txt
+echo '01' > serial  && touch index.txt  && touch index.txt.attr
 cp /etc/seedbox-from-scratch/templates/root.ca.cacert.conf.template /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
-perl -pi -e "s/<username>/$RANDOM1/g" /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
-#perl -pi -e "s/<username>/$NEWUSER1/g" /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
-perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
+#perl -pi -e "s/<username>/${RANDOM1}/g" /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
+perl -pi -e "s/<username>/${NEWUSER1}/g" /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
+perl -pi -e "s/<servername>/${IPADDRESS1}/g" /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
 
-openssl req -new -x509 -extensions v3_ca -keyout private/cakey.pem -passout pass:$CERTPASS1 -out cacert.pem -days 3650 -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
-openssl req -new -nodes -out /etc/seedbox-from-scratch/ssl/CA/req.pem -passout pass:$CERTPASS1 -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
-openssl ca -batch -out /etc/seedbox-from-scratch/ssl/CA/cert.pem -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf -passin pass:$CERTPASS1 -infiles /etc/seedbox-from-scratch/ssl/CA/req.pem
+openssl req -new -x509 -extensions v3_ca -keyout private/cakey.pem -nodes -passout pass:${CERTPASS1} -out cacert.pem -days 3650 -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
+openssl req -new -nodes -out /etc/seedbox-from-scratch/ssl/CA/req.pem -nodes -passout pass:${CERTPASS1} -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
+openssl ca -batch -out /etc/seedbox-from-scratch/ssl/CA/cert.pem -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf -passin pass:${CERTPASS1} -infiles /etc/seedbox-from-scratch/ssl/CA/req.pem
 mv /etc/seedbox-from-scratch/ssl/CA/cert.pem /etc/seedbox-from-scratch/ssl/CA/tmp.pem
 openssl x509 -in /etc/seedbox-from-scratch/ssl/CA/tmp.pem -out /etc/seedbox-from-scratch/ssl/CA/cert.pem
 cat /etc/seedbox-from-scratch/ssl/CA/key.pem /etc/seedbox-from-scratch/ssl/CA/cert.pem > /etc/seedbox-from-scratch/ssl/CA/key-cert.pem

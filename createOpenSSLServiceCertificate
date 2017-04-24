@@ -23,7 +23,7 @@ CERTPASS1=`cat /etc/seedbox-from-scratch/certpass.info`
 
 sudo openssl genrsa 1024 | sudo tee /etc/seedbox-from-scratch/ssl/CA/$SERVICENAME1.key
 sudo openssl req -new -x509 -nodes -sha1 -days 365 -key /etc/seedbox-from-scratch/ssl/CA/$SERVICENAME1.key -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf -batch -subj $SUBJ1 | sudo tee /etc/seedbox-from-scratch/ssl/CA/$SERVICENAME1.cert
-sudo openssl ca -batch -keyfile /etc/seedbox-from-scratch/ssl/CA/private/cakey.pem -passin pass:$CERTPASS1 -subj $SUBJ1 -out /etc/seedbox-from-scratch/ssl/CA/$SERVICENAME1.pem -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf -passin pass:$CERTPASS1 -ss_cert /etc/seedbox-from-scratch/ssl/CA/$SERVICENAME1.cert
+sudo openssl ca -batch -keyfile /etc/seedbox-from-scratch/ssl/CA/private/cakey.pem -subj $SUBJ1 -out /etc/seedbox-from-scratch/ssl/CA/$SERVICENAME1.pem -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf -ss_cert /etc/seedbox-from-scratch/ssl/CA/$SERVICENAME1.cert
 sudo cp /etc/seedbox-from-scratch/ssl/CA/$SERVICENAME1.* /etc/seedbox-from-scratch/ssl/
 sudo chmod 600 /etc/seedbox-from-scratch/ssl/*
 sudo chmod 644 /etc/seedbox-from-scratch/ssl/cert.pem
