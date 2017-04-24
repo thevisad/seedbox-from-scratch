@@ -1,6 +1,8 @@
 ## The Seedbox From Scratch Mod 2 Script
 Donate by buying me a Beer : paypal address: visad@yahoo.com
 
+When IO originalled started playing with this script it was one of the few that actually setup an environment properly. I learned what was needed to 
+
 This script has been heavily modified from the original, you can upgrade the original to this version with a little effort. A script may be created later to handle the upgrade process.
 
 * A true multi-user enviroment built around core technologies on the server and then leveraging docker containers for all user consumed services. 
@@ -19,15 +21,22 @@ This script has been heavily modified from the original, you can upgrade the ori
 
 ## Supported Docker Containers
 * Docker Plex (https://github.com/timhaak/docker-plex)
-* Docker MySQL https://github.com/linuxserver/docker-mysql
+* Docker MySQL https://github.com/linuxserver/docker-mysql (buggy atm)
 * Docker Deluge https://github.com/linuxserver/docker-deluge
-* Docker RuTorrent https://github.com/linuxserver/docker-rutorrent
+* Docker RuTorrent https://github.com/linuxserver/docker-rutorrent (buggy atm)
 * Docker Ubooquity https://github.com/linuxserver/docker-ubooquity
 
 Pending Additions
-* https://github.com/linuxserver/docker-piwigo
+* https://github.com/linuxserver/docker-piwigo https://github.com/linuxserver/docker-photoshow
+* https://github.com/linuxserver/docker-letsencrypt
 * Docker Rapidleech 
-* Docker sabnzbd https://github.com/linuxserver/docker-sabnzbd
+* Docker sabnzbd https://github.com/timhaak/docker-sabnzbd
+* https://github.com/timhaak/docker-sickbeard
+* https://github.com/timhaak/docker-couchpotato
+* https://github.com/timhaak/docker-sickrage
+* https://github.com/timhaak/docker-transmission
+* https://github.com/timhaak/docker-plexpass
+
 
 Pending Removal
 * ruTorrent 3.7 + official plugins
@@ -56,7 +65,9 @@ There is no real support for this script, but nerds are talking a lot about it [
 
 Version 16.00.1 (Internal Revision)
   April 22 2017 12:34 GMT-5
-   - 
+   - Switched to cromigon/ubooquity since linuxserver/ubooquity wouldn't execute properly
+   - Switched to downloading the git and compiling the docker containers rather then using the default image. This allows us to inject the proper user permission functionality into the docker to prevent issues with the user not being properly registered inside of the docker. This is outlined here https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
+   - Removed Rapisleech, Deluge and SABnxbd from the default installs. 
    
 
 Version 16.00
@@ -81,7 +92,6 @@ Version 16.00
    - Updated all rutorrent third party plugins to the latest version (filemanager, fileshare, fileupload, mediastream)
    - New installRTorrent script: move to RTorrent 0.9.2, 0.9.3 or 0.9.6
    - Deluge v1.3.5 multi-user installation script (it will install the last stable version): installDeluge
-   - Optionally install Deluge when you first install your seedbox-from-scratch box
 
 Version 2.1.9 (not stable yet)
   Dec 26 2012 17:37 GMT-3
