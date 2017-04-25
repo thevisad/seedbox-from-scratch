@@ -45,7 +45,7 @@ echo USERGID  = "${USERGID}"
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/ubooquity.txt
 echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/ubooquity.txt
 
-if [ ! -d "mkdir /home/${USERNAME}/ubooquity" ]; then
+if [ ! -d "/home/${USERNAME}/ubooquity" ]; then
   mkdir /home/${USERNAME}/ubooquity
   mkdir /home/${USERNAME}/ubooquity/comics
   mkdir /home/${USERNAME}/ubooquity/books

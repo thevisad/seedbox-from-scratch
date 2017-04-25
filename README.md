@@ -27,7 +27,6 @@ This script has been heavily modified from the original, you can upgrade the ori
 * Docker Ubooquity https://github.com/linuxserver/docker-ubooquity
 
 Pending Additions
-* https://github.com/linuxserver/docker-piwigo https://github.com/linuxserver/docker-photoshow
 * https://github.com/linuxserver/docker-letsencrypt
 * Docker Rapidleech 
 * Docker sabnzbd https://github.com/timhaak/docker-sabnzbd

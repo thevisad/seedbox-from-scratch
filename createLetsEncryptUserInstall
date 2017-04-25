@@ -1,0 +1,85 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root" 1>&2
+  exit 1
+fi
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -u|--username)
+    USERNAME="$2"
+    shift # past argument 
+    ;;
+	-h|--hostname)
+    SYSTEMHOSTNAME="$2"
+    shift # past argument 
+    ;;
+	-e|--email)
+    USEREMAIL="$2"
+    shift # past argument 
+    ;;
+	-s|--subdomains)
+    SUBDOMAINSLIST="$2"
+    shift # past argument 
+    ;;
+	-t|--timezone)
+    SERVERTIMEZONE="$2"
+    shift # past argument 
+    ;;
+	-d|--dhlevel)
+    DHLEVEL="$2"
+    shift # past argument 
+    ;;
+	-so|--subzoneonly)
+    SUBZONEONLY="$2"
+    shift # past argument 
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8180)
+WEBSERVERSSLPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8444 -ep 8543)
+
+USERUID=$(id -u ${USERNAME})
+USERGID=$(id -g ${USERNAME})
+
+echo USERUID  = "${USERUID}"
+echo USERGID  = "${USERGID}"
+echo USERNAME  = "${USERNAME}"
+echo USEREMAIL  = "${USEREMAIL}"
+echo SUBDOMAINSLIST  = "${SUBDOMAINSLIST}"
+echo SERVERTIMEZONE  = "${SERVERTIMEZONE}"
+echo DHLEVEL     = "${DHLEVEL}"
+echo SUBZONEONLY     = "${SUBZONEONLY}"
+echo WEBSERVERPORT     = "${WEBSERVERPORT}"
+echo WEBSERVERSSLPORT     = "${WEBSERVERSSLPORT}"
+
+SUBZONESONLYVAR=false
+if [ ${SUBZONEONLY} = "true"]; then
+	SUBZONESONLYVAR=true
+fi
+
+if [ ! -d "/home/${USERNAME}/letsencrypt/config" ]; then
+  mkdir /home/${USERNAME}/letsencrypt
+  mkdir /home/${USERNAME}/letsencrypt/config
+fi
+
+echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/letsencrypt.txt
+echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/letsencrypt.txt
+echo "SERVERDAEMONPORT: $SERVERDAEMONPORT" >> /home/${USERNAME}/private/letsencrypt.txt
+echo "SERVERTORRENTPORT: $SERVERTORRENTPORT" >> /home/${USERNAME}/private/letsencrypt.txt
+
+docker run --restart=always -d --name ${USERNAME}_letsencrypt -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/letsencrypt/config:/config -e PGID=${USERGID} -e URL=${SYSTEMHOSTNAME} -e SUBDOMAINS=${SUBDOMAINSLIST} -e EMAIL=${USEREMAIL} -e PUID=${USERUID} -p ${WEBSERVERSSLPORT}:443 -e DHLEVEL=${DHLEVEL} -v /etc/localtime:/etc/localtime:ro docker-letsencrypt -e ONLY_SUBDOMAINS=${SUBZONESONLYVAR}
+
+if [[ -n $1 ]]; then
+    echo "Last line of file specified as non-opt/last argument:"
+    tail -1 $1
+fi
