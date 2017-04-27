@@ -33,8 +33,6 @@ Pending Additions
 * https://github.com/timhaak/docker-sickbeard
 * https://github.com/timhaak/docker-couchpotato
 * https://github.com/timhaak/docker-sickrage
-* https://github.com/timhaak/docker-transmission
-* https://github.com/timhaak/docker-plexpass
 
 
 Pending Removal

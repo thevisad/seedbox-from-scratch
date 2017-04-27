@@ -1,12 +1,18 @@
 #!/bin/bash
 mkdir /etc/seedbox-from-scratch/dockers/
 mkdir /etc/seedbox-from-scratch/dockers/hnseedbase-docker
+mkdir /etc/seedbox-from-scratch/dockers/hnrapidleech-docker
 
 cp /etc/seedbox-from-scratch/templates/hnseedbase.entrypoint.sh.template /etc/seedbox-from-scratch/dockers/hnseedbase-docker/entrypoint.sh
 cp /etc/seedbox-from-scratch/templates/hnseedbase.Dockerfile.template /etc/seedbox-from-scratch/dockers/hnseedbase-docker/Dockerfile
+cp /etc/seedbox-from-scratch/templates/hnrapidleech.config.php.template /etc/seedbox-from-scratch/dockers/hnrapidleech-docker/config.php
+cp /etc/seedbox-from-scratch/templates/hnrapidleech.Dockerfile.template /etc/seedbox-from-scratch/dockers/hnrapidleech-docker/Dockerfile
 
 cd /etc/seedbox-from-scratch/dockers/hnseedbase-docker/
 docker build -t hnseedbase-docker .
+
+cd /etc/seedbox-from-scratch/dockers/hnrapidleech-docker/
+docker build -t hnrapidleech-docker .
 
 cd /etc/seedbox-from-scratch/dockers/
 
