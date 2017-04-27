@@ -1,0 +1,54 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root" 1>&2
+  exit 1
+fi
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -u|--username)
+    USERNAME="$2"
+    shift # past argument 
+    ;;
+	-h|--hostname)
+    SYSTEMHOSTNAME="$2"
+    shift # past argument 
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8181)
+WEBSERVERSSLPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8444 -ep 8544)
+USERUID=$(id -u ${USERNAME})
+USERGID=$(id -g ${USERNAME})
+echo USERUID  = "${USERUID}"
+echo USERGID  = "${USERGID}"
+echo USERNAME  = "${USERNAME}"
+echo WEBSERVERPORT     = "${WEBSERVERPORT}"
+echo WEBSERVERSSLPORT     = "${WEBSERVERSSLPORT}"
+
+if [ ! -d "/home/${USERNAME}/deluge" ]; then
+  mkdir /home/${USERNAME}/deluge
+fi
+if [ ! -d "/home/${USERNAME}/deluge/config" ]; then
+  mkdir /home/${USERNAME}/deluge/config
+fi
+
+echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/deluge.txt
+echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/deluge.txt
+echo "SERVERDAEMONPORT: $SERVERDAEMONPORT" >> /home/${USERNAME}/private/deluge.txt
+echo "SERVERTORRENTPORT: $SERVERTORRENTPORT" >> /home/${USERNAME}/private/deluge.txt
+
+docker run --restart=always -d --name ${USERNAME}_rapidleech -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/rapidleech/downloads/:/downloads -v /home/${USERNAME}/rapidleech/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:80 -p ${WEBSERVERSSLPORT}:443 -v /etc/localtime:/etc/localtime:ro hnrapidleech-docker
+if [[ -n $1 ]]; then
+    echo "Last line of file specified as non-opt/last argument:"
+    tail -1 $1
+fi

@@ -28,7 +28,7 @@ This script has been heavily modified from the original, you can upgrade the ori
 
 Pending Additions
 * https://github.com/linuxserver/docker-letsencrypt
-* Docker Rapidleech 
+* Docker Rapidleech (HN Docker)
 * Docker sabnzbd https://github.com/timhaak/docker-sabnzbd
 * https://github.com/timhaak/docker-sickbeard
 * https://github.com/timhaak/docker-couchpotato
