@@ -1,3 +1,5 @@
+#!/bin/bash
+
 IPADDRESS1=`ifconfig | sed -n 's/.*inet addr:\([0-9.]\+\)\s.*/\1/p' | grep -v 127 | head -n 1`
 read -p "What is your domain name ? (without the http://): " DOMAIN
 
