@@ -47,11 +47,11 @@ echo "ROOTPASSWORD: $ROOTPASSWORD" >> /home/${USERNAME}/private/mysql.txt
 
 if [ ! -d "/home/${USERNAME}/mysql" ]; then
   mkdir /home/${USERNAME}/mysql
+  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/mysql/ -R
 fi
 
 if [ ! -f /home/${USERNAME}/mysql/my.cnf ]; then
 	cp /etc/seedbox-from-scratch/templates/my.cnf.template /home/${USERNAME}/mysql/my.cnf
-	chown ${USERNAME}:${USERNAME} /home/${USERNAME}/mysql/my.cnf
 	chown ${USERNAME}:${USERNAME} /home/${USERNAME}/mysql/ -R
 fi
 

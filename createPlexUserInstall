@@ -42,16 +42,11 @@ echo USERNAME  = "${USERNAME}"
 echo PLEXPORT     = "${PLEXPORT}"
 echo PLEX USERNAME    = "${PLEXUSERNAME}"
 
-if [ ! -d "/home/${USERNAME}/plex/config" ]; then
-  mkdir /home/${USERNAME}/plex
-  mkdir /home/${USERNAME}/plex/config
-fi
-
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/plex.txt
 echo "PLEXPORT: $PLEXPORT" >> /home/${USERNAME}/private/plex.txt
 echo "PLEXUSERNAME: $PLEXUSERNAME" >> /home/${USERNAME}/private/plex.txt
 
-docker run --restart=always -d --name ${USERNAME}_plex -h ${SYSTEMHOSTNAME} -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/media:/data -v /home/${USERNAME}/plex/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${PLEXPORT}:32400 docker-plex
+docker run --restart=always -d --name ${USERNAME}_plex -h ${SYSTEMHOSTNAME} -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/media:/data -p ${PLEXPORT}:32400 docker-plex
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

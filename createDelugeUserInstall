@@ -38,9 +38,8 @@ echo WEBSERVERPORT     = "${WEBSERVERPORT}"
 
 if [ ! -d "/home/${USERNAME}/deluge" ]; then
   mkdir /home/${USERNAME}/deluge
-fi
-if [ ! -d "/home/${USERNAME}/deluge/config" ]; then
   mkdir /home/${USERNAME}/deluge/config
+  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/deluge/ -R
 fi
 
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/deluge.txt

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root" 1>&2
+  exit 1
+fi
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -u|--username)
+    USERNAME="$2"
+    shift # past argument 
+    ;;
+	-h|--hostname)
+    SYSTEMHOSTNAME="$2"
+    shift # past argument 
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8082 -ep 8181 )
+
+USERUID=$(id -u ${USERNAME})
+USERGID=$(id -g ${USERNAME})
+echo USERUID  = "${USERUID}"
+echo USERGID  = "${USERGID}"
+echo USERNAME  = "${USERNAME}"
+echo WEBSERVERPORT     = "${WEBSERVERPORT}"
+
+if [ ! -d "/home/${USERNAME}/sickrage" ]; then
+  mkdir /home/${USERNAME}/sickrage
+  mkdir /home/${USERNAME}/sickrage/config
+  mkdir /home/${USERNAME}/sickrage/data
+  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/sickrage/ -R
+fi
+
+echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/sickrage.txt
+echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sickrage.txt
+
+docker run --restart=always -d --name ${USERNAME}_sickrage -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/sickrage/data:/data -v /home/${USERNAME}/sickrage/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8081  -v /etc/localtime:/etc/localtime:ro docker-sickrage
+if [[ -n $1 ]]; then
+    echo "Last line of file specified as non-opt/last argument:"
+    tail -1 $1
+fi

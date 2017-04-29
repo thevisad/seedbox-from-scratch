@@ -8,7 +8,7 @@
 #  git clone -b master https://github.com/thevisad/seedbox-from-scratch.git /etc/seedbox-from-scratch
 #  sudo git stash; sudo git pull
 #
-#
+
 SBFSCURRENTVERSION1=16.00
 OS1=$(lsb_release -si)
 

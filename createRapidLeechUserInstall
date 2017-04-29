@@ -27,19 +27,19 @@ done
 
 WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8181)
 WEBSERVERSSLPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8444 -ep 8544)
+
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
+
 echo USERUID  = "${USERUID}"
 echo USERGID  = "${USERGID}"
 echo USERNAME  = "${USERNAME}"
 echo WEBSERVERPORT     = "${WEBSERVERPORT}"
 echo WEBSERVERSSLPORT     = "${WEBSERVERSSLPORT}"
 
-if [ ! -d "/home/${USERNAME}/deluge" ]; then
-  mkdir /home/${USERNAME}/deluge
-fi
-if [ ! -d "/home/${USERNAME}/deluge/config" ]; then
-  mkdir /home/${USERNAME}/deluge/config
+if [ ! -d "/home/${USERNAME}/rapidleech" ]; then
+  mkdir /home/${USERNAME}/rapidleech
+  mkdir /home/${USERNAME}/rapidleech/config
 fi
 
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/deluge.txt

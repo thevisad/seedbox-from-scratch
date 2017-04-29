@@ -49,6 +49,7 @@ if [ ! -d "/home/${USERNAME}/rtorrent/config" ]; then
    echo "AuthName \"rutorrent\"" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
    echo "AuthUserFile  \"/home/${USERNAME}/rtorrent/config/.htpasswd\"" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
    echo "require valid-user" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
+   chown ${USERNAME}:${USERNAME} /home/${USERNAME}/rtorrent/ -R
 fi
 
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/rutorrent.txt

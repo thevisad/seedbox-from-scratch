@@ -68,8 +68,9 @@ if [ ${SUBZONEONLY} = "true"]; then
 fi
 
 if [ ! -d "/home/${USERNAME}/letsencrypt/config" ]; then
-  mkdir /home/${USERNAME}/letsencrypt
-  mkdir /home/${USERNAME}/letsencrypt/config
+	mkdir /home/${USERNAME}/letsencrypt
+	mkdir /home/${USERNAME}/letsencrypt/config
+	chown ${USERNAME}:${USERNAME} /home/${USERNAME}/letsencrypt/ -R
 fi
 
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/letsencrypt.txt
