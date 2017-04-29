@@ -23,15 +23,12 @@ git clone https://github.com/mysql/mysql-docker.git
 git clone https://github.com/linuxserver/docker-letsencrypt.git
 git clone https://github.com/timhaak/docker-plex.git
 git clone https://github.com/linuxserver/docker-letsencrypt.git
+git clone https://github.com/timhaak/docker-sabnzbd.git
+git clone https://github.com/timhaak/docker-sickbeard.git
+git clone https://github.com/timhaak/docker-couchpotato.git
+git clone https://github.com/timhaak/docker-sickrage.git
 
-sudo git clone https://github.com/timhaak/docker-sabnzbd.git
-sudo git clone https://github.com/timhaak/docker-sickbeard.git
-sudo git clone https://github.com/timhaak/docker-couchpotato.git
-sudo git clone https://github.com/timhaak/docker-sickrage.git
-
-
-
-sudo chmod 666 /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.7/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile
+chmod 666 /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.7/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile)" > /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile
@@ -40,12 +37,10 @@ echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-sc
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile)" > /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile)" > /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile
-
-sudo echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(sudo cat /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile 
-sudo echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(sudo cat /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile 
-sudo echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(sudo cat /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile 
-sudo echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(sudo cat /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile
-
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile 
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile 
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile 
+echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile)" > /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile
 chmod 644 /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.7/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile
 
