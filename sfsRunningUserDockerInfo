@@ -31,5 +31,9 @@ RUNNING=$(docker ps | grep $USERNAME | grep $DOCKER)
 if [ ${#STOPPED} -ge 5 ]; then
 echo "STOPPED"
 else 
-echo "RUNNING"
+	if [ ${#RUNNING} -ge 5 ]; then
+	echo "RUNNING"
+	else
+	echo "NOTINSTALLED"
+	fi
 fi
