@@ -21,7 +21,7 @@ esac
 shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
-sudo docker start --restart=always ${USERNAME}_deluge
+sudo docker start ${USERNAME}_deluge
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
