@@ -1,0 +1,36 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root" 1>&2
+  exit 1
+fi
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -u|--user)
+    USERNAME="$2"
+    shift # past argument
+    ;;
+	-d|--docker)
+    DOCKER="$2"
+    shift # past argument
+    ;;
+    *)
+    # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+USERNAME=thevisad
+DOCKER=rapidleech
+STOPPED=$(docker ps --filter "status=exited" | grep $USERNAME | grep $DOCKER)
+RUNNING=$(docker ps | grep $USERNAME | grep $DOCKER)
+
+if [ ${#STOPPED} -ge 5 ]; then
+echo "STOPPED"
+else 
+echo "RUNNING"
+fi
