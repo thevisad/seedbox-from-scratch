@@ -24,8 +24,7 @@ case $key in
 esac
 shift # past argument or value
 done
-USERNAME=thevisad
-DOCKER=rapidleech
+
 STOPPED=$(docker ps --filter "status=exited" | grep $USERNAME | grep $DOCKER)
 RUNNING=$(docker ps | grep $USERNAME | grep $DOCKER)
 
