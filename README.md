@@ -10,7 +10,7 @@ This script has been heavily modified from the original, you can upgrade the ori
 
 ## Core Server Software
 
-* Fail2ban - to avoid apache and ssh exploits. Fail2ban bans IPs that show malicious signs
+* Fail2ban - to avoid apache and ssh exploits. Fail2ban bans IPs that show malicious signs (disabled by default)
 * Apache (SSL)
 * OpenVPN 
 * OS Specific PHP and PHP-FPM (FastCGI to increase performance)
@@ -25,8 +25,6 @@ This script has been heavily modified from the original, you can upgrade the ori
 * Docker Deluge https://github.com/linuxserver/docker-deluge
 * Docker RuTorrent https://github.com/linuxserver/docker-rutorrent (buggy atm)
 * Docker Ubooquity https://github.com/linuxserver/docker-ubooquity
-
-Pending Additions
 * https://github.com/linuxserver/docker-letsencrypt
 * Docker Rapidleech (HN Docker)
 * Docker sabnzbd https://github.com/timhaak/docker-sabnzbd

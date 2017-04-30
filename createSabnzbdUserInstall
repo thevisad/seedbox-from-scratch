@@ -43,7 +43,7 @@ echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/sabnzbd.serviceinfo
 echo "ACCESSURL: http://$IPADDRESS1/$WEBSERVERPORT" >> /home/${USERNAME}/private/sabnzbd.serviceinfo
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sabnzbd.serviceinfo
 
-docker run --restart=always -d --name ${USERNAME}_sabnzbd -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/sabnzbd/data:/data -v /home/${USERNAME}/sabnzbd/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8080 -v /etc/localtime:/etc/localtime:ro docker-sabnzbd
+docker run --restart=always -d --name ${USERNAME}_sabnzbd -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/data -v /home/${USERNAME}/sabnzbd/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8080 -v /etc/localtime:/etc/localtime:ro docker-sabnzbd
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

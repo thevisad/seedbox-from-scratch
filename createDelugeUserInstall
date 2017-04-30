@@ -46,7 +46,7 @@ echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.service
 echo "SERVERDAEMONPORT: $SERVERDAEMONPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 echo "SERVERTORRENTPORT: $SERVERTORRENTPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 
-docker run --restart=always -d --name ${USERNAME}_deluge -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/deluge/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8112 -p ${SERVERDAEMONPORT}:58846 -p ${SERVERTORRENTPORT}:58946 -v /etc/localtime:/etc/localtime:ro arch-deluge
+docker run --restart=always -d --name ${USERNAME}_deluge -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/downloads -v /home/${USERNAME}/deluge/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8112 -p ${SERVERDAEMONPORT}:58846 -p ${SERVERTORRENTPORT}:58946 -v /etc/localtime:/etc/localtime:ro arch-deluge
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
