@@ -14,10 +14,6 @@ case $key in
     USERNAME="$2"
     shift # past argument 
     ;;
-	-h|--hostname)
-    SYSTEMHOSTNAME="$2"
-    shift # past argument 
-    ;;
     *)
             # unknown option
     ;;
@@ -25,6 +21,7 @@ esac
 shift # past argument or value
 done
 
+SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8180)
 WEBSSLSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8444 -ep 8543)
 SERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 51414 -ep 51513)
@@ -52,12 +49,15 @@ if [ ! -d "/home/${USERNAME}/rtorrent/config" ]; then
    chown ${USERNAME}:${USERNAME} /home/${USERNAME}/rtorrent/ -R
 fi
 
-echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/rutorrent.txt
-echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/rutorrent.txt
-echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.txt
-echo "WEBSSLSERVERPORT: $WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.txt
-echo "PREPORT: $PREPORT" >> /home/${USERNAME}/private/rutorrent.txt
-echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/rutorrent.txt
+echo "SERVICE: RTORRENT" > /home/${USERNAME}/private/rutorrent.serviceinfo
+echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/rutorrent.serviceinfo
+echo "ACCESSURL: http://$IPADDRESS1/$WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+echo "ACCESSURL: http://$IPADDRESS1/$WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+echo "WEBSSLSERVERPORT: $WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+echo "PREPORT: $PREPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_rutorrent -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:80 -p ${WEBSSLSERVERPORT}:443 -p ${PREPORT}:5000 -p ${SERVERPORT}:51413 -p ${UDPPORT}:6881 -v /etc/localtime:/etc/localtime:ro docker-rutorrent
 if [[ -n $1 ]]; then

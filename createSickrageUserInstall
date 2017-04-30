@@ -14,10 +14,6 @@ case $key in
     USERNAME="$2"
     shift # past argument 
     ;;
-	-h|--hostname)
-    SYSTEMHOSTNAME="$2"
-    shift # past argument 
-    ;;
     *)
             # unknown option
     ;;
@@ -26,6 +22,7 @@ shift # past argument or value
 done
 
 WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8082 -ep 8181 )
+SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
@@ -41,8 +38,10 @@ if [ ! -d "/home/${USERNAME}/sickrage" ]; then
   chown ${USERNAME}:${USERNAME} /home/${USERNAME}/sickrage/ -R
 fi
 
-echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/sickrage.txt
-echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sickrage.txt
+echo "SERVICE: SICKRAGE" > /home/${USERNAME}/private/sickrage.serviceinfo
+echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/sickrage.serviceinfo
+echo "ACCESSURL: http://$IPADDRESS1/$WEBSERVERPORT" >> /home/${USERNAME}/private/sickrage.serviceinfo
+echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sickrage.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_sickrage -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/sickrage/data:/data -v /home/${USERNAME}/sickrage/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8081  -v /etc/localtime:/etc/localtime:ro docker-sickrage
 if [[ -n $1 ]]; then

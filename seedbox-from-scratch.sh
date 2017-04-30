@@ -327,23 +327,25 @@ bash /etc/seedbox-from-scratch/createOpenSSLCACertificate
 
 mkdir -p /etc/ssl/private/
 openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
+rm -rf /srv/ftp
 
 if [ "$OS1" = "Debian" ]; then
   apt-get --yes install vsftpd
 else
   apt-get --yes install libcap-dev libpam0g-dev libwrap0-dev
   if [ "uname -m" = "x86_64" ]; then
-  dpkg -i /etc/seedbox-from-scratch/vsftpd_3.0.3-3ubuntu2_amd64.deb
+  dpkg -i /etc/seedbox-from-scratch/installs/vsftpd_3.0.3-3ubuntu2_amd64.deb
   else
-  dpkg -i /etc/seedbox-from-scratch/vsftpd_3.0.3-3ubuntu2_`uname -m`.deb
+  dpkg -i /etc/seedbox-from-scratch/installs/vsftpd_3.0.3-3ubuntu2_`uname -m`.deb
   fi  
 fi
 
 perl -pi -e "s/anonymous_enable\=YES/\#anonymous_enable\=YES/g" /etc/vsftpd.conf
 perl -pi -e "s/connect_from_port_20\=YES/#connect_from_port_20\=YES/g" /etc/vsftpd.conf
 echo "listen_port=$NEWFTPPORT1" | tee -a /etc/vsftpd.conf >> /dev/null
+echo "listen=YES" | tee -a /etc/vsftpd.conf >> /dev/null
 echo "ssl_enable=YES" | tee -a /etc/vsftpd.conf >> /dev/null
-echo "allow_anon_ssl=YES" | tee -a /etc/vsftpd.conf >> /dev/null
+echo "allow_anon_ssl=NO" | tee -a /etc/vsftpd.conf >> /dev/null
 echo "force_local_data_ssl=YES" | tee -a /etc/vsftpd.conf >> /dev/null
 echo "force_local_logins_ssl=YES" | tee -a /etc/vsftpd.conf >> /dev/null
 echo "ssl_tlsv1=YES" | tee -a /etc/vsftpd.conf >> /dev/null
@@ -357,6 +359,8 @@ echo "write_enable=YES" | tee -a /etc/vsftpd.conf >> /dev/null
 echo "local_umask=022" | tee -a /etc/vsftpd.conf >> /dev/null
 echo "chroot_local_user=YES" | tee -a /etc/vsftpd.conf >> /dev/null
 echo "chroot_list_file=/etc/vsftpd.chroot_list" | tee -a /etc/vsftpd.conf >> /dev/null
+mv /etc/init/vsftpd.conf.dpkg-new /etc/init/vsftpd.conf
+systemctl restart vsftpd.service
 
 # 13.
 mv /etc/apache2/sites-available/default /etc/apache2/sites-available/default.ORI
@@ -400,7 +404,7 @@ apache service restart
 #apt-get --yes install libxmlrpc-core-c3-dev
 
 # 15.
-tar xvfz /etc/seedbox-from-scratch/xmlrpc-c-1.39.12.tgz -C /etc/seedbox-from-scratch/source/
+tar xvfz /etc/seedbox-from-scratch/installs/xmlrpc-c-1.39.12.tgz -C /etc/seedbox-from-scratch/source/
 cd /etc/seedbox-from-scratch/source/
 unzip ../xmlrpc-c-1.31.06.zip
 

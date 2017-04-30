@@ -7,10 +7,6 @@
 #
 ## See Readme.md for License ####
 #
-# Those aliases are moslty for Notos, he uses them a lot, but your are allowed to add more, if you need
-#
-#
-#
 
 echo "" | tee -a ~/.profile
 
@@ -25,7 +21,5 @@ echo "alias move='sudo mv'                 " |  tee -a ~/.profile
 echo "export TERM=linux                    " |  tee -a ~/.profile
 echo "export HISTFILESIZE=50000            " |  tee -a ~/.profile
 echo "alias locate='locate -i'             " |  tee -a ~/.profile
-
-
 
 ##################### LAST LINE ###########

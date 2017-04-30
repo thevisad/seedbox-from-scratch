@@ -14,10 +14,6 @@ case $key in
     USERNAME="$2"
     shift # past argument 
     ;;
-	-h|--hostname)
-    SYSTEMHOSTNAME="$2"
-    shift # past argument 
-    ;;
     *)
             # unknown option
     ;;
@@ -25,14 +21,15 @@ esac
 shift # past argument or value
 done
 
-SERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 5051 -ep 5151)
+WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 5051 -ep 5151)
+SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 echo USERUID  = "${USERUID}"
 echo USERGID  = "${USERGID}"
 echo USERNAME  = "${USERNAME}"
-echo SERVERPORT     = "${SERVERPORT}"
+echo WEBSERVERPORT     = "${WEBSERVERPORT}"
 
 if [ ! -d "/home/${USERNAME}/couchpotato" ]; then
   mkdir /home/${USERNAME}/couchpotato
@@ -41,10 +38,12 @@ if [ ! -d "/home/${USERNAME}/couchpotato" ]; then
   chown ${USERNAME}:${USERNAME} /home/${USERNAME}/couchpotato/ -R
 fi
 
-echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/couchpotato.txt
-echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/couchpotato.txt
+echo "SERVICE: COUCHPOTATO" > /home/${USERNAME}/private/couchpotato.serviceinfo
+echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/couchpotato.serviceinfo
+echo "ACCESSURL: http://$IPADDRESS1/$WEBSERVERPORT" >> /home/${USERNAME}/private/couchpotato.serviceinfo
+echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/couchpotato.serviceinfo
 
-docker run --restart=always -d --name ${USERNAME}_couchpotato -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/couchpotato/config:/config -v /home/${USERNAME}/couchpotato/data:/data -e PGID=${USERGID} -e PUID=${USERUID} -p ${SERVERPORT}:5050 -v /etc/localtime:/etc/localtime:ro docker-couchpotato
+docker run --restart=always -d --name ${USERNAME}_couchpotato -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/couchpotato/config:/config -v /home/${USERNAME}/couchpotato/data:/data -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:5050 -v /etc/localtime:/etc/localtime:ro docker-couchpotato
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

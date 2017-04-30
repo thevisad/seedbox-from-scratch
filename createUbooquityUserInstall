@@ -19,14 +19,6 @@ case $key in
     USERNAME="$2"
     shift # past argument
     ;;
-	-h|--hostname)
-    SYSTEMHOSTNAME="$2"
-    shift # past argument 
-    ;;
-	-mm|--maxmemory)
-    MAXMEM="$2"
-    shift # past argument
-    ;;
     *)
             # unknown option
     ;;
@@ -34,16 +26,20 @@ esac
 shift # past argument or value
 done
 
-SERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 2203 -ep 2302)
+WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 2203 -ep 2302)
+SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 
 echo USERNAME  = "${USERNAME}"
-echo SERVERPORT     = "${SERVERPORT}"
+echo WEBSERVERPORT     = "${WEBSERVERPORT}"
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 echo USERUID  = "${USERUID}"
 echo USERGID  = "${USERGID}"
-echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/ubooquity.txt
-echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/ubooquity.txt
+
+echo "SERVICE: UBOOQUITY" > /home/${USERNAME}/private/ubooquity.serviceinfo
+echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/ubooquity.serviceinfo
+echo "ACCESSURL: http://$IPADDRESS1/$WEBSERVERPORT" >> /home/${USERNAME}/private/ubooquity.serviceinfo
+echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/ubooquity.serviceinfo
 
 if [ ! -d "/home/${USERNAME}/ubooquity" ]; then
   mkdir /home/${USERNAME}/ubooquity
@@ -54,7 +50,7 @@ if [ ! -d "/home/${USERNAME}/ubooquity" ]; then
   chown ${USERNAME}:${USERNAME} /home/${USERNAME}/ubooquity/ -R
 fi
 
-docker run --restart=always -d --name=${USERNAME}_ubooquity -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/ubooquity/config:/config -v /home/${USERNAME}/ubooquity/books:/books -v /home/${USERNAME}/ubooquity/comics:/comics -v /home/${USERNAME}/ubooquity/files:/files -e MAXMEM=${MAXMEM} -e PGID=${USERGID} -e PUID=${USERUID} -p ${SERVERPORT}:2202 ubooquity-docker -webadmin
+docker run --restart=always -d --name=${USERNAME}_ubooquity -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/ubooquity/config:/config -v /home/${USERNAME}/ubooquity/books:/books -v /home/${USERNAME}/ubooquity/comics:/comics -v /home/${USERNAME}/ubooquity/files:/files -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:2202 ubooquity-docker -webadmin
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

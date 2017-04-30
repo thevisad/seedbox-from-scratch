@@ -14,10 +14,6 @@ case $key in
     USERNAME="$2"
     shift # past argument 
     ;;
-	-h|--hostname)
-    SYSTEMHOSTNAME="$2"
-    shift # past argument 
-    ;;
     *)
             # unknown option
     ;;
@@ -26,6 +22,7 @@ shift # past argument or value
 done
 
 WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8180)
+SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
@@ -41,8 +38,10 @@ if [ ! -d "/home/${USERNAME}/sabnzbd" ]; then
   chown ${USERNAME}:${USERNAME} /home/${USERNAME}/sabnzbd/ -R
 fi
 
-echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/sabnzbd.txt
-echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sabnzbd.txt
+echo "SERVICE: SABNZBD" > /home/${USERNAME}/private/sabnzbd.serviceinfo
+echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/sabnzbd.serviceinfo
+echo "ACCESSURL: http://$IPADDRESS1/$WEBSERVERPORT" >> /home/${USERNAME}/private/sabnzbd.serviceinfo
+echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sabnzbd.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_sabnzbd -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/sabnzbd/data:/data -v /home/${USERNAME}/sabnzbd/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8080 -v /etc/localtime:/etc/localtime:ro docker-sabnzbd
 if [[ -n $1 ]]; then
