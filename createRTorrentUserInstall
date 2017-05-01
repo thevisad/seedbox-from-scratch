@@ -51,8 +51,8 @@ fi
 
 echo "SERVICE: RTORRENT" > /home/${USERNAME}/private/rutorrent.serviceinfo
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/rutorrent.serviceinfo
-echo "ACCESSURL: http://$IPADDRESS1/$WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
-echo "ACCESSURL: http://$IPADDRESS1/$WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 echo "WEBSSLSERVERPORT: $WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo

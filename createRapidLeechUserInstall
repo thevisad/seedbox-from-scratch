@@ -41,7 +41,7 @@ fi
 
 echo "SERVICE: RAPIDLEECH" > /home/${USERNAME}/private/deluge.serviceinfo
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/deluge.serviceinfo
-echo "ACCESSURL: http://$IPADDRESS1/$WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
+echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 echo "WEBSERVERSSLPORT: $WEBSERVERSSLPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 

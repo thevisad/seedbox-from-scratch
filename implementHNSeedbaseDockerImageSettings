@@ -71,10 +71,10 @@ docker build -t docker-letsencrypt .
 cd /etc/seedbox-from-scratch/dockers/docker-plex
 docker build -t docker-plex .
 
-cd /etc/seedbox-from-scratch/dockers/docker-sabnzbd
+cd /etc/seedbox-from-scratch/dockers/docker-sabnzbd (crashed!) -- fixed line breaks
 docker build -t docker-sabnzbd .
 
-cd /etc/seedbox-from-scratch/dockers/docker-sickbeard (crashed!)
+cd /etc/seedbox-from-scratch/dockers/docker-sickbeard
 docker build -t docker-sickbeard .
 
 cd /etc/seedbox-from-scratch/dockers/docker-couchpotato

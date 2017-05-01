@@ -40,7 +40,7 @@ fi
 
 echo "SERVICE: SICKBEARD" > /home/${USERNAME}/private/sickbeard.serviceinfo
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/sickbeard.serviceinfo
-echo "ACCESSURL: http://$IPADDRESS1/$WEBSERVERPORT" >> /home/${USERNAME}/private/sickbeard.serviceinfo
+echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/sickbeard.serviceinfo
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sickbeard.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_sickbeard -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/data -v /home/${USERNAME}/sickbeard/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8081 -v /etc/localtime:/etc/localtime:ro docker-sickbeard

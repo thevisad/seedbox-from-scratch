@@ -38,7 +38,7 @@ echo USERGID  = "${USERGID}"
 
 echo "SERVICE: UBOOQUITY" > /home/${USERNAME}/private/ubooquity.serviceinfo
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/ubooquity.serviceinfo
-echo "ACCESSURL: http://$IPADDRESS1/$WEBSERVERPORT" >> /home/${USERNAME}/private/ubooquity.serviceinfo
+echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/ubooquity.serviceinfo
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/ubooquity.serviceinfo
 
 if [ ! -d "/home/${USERNAME}/ubooquity" ]; then

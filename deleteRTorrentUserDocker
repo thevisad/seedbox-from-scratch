@@ -27,6 +27,7 @@ shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
 sudo docker rm -f ${USERNAME}_rutorrent
+rm -rf /home/${USERNAME}/private/rutorrent.serviceinfo
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
