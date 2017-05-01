@@ -39,7 +39,7 @@ if [ ! -d "/home/${USERNAME}/sickrage" ]; then
 fi
 
 echo "SERVICE: SICKRAGE" > /home/${USERNAME}/private/sickrage.serviceinfo
-echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/sickrage.serviceinfo
+echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/sickrage.serviceinfo
 echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/sickrage.serviceinfo
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sickrage.serviceinfo
 chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo

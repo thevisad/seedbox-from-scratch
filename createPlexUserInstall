@@ -39,7 +39,7 @@ echo USERNAME  = "${USERNAME}"
 echo PLEXPORT     = "${PLEXPORT}"
 
 echo "SERVICE: PLEX" > /home/${USERNAME}/private/plex.serviceinfo
-echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/plex.serviceinfo
+echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/plex.serviceinfo
 echo "ACCESSURL: http://$SYSTEMHOSTNAME:$PLEXPORT" >> /home/${USERNAME}/private/plex.serviceinfo
 echo "PLEXPORT: $PLEXPORT" >> /home/${USERNAME}/private/plex.serviceinfo
 chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo

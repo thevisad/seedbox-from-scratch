@@ -40,7 +40,7 @@ if [ ! -d "/home/${USERNAME}/deluge" ]; then
 fi
 
 echo "SERVICE: DELUGE" > /home/${USERNAME}/private/deluge.serviceinfo
-echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/deluge.serviceinfo
+echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/deluge.serviceinfo
 echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 echo "SERVERDAEMONPORT: $SERVERDAEMONPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
