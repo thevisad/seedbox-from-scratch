@@ -45,6 +45,7 @@ echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/pri
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 echo "SERVERDAEMONPORT: $SERVERDAEMONPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 echo "SERVERTORRENTPORT: $SERVERTORRENTPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
+chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_deluge -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/downloads -v /home/${USERNAME}/deluge/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8112 -p ${SERVERDAEMONPORT}:58846 -p ${SERVERTORRENTPORT}:58946 -v /etc/localtime:/etc/localtime:ro arch-deluge
 if [[ -n $1 ]]; then

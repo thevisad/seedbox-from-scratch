@@ -42,6 +42,7 @@ echo "SERVICE: COUCHPOTATO" > /home/${USERNAME}/private/couchpotato.serviceinfo
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/couchpotato.serviceinfo
 echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/couchpotato.serviceinfo
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/couchpotato.serviceinfo
+chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_couchpotato -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/couchpotato/config:/config -v /home/${USERNAME}/downloads:/data -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:5050 -v /etc/localtime:/etc/localtime:ro docker-couchpotato
 if [[ -n $1 ]]; then

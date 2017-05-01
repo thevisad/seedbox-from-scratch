@@ -72,6 +72,7 @@ echo "SERVICE: LETSENCRYPT" > /home/${USERNAME}/private/letsencrypt.serviceinfo
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/letsencrypt.serviceinfo
 echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERSSLPORT" >> /home/${USERNAME}/private/letsencrypt.serviceinfo
 echo "WEBSERVERSSLPORT: $WEBSERVERSSLPORT" >> /home/${USERNAME}/private/letsencrypt.serviceinfo
+chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_letsencrypt -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/letsencrypt/config:/config -e PGID=${USERGID} -e URL=${SYSTEMHOSTNAME} -e SUBDOMAINS=${SUBDOMAINSLIST} -e EMAIL=${USEREMAIL} -e PUID=${USERUID} -p ${WEBSERVERSSLPORT}:443 -e DHLEVEL=${DHLEVEL} -v /etc/localtime:/etc/localtime:ro docker-letsencrypt -e ONLY_SUBDOMAINS=${SUBZONESONLYVAR}
 

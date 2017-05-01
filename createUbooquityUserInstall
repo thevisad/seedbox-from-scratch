@@ -40,6 +40,7 @@ echo "SERVICE: UBOOQUITY" > /home/${USERNAME}/private/ubooquity.serviceinfo
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/ubooquity.serviceinfo
 echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/ubooquity.serviceinfo
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/ubooquity.serviceinfo
+chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 if [ ! -d "/home/${USERNAME}/ubooquity" ]; then
   mkdir /home/${USERNAME}/ubooquity

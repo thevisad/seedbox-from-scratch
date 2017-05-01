@@ -42,6 +42,7 @@ echo "SERVICE: SABNZBD" > /home/${USERNAME}/private/sabnzbd.serviceinfo
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/sabnzbd.serviceinfo
 echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/sabnzbd.serviceinfo
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sabnzbd.serviceinfo
+chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_sabnzbd -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/data -v /home/${USERNAME}/sabnzbd/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8080 -v /etc/localtime:/etc/localtime:ro docker-sabnzbd
 if [[ -n $1 ]]; then

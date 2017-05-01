@@ -42,6 +42,7 @@ echo "SERVICE: PLEX" > /home/${USERNAME}/private/plex.serviceinfo
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/plex.serviceinfo
 echo "ACCESSURL: http://$SYSTEMHOSTNAME:$PLEXPORT" >> /home/${USERNAME}/private/plex.serviceinfo
 echo "PLEXPORT: $PLEXPORT" >> /home/${USERNAME}/private/plex.serviceinfo
+chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_plex -h ${SYSTEMHOSTNAME} -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/media:/data -p ${PLEXPORT}:32400 docker-plex
 if [[ -n $1 ]]; then

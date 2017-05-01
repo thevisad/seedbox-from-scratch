@@ -58,6 +58,7 @@ echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serv
 echo "WEBSSLSERVERPORT: $WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 echo "PREPORT: $PREPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_rutorrent -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:80 -p ${WEBSSLSERVERPORT}:443 -p ${PREPORT}:5000 -p ${SERVERPORT}:51413 -p ${UDPPORT}:6881 -v /etc/localtime:/etc/localtime:ro docker-rutorrent
 if [[ -n $1 ]]; then

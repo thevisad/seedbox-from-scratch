@@ -43,6 +43,7 @@ echo "SERVICE: MYSQL" > /home/${USERNAME}/private/plex.serviceinfo
 echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/mysql.serviceinfo
 echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/mysql.serviceinfo
 echo "ROOTPASSWORD: $ROOTPASSWORD" >> /home/${USERNAME}/private/mysql.serviceinfo
+chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 if [ ! -d "/home/${USERNAME}/mysql" ]; then
   mkdir /home/${USERNAME}/mysql

@@ -44,6 +44,7 @@ echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/deluge.serviceinfo
 echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 echo "WEBSERVERSSLPORT: $WEBSERVERSSLPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
+chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_rapidleech -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/:/downloads -v /home/${USERNAME}/rapidleech/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:80 -p ${WEBSERVERSSLPORT}:443 -v /etc/localtime:/etc/localtime:ro hnrapidleech-docker
 if [[ -n $1 ]]; then
