@@ -24,6 +24,8 @@ done
 SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8181)
 WEBSERVERSSLPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8444 -ep 8544)
+HTPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateUserHtpassword -u ${USERNAME})
+echo ${HTPASSWDGENED} > /tmp/temp.htpasswd
 
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
@@ -47,6 +49,10 @@ echo "WEBSERVERSSLPORT: $WEBSERVERSSLPORT" >> /home/${USERNAME}/private/deluge.s
 chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_rapidleech -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/:/downloads -v /home/${USERNAME}/rapidleech/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:80 -p ${WEBSERVERSSLPORT}:443 -v /etc/localtime:/etc/localtime:ro hnrapidleech-docker
+
+docker cp /tmp/temp.htpasswd ${USERNAME}_rapidleech:/var/www/.htpasswd
+rm -rf /tmp/temp.htpasswd
+
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

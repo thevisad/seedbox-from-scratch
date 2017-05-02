@@ -6,7 +6,7 @@ RUN apt-get update && \
 
 RUN git clone https://github.com/Th3-822/rapidleech.git ./
 
-ADD https://raw.githubusercontent.com/wpzzz/docker-rapidleech/master/config.php configs/ 
+ADD https://raw.githubusercontent.com/thevisad/seedbox-from-scratch/v16.00/templates/hnrapidleech.config.php.template configs/config.php
 
 RUN chmod 777 -R files
 RUN chmod 777 -R configs
