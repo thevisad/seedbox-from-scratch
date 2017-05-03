@@ -367,7 +367,12 @@ sudo chown $NEWUSER1:$NEWUSER1 $HOMEJAILED1/.rtorrent.rc
 # 20.
 sudo mkdir -p $HOMEJAILED1/downloads/auto
 sudo mkdir -p $HOMEJAILED1/downloads/manual
-sudo mkdir -p $HOMEJAILED1/media
+sudo mkdir -p $HOMEJAILED1/media/
+sudo mkdir -p $HOMEJAILED1/media/comics
+sudo mkdir -p $HOMEJAILED1/media/books
+sudo mkdir -p $HOMEJAILED1/media/files
+sudo mkdir -p $HOMEJAILED1/media/Movies
+sudo mkdir -p $HOMEJAILED1/media/TVShows
 sudo mkdir -p $HOMEJAILED1/downloads/watch
 sudo mkdir -p $HOMEJAILED1/downloads/.session
 sudo chown -R $NEWUSER1:$NEWUSER1 $HOMEJAILED1/downloads

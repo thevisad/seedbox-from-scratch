@@ -51,7 +51,7 @@ if [ ! -d "/home/${USERNAME}/ubooquity" ]; then
   chown ${USERNAME}:${USERNAME} /home/${USERNAME}/ubooquity/ -R
 fi
 
-docker run --restart=always -d --name=${USERNAME}_ubooquity -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/ubooquity/config:/config -v /home/${USERNAME}/ubooquity/books:/books -v /home/${USERNAME}/ubooquity/comics:/comics -v /home/${USERNAME}/ubooquity/files:/files -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:2202 ubooquity-docker -webadmin
+docker run --restart=always -d --name=${USERNAME}_ubooquity -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/ubooquity/config:/config -v /home/${USERNAME}/media/books:/books -v /home/${USERNAME}/media/comics:/comics -v /home/${USERNAME}/media/files:/files -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:2202 ubooquity-docker -webadmin
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
