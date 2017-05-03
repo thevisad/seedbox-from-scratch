@@ -25,7 +25,7 @@ SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8181)
 WEBSERVERSSLPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8444 -ep 8544)
 HTPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateUserHtpassword -u ${USERNAME})
-echo ${HTPASSWDGENED} > /tmp/temp.htpasswd
+
 
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
@@ -41,15 +41,16 @@ if [ ! -d "/home/${USERNAME}/rapidleech" ]; then
   mkdir /home/${USERNAME}/rapidleech/config
 fi
 
-echo "SERVICE: RAPIDLEECH" > /home/${USERNAME}/private/deluge.serviceinfo
-echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/deluge.serviceinfo
-echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
-echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
-echo "WEBSERVERSSLPORT: $WEBSERVERSSLPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
+echo "SERVICE: RAPIDLEECH" > /home/${USERNAME}/private/rapidleech.serviceinfo
+echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/rapidleech.serviceinfo
+echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/rapidleech.serviceinfo
+echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/rapidleech.serviceinfo
+echo "WEBSERVERSSLPORT: $WEBSERVERSSLPORT" >> /home/${USERNAME}/private/rapidleech.serviceinfo
 chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
-docker run --restart=always -d --name ${USERNAME}_rapidleech -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/:/downloads -v /home/${USERNAME}/rapidleech/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:80 -p ${WEBSERVERSSLPORT}:443 -v /etc/localtime:/etc/localtime:ro hnrapidleech-docker
+docker run --restart=always -d --name ${USERNAME}_rapidleech -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/:/downloads -v /home/${USERNAME}/rapidleech/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:80 -p ${WEBSERVERSSLPORT}:443 -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro hnrapidleech-docker
 
+echo ${HTPASSWDGENED} > /tmp/temp.htpasswd
 docker cp /tmp/temp.htpasswd ${USERNAME}_rapidleech:/var/www/.htpasswd
 rm -rf /tmp/temp.htpasswd
 
