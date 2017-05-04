@@ -1,0 +1,71 @@
+<VirtualHost *:80>
+  ServerAdmin webmaster@localhost
+  ServerName test.hngamers.com
+  DocumentRoot /var/www/
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteCond %{REQUEST_URI} !^\/share\/
+  RewriteRule (.*) https://%{HTTP_HOST}:443%{REQUEST_URI} 
+  RewriteCond %{LA-U:remote_user} !^$
+  RewriteRule ^/private(.*) /home/%{LA-U:remote_user}/private$1
+
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride All
+  </Directory>
+
+  <Directory /var/www/>
+    Options Indexes FollowSymLinks MultiViews
+    IndexOptions +FancyIndexing +SuppressDescription
+    AllowOverride None
+    Order allow,deny
+    allow from all
+    AuthType Basic
+    AuthName "documentroot"
+    AuthUserFile /etc/apache2/.htpasswd
+  </Directory>
+
+  ErrorLog /var/log/apache2/error.log
+
+  # Possible values include: debug, info, notice, warn, error, crit,
+  # alert, emerg.
+
+  LogLevel warn
+
+  CustomLog /var/log/apache2/access.log combined
+</VirtualHost>
+
+<VirtualHost *:443>
+  ServerAdmin webmaster@localhost
+  ServerName test.hngamers.com
+  SSLEngine on
+	SSLCertificateFile	/etc/ssl/certs/ssl.pem
+	SSLCertificateKeyFile /etc/ssl/private/key.pem
+  DocumentRoot /var/www/
+  RewriteEngine On
+  RewriteCond %{LA-U:remote_user} !^$
+  RewriteRule ^/private(.*) /home/%{LA-U:remote_user}/private$1
+  
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride All
+  </Directory>
+
+  <Directory /var/www/>
+    Options Indexes FollowSymLinks MultiViews
+    IndexOptions +FancyIndexing +SuppressDescription
+    AllowOverride None
+    Order allow,deny
+    allow from all
+    AuthType Basic
+    AuthName "documentroot"
+    AuthUserFile /etc/apache2/.htpasswd
+  </Directory>
+
+  ErrorLog /var/log/apache2/error.log
+  # Possible values include: debug, info, notice, warn, error, crit,
+  # alert, emerg.
+  LogLevel warn
+  
+  CustomLog /var/log/apache2/access.log combined
+</VirtualHost>

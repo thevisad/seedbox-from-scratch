@@ -7,6 +7,7 @@ cp /etc/seedbox-from-scratch/templates/hnseedbase.entrypoint.sh.template /etc/se
 cp /etc/seedbox-from-scratch/templates/hnseedbase.Dockerfile.template /etc/seedbox-from-scratch/dockers/hnseedbase-docker/Dockerfile
 cp /etc/seedbox-from-scratch/templates/hnrapidleech.config.php.template /etc/seedbox-from-scratch/dockers/hnrapidleech-docker/config.php
 cp /etc/seedbox-from-scratch/templates/hnrapidleech.Dockerfile.template /etc/seedbox-from-scratch/dockers/hnrapidleech-docker/Dockerfile
+cp /etc/seedbox-from-scratch/templates/hnrapidleech.sslsite.conf.template /etc/seedbox-from-scratch/dockers/hnrapidleech-docker/sslsite.conf
 
 cd /etc/seedbox-from-scratch/dockers/hnseedbase-docker/
 docker build -t hnseedbase-docker .
