@@ -38,6 +38,7 @@ echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-sc
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile)" > /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile)" > /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile
+echo "EXPOSE 443" >> /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile 
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile 
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile 
@@ -45,12 +46,11 @@ echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-sc
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile)" > /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile
 chmod 644 /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.7/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile
 
-cp /etc/seedbox-from-scratch/templates/hnrutorrent.nginx.conf.template /etc/seedbox-from-scratch/dockers/docker-rutorrent/root/defaults/nginx.conf
-
 cd /etc/seedbox-from-scratch/dockers/ubooquity-docker
 docker build -t ubooquity-docker .
 
 cd /etc/seedbox-from-scratch/dockers/docker-rutorrent/
+cp /etc/seedbox-from-scratch/templates/hnrutorrent.nginx.conf.template /etc/seedbox-from-scratch/dockers/docker-rutorrent/root/defaults/nginx.conf
 docker build -t docker-rutorrent .
 
 cd /etc/seedbox-from-scratch/dockers/arch-deluge

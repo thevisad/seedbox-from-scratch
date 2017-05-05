@@ -46,9 +46,9 @@ if [ ! -d "/home/${USERNAME}/rtorrent/config" ]; then
 fi
 
 echo "SERVICE: RTORRENT" > /home/${USERNAME}/private/rutorrent.serviceinfo
-echo "USERNAME: $USERNAME" > /home/${USERNAME}/private/rutorrent.serviceinfo
+echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
-echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+echo "ACCESSURL: https://$SYSTEMHOSTNAME:$WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 echo "WEBSSLSERVERPORT: $WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
