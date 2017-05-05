@@ -23,7 +23,6 @@ git clone https://github.com/linuxserver/docker-rutorrent.git
 git clone https://github.com/mysql/mysql-docker.git
 git clone https://github.com/linuxserver/docker-letsencrypt.git
 git clone https://github.com/timhaak/docker-plex.git
-git clone https://github.com/linuxserver/docker-letsencrypt.git
 git clone https://github.com/timhaak/docker-sabnzbd.git
 git clone https://github.com/timhaak/docker-sickbeard.git
 git clone https://github.com/timhaak/docker-couchpotato.git
@@ -38,7 +37,7 @@ echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-sc
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile)" > /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile)" > /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile
-echo "EXPOSE 443" >> /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile
+perl -pi -e "s/EXPOSE 80/EXPOSE 443/g" /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile 
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile 
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile 

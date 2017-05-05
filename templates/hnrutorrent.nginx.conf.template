@@ -36,7 +36,6 @@ http {
 	default_type application/octet-stream;
 
 	server {
-		listen 80 default_server;
 		listen 443 default_server;
 		ssl on;
 		ssl_certificate /etc/ssl/certs/cacert.pem;

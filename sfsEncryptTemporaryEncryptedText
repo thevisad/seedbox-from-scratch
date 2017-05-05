@@ -1,0 +1,30 @@
+#!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root" 1>&2
+  exit 1
+fi
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -t|--text)
+    TEXTVALUE="$2"
+    shift # past argument 
+    ;;
+    ;;
+	-p|--password)
+    PASSWORD="$2"
+    shift # past argument 
+    ;;
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+ENCRYPTEDTEXT=$(echo ${TEXTVALUE} | openssl enc -aes-128-cbc -a -salt -pass pass:${PASSWORD})
+echo ENCRYPTEDTEXT
