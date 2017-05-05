@@ -60,7 +60,7 @@ docker run --restart=always -d --name ${USERNAME}_rutorrent -e LOCAL_USER_ID=${U
 
 TEMPUSERPASSWORD=$(perl -le 'print crypt(${USERPASSWORD}, "1XZCQ")')
 echo ${TEMPUSERPASSWORD} > /tmp/temp.htpasswd
-docker cp /tmp/temp.htpasswd ${USERNAME}_rapidleech:/usr/share/webapps/.htpasswd
+docker cp /tmp/temp.htpasswd ${USERNAME}_rutorrent:/usr/share/webapps/.htpasswd
 rm -rf /tmp/temp.htpasswd
 
 if [[ -n $1 ]]; then
