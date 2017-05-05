@@ -9,11 +9,9 @@ case $key in
     TEXTVALUE="$2"
     shift # past argument 
     ;;
-    ;;
 	-p|--password)
     PASSWORD="$2"
     shift # past argument 
-    ;;
     ;;
     *)
             # unknown option
