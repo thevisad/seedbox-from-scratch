@@ -39,8 +39,8 @@ http {
 		listen 80 default_server;
 		listen 443 default_server;
 		ssl on;
-		ssl_certificate /etc/ssl/certs/ssl.pem;
-		ssl_certificate_key /etc/ssl/private/key.pem;
+		ssl_certificate /etc/ssl/certs/cacert.pem;
+		ssl_certificate_key /etc/ssl/certs/cakey.pem;
 		root /var/www/localhost/rutorrent;
 		index index.html index.htm index.php;
 		auth_basic "Secure Login";
