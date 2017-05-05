@@ -21,4 +21,4 @@ shift # past argument or value
 done
 
 DECRYPTEDTEXT=$(echo ${TEXTVALUE} | openssl enc -aes-128-cbc -a -d -salt -pass pass:${PASSWORD})
-echo DECRYPTEDTEXT
+echo ${DECRYPTEDTEXT}
