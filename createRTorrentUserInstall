@@ -21,6 +21,7 @@ esac
 shift # past argument or value
 done
 
+USERPASSWORD=$(echo "$(cat /etc/seedbox-from-scratch/users/${USERNAME}.info)" | grep "Password: " | head -n1 | awk '{print $2}')
 SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8180)
 WEBSSLSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8444 -ep 8543)
@@ -41,12 +42,7 @@ echo UDPPORT     = "${UDPPORT}"
 if [ ! -d "/home/${USERNAME}/rtorrent/config" ]; then
   mkdir /home/${USERNAME}/rtorrent
   mkdir /home/${USERNAME}/rtorrent/config
-   echo "$(/etc/seedbox-from-scratch/sfsGenerateUserHtpassword -u ${USERNAME})" > /home/${USERNAME}/rtorrent/config/.htpasswd
-   echo "AuthType Basic" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
-   echo "AuthName \"rutorrent\"" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
-   echo "AuthUserFile  \"/home/${USERNAME}/rtorrent/config/.htpasswd\"" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
-   echo "require valid-user" >> /home/${USERNAME}/rtorrent/config/rutorrent/settings/.htaccess
-   chown ${USERNAME}:${USERNAME} /home/${USERNAME}/rtorrent/ -R
+  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/rtorrent/ -R
 fi
 
 echo "SERVICE: RTORRENT" > /home/${USERNAME}/private/rutorrent.serviceinfo
@@ -60,7 +56,13 @@ echo "PREPORT: $PREPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
-docker run --restart=always -d --name ${USERNAME}_rutorrent -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:80 -p ${WEBSSLSERVERPORT}:443 -p ${PREPORT}:5000 -p ${SERVERPORT}:51413 -p ${UDPPORT}:6881 -v /etc/localtime:/etc/localtime:ro docker-rutorrent
+docker run --restart=always -d --name ${USERNAME}_rutorrent -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:80 -p ${WEBSSLSERVERPORT}:443 -p ${PREPORT}:5000 -p ${SERVERPORT}:51413 -p ${UDPPORT}:6881 -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro docker-rutorrent
+
+TEMPUSERPASSWORD=$(perl -le 'print crypt(${USERPASSWORD}, "1XZCQ")')
+echo ${TEMPUSERPASSWORD} > /tmp/temp.htpasswd
+docker cp /tmp/temp.htpasswd ${USERNAME}_rapidleech:/usr/share/webapps/.htpasswd
+rm -rf /tmp/temp.htpasswd
+
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

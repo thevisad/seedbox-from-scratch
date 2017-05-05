@@ -43,6 +43,8 @@ http {
 		ssl_certificate_key /etc/ssl/private/key.pem;
 		root /var/www/localhost/rutorrent;
 		index index.html index.htm index.php;
+		auth_basic "Secure Login";
+		auth_basic_user_file /usr/share/webapps/.htpasswd;
 
 		server_name _;
 		client_max_body_size 0;
