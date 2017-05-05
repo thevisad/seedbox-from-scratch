@@ -30,6 +30,8 @@ PREPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 5001 -ep 5100)
 UDPPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 6882 -ep 6982)
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
+HTPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateUserHtpassword -u ${USERNAME})
+
 echo USERUID  = "${USERUID}"
 echo USERGID  = "${USERGID}"
 echo USERNAME  = "${USERNAME}"
@@ -58,8 +60,7 @@ chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_rutorrent -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:80 -p ${WEBSSLSERVERPORT}:443 -p ${PREPORT}:5000 -p ${SERVERPORT}:51413 -p ${UDPPORT}:6881 -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro docker-rutorrent
 
-TEMPUSERPASSWORD=$(perl -le 'print crypt(${USERPASSWORD}, "1XZCQ")')
-echo ${TEMPUSERPASSWORD} > /tmp/temp.htpasswd
+echo ${HTPASSWDGENED} > /tmp/temp.htpasswd
 docker cp /tmp/temp.htpasswd ${USERNAME}_rutorrent:/usr/share/webapps/.htpasswd
 rm -rf /tmp/temp.htpasswd
 
