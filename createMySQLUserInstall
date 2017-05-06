@@ -30,8 +30,6 @@ shift # past argument or value
 done
 
 SERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 3307 -ep 3406)
-ENCRYPTEDROOTPASSWORD=`cat /home/${USERNAME}/mysql.encrypted`
-ROOTPASSWORD=$(/etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText -t )
 SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 
 echo USERNAME  = "${USERNAME}"
