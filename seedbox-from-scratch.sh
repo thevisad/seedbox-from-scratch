@@ -435,6 +435,10 @@ cp /etc/seedbox-from-scratch/templates/action.php.template /var/www/rutorrent/pl
 groupadd admin
 
 echo "www-data ALL=(root) NOPASSWD: /usr/sbin/repquota" | tee -a /etc/sudoers > /dev/null
+echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText" | tee -a /etc/sudoers > /dev/null
+echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/sfsEncryptTemporaryEncryptedText" | tee -a /etc/sudoers > /dev/null
+echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/sfsGenerateRandomPasswordString" | tee -a /etc/sudoers > /dev/null
+echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/sfsRunningUserDockerInfo" | tee -a /etc/sudoers > /dev/null
 
 cp /etc/seedbox-from-scratch/favicon.ico /var/www/
 
