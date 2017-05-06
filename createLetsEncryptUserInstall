@@ -22,16 +22,8 @@ case $key in
     SUBDOMAINSLIST="$2"
     shift # past argument 
     ;;
-	-t|--timezone)
-    SERVERTIMEZONE="$2"
-    shift # past argument 
-    ;;
 	-d|--dhlevel)
     DHLEVEL="$2"
-    shift # past argument 
-    ;;
-	-so|--subzoneonly)
-    SUBZONEONLY="$2"
     shift # past argument 
     ;;
     *)
@@ -52,7 +44,6 @@ echo USERGID  = "${USERGID}"
 echo USERNAME  = "${USERNAME}"
 echo USEREMAIL  = "${USEREMAIL}"
 echo SUBDOMAINSLIST  = "${SUBDOMAINSLIST}"
-echo SERVERTIMEZONE  = "${SERVERTIMEZONE}"
 echo DHLEVEL     = "${DHLEVEL}"
 echo SUBZONEONLY     = "${SUBZONEONLY}"
 echo WEBSERVERSSLPORT     = "${WEBSERVERSSLPORT}"
