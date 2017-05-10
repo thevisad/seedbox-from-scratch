@@ -582,6 +582,10 @@ bash /etc/seedbox-from-scratch/createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YE
 
 bash /etc/seedbox-from-scratch/implementHNSeedbaseDockerImageSettings
 
+
+#38.1 Pull down required docker images
+docker pull timhaak/plex
+
 # 39 Insert Crontab task 
 (crontab -l 2>/dev/null; echo "*/2 * * * * /etc/seedbox-from-scratch/cronTasks >/dev/null 2>&1") | crontab - 
 

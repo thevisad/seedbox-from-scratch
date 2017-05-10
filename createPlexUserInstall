@@ -44,7 +44,7 @@ echo "ACCESSURL: http://$SYSTEMHOSTNAME:$PLEXPORT" >> /home/${USERNAME}/private/
 echo "PLEXPORT: $PLEXPORT" >> /home/${USERNAME}/private/plex.serviceinfo
 chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
-docker run --restart=always -d --name ${USERNAME}_plex -h ${SYSTEMHOSTNAME} -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/media:/data -p ${PLEXPORT}:32400 docker-plex
+docker run --restart=always -d --name ${USERNAME}_plex -h ${SYSTEMHOSTNAME} -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/media:/data -p ${PLEXPORT}:32400 timhaak/plex
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

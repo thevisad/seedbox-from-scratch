@@ -39,7 +39,7 @@ USERGID=$(id -g ${USERNAME})
 echo USERUID  = "${USERUID}"
 echo USERGID  = "${USERGID}"
 
-echo "SERVICE: MYSQL" > /home/${USERNAME}/private/plex.serviceinfo
+echo "SERVICE: MYSQL" > /home/${USERNAME}/private/mysql.serviceinfo
 echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/mysql.serviceinfo
 echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/mysql.serviceinfo
 echo "ROOTPASSWORD: $ROOTPASSWORD" >> /home/${USERNAME}/private/mysql.serviceinfo

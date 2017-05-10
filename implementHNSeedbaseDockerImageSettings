@@ -22,14 +22,12 @@ git clone https://github.com/cromigon/ubooquity-docker.git
 git clone https://github.com/linuxserver/docker-rutorrent.git
 git clone https://github.com/mysql/mysql-docker.git
 git clone https://github.com/linuxserver/docker-letsencrypt.git
-git clone https://github.com/timhaak/docker-plex.git
 git clone https://github.com/timhaak/docker-sabnzbd.git
 git clone https://github.com/timhaak/docker-sickbeard.git
 git clone https://github.com/timhaak/docker-couchpotato.git
 git clone https://github.com/timhaak/docker-sickrage.git
 
-chmod 666 /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.7/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile
-echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile
+chmod 666 /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.7/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile)" > /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile)" > /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile
@@ -43,7 +41,7 @@ echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-sc
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile )" > /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile 
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile)" > /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile
 echo -e "FROM hnseedbase-docker\nCMD [\"/bin/bash\"]\n$(cat /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile)" > /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile
-chmod 644 /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.7/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile /etc/seedbox-from-scratch/dockers/docker-plex/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile
+chmod 644 /etc/seedbox-from-scratch/dockers/ubooquity-docker/Dockerfile /etc/seedbox-from-scratch/dockers/docker-rutorrent/Dockerfile /etc/seedbox-from-scratch/dockers/arch-deluge/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.5/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.6/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/5.7/Dockerfile /etc/seedbox-from-scratch/dockers/mysql-docker/8.0/Dockerfile /etc/seedbox-from-scratch/dockers/docker-letsencrypt/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sabnzbd/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickbeard/Dockerfile /etc/seedbox-from-scratch/dockers/docker-couchpotato/Dockerfile /etc/seedbox-from-scratch/dockers/docker-sickrage/Dockerfile
 
 cd /etc/seedbox-from-scratch/dockers/ubooquity-docker
 docker build -t ubooquity-docker .
@@ -69,9 +67,6 @@ docker build -t mysql-docker8.0 .
 
 cd /etc/seedbox-from-scratch/dockers/docker-letsencrypt
 docker build -t docker-letsencrypt .
-
-cd /etc/seedbox-from-scratch/dockers/docker-plex
-docker build -t docker-plex .
 
 cd /etc/seedbox-from-scratch/dockers/docker-sabnzbd (crashed!) -- fixed line breaks
 docker build -t docker-sabnzbd .
