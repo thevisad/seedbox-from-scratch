@@ -30,21 +30,23 @@ shift # past argument or value
 done
 
 SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
-PLEXPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 32401 -ep 32500)
+PLEXPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 32401 -ep 32500)
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
-echo USERUID  = "${USERUID}"
-echo USERGID  = "${USERGID}"
-echo USERNAME  = "${USERNAME}"
-echo PLEXPORT     = "${PLEXPORT}"
-
-echo "SERVICE: PLEX" > /home/${USERNAME}/private/plex.serviceinfo
-echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/plex.serviceinfo
-echo "ACCESSURL: http://$SYSTEMHOSTNAME:$PLEXPORT" >> /home/${USERNAME}/private/plex.serviceinfo
-echo "PLEXPORT: $PLEXPORT" >> /home/${USERNAME}/private/plex.serviceinfo
-chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_plex -h ${SYSTEMHOSTNAME} -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/media:/data -p ${PLEXPORT}:32400 timhaak/plex
+
+sleep 5
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d plex | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
+	echo "SERVICE: PLEX" > /home/${USERNAME}/private/plex.serviceinfo
+	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/plex.serviceinfo
+	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$PLEXPORT/web" >> /home/${USERNAME}/private/plex.serviceinfo
+	echo "PLEXPORT: $PLEXPORT" >> /home/${USERNAME}/private/plex.serviceinfo
+	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
+fi
+
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

@@ -21,30 +21,31 @@ esac
 shift # past argument or value
 done
 
-WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 5051 -ep 5151)
+WEBSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 5051 -ep 5151)
 SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
-echo USERUID  = "${USERUID}"
-echo USERGID  = "${USERGID}"
-echo USERNAME  = "${USERNAME}"
-echo WEBSERVERPORT     = "${WEBSERVERPORT}"
-
-if [ ! -d "/home/${USERNAME}/couchpotato" ]; then
-  mkdir /home/${USERNAME}/couchpotato
-  mkdir /home/${USERNAME}/couchpotato/config
-  mkdir /home/${USERNAME}/couchpotato/data
-  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/couchpotato/ -R
-fi
-
-echo "SERVICE: COUCHPOTATO" > /home/${USERNAME}/private/couchpotato.serviceinfo
-echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/couchpotato.serviceinfo
-echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/couchpotato.serviceinfo
-echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/couchpotato.serviceinfo
-chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_couchpotato -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/couchpotato/config:/config -v /home/${USERNAME}/downloads:/data -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:5050 -v /etc/localtime:/etc/localtime:ro docker-couchpotato
+
+sleep 5
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d couchpotato | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
+	echo "SERVICE: COUCHPOTATO" > /home/${USERNAME}/private/couchpotato.serviceinfo
+	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/couchpotato.serviceinfo
+	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/couchpotato.serviceinfo
+	echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/couchpotato.serviceinfo
+	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
+	if [ ! -d "/home/${USERNAME}/couchpotato" ]; then
+	  mkdir /home/${USERNAME}/couchpotato
+	  mkdir /home/${USERNAME}/couchpotato/config
+	  mkdir /home/${USERNAME}/couchpotato/data
+	  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/couchpotato/ -R
+	fi
+fi
+
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

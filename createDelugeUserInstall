@@ -22,32 +22,33 @@ shift # past argument or value
 done
 
 SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
-WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8113 -ep 8212)
-SERVERDAEMONPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 58847 -ep 58945)
-SERVERTORRENTPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 58947 -ep 59046)
+WEBSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8113 -ep 8212)
+SERVERDAEMONPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 58847 -ep 58945)
+SERVERTORRENTPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 58947 -ep 59046)
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
-echo USERUID  = "${USERUID}"
-echo USERGID  = "${USERGID}"
-echo USERNAME  = "${USERNAME}"
-echo SERVERPORT     = "${SERVERPORT}"
-echo WEBSERVERPORT     = "${WEBSERVERPORT}"
-
-if [ ! -d "/home/${USERNAME}/deluge" ]; then
-  mkdir /home/${USERNAME}/deluge
-  mkdir /home/${USERNAME}/deluge/config
-  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/deluge/ -R
-fi
-
-echo "SERVICE: DELUGE" > /home/${USERNAME}/private/deluge.serviceinfo
-echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/deluge.serviceinfo
-echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
-echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
-echo "SERVERDAEMONPORT: $SERVERDAEMONPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
-echo "SERVERTORRENTPORT: $SERVERTORRENTPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
-chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_deluge -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/downloads -v /home/${USERNAME}/deluge/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8112 -p ${SERVERDAEMONPORT}:58846 -p ${SERVERTORRENTPORT}:58946 -v /etc/localtime:/etc/localtime:ro arch-deluge
+
+sleep 5
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d deluge | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
+	if [ ! -d "/home/${USERNAME}/deluge" ]; then
+	  mkdir /home/${USERNAME}/deluge
+	  mkdir /home/${USERNAME}/deluge/config
+	  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/deluge/ -R
+	fi
+
+	echo "SERVICE: DELUGE" > /home/${USERNAME}/private/deluge.serviceinfo
+	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/deluge.serviceinfo
+	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
+	echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
+	echo "SERVERDAEMONPORT: $SERVERDAEMONPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
+	echo "SERVERTORRENTPORT: $SERVERTORRENTPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
+	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
+fi
+
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

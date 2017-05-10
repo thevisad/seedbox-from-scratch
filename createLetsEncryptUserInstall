@@ -33,39 +33,35 @@ esac
 shift # past argument or value
 done
 
-WEBSERVERSSLPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8444 -ep 8543)
+WEBSERVERSSLPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8444 -ep 8543)
 SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
-
-echo USERUID  = "${USERUID}"
-echo USERGID  = "${USERGID}"
-echo USERNAME  = "${USERNAME}"
-echo USEREMAIL  = "${USEREMAIL}"
-echo SUBDOMAINSLIST  = "${SUBDOMAINSLIST}"
-echo DHLEVEL     = "${DHLEVEL}"
-echo SUBZONEONLY     = "${SUBZONEONLY}"
-echo WEBSERVERSSLPORT     = "${WEBSERVERSSLPORT}"
 
 SUBZONESONLYVAR=false
 if [ ${SUBZONEONLY} = "true"]; then
 	SUBZONESONLYVAR=true
 fi
 
-if [ ! -d "/home/${USERNAME}/letsencrypt/config" ]; then
-	mkdir /home/${USERNAME}/letsencrypt
-	mkdir /home/${USERNAME}/letsencrypt/config
-	chown ${USERNAME}:${USERNAME} /home/${USERNAME}/letsencrypt/ -R
-fi
-
-echo "SERVICE: LETSENCRYPT" > /home/${USERNAME}/private/letsencrypt.serviceinfo
-echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/letsencrypt.serviceinfo
-echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERSSLPORT" >> /home/${USERNAME}/private/letsencrypt.serviceinfo
-echo "WEBSERVERSSLPORT: $WEBSERVERSSLPORT" >> /home/${USERNAME}/private/letsencrypt.serviceinfo
-chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
-
 docker run --restart=always -d --name ${USERNAME}_letsencrypt -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/letsencrypt/config:/config -e PGID=${USERGID} -e URL=${SYSTEMHOSTNAME} -e SUBDOMAINS=${SUBDOMAINSLIST} -e EMAIL=${USEREMAIL} -e PUID=${USERUID} -p ${WEBSERVERSSLPORT}:443 -e DHLEVEL=${DHLEVEL} -v /etc/localtime:/etc/localtime:ro docker-letsencrypt -e ONLY_SUBDOMAINS=${SUBZONESONLYVAR}
+
+sleep 5
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d letsencrypt | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
+	if [ ! -d "/home/${USERNAME}/letsencrypt/config" ]; then
+		mkdir /home/${USERNAME}/letsencrypt
+		mkdir /home/${USERNAME}/letsencrypt/config
+		chown ${USERNAME}:${USERNAME} /home/${USERNAME}/letsencrypt/ -R
+	fi
+
+	echo "SERVICE: LETSENCRYPT" > /home/${USERNAME}/private/letsencrypt.serviceinfo
+	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/letsencrypt.serviceinfo
+	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERSSLPORT" >> /home/${USERNAME}/private/letsencrypt.serviceinfo
+	echo "WEBSERVERSSLPORT: $WEBSERVERSSLPORT" >> /home/${USERNAME}/private/letsencrypt.serviceinfo
+	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
+fi
 
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"

@@ -21,30 +21,32 @@ esac
 shift # past argument or value
 done
 
-WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8180)
+WEBSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8180)
 SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
-echo USERUID  = "${USERUID}"
-echo USERGID  = "${USERGID}"
-echo USERNAME  = "${USERNAME}"
-echo WEBSERVERPORT     = "${WEBSERVERPORT}"
-
-if [ ! -d "/home/${USERNAME}/sabnzbd" ]; then
-  mkdir /home/${USERNAME}/sabnzbd
-  mkdir /home/${USERNAME}/sabnzbd/config
-  mkdir /home/${USERNAME}/sabnzbd/data
-  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/sabnzbd/ -R
-fi
-
-echo "SERVICE: SABNZBD" > /home/${USERNAME}/private/sabnzbd.serviceinfo
-echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/sabnzbd.serviceinfo
-echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/sabnzbd.serviceinfo
-echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sabnzbd.serviceinfo
-chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_sabnzbd -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/data -v /home/${USERNAME}/sabnzbd/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8080 -v /etc/localtime:/etc/localtime:ro docker-sabnzbd
+
+sleep 5
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d sabnzbd | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
+	if [ ! -d "/home/${USERNAME}/sabnzbd" ]; then
+	  mkdir /home/${USERNAME}/sabnzbd
+	  mkdir /home/${USERNAME}/sabnzbd/config
+	  mkdir /home/${USERNAME}/sabnzbd/data
+	  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/sabnzbd/ -R
+	fi
+
+	echo "SERVICE: SABNZBD" > /home/${USERNAME}/private/sabnzbd.serviceinfo
+	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/sabnzbd.serviceinfo
+	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/sabnzbd.serviceinfo
+	echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sabnzbd.serviceinfo
+	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
+fi
+
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

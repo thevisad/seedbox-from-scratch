@@ -32,30 +32,32 @@ done
 SERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 3307 -ep 3406)
 SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 
-echo USERNAME  = "${USERNAME}"
-echo SERVERPORT     = "${SERVERPORT}"
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
-echo USERUID  = "${USERUID}"
-echo USERGID  = "${USERGID}"
-
-echo "SERVICE: MYSQL" > /home/${USERNAME}/private/mysql.serviceinfo
-echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/mysql.serviceinfo
-echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/mysql.serviceinfo
-echo "ROOTPASSWORD: $ROOTPASSWORD" >> /home/${USERNAME}/private/mysql.serviceinfo
-chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
-
-if [ ! -d "/home/${USERNAME}/mysql" ]; then
-  mkdir /home/${USERNAME}/mysql
-  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/mysql/ -R
-fi
-
-if [ ! -f /home/${USERNAME}/mysql/my.cnf ]; then
-	cp /etc/seedbox-from-scratch/templates/my.cnf.template /home/${USERNAME}/mysql/my.cnf
-	chown ${USERNAME}:${USERNAME} /home/${USERNAME}/mysql/ -R
-fi
 
 docker run --restart=always -d --name ${USERNAME}_mysql -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/mysql:/var/lib/mysql -v /home/${USERNAME}/mysql/my.cnf:/etc/my.cnf -e PGID=${USERGID} -e PUID=${USERUID} -p ${SERVERPORT}:3306 -e MYSQL_ROOT_HOST=172.17.0.1 -e MYSQL_ROOT_PASSWORD=${ROOTPASSWORD} -v /etc/localtime:/etc/localtime:ro mysql-docker${VERSION}
+
+sleep 5
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d mysql | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
+	echo "SERVICE: MYSQL" > /home/${USERNAME}/private/mysql.serviceinfo
+	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/mysql.serviceinfo
+	echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/mysql.serviceinfo
+	echo "ROOTPASSWORD: $ROOTPASSWORD" >> /home/${USERNAME}/private/mysql.serviceinfo
+	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
+
+	if [ ! -d "/home/${USERNAME}/mysql" ]; then
+	  mkdir /home/${USERNAME}/mysql
+	  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/mysql/ -R
+	fi
+
+	if [ ! -f /home/${USERNAME}/mysql/my.cnf ]; then
+		cp /etc/seedbox-from-scratch/templates/my.cnf.template /home/${USERNAME}/mysql/my.cnf
+		chown ${USERNAME}:${USERNAME} /home/${USERNAME}/mysql/ -R
+	fi
+fi
+
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

@@ -21,30 +21,33 @@ esac
 shift # past argument or value
 done
 
-WEBSERVERPORT=$(/opt/seedbox-from-scratch/sfsgetAvailablePort -sp 8082 -ep 8181 )
+WEBSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8082 -ep 8181 )
 SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
-echo USERUID  = "${USERUID}"
-echo USERGID  = "${USERGID}"
-echo USERNAME  = "${USERNAME}"
-echo WEBSERVERPORT     = "${WEBSERVERPORT}"
 
-if [ ! -d "/home/${USERNAME}/sickrage" ]; then
-  mkdir /home/${USERNAME}/sickrage
-  mkdir /home/${USERNAME}/sickrage/config
-  mkdir /home/${USERNAME}/sickrage/data
-  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/sickrage/ -R
-fi
-
-echo "SERVICE: SICKRAGE" > /home/${USERNAME}/private/sickrage.serviceinfo
-echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/sickrage.serviceinfo
-echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/sickrage.serviceinfo
-echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sickrage.serviceinfo
-chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 docker run --restart=always -d --name ${USERNAME}_sickrage -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/data -v /home/${USERNAME}/sickrage/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8081  -v /etc/localtime:/etc/localtime:ro docker-sickrage
+
+sleep 5
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d sickrage | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then		
+	if [ ! -d "/home/${USERNAME}/sickrage" ]; then
+	  mkdir /home/${USERNAME}/sickrage
+	  mkdir /home/${USERNAME}/sickrage/config
+	  mkdir /home/${USERNAME}/sickrage/data
+	  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/sickrage/ -R
+	fi
+
+	echo "SERVICE: SICKRAGE" > /home/${USERNAME}/private/sickrage.serviceinfo
+	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/sickrage.serviceinfo
+	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/sickrage.serviceinfo
+	echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sickrage.serviceinfo
+	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
+fi
+
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
