@@ -23,6 +23,8 @@ done
 echo USERNAME  = "${USERNAME}"
 sudo docker rm -f ${USERNAME}_rutorrent
 rm -rf /home/${USERNAME}/private/rutorrent.serviceinfo
+rm -rf /home/${USERNAME}/rtorrent
+
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
