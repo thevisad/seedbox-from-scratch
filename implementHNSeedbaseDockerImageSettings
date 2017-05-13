@@ -1,14 +1,13 @@
 #!/bin/bash
-rm -rf /etc/seedbox-from-scratch/dockers/
-mkdir /etc/seedbox-from-scratch/dockers/
-mkdir /etc/seedbox-from-scratch/dockers/hnseedbase-docker
-mkdir /etc/seedbox-from-scratch/dockers/hnrapidleech-docker
-
-cp /etc/seedbox-from-scratch/templates/hnseedbase.entrypoint.sh.template /etc/seedbox-from-scratch/dockers/hnseedbase-docker/entrypoint.sh
-cp /etc/seedbox-from-scratch/templates/hnseedbase.Dockerfile.template /etc/seedbox-from-scratch/dockers/hnseedbase-docker/Dockerfile
-cp /etc/seedbox-from-scratch/templates/hnrapidleech.config.php.template /etc/seedbox-from-scratch/dockers/hnrapidleech-docker/config.php
-cp /etc/seedbox-from-scratch/templates/hnrapidleech.Dockerfile.template /etc/seedbox-from-scratch/dockers/hnrapidleech-docker/Dockerfile
-cp /etc/seedbox-from-scratch/templates/hnrapidleech.sslsite.conf.template /etc/seedbox-from-scratch/dockers/hnrapidleech-docker/sslsite.conf
+rm -rf /etc/seedbox-from-scratch/dockers/ubooquity-docker 
+rm -rf /etc/seedbox-from-scratch/dockers/docker-rutorrent 
+rm -rf /etc/seedbox-from-scratch/dockers/arch-deluge 
+rm -rf /etc/seedbox-from-scratch/dockers/mysql-docker
+rm -rf /etc/seedbox-from-scratch/dockers/docker-letsencrypt 
+rm -rf /etc/seedbox-from-scratch/dockers/docker-sabnzbd 
+rm -rf /etc/seedbox-from-scratch/dockers/docker-sickbeard 
+rm -rf /etc/seedbox-from-scratch/dockers/docker-couchpotato 
+rm -rf /etc/seedbox-from-scratch/dockers/docker-sickrage
 
 cd /etc/seedbox-from-scratch/dockers/hnseedbase-docker/
 docker build -t hnseedbase-docker .

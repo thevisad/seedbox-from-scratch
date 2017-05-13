@@ -1,7 +1,0 @@
-#!/bin/bash
-echo "Installing Deluge ..."
-
-docker pull linuxserver/deluge
-
-echo ""
-echo "Deluge is installed"
