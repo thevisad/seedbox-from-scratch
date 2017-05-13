@@ -1,8 +1,0 @@
-#!/bin/bash
-echo "Installing ubooquity comic streamer . . . ."
-
-docker pull linuxserver/ubooquity
-
-echo ""
-echo "ubooquity comic streamer is installed"
-

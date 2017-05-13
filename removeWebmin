@@ -7,5 +7,4 @@
 #
 ## See Readme.md for License ###
 #
-
 sudo apt-get --yes purge webmin

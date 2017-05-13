@@ -1,7 +1,0 @@
-#!/bin/bash
-echo "Installing MySQL ..."
-
-docker pull mysql/mysql-server
-
-echo ""
-echo "MySQL is installed"

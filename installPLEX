@@ -1,8 +1,0 @@
-#!/bin/bash
-echo "Installing Plex Media Server . . . ."
-
-docker pull timhaak/plex
-
-echo ""
-echo "Plex Media Server is installed"
-

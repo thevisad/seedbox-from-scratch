@@ -671,12 +671,7 @@ sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/crontabentries
 sudo chmod +x $HOMEJAILED1/crontabentries
 sudo bash $HOMEJAILED1/crontabentries
 
-## To be used when xrdp is ready to be released
-#if [ "$NEWUSER1" = "$MAINUSER1" ]; then
-#  sudo mv /etc/seedbox-from-scratch/RDPconfig.sh $HOMEJAILED1/RDPconfig.sh
-#  sudo chmod +x $HOMEJAILED1/RDPconfig.sh
-#  sudo chown $NEWUSER1:$NEWUSER1 $HOMEJAILED1/RDPconfig.sh
-#fi
+
 ## Aliases
 sudo echo "alias port='sudo netstat -tulpn | grep' " | sudo tee -a $HOMEJAILED1/.bashrc
 sudo echo "alias ro='screen -dr root' " | sudo tee -a $HOMEJAILED1/.bashrc
