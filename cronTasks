@@ -1,0 +1,769 @@
+#!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+
+for f in /etc/seedbox-from-scratch/users/*.info; do
+	f=${f##*/}
+	#
+	# install tasks
+	#
+	
+	if [ -f "/home/${f%.info}/services/Plex.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d plex )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "PLEX ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/Plex.*
+		else
+			DECRYPTPASS=`cat /home/${f%.info}/services/Plex.encrypt`
+			ENCRYPTEDUSERNAME=`cat /home/${f%.info}/services/Plex.encrypteduser`
+			ENCRYPTEDPASSWORD=`cat /home/${f%.info}/services/Plex.encryptedpass`
+			DECRYPTEDUSERNAME=$(/etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText -t ${ENCRYPTEDUSERNAME} -p ${DECRYPTPASS})
+			DECRYPTEDPASSWORD=$(/etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText -t ${ENCRYPTEDPASSWORD} -p ${DECRYPTPASS})
+			rm -rf /home/${f%.info}/services/Plex.*
+			echo "PLEX INSTALLED"
+			/etc/seedbox-from-scratch/createPlexUserInstall -u ${f%.info} -pu ${DECRYPTEDUSERNAME} -pp ${DECRYPTEDPASSWORD}
+		fi 
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Couchpotato.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d couchpotato )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "COUCHPOTATO ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/Couchpotato.*
+			
+		else
+			rm -rf /home/${f%.info}/services/Couchpotato.*
+			echo "COUCHPOTATO INSTALLED"
+			/etc/seedbox-from-scratch/createCouchpotatoUserInstall -u ${f%.info} 
+		fi
+
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Deluge.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d deluge )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "DELUGE ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/Deluge.*
+			
+		else
+			rm -rf /home/${f%.info}/services/Deluge.*
+			echo "DELUGE INSTALLED"
+			/etc/seedbox-from-scratch/createDelugeUserInstall -u ${f%.info} 
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/LetsEncrypt.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d letsencrypt )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "LETSENCRYPT ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/LetsEncrypt.*
+			
+		else
+			rm -rf /home/${f%.info}/services/LetsEncrypt.*
+			echo "LETSENCRYPT INSTALLED"
+			/etc/seedbox-from-scratch/createLetsEncryptUserInstall -u ${f%.info} 
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/MySQL.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d mysql )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "MYSQL ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/MySQL.*
+			
+		else
+			DECRYPTPASS=`cat /home/${f%.info}/services/MySQL.encrypt`
+			VERSION=`cat /home/${f%.info}/services/MySQL.install`
+			ENCRYPTEDPASSWORD=`cat /home/${f%.info}/services/MySQL.encyptedrootpass`
+			DECRYPTEDPASSWORD=$(/etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText -t ${ENCRYPTEDPASSWORD} -p ${DECRYPTPASS})
+			
+			rm -rf /home/${f%.info}/services/MySQL.*
+			echo "MYSQL INSTALLED"
+			/etc/seedbox-from-scratch/createMySQLUserInstall -u ${f%.info} -rp ${DECRYPTEDPASSWORD} -v ${VERSION}
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/RapidLeech.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rapidleech )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "RAPIDLEECH ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/RapidLeech.*
+			
+		else
+			rm -rf /home/${f%.info}/services/RapidLeech.*
+			echo "RAPIDLEECH INSTALLED"
+			/etc/seedbox-from-scratch/createRapidLeechUserInstall -u ${f%.info} 
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/RTorrent.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "RTORRENT ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/RTorrent.*
+			
+		else
+			rm -rf /home/${f%.info}/services/RTorrent.*
+			echo "RTORRENT INSTALLED"
+			/etc/seedbox-from-scratch/createRTorrentUserInstall -u ${f%.info} 
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Sabnzbd.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sabnzbd )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "SABNZBD ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/Sabnzbd.*
+			
+		else
+			rm -rf /home/${f%.info}/services/Sabnzbd.*
+			echo "SABNZBD INSTALLED"
+			/etc/seedbox-from-scratch/createSabnzbdUserInstall -u ${f%.info} 
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Sickbeard.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickbeard )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "SICKBEARD ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/Sickbeard.*
+			
+		else
+			rm -rf /home/${f%.info}/services/Sickbeard.*
+			echo "SICKBEARD INSTALLED"
+			/etc/seedbox-from-scratch/createSickbeardUserInstall -u ${f%.info} 
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Sickrage.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickrage )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "SICKRAGE ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/Sickrage.*
+			
+		else
+			rm -rf /home/${f%.info}/services/Sickrage.*
+			echo "SICKRAGE INSTALLED"
+			/etc/seedbox-from-scratch/createSickrageUserInstall -u ${f%.info} 
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Ubooquity.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d ubooquity )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "UBOOQUITY ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/Ubooquity.*
+			
+		else
+			rm -rf /home/${f%.info}/services/Ubooquity.*
+			echo "UBOOQUITY INSTALLED"
+			/etc/seedbox-from-scratch/createUbooquityUserInstall -u ${f%.info} 
+		fi
+	fi
+
+	#
+	# delete tasks
+	#
+	
+	if [ -f "/home/${f%.info}/services/Plex.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d plex )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/Plex.*
+			echo "PLEX DELETED"
+			/etc/seedbox-from-scratch/deletePlexUserDocker -u ${f%.info} 
+		else
+			echo "PLEX NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Plex.*
+		fi 
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Couchpotato.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d couchpotato )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/Couchpotato.*
+			echo "COUCHPOTATO DELETED"
+			/etc/seedbox-from-scratch/deleteCouchpotatoUserDocker -u ${f%.info} 
+		else
+			echo "COUCHPOTATO ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/Couchpotato.*
+		fi
+
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Deluge.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d deluge )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/Deluge.*
+			echo "DELUGE DELETED"
+			/etc/seedbox-from-scratch/deleteDelugeUserDocker -u ${f%.info} 
+		else
+			echo "DELUGE ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/Deluge.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/LetsEncrypt.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d letsencrypt )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/LetsEncrypt.*
+			echo "LETSENCRYPT DELETED"
+			/etc/seedbox-from-scratch/deleteLetsEncryptUserDocker -u ${f%.info} 
+			
+			
+		else
+			echo "LETSENCRYPT ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/LetsEncrypt.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/MySQL.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d mysql )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/MySQL.*
+			echo "MYSQL DELETED"
+			/etc/seedbox-from-scratch/deleteMySQLUserDocker -u ${f%.info} 
+		
+			
+		else
+			echo "MYSQL ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/MySQL.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/RapidLeech.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rapidleech )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/RapidLeech.*
+			echo "RAPIDLEECH DELETED"
+			/etc/seedbox-from-scratch/deleteRapidLeechUserDocker -u ${f%.info} 
+		
+			
+		else
+			echo "RAPIDLEECH ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/RapidLeech.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/RTorrent.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/RTorrent.*
+			echo "RTORRENT DELETED"
+			/etc/seedbox-from-scratch/deleteRTorrentUserDocker -u ${f%.info} 
+		
+			
+		else
+			echo "RTORRENT ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/RTorrent.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Sabnzbd.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sabnzbd )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/Sabnzbd.*
+			echo "SABNZBD DELETED"
+			/etc/seedbox-from-scratch/deleteSabnzbdUserDocker -u ${f%.info} 
+		
+			
+		else
+			echo "SABNZBD ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/Sabnzbd.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Sickbeard.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickbeard )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/Sickbeard.*
+			echo "SICKBEARD DELETED"
+			/etc/seedbox-from-scratch/deleteSickbeardUserDocker -u ${f%.info} 
+		
+			
+		else
+			echo "SICKBEARD ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/Sickbeard.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Sickrage.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickrage )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/Sickrage.*
+			echo "SICKRAGE DELETED"
+			/etc/seedbox-from-scratch/deleteSickrageUserDocker -u ${f%.info} 
+		
+			
+		else
+			echo "SICKRAGE ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/Sickrage.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Ubooquity.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d ubooquity )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/Ubooquity.*
+			echo "UBOOQUITY DELETED"
+			/etc/seedbox-from-scratch/deleteUbooquityUserDocker -u ${f%.info}
+		
+			
+		else
+		 	echo "UBOOQUITY ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/Ubooquity.*
+		fi
+	fi
+	
+	#
+	# start tasks
+	#
+	
+	if [ -f "/home/${f%.info}/services/Plex.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d plex )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+				rm -rf /home/${f%.info}/services/Plex.*
+				echo "PLEX STARTED"
+				/etc/seedbox-from-scratch/startPlexUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY RUNNING"
+			fi
+		else
+			echo "PLEX NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Plex.*
+		fi 
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Couchpotato.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d couchpotato )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 		
+				rm -rf /home/${f%.info}/services/Couchpotato.*
+				echo "COUCHPOTATO STARTED"
+				/etc/seedbox-from-scratch/startCouchpotatoUserDocker -u ${f%.info}
+			else
+				echo "COUCHPOTATO ALREADY RUNNING"
+			fi
+		else
+			echo "COUCHPOTATO NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Couchpotato.*
+		fi
+
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Deluge.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d deluge )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+				rm -rf /home/${f%.info}/services/Deluge.*
+				echo "DELUGE STARTED"
+				/etc/seedbox-from-scratch/startDelugeUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY RUNNING"
+			fi
+		else
+			echo "DELUGE NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Deluge.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/LetsEncrypt.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d letsencrypt )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+				rm -rf /home/${f%.info}/services/LetsEncrypt.*
+				echo "LETSENCRYPT STARTED"
+				/etc/seedbox-from-scratch/startLetsEncryptUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY RUNNING"
+			fi			
+		else
+			echo "LETSENCRYPT NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/LetsEncrypt.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/MySQL.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d mysql )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+			
+				rm -rf /home/${f%.info}/services/MySQL.*
+				echo "MYSQL STARTED"
+				/etc/seedbox-from-scratch/startMySQLUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY RUNNING"
+			fi			
+		else
+			echo "MYSQL NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/MySQL.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/RapidLeech.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rapidleech )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+				rm -rf /home/${f%.info}/services/RapidLeech.*
+				echo "RAPIDLEECH STARTED"
+				/etc/seedbox-from-scratch/startRapidLeechUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY RUNNING"
+			fi			
+		else
+			echo "RAPIDLEECH NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/RapidLeech.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/RTorrent.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+				rm -rf /home/${f%.info}/services/RTorrent.*
+				echo "RTORRENT STARTED"
+				/etc/seedbox-from-scratch/startRTorrentUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY RUNNING"
+			fi			
+		else
+			echo "RTORRENT NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/RTorrent.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Sabnzbd.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sabnzbd )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+				rm -rf /home/${f%.info}/services/Sabnzbd.*
+				echo "SABNZBD STARTED"
+				/etc/seedbox-from-scratch/startSabnzbdUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY RUNNING"
+			fi			
+		else
+			echo "SABNZBD NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Sabnzbd.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Sickbeard.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickbeard )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+				rm -rf /home/${f%.info}/services/Sickbeard.*
+				echo "SICKBEARD STARTED"
+				/etc/seedbox-from-scratch/startSickbeardUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY RUNNING"
+			fi			
+		else
+			echo "SICKBEARD NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Sickbeard.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Sickrage.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickrage )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+				rm -rf /home/${f%.info}/services/Sickrage.*
+				echo "SICKRAGE STARTED"
+				/etc/seedbox-from-scratch/startSickrageUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY RUNNING"
+			fi			
+		else
+			echo "SICKRAGE NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Sickrage.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Ubooquity.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d ubooquity )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+				rm -rf /home/${f%.info}/services/Ubooquity.*
+				echo "UBOOQUITY STARTED"
+				/etc/seedbox-from-scratch/startUbooquityUserDocker -u ${f%.info}
+			else
+				echo "PLEX ALREADY RUNNING"
+			fi		
+		else
+		 	echo "UBOOQUITY NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Ubooquity.*
+		fi
+	fi
+	
+	#
+	# stop tasks 
+	#
+	
+		if [ -f "/home/${f%.info}/services/Plex.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d plex )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/Plex.*
+				echo "PLEX STOPPED"
+				/etc/seedbox-from-scratch/stopCouchpotatoUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi
+		else
+			echo "PLEX NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Plex.*
+		fi 
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Couchpotato.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d couchpotato )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 		
+				rm -rf /home/${f%.info}/services/Couchpotato.*
+				echo "COUCHPOTATO STOPPED"
+				/etc/seedbox-from-scratch/stopCouchpotatoUserDocker -u ${f%.info}
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi
+		else
+			echo "COUCHPOTATO NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Couchpotato.*
+		fi
+
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Deluge.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d deluge )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/Deluge.*
+				echo "DELUGE STOPPED"
+				/etc/seedbox-from-scratch/stopDelugeUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi
+		else
+			echo "DELUGE NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Deluge.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/LetsEncrypt.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d letsencrypt )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/LetsEncrypt.*
+				echo "LETSENCRYPT STOPPED"
+				/etc/seedbox-from-scratch/stopLetsEncryptUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi			
+		else
+			echo "LETSENCRYPT NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/LetsEncrypt.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/MySQL.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d mysql )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+			
+				rm -rf /home/${f%.info}/services/MySQL.*
+				echo "MYSQL STOPPED"
+				/etc/seedbox-from-scratch/stopMySQLUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi			
+		else
+			echo "MYSQL NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/MySQL.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/RapidLeech.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rapidleech )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/RapidLeech.*
+				echo "RAPIDLEECH STOPPED"
+				/etc/seedbox-from-scratch/stopRapidLeechUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi			
+		else
+			echo "RAPIDLEECH NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/RapidLeech.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/RTorrent.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/RTorrent.*
+				echo "RTORRENT STOPPED"
+				/etc/seedbox-from-scratch/stopRTorrentUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi			
+		else
+			echo "RTORRENT NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/RTorrent.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Sabnzbd.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sabnzbd )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/Sabnzbd.*
+				echo "SABNZBD STOPPED"
+				/etc/seedbox-from-scratch/stopSabnzbdUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi			
+		else
+			echo "SABNZBD NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Sabnzbd.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Sickbeard.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickbeard )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/Sickbeard.*
+				echo "SICKBEARD STOPPED"
+				/etc/seedbox-from-scratch/stopSickbeardUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi			
+		else
+			echo "SICKBEARD NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Sickbeard.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Sickrage.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickrage )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/Sickrage.*
+				echo "SICKRAGE STOPPED"
+				/etc/seedbox-from-scratch/stopSickrageUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi			
+		else
+			echo "SICKRAGE NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Sickrage.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Ubooquity.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d ubooquity )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/Ubooquity.*
+				echo "UBOOQUITY STOPPED"
+				/etc/seedbox-from-scratch/stopUbooquityUserDocker -u ${f%.info}
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi		
+		else
+		 	echo "UBOOQUITY NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Ubooquity.*
+		fi
+	fi
+	
+done
