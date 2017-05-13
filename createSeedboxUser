@@ -1,23 +1,9 @@
 #!/bin/bash
-# ---------------------------
-### Updated for Autodl Tracker list , Creating rtorrect check/start script & crontab entries for reboot and every 10mins
-# ---------------------------
-#
 ## See Readme.md for License ###
 #
 # The Seedbox From Scratch Script
 #   ---> https://github.com/thevisad/
-#   Updated by dannytis ---> https://github.com/dannyti/ for Download directory, 
-#   Multi user login info via same url , Autodl tracker list , rtorrent check-start scripts & its crontab entries
-#
-#
-# 3.1
-#
-# you can also use it this way:
-#
-#    createSeedboxUser <username> <password>
-#
-#
+
 trlt="$(curl -s https://api.github.com/repos/autodl-community/autodl-trackers/releases/latest | sed -rn 's/(.*)"tag_name": "community-v(.*)",/\2/p')"
 dltrkrs="https://github.com/autodl-community/autodl-trackers/releases/download/community-v$trlt/autodl-trackers-v$trlt.zip"
 function getString
@@ -35,13 +21,6 @@ function getString
   while [ ! $NEWVAR1 = $NEWVAR2 ] || [ -z "$NEWVAR1" ];
   do
     clear
-    echo "#"
-    echo "#"
-    echo "# The Seedbox From Scratch Script"
-    echo "#   ---> https://github.com/thevisad/"
-    echo "#   Updated by dannyti ---> https://github.com/dannyti/"
-    echo "#"
-    echo "#"
     echo
 
     if [ "$ISPASSWORD" == "YES" ]; then
@@ -367,18 +346,22 @@ sudo chown $NEWUSER1:$NEWUSER1 $HOMEJAILED1/.rtorrent.rc
 # 20.
 sudo mkdir -p $HOMEJAILED1/downloads/auto
 sudo mkdir -p $HOMEJAILED1/downloads/manual
+sudo mkdir -p $HOMEJAILED1/services/
 sudo mkdir -p $HOMEJAILED1/media/
 sudo mkdir -p $HOMEJAILED1/media/comics
 sudo mkdir -p $HOMEJAILED1/media/books
 sudo mkdir -p $HOMEJAILED1/media/files
-sudo mkdir -p $HOMEJAILED1/media/Movies
-sudo mkdir -p $HOMEJAILED1/media/TVShows
+sudo mkdir -p $HOMEJAILED1/media/music
+sudo mkdir -p $HOMEJAILED1/media/photos
+sudo mkdir -p $HOMEJAILED1/media/movies
+sudo mkdir -p $HOMEJAILED1/media/tvshows
 sudo mkdir -p $HOMEJAILED1/downloads/watch
 sudo mkdir -p $HOMEJAILED1/downloads/.session
 sudo chown -R $NEWUSER1:$NEWUSER1 $HOMEJAILED1/downloads
 sudo chown -R $NEWUSER1:$NEWUSER1 $HOMEJAILED1/media
 sudo mkdir $HOMEJAILED1/log
 sudo chown $NEWUSER1: $HOMEJAILED1/log
+sudo chown www-data:www-data $HOMEJAILED1/services/
 sudo chmod 770 $HOMEJAILED1/log
 
 # 21.
@@ -683,7 +666,7 @@ cd ..
 sudo chown -v -R $NEWUSER1: private
 #sudo chmod 400 $HOMEJAILED1/$NEWUSER1.info
 cd $HOMEJAILED1/
-sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/crontabentries
+sudo cp /etc/seedbox-from-scratch/templates/crontabentries.template $HOMEJAILED1/
 sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/crontabentries
 sudo chmod +x $HOMEJAILED1/crontabentries
 sudo bash $HOMEJAILED1/crontabentries
@@ -713,8 +696,8 @@ sudo echo "alias vcsd15='vcs *.mp4 -U0 -i 15m -c 3 -H 200 -a 300/200 -o ~/moviei
 
 sudo mkdir $HOMEJAILED1/bin
 cd $HOMEJAILED1/bin
-sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/rtcheck
-sudo wget --no-check-certificate https://raw.githubusercontent.com/dannyti/sboxsetup/master/mtn.sh
+sudo cp /etc/seedbox-from-scratch/templates/rtcheck $HOMEJAILED1/bin
+sudo cp /etc/seedbox-from-scratch/templates/mtn.sh $HOMEJAILED1/bin
 sudo chmod +x rtcheck
 sudo chmod +x mtn.sh
 sudo rm $HOMEJAILED1/crontabentries
@@ -724,8 +707,6 @@ sudo chown $NEWUSER1: -R $HOMEJAILED1/bin
 sudo service webmin restart
 set +x verbose
 clear
-echo ""
-echo "<< The Seedbox From Scratch Script v$SBFSCURRENTVERSION ; Modified by dannyti >>"
 echo ""
 echo "Looks like your new user is created"
 echo "User Login info can be found at https://$IPADDRESS1/private/SBinfo.txt"

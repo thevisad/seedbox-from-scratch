@@ -186,15 +186,14 @@ apt-get --yes upgrade
 # 8.
 #install all needed packages
 
-apt-get --yes build-dep znc
-apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php php-cli php-dev php-curl php-geoip php-mcrypt php-gd php-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl znc tcpdump plowshare4 docker.io
+apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php php-cli php-dev php-curl php-geoip php-mcrypt php-gd php-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl tcpdump plowshare4 docker.io
 if [ $? -gt 0 ]; then
   set +x verbose
   echo
   echo
   echo *** ERROR ***
   echo
-  echo "Looks like somethig is wrong with apt-get install, aborting."
+  echo "Looks like something is wrong with apt-get install, aborting."
   echo
   echo
   echo
@@ -454,9 +453,9 @@ make install
 cd /var/www/rutorrent/plugins
 svn co https://autodl-irssi.svn.sourceforge.net/svnroot/autodl-irssi/trunk/rutorrent/autodl-irssi
 cd autodl-irssi
-perl -pi -e "s/if \($.browser.msie\)/if \(navigator.appName == \'Microsoft Internet Explorer\' && navigator.userAgent.match\(\/msie 6\/i\)\)/g" /var/www/rutorrent/plugins/autodl-irssi/AutodlFilesDownloader.js
-
-
+perl -pi -e "s/if \(\\$.browser.msie\)/if \(navigator.appName == 'Microsoft Internet Explorer' && navigator.userAgent.match\(\/msie 6\/i\)\)/g" /var/www/rutorrent/plugins/autodl-irssi/AutodlFilesDownloader.js
+perl -pi -e "s/&$homeBase/$homeBase/g" /var/www/rutorrent/plugins/diskspace/action.php
+perl -pi -e "s/&$homeUser/$homeUser/g" /var/www/rutorrent/plugins/diskspace/action.php
 
 # 30.
 
@@ -464,13 +463,6 @@ cp /etc/jailkit/jk_init.ini /etc/jailkit/jk_init.ini.original
 echo "" | tee -a /etc/jailkit/jk_init.ini >> /dev/null
 bash /etc/seedbox-from-scratch/updatejkinit
 
-# 31.
-
-#clear
-#echo "ZNC Configuration"
-#echo ""
-#znc --makeconf
-#/home/antoniocarlos/.znc/configs/znc.conf
 
 # 32.
 
@@ -587,7 +579,8 @@ bash /etc/seedbox-from-scratch/implementHNSeedbaseDockerImageSettings
 docker pull timhaak/plex
 
 # 39 Insert Crontab task 
-(crontab -l 2>/dev/null; echo "*/2 * * * * /etc/seedbox-from-scratch/cronTasks >/dev/null 2>&1") | crontab - 
+(crontab -l 2>/dev/null; echo "*/1 * * * * /etc/seedbox-from-scratch/cronTasks >/dev/null 2>&1") | crontab - 
+
 
 # 98: end of script
 

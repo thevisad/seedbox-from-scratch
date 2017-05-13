@@ -1,22 +1,4 @@
 #!/bin/bash
-# ---------------------------
-#
-#
-# The Seedbox From Scratch Script
-#   ---> https://github.com/thevisad/
-#     Modified by dannyti ---> https://github.com/dannyti/
-#
-## See Readme.md for License ###
-#
-# Install RTorrent
-#
-#    installRTorrent <version>
-#
-#  example:
-#
-#    installRTorrent 0.9.3
-#
-#
 
 RTORRENT1=$1
 

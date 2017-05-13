@@ -1,12 +1,3 @@
-#
-#
-# The Seedbox From Scratch Script
-#   ---> https://github.com/thevisad/
-#     Modified by dannyti ---> https://github.com/dannyti/
-#
-#
-#
-
 <VirtualHost *:80>
   ServerAdmin webmaster@localhost
   ServerName <servername>

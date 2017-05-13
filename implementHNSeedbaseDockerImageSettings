@@ -1,4 +1,5 @@
 #!/bin/bash
+rm -rf /etc/seedbox-from-scratch/dockers/
 mkdir /etc/seedbox-from-scratch/dockers/
 mkdir /etc/seedbox-from-scratch/dockers/hnseedbase-docker
 mkdir /etc/seedbox-from-scratch/dockers/hnrapidleech-docker
@@ -68,7 +69,7 @@ docker build -t mysql-docker8.0 .
 cd /etc/seedbox-from-scratch/dockers/docker-letsencrypt
 docker build -t docker-letsencrypt .
 
-cd /etc/seedbox-from-scratch/dockers/docker-sabnzbd (crashed!) -- fixed line breaks
+cd /etc/seedbox-from-scratch/dockers/docker-sabnzbd
 docker build -t docker-sabnzbd .
 
 cd /etc/seedbox-from-scratch/dockers/docker-sickbeard

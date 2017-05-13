@@ -1,12 +1,13 @@
 ## The Seedbox From Scratch Mod 2 Script
 Donate by buying me a Beer : paypal address: visad@yahoo.com
 
-When IO originalled started playing with this script it was one of the few that actually setup an environment properly. I learned what was needed to 
+When I originally started playing with this script it was one of the few that actually setup an environment properly for multiple users. I learned what was needed to get it operational and I am now in the process of eliminating all aspects that are usercentric. The script should be designed to install into a machine and then have docker services that are geared specifically towards the needs of each user. This script has been heavily modified from the original, but you can upgrade from the original to this version with a little effort. A script may be created later to handle the upgrade process.
 
-This script has been heavily modified from the original, you can upgrade the original to this version with a little effort. A script may be created later to handle the upgrade process.
-
-* A true multi-user enviroment built around core technologies on the server and then leveraging docker containers for all user consumed services. 
+* A true multi-user enviroment built around core technologies on the server.
+* Docker container services for all user service requirements.
 * Linux Quota, to control how much space every user can use in your box.
+* Central management system to handle user install and remove functions.
+
 
 ## Core Server Software
 
