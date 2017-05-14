@@ -59,6 +59,11 @@ There is no real support for this script, but nerds are talking a lot about it [
 
 ## Changelog
 
+Version 16.00.3 (Internal Revision)
+  May 15 2017 12:34 GMT-5
+   - Major clean up on primary OS install, central server should only contain the applications needed to actually run all docker containers.
+
+   
 Version 16.00.1 (Internal Revision)
   April 22 2017 12:34 GMT-5
    - Switched to cromigon/ubooquity since linuxserver/ubooquity wouldn't execute properly
