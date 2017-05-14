@@ -1,0 +1,2 @@
+sudo cp /home/thevisad/web/*.* /home/thevisad/private/
+sudo chown www-data:www-data /home/thevisad/private/*.php
