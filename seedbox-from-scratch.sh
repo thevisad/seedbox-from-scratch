@@ -186,7 +186,7 @@ apt-get --yes upgrade
 # 8.
 #install all needed packages
 
-apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php php-cli php-dev php-curl php-geoip php-mcrypt php-gd php-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl tcpdump plowshare4 docker.io
+apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php php-cli php-dev php-curl php-geoip php-mcrypt php-gd php-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl tcpdump plowshare4 docker.io nscd
 if [ $? -gt 0 ]; then
   set +x verbose
   echo
@@ -482,11 +482,8 @@ rm -f -R /var/www/stream
 
 cd /var/www/rutorrent/plugins/
 git clone https://github.com/nelu/rutorrent-thirdparty-plugins /tmp/plugins/
-mv /tmp/plugins/* . -R
-#svn co http://svn.rutorrent.org/svn/filemanager/trunk/mediastream
+mv /tmp/plugins/* .
 
-#cd /var/www/rutorrent/plugins/
-#svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
 
 cp /etc/seedbox-from-scratch/templates/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php
 
@@ -497,14 +494,6 @@ chown www-data: /var/www/stream/view.php
 
 echo "<?php \$streampath = 'http://$IPADDRESS1/stream/view.php'; ?>" | tee /var/www/rutorrent/plugins/mediastream/conf.php > /dev/null
 
-# 32.2 # FILEUPLOAD
-#Handled with the git clone from above
-#cd /var/www/rutorrent/plugins/
-#svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileupload
-#chmod 775 /var/www/rutorrent/plugins/fileupload/scripts/upload
-#wget -O /tmp/plowshare.deb http://plowshare.googlecode.com/files/plowshare_1~git20120930-1_all.deb
-#dpkg -i /tmp/plowshare.deb
-#apt-get --yes -f install
 
 # 32.2
 chown -R www-data:www-data /var/www/rutorrent
@@ -539,6 +528,7 @@ ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/index.php
 chown -R www-data:www-data /var/www/share
 cp /etc/seedbox-from-scratch/templates/rutorrent.plugins.fileshare.conf.php.template /var/www/rutorrent/plugins/fileshare/conf.php
 perl -pi -e "s/<servername>/$IPADDRESS1/g" /var/www/rutorrent/plugins/fileshare/conf.php
+cp /etc/seedbox-from-scratch/templates/Snoopy.class.inc.template /var/www/rutorrent/php/Snoopy.class.inc 
 
 # 33.
 
