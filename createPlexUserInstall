@@ -34,7 +34,13 @@ PLEXPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 32401 -ep 32500)
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 
-docker run --restart=always -d --name ${USERNAME}_plex -h ${SYSTEMHOSTNAME} -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/media:/data -p ${PLEXPORT}:32400 timhaak/plex
+if [ ! -d "/home/${USERNAME}/plex/config" ]; then
+  mkdir -p /home/${USERNAME}/plex/config/
+  chmod 777 /home/${USERNAME}/plex -R
+  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/plex/ -R
+fi
+
+docker run --restart=always -d --name ${USERNAME}_plex -h ${SYSTEMHOSTNAME} -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/media:/data -v /home/${USERNAME}/plex/config:/config -p ${PLEXPORT}:32400 timhaak/plex
 
 sleep 5
 
@@ -42,7 +48,7 @@ CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAM
 if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
 	echo "SERVICE: PLEX" > /home/${USERNAME}/private/plex.serviceinfo
 	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/plex.serviceinfo
-	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$PLEXPORT/web" >> /home/${USERNAME}/private/plex.serviceinfo
+	echo "ACCESSURL: https://$SYSTEMHOSTNAME:$PLEXPORT/web" >> /home/${USERNAME}/private/plex.serviceinfo
 	echo "PLEXPORT: $PLEXPORT" >> /home/${USERNAME}/private/plex.serviceinfo
 	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 fi

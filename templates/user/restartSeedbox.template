@@ -11,7 +11,7 @@
 ## See Readme.md for License ###
 #
 USER=$(whoami)
-$VAR=`pwd`
+VAR=$(pwd)
 export HOME=$VAR
 
 echo "Killing all related processes..."
