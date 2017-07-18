@@ -364,6 +364,8 @@ sudo chown $NEWUSER1: $HOMEJAILED1/log
 sudo chown www-data:www-data $HOMEJAILED1/services/
 sudo chmod 770 $HOMEJAILED1/log
 
+
+
 # 21.
 
 if [ "$CHROOTJAIL1" == "YES" ]; then
@@ -670,6 +672,8 @@ sudo cp /etc/seedbox-from-scratch/templates/crontabentries.template $HOMEJAILED1
 sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/crontabentries
 sudo chmod +x $HOMEJAILED1/crontabentries
 sudo bash $HOMEJAILED1/crontabentries
+
+sudo cp /etc/seedbox-from-scratch/webserver/ $HOMEJAILED1/private/
 
 
 ## Aliases

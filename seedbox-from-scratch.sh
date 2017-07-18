@@ -126,7 +126,7 @@ getString NO  "OpenVPN port: " OPENVPNPORT1 31195
 #getString NO  "Do you want to have some of your users in a chroot jail? " CHROOTJAIL1 YES
 getString NO  "Install Webmin? " INSTALLWEBMIN1 YES
 getString NO  "Install Fail2ban? " INSTALLFAIL2BAN1 NO
-getString NO  "Install OpenVPN? " INSTALLOPENVPN1 YES
+getString NO  "Install OpenVPN? " INSTALLOPENVPN1 NO
 getString NO  "Which version of RTorrent would you like to install? '0.8.9', '0.9.2', '0.9.3', '0.9.6'? " RTORRENT1 0.9.6
 
 if [ "$RTORRENT1" != "0.9.3" ] && [ "$RTORRENT1" != "0.9.2" ] && [ "$RTORRENT1" != "0.9.6" ] && [ "$RTORRENT1" != "0.8.9" ]; then
@@ -186,7 +186,7 @@ apt-get --yes upgrade
 # 8.
 #install all needed packages
 
-apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php php-cli php-dev php-curl php-geoip php-mcrypt php-gd php-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl tcpdump plowshare4 docker.io nscd
+apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php php-cli php-dev php-curl php-geoip php-mcrypt php-gd php-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl tcpdump plowshare4 docker.io nscd handbrake-cli
 if [ $? -gt 0 ]; then
   set +x verbose
   echo
@@ -237,18 +237,18 @@ fi
 
 # 8.2 Install NO-IP Linux Dynamic Update Client on Ubuntu
 
-cd /usr/local/src/
-sudo wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
-sudo tar xf noip-duc-linux.tar.gz
-cd noip-2.1.9-1/
-printf '0\nysgfuoslkgieu\n' | sudo make install 
+#cd /usr/local/src/
+#sudo wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
+#sudo tar xf noip-duc-linux.tar.gz
+#cd noip-2.1.9-1/
+#printf '0\nysgfuoslkgieu\n' | sudo make install 
 
 
-printf 'y\ny\ny\n'
-echo '3EFE/o1OplU,Y1k3C,.~z7Pdfu9c4SIW' | echo ysgfuoslkgieu | sudo make install 
+#printf 'y\ny\ny\n'
+#echo '3EFE/o1OplU,Y1k3C,.~z7Pdfu9c4SIW' | echo ysgfuoslkgieu | sudo make install 
 
-/usr/local/bin/noip2 -C
-/usr/local/bin/noip2
+#/usr/local/bin/noip2 -C
+#/usr/local/bin/noip2
 
 
 # 8.3 Generate our lists of ports and RPC and create variables
@@ -566,14 +566,14 @@ c_rehash
 # 37
 
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
-  bash /etc/seedbox-from-scratch/installOpenVPN
+ sudo bash /etc/seedbox-from-scratch/ovpni
 fi
 
 # 38.
 
 #first user will not be jailed
 #  createSeedboxUser <username> <password> <user jailed?> <ssh access?> <?>
-bash /etc/seedbox-from-scratch/createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YES
+bash /etc/seedbox-from-scratch/createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YES NO
 
 
 # 38 Implement HNSeedbox begin the process to build the dockers

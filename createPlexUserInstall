@@ -14,12 +14,8 @@ case $key in
     USERNAME="$2"
     shift # past argument
     ;;
-    -pu|--plexuser)
-    PLEXUSERNAME="$2"
-    shift # past argument
-    ;;
-    -pp|--plexpass)
-    PLEXPASSWORD="$2"
+    -pt|--plextoken)
+    PLEXTOKEN="$2"
     shift # past argument
     ;;
     *)
@@ -40,7 +36,7 @@ if [ ! -d "/home/${USERNAME}/plex/config" ]; then
   chown ${USERNAME}:${USERNAME} /home/${USERNAME}/plex/ -R
 fi
 
-docker run --restart=always -d --name ${USERNAME}_plex -h ${SYSTEMHOSTNAME} -e PLEX_USERNAME=${PLEXUSERNAME} -e PLEX_PASSWORD=${PLEXPASSWORD} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/media:/data -v /home/${USERNAME}/plex/config:/config -p ${PLEXPORT}:32400 timhaak/plex
+docker run --restart=always -d --name ${USERNAME}_plex -h ${SYSTEMHOSTNAME} -e PLEX_TOKEN=${PLEXTOKEN} -e PLEX_EXTERNALPORT=${PLEXPORT} -v /home/${USERNAME}/media:/data -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/plex/config:/config -p ${PLEXPORT}:32400 timhaak/plex
 
 sleep 5
 
