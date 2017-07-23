@@ -673,8 +673,7 @@ sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/crontabentries
 sudo chmod +x $HOMEJAILED1/crontabentries
 sudo bash $HOMEJAILED1/crontabentries
 
-sudo cp /etc/seedbox-from-scratch/webserver/ $HOMEJAILED1/private/
-
+sudo cp /etc/seedbox-from-scratch/webserver/* $HOMEJAILED1/private/
 
 ## Aliases
 sudo echo "alias port='sudo netstat -tulpn | grep' " | sudo tee -a $HOMEJAILED1/.bashrc

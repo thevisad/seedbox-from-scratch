@@ -9,6 +9,7 @@
 	} else {
 		?>
 		<html>
+		<a href="https://support.plex.tv/hc/en-us/articles/204059436-Finding-your-account-token-X-Plex-Token" target=_blank> Find your plex token</a>
 		<form action="plex.php" method="post">
 		  <fieldset>
 			<legend>Plex Login Information:</legend>

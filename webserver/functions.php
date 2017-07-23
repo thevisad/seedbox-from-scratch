@@ -22,7 +22,7 @@
 		file_put_contents($filepath, $current);
 	}
 	
-	function installPlexService( $plexusername){
+	function installPlexService($plexusername){
 		$current="FOO";
 		$encpassword = shell_exec('sudo /etc/seedbox-from-scratch/sfsGenerateRandomPasswordString');
 		//$encpassword="SkKNNotT9QEDElD4wDAQlkQgWEDZlJAI";
