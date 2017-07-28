@@ -2,16 +2,15 @@
 # Hellish Tech
 # No commercial usage without authorization
 
-# Update internal scripts and functionality 
-cd /opt/seedbox-from-scratch/
-git stash
-git pull
 /opt/seedbox-from-scratch/updateInstalledScripts
-
 
 for f in /etc/seedbox-from-scratch/users/*.info; do
 	f=${f##*/}
 		
 	#update web pages for users
 	\cp /etc/seedbox-from-scratch/webserver/* /home/${f%.info}/private/
+	
+	#update scripts for power users (to be removed)
+	\cp /opt/seedbox-from-scratch/templates/user/restartSeedbox.template /home/${f%.info}/restartSeedbox
+	chmod +x /home/${f%.info}/restartSeedbox
 done

@@ -1,13 +1,7 @@
 #!/bin/bash
+# Update internal scripts and functionality 
 cd /opt/seedbox-from-scratch/
-sudo git stash
-sudo git pull
-sudo bash /opt/seedbox-from-scratch/updateExecutables
+git stash
+git pull
 
 rsync -avz --exclude='/.git' /opt/seedbox-from-scratch/ /etc/seedbox-from-scratch/
-
-for f in /etc/seedbox-from-scratch/users/*.info; do
-	f=${f##*/}
-	cp /opt/seedbox-from-scratch/templates/user/restartSeedbox.template /home/${f%.info}/restartSeedbox
-	chmod +x /home/${f%.info}/restartSeedbox
-done
