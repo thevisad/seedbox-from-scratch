@@ -1,0 +1,17 @@
+#!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+
+# Update internal scripts and functionality 
+cd /opt/seedbox-from-scratch/
+git stash
+git pull
+/opt/seedbox-from-scratch/updateInstalledScripts
+
+
+for f in /etc/seedbox-from-scratch/users/*.info; do
+	f=${f##*/}
+		
+	#update web pages for users
+	\cp /etc/seedbox-from-scratch/webserver/* /home/${f%.info}/private/
+done

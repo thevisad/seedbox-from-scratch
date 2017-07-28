@@ -1,5 +1,8 @@
 ## The Seedbox From Scratch Mod 2 Script
+
 Donate by buying me a Beer : paypal address: visad@yahoo.com
+
+Donate by buying me a Beer : ETH address: 0x3eA5719D684F8F0cb6b08a65dBd315AC53720D60
 
 When I originally started playing with this script it was one of the few that actually setup an environment properly for multiple users. I learned what was needed to get it operational and I am now in the process of eliminating all aspects that are usercentric. The script should be designed to install into a machine and then have docker services that are geared specifically towards the needs of each user. This script has been heavily modified from the original, but you can upgrade from the original to this version with a little effort. A script may be created later to handle the upgrade process.
 

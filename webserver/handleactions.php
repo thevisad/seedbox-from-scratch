@@ -2,6 +2,20 @@
 	require_once('./functions.php');
 	$seedbox_site_functions = new seedbox_site_functions();
 	
+	if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['SeedBox']))
+    {
+		$postvar=htmlspecialchars($_POST["SeedBox"]);
+		$servicename="SeedBox";
+		switch($postvar)
+		{
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartSeedboxService($servicename);
+			break;
+		}
+		header( 'Location: index.php' ) ;
+	}
+	
     if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['RapidLeech']))
     {
 		$postvar=htmlspecialchars($_POST["RapidLeech"]);

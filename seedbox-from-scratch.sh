@@ -546,6 +546,12 @@ cp /etc/seedbox-from-scratch/templates/rutorrent.plugins.fileshare.conf.php.temp
 perl -pi -e "s/<servername>/$IPADDRESS1/g" /var/www/rutorrent/plugins/fileshare/conf.php
 cp /etc/seedbox-from-scratch/templates/Snoopy.class.inc.template /var/www/rutorrent/php/Snoopy.class.inc 
 
+# 32.6
+# Handle the user file limits
+echo "* soft nofile 4096" | tee -a /etc/security/limits.conf > /dev/null
+echo "* hard nofile 65000" | tee -a /etc/security/limits.conf > /dev/null
+echo "session required pam_limits.so" | tee -a /etc/pam.d/common-session > /dev/null
+
 # 33.
 
 bash /etc/seedbox-from-scratch/updateExecutables
@@ -580,13 +586,12 @@ bash /etc/seedbox-from-scratch/createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YE
 
 #bash /etc/seedbox-from-scratch/implementHNSeedbaseDockerImageSettings
 
-
 #38.1 Pull down required docker images
 docker pull timhaak/plex
 
 # 39 Insert Crontab task 
 (crontab -l 2>/dev/null; echo "*/1 * * * * /etc/seedbox-from-scratch/cronTasks >/dev/null 2>&1") | crontab - 
-
+(crontab -l 2>/dev/null; echo "* */1 * * * /etc/seedbox-from-scratch/cronUpdates >/dev/null 2>&1") | crontab - 
 
 # 98: end of script
 

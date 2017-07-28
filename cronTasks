@@ -7,6 +7,13 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	#
 	# install tasks
 	#
+
+	if [ -f "/home/${f%.info}/services/SeedBox.restart" ]
+	then
+		/etc/seedbox-from-scratch/executeServiceRestart -u ${f%.info}
+		rm -rf /home/${f%.info}/services/SeedBox.*
+		echo "Seedbox Restarted"
+	fi
 	
 	if [ -f "/home/${f%.info}/services/Plex.install" ]
 	then
