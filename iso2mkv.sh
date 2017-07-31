@@ -1,4 +1,6 @@
 #!/bin/sh
+# Hellish Tech
+# No commercial usage without authorization
 
 # License: Beerware 2017
 # Author: Xyberviri

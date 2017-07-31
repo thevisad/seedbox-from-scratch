@@ -1,13 +1,8 @@
 #!/bin/bash
-# ---------------------------
-#
-#
-# The Seedbox From Scratch Script
-#   ---> https://github.com/thevisad/
-#
-#
-## See Readme.md for License ###
-#
+# Hellish Tech
+# No commercial usage without authorization
+
+
 
 sudo cp /etc/jailkit/jk_init.ini.original /etc/jailkit/jk_init.ini
 echo "" | sudo tee -a /etc/jailkit/jk_init.ini >> /dev/null

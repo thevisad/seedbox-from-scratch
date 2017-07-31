@@ -1,4 +1,8 @@
 #!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+
+
 rm -rf /etc/seedbox-from-scratch/dockers/ubooquity-docker 
 rm -rf /etc/seedbox-from-scratch/dockers/docker-rutorrent 
 rm -rf /etc/seedbox-from-scratch/dockers/arch-deluge 

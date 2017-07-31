@@ -1,14 +1,8 @@
 #!/usr/bin/env python
-## See Readme.md for License ###
-#
-# The Seedbox From Scratch Script
-#   ---> https://github.com/thevisad/
-#
-#
-#
-#
-# Deluge password generator
-#
+# Hellish Tech
+# No commercial usage without authorization
+
+
 #   deluge.password.py <password> <salt>
 #
 #

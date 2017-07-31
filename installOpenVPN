@@ -1,2 +1,5 @@
 #!/bin/bash
- sudo bash /etc/seedbox-from-scratch/ovpni
+# Hellish Tech
+# No commercial usage without authorization
+
+sudo bash /etc/seedbox-from-scratch/ovpni

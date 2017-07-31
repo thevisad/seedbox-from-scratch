@@ -1,6 +1,7 @@
 #!/bin/bash
-#
-# The Seedbox From Scratch Script
+# Hellish Tech
+# No commercial usage without authorization
+# The Seedbox From Scratch Mos 2 Script
 #   ---> https://github.com/thevisad/
 #
 #
@@ -10,6 +11,7 @@
 #
 
 SBFSCURRENTVERSION1=16.00
+SBSINTERNALVERSION=0.0.1.1
 OS1=$(lsb_release -si)
 
 function getString
@@ -559,6 +561,7 @@ bash /etc/seedbox-from-scratch/updateExecutables
 #34.
 
 echo $SBFSCURRENTVERSION1 > /etc/seedbox-from-scratch/version.info
+echo $SBSINTERNALVERSION > /etc/seedbox-from-scratch/internalversion.info
 echo $NEWFTPPORT1 > /etc/seedbox-from-scratch/ftp.info
 echo $NEWSSHPORT1 > /etc/seedbox-from-scratch/ssh.info
 echo $OPENVPNPORT1 > /etc/seedbox-from-scratch/openvpn.info

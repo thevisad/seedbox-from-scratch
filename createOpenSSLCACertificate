@@ -1,12 +1,7 @@
 #!/bin/bash
-# ---------------------------
-#
-#
-# The Seedbox From Scratch Script
-#   ---> https://github.com/thevisad/
-#
-#
-## See Readme.md for License ####
+# Hellish Tech
+# No commercial usage without authorization
+
 CERTPASS1=`cat /etc/seedbox-from-scratch/certpass.info`
 #IPADDRESS1=`cat /etc/seedbox-from-scratch/hostname.info`
 IPADDRESS1=`ip route get 8.8.8.8 | tr -s ' ' | cut -d' ' -f7`

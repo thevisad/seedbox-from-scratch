@@ -1,8 +1,8 @@
 #!/bin/bash
-## See Readme.md for License ###
-#
-# The Seedbox From Scratch Script
-#   ---> https://github.com/thevisad/
+# Hellish Tech
+# No commercial usage without authorization
+
+
 
 trlt="$(curl -s https://api.github.com/repos/autodl-community/autodl-trackers/releases/latest | sed -rn 's/(.*)"tag_name": "community-v(.*)",/\2/p')"
 dltrkrs="https://github.com/autodl-community/autodl-trackers/releases/download/community-v$trlt/autodl-trackers-v$trlt.zip"

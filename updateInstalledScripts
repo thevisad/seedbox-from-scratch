@@ -1,5 +1,8 @@
 #!/bin/bash
-# Update internal scripts and functionality 
+# Hellish Tech
+# No commercial usage without authorization
+
+
 cd /opt/seedbox-from-scratch/
 git stash
 git pull

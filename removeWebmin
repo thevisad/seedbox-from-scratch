@@ -1,10 +1,5 @@
 #!/bin/bash
-# ---------------------------
-#
-#
-# The Seedbox From Scratch Script
-#   ---> https://github.com/thevisad/
-#
-## See Readme.md for License ###
-#
+# Hellish Tech
+# No commercial usage without authorization
+
 sudo apt-get --yes purge webmin
