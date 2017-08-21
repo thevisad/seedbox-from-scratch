@@ -8,3 +8,8 @@ git stash
 git pull
 
 rsync -avz --exclude='/.git' /opt/seedbox-from-scratch/ /etc/seedbox-from-scratch/
+
+for f in /etc/seedbox-from-scratch/users/*.info; do
+	f=${f##*/}
+	rsync -avz --exclude='/.git' /opt/seedbox-from-scratch/webserver/ /home/${f%.info}/private/
+done
