@@ -1,0 +1,32 @@
+#!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+
+
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root" 1>&2
+  exit 1
+fi
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -u|--username)
+    USERNAME="$2"
+    shift # past argument
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+HOMEBASE1=/home/$USERNAME
+HOMEDIR1=$HOMEBASE1
+HOMEJAILED1=$HOMEBASE1
+JAILDIR1=$HOMEBASE1
+
+sudo cp /etc/seedbox-from-scratch/webserver/* $HOMEJAILED1/private/

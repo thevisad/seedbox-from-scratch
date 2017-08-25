@@ -571,7 +571,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	# stop tasks 
 	#
 	
-		if [ -f "/home/${f%.info}/services/Plex.stop" ]
+	if [ -f "/home/${f%.info}/services/Plex.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d plex )
 		echo ${TASKCHECK}
@@ -771,4 +771,22 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
+	# Update Dockers
+	if [ -f "/home/${f%.info}/services/Plex.update" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d plex )
+		echo ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/Plex.*
+				echo "PLEX STOPPED"
+				/etc/seedbox-from-scratch/updatePlexUserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi
+		else
+			echo "PLEX NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Plex.*
+		fi 
+	fi
 done

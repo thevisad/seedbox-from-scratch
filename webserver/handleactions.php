@@ -223,6 +223,10 @@
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
 			break;
+			case "Update":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->updateService($servicename);
+			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->configureService($servicename);

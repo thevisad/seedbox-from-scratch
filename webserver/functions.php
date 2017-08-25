@@ -15,6 +15,12 @@
 		$filepath="../services/" . $servicename . '.stop';
 		file_put_contents($filepath, $current);
 	}
+
+	function updateService($servicename){
+		$current="FOO";
+		$filepath="../services/" . $servicename . '.update';
+		file_put_contents($filepath, $current);
+	}
 	
 	function installService($servicename){
 		$current="FOO";

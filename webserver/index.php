@@ -234,7 +234,9 @@ doWork();
 			</form>
 		</td>
 		<td>
-		
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="Plex" value="Update" />
+			</form>
 		</td>
 	</tr>
 		<tr>
