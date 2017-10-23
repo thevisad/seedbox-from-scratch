@@ -12,22 +12,22 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	then
 		/etc/seedbox-from-scratch/executeServiceRestart -u ${f%.info}
 		rm -rf /home/${f%.info}/services/SeedBox.*
-		echo "Seedbox Restarted"
+		logger -t seedboxCronTasks "Seedbox Restarted"
 	fi
 	
 	if [ -f "/home/${f%.info}/services/Plex.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d plex )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "PLEX ALREADY INSTALLED"
+			logger -t seedboxCronTasks "PLEX ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/Plex.*
 		else
 			DECRYPTPASS=`cat /home/${f%.info}/services/Plex.encrypt`
 			ENCRYPTEDUSERNAME=`cat /home/${f%.info}/services/Plex.encrypteduser`
 			DECRYPTEDUSERNAME=$(/etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText -t ${ENCRYPTEDUSERNAME} -p ${DECRYPTPASS})
 			rm -rf /home/${f%.info}/services/Plex.*
-			echo "PLEX INSTALLED"
+			logger -t seedboxCronTasks "PLEX INSTALLED"
 			/etc/seedbox-from-scratch/createPlexUserInstall -u ${f%.info} -pt ${DECRYPTEDUSERNAME}
 		fi 
 	fi
@@ -35,14 +35,14 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Couchpotato.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d couchpotato )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "COUCHPOTATO ALREADY INSTALLED"
+			logger -t seedboxCronTasks "COUCHPOTATO ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/Couchpotato.*
 			
 		else
 			rm -rf /home/${f%.info}/services/Couchpotato.*
-			echo "COUCHPOTATO INSTALLED"
+			logger -t seedboxCronTasks "COUCHPOTATO INSTALLED"
 			/etc/seedbox-from-scratch/createCouchpotatoUserInstall -u ${f%.info} 
 		fi
 
@@ -51,14 +51,14 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Deluge.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d deluge )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "DELUGE ALREADY INSTALLED"
+			logger -t seedboxCronTasks "DELUGE ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/Deluge.*
 			
 		else
 			rm -rf /home/${f%.info}/services/Deluge.*
-			echo "DELUGE INSTALLED"
+			logger -t seedboxCronTasks "DELUGE INSTALLED"
 			/etc/seedbox-from-scratch/createDelugeUserInstall -u ${f%.info} 
 		fi
 	fi
@@ -66,14 +66,14 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/LetsEncrypt.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d letsencrypt )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "LETSENCRYPT ALREADY INSTALLED"
+			logger -t seedboxCronTasks "LETSENCRYPT ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/LetsEncrypt.*
 			
 		else
 			rm -rf /home/${f%.info}/services/LetsEncrypt.*
-			echo "LETSENCRYPT INSTALLED"
+			logger -t seedboxCronTasks "LETSENCRYPT INSTALLED"
 			/etc/seedbox-from-scratch/createLetsEncryptUserInstall -u ${f%.info} 
 		fi
 	fi
@@ -81,9 +81,9 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/MySQL.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d mysql )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "MYSQL ALREADY INSTALLED"
+			logger -t seedboxCronTasks "MYSQL ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/MySQL.*
 			
 		else
@@ -93,7 +93,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			DECRYPTEDPASSWORD=$(/etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText -t ${ENCRYPTEDPASSWORD} -p ${DECRYPTPASS})
 			
 			rm -rf /home/${f%.info}/services/MySQL.*
-			echo "MYSQL INSTALLED"
+			logger -t seedboxCronTasks "MYSQL INSTALLED"
 			/etc/seedbox-from-scratch/createMySQLUserInstall -u ${f%.info} -rp ${DECRYPTEDPASSWORD} -v ${VERSION}
 		fi
 	fi
@@ -101,14 +101,14 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/RapidLeech.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rapidleech )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "RAPIDLEECH ALREADY INSTALLED"
+			logger -t seedboxCronTasks "RAPIDLEECH ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/RapidLeech.*
 			
 		else
 			rm -rf /home/${f%.info}/services/RapidLeech.*
-			echo "RAPIDLEECH INSTALLED"
+			logger -t seedboxCronTasks "RAPIDLEECH INSTALLED"
 			/etc/seedbox-from-scratch/createRapidLeechUserInstall -u ${f%.info} 
 		fi
 	fi
@@ -116,14 +116,14 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/RTorrent.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "RTORRENT ALREADY INSTALLED"
+			logger -t seedboxCronTasks "RTORRENT ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/RTorrent.*
 			
 		else
 			rm -rf /home/${f%.info}/services/RTorrent.*
-			echo "RTORRENT INSTALLED"
+			logger -t seedboxCronTasks "RTORRENT INSTALLED"
 			/etc/seedbox-from-scratch/createRTorrentUserInstall -u ${f%.info} 
 		fi
 	fi
@@ -131,14 +131,14 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Sabnzbd.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sabnzbd )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "SABNZBD ALREADY INSTALLED"
+			logger -t seedboxCronTasks "SABNZBD ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/Sabnzbd.*
 			
 		else
 			rm -rf /home/${f%.info}/services/Sabnzbd.*
-			echo "SABNZBD INSTALLED"
+			logger -t seedboxCronTasks "SABNZBD INSTALLED"
 			/etc/seedbox-from-scratch/createSabnzbdUserInstall -u ${f%.info} 
 		fi
 	fi
@@ -146,14 +146,14 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Sickbeard.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickbeard )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "SICKBEARD ALREADY INSTALLED"
+			logger -t seedboxCronTasks "SICKBEARD ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/Sickbeard.*
 			
 		else
 			rm -rf /home/${f%.info}/services/Sickbeard.*
-			echo "SICKBEARD INSTALLED"
+			logger -t seedboxCronTasks "SICKBEARD INSTALLED"
 			/etc/seedbox-from-scratch/createSickbeardUserInstall -u ${f%.info} 
 		fi
 	fi
@@ -161,14 +161,14 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Sickrage.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickrage )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "SICKRAGE ALREADY INSTALLED"
+			logger -t seedboxCronTasks "SICKRAGE ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/Sickrage.*
 			
 		else
 			rm -rf /home/${f%.info}/services/Sickrage.*
-			echo "SICKRAGE INSTALLED"
+			logger -t seedboxCronTasks "SICKRAGE INSTALLED"
 			/etc/seedbox-from-scratch/createSickrageUserInstall -u ${f%.info} 
 		fi
 	fi
@@ -176,14 +176,14 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Ubooquity.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d ubooquity )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "UBOOQUITY ALREADY INSTALLED"
+			logger -t seedboxCronTasks "UBOOQUITY ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/Ubooquity.*
 			
 		else
 			rm -rf /home/${f%.info}/services/Ubooquity.*
-			echo "UBOOQUITY INSTALLED"
+			logger -t seedboxCronTasks "UBOOQUITY INSTALLED"
 			/etc/seedbox-from-scratch/createUbooquityUserInstall -u ${f%.info} 
 		fi
 	fi
@@ -195,13 +195,13 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Plex.delete" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d plex )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/Plex.*
-			echo "PLEX DELETED"
+			logger -t seedboxCronTasks "PLEX DELETED"
 			/etc/seedbox-from-scratch/deletePlexUserDocker -u ${f%.info} 
 		else
-			echo "PLEX NOT INSTALLED"
+			logger -t seedboxCronTasks "PLEX NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Plex.*
 		fi 
 	fi
@@ -209,13 +209,13 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Couchpotato.delete" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d couchpotato )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/Couchpotato.*
-			echo "COUCHPOTATO DELETED"
+			logger -t seedboxCronTasks "COUCHPOTATO DELETED"
 			/etc/seedbox-from-scratch/deleteCouchpotatoUserDocker -u ${f%.info} 
 		else
-			echo "COUCHPOTATO ALREADY DELETED"
+			logger -t seedboxCronTasks "COUCHPOTATO ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/Couchpotato.*
 		fi
 
@@ -224,13 +224,13 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Deluge.delete" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d deluge )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/Deluge.*
-			echo "DELUGE DELETED"
+			logger -t seedboxCronTasks "DELUGE DELETED"
 			/etc/seedbox-from-scratch/deleteDelugeUserDocker -u ${f%.info} 
 		else
-			echo "DELUGE ALREADY DELETED"
+			logger -t seedboxCronTasks "DELUGE ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/Deluge.*
 		fi
 	fi
@@ -238,15 +238,15 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/LetsEncrypt.delete" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d letsencrypt )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/LetsEncrypt.*
-			echo "LETSENCRYPT DELETED"
+			logger -t seedboxCronTasks "LETSENCRYPT DELETED"
 			/etc/seedbox-from-scratch/deleteLetsEncryptUserDocker -u ${f%.info} 
 			
 			
 		else
-			echo "LETSENCRYPT ALREADY DELETED"
+			logger -t seedboxCronTasks "LETSENCRYPT ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/LetsEncrypt.*
 		fi
 	fi
@@ -254,15 +254,15 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/MySQL.delete" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d mysql )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/MySQL.*
-			echo "MYSQL DELETED"
+			logger -t seedboxCronTasks "MYSQL DELETED"
 			/etc/seedbox-from-scratch/deleteMySQLUserDocker -u ${f%.info} 
 		
 			
 		else
-			echo "MYSQL ALREADY DELETED"
+			logger -t seedboxCronTasks "MYSQL ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/MySQL.*
 		fi
 	fi
@@ -270,15 +270,15 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/RapidLeech.delete" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rapidleech )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/RapidLeech.*
-			echo "RAPIDLEECH DELETED"
+			logger -t seedboxCronTasks "RAPIDLEECH DELETED"
 			/etc/seedbox-from-scratch/deleteRapidLeechUserDocker -u ${f%.info} 
 		
 			
 		else
-			echo "RAPIDLEECH ALREADY DELETED"
+			logger -t seedboxCronTasks "RAPIDLEECH ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/RapidLeech.*
 		fi
 	fi
@@ -286,15 +286,15 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/RTorrent.delete" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/RTorrent.*
-			echo "RTORRENT DELETED"
+			logger -t seedboxCronTasks "RTORRENT DELETED"
 			/etc/seedbox-from-scratch/deleteRTorrentUserDocker -u ${f%.info} 
 		
 			
 		else
-			echo "RTORRENT ALREADY DELETED"
+			logger -t seedboxCronTasks "RTORRENT ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/RTorrent.*
 		fi
 	fi
@@ -302,15 +302,15 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Sabnzbd.delete" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sabnzbd )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/Sabnzbd.*
-			echo "SABNZBD DELETED"
+			logger -t seedboxCronTasks "SABNZBD DELETED"
 			/etc/seedbox-from-scratch/deleteSabnzbdUserDocker -u ${f%.info} 
 		
 			
 		else
-			echo "SABNZBD ALREADY DELETED"
+			logger -t seedboxCronTasks "SABNZBD ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/Sabnzbd.*
 		fi
 	fi
@@ -318,15 +318,15 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Sickbeard.delete" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickbeard )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/Sickbeard.*
-			echo "SICKBEARD DELETED"
+			logger -t seedboxCronTasks "SICKBEARD DELETED"
 			/etc/seedbox-from-scratch/deleteSickbeardUserDocker -u ${f%.info} 
 		
 			
 		else
-			echo "SICKBEARD ALREADY DELETED"
+			logger -t seedboxCronTasks "SICKBEARD ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/Sickbeard.*
 		fi
 	fi
@@ -334,15 +334,15 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Sickrage.delete" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickrage )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/Sickrage.*
-			echo "SICKRAGE DELETED"
+			logger -t seedboxCronTasks "SICKRAGE DELETED"
 			/etc/seedbox-from-scratch/deleteSickrageUserDocker -u ${f%.info} 
 		
 			
 		else
-			echo "SICKRAGE ALREADY DELETED"
+			logger -t seedboxCronTasks "SICKRAGE ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/Sickrage.*
 		fi
 	fi
@@ -350,15 +350,15 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Ubooquity.delete" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d ubooquity )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/Ubooquity.*
-			echo "UBOOQUITY DELETED"
+			logger -t seedboxCronTasks "UBOOQUITY DELETED"
 			/etc/seedbox-from-scratch/deleteUbooquityUserDocker -u ${f%.info}
 		
 			
 		else
-		 	echo "UBOOQUITY ALREADY DELETED"
+		 	logger -t seedboxCronTasks "UBOOQUITY ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/Ubooquity.*
 		fi
 	fi
@@ -370,17 +370,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Plex.start" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d plex )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "STOPPED" ]; then 
 				rm -rf /home/${f%.info}/services/Plex.*
-				echo "PLEX STARTED"
+				logger -t seedboxCronTasks "PLEX STARTED"
 				/etc/seedbox-from-scratch/startPlexUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY RUNNING"
+				logger -t seedboxCronTasks "PLEX ALREADY RUNNING"
 			fi
 		else
-			echo "PLEX NOT INSTALLED"
+			logger -t seedboxCronTasks "PLEX NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Plex.*
 		fi 
 	fi
@@ -388,17 +388,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Couchpotato.start" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d couchpotato )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "STOPPED" ]; then 		
 				rm -rf /home/${f%.info}/services/Couchpotato.*
-				echo "COUCHPOTATO STARTED"
+				logger -t seedboxCronTasks "COUCHPOTATO STARTED"
 				/etc/seedbox-from-scratch/startCouchpotatoUserDocker -u ${f%.info}
 			else
-				echo "COUCHPOTATO ALREADY RUNNING"
+				logger -t seedboxCronTasks "COUCHPOTATO ALREADY RUNNING"
 			fi
 		else
-			echo "COUCHPOTATO NOT INSTALLED"
+			logger -t seedboxCronTasks "COUCHPOTATO NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Couchpotato.*
 		fi
 
@@ -407,17 +407,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Deluge.start" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d deluge )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "STOPPED" ]; then 
 				rm -rf /home/${f%.info}/services/Deluge.*
-				echo "DELUGE STARTED"
+				logger -t seedboxCronTasks "DELUGE STARTED"
 				/etc/seedbox-from-scratch/startDelugeUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY RUNNING"
+				logger -t seedboxCronTasks "PLEX ALREADY RUNNING"
 			fi
 		else
-			echo "DELUGE NOT INSTALLED"
+			logger -t seedboxCronTasks "DELUGE NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Deluge.*
 		fi
 	fi
@@ -425,17 +425,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/LetsEncrypt.start" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d letsencrypt )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "STOPPED" ]; then 
 				rm -rf /home/${f%.info}/services/LetsEncrypt.*
-				echo "LETSENCRYPT STARTED"
+				logger -t seedboxCronTasks "LETSENCRYPT STARTED"
 				/etc/seedbox-from-scratch/startLetsEncryptUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY RUNNING"
+				logger -t seedboxCronTasks "PLEX ALREADY RUNNING"
 			fi			
 		else
-			echo "LETSENCRYPT NOT INSTALLED"
+			logger -t seedboxCronTasks "LETSENCRYPT NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/LetsEncrypt.*
 		fi
 	fi
@@ -443,18 +443,18 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/MySQL.start" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d mysql )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then
 			if [ ${TASKCHECK} == "STOPPED" ]; then 
 			
 				rm -rf /home/${f%.info}/services/MySQL.*
-				echo "MYSQL STARTED"
+				logger -t seedboxCronTasks "MYSQL STARTED"
 				/etc/seedbox-from-scratch/startMySQLUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY RUNNING"
+				logger -t seedboxCronTasks "PLEX ALREADY RUNNING"
 			fi			
 		else
-			echo "MYSQL NOT INSTALLED"
+			logger -t seedboxCronTasks "MYSQL NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/MySQL.*
 		fi
 	fi
@@ -462,17 +462,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/RapidLeech.start" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rapidleech )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "STOPPED" ]; then 
 				rm -rf /home/${f%.info}/services/RapidLeech.*
-				echo "RAPIDLEECH STARTED"
+				logger -t seedboxCronTasks "RAPIDLEECH STARTED"
 				/etc/seedbox-from-scratch/startRapidLeechUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY RUNNING"
+				logger -t seedboxCronTasks "PLEX ALREADY RUNNING"
 			fi			
 		else
-			echo "RAPIDLEECH NOT INSTALLED"
+			logger -t seedboxCronTasks "RAPIDLEECH NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/RapidLeech.*
 		fi
 	fi
@@ -480,17 +480,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/RTorrent.start" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "STOPPED" ]; then 
 				rm -rf /home/${f%.info}/services/RTorrent.*
-				echo "RTORRENT STARTED"
+				logger -t seedboxCronTasks "RTORRENT STARTED"
 				/etc/seedbox-from-scratch/startRTorrentUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY RUNNING"
+				logger -t seedboxCronTasks "PLEX ALREADY RUNNING"
 			fi			
 		else
-			echo "RTORRENT NOT INSTALLED"
+			logger -t seedboxCronTasks "RTORRENT NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/RTorrent.*
 		fi
 	fi
@@ -498,17 +498,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Sabnzbd.start" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sabnzbd )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "STOPPED" ]; then 
 				rm -rf /home/${f%.info}/services/Sabnzbd.*
-				echo "SABNZBD STARTED"
+				logger -t seedboxCronTasks "SABNZBD STARTED"
 				/etc/seedbox-from-scratch/startSabnzbdUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY RUNNING"
+				logger -t seedboxCronTasks "PLEX ALREADY RUNNING"
 			fi			
 		else
-			echo "SABNZBD NOT INSTALLED"
+			logger -t seedboxCronTasks "SABNZBD NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Sabnzbd.*
 		fi
 	fi
@@ -516,17 +516,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Sickbeard.start" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickbeard )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "STOPPED" ]; then 
 				rm -rf /home/${f%.info}/services/Sickbeard.*
-				echo "SICKBEARD STARTED"
+				logger -t seedboxCronTasks "SICKBEARD STARTED"
 				/etc/seedbox-from-scratch/startSickbeardUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY RUNNING"
+				logger -t seedboxCronTasks "PLEX ALREADY RUNNING"
 			fi			
 		else
-			echo "SICKBEARD NOT INSTALLED"
+			logger -t seedboxCronTasks "SICKBEARD NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Sickbeard.*
 		fi
 	fi
@@ -534,17 +534,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Sickrage.start" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickrage )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "STOPPED" ]; then 
 				rm -rf /home/${f%.info}/services/Sickrage.*
-				echo "SICKRAGE STARTED"
+				logger -t seedboxCronTasks "SICKRAGE STARTED"
 				/etc/seedbox-from-scratch/startSickrageUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY RUNNING"
+				logger -t seedboxCronTasks "PLEX ALREADY RUNNING"
 			fi			
 		else
-			echo "SICKRAGE NOT INSTALLED"
+			logger -t seedboxCronTasks "SICKRAGE NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Sickrage.*
 		fi
 	fi
@@ -552,17 +552,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Ubooquity.start" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d ubooquity )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "STOPPED" ]; then 
 				rm -rf /home/${f%.info}/services/Ubooquity.*
-				echo "UBOOQUITY STARTED"
+				logger -t seedboxCronTasks "UBOOQUITY STARTED"
 				/etc/seedbox-from-scratch/startUbooquityUserDocker -u ${f%.info}
 			else
-				echo "PLEX ALREADY RUNNING"
+				logger -t seedboxCronTasks "PLEX ALREADY RUNNING"
 			fi		
 		else
-		 	echo "UBOOQUITY NOT INSTALLED"
+		 	logger -t seedboxCronTasks "UBOOQUITY NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Ubooquity.*
 		fi
 	fi
@@ -574,17 +574,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Plex.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d plex )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
 				rm -rf /home/${f%.info}/services/Plex.*
-				echo "PLEX STOPPED"
+				logger -t seedboxCronTasks "PLEX STOPPED"
 				/etc/seedbox-from-scratch/stopPlexUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY STOPPED"
+				logger -t seedboxCronTasks "PLEX ALREADY STOPPED"
 			fi
 		else
-			echo "PLEX NOT INSTALLED"
+			logger -t seedboxCronTasks "PLEX NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Plex.*
 		fi 
 	fi
@@ -592,17 +592,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Couchpotato.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d couchpotato )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "RUNNING" ]; then 		
 				rm -rf /home/${f%.info}/services/Couchpotato.*
-				echo "COUCHPOTATO STOPPED"
+				logger -t seedboxCronTasks "COUCHPOTATO STOPPED"
 				/etc/seedbox-from-scratch/stopCouchpotatoUserDocker -u ${f%.info}
 			else
-				echo "PLEX ALREADY STOPPED"
+				logger -t seedboxCronTasks "PLEX ALREADY STOPPED"
 			fi
 		else
-			echo "COUCHPOTATO NOT INSTALLED"
+			logger -t seedboxCronTasks "COUCHPOTATO NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Couchpotato.*
 		fi
 
@@ -611,17 +611,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Deluge.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d deluge )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
 				rm -rf /home/${f%.info}/services/Deluge.*
-				echo "DELUGE STOPPED"
+				logger -t seedboxCronTasks "DELUGE STOPPED"
 				/etc/seedbox-from-scratch/stopDelugeUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY STOPPED"
+				logger -t seedboxCronTasks "PLEX ALREADY STOPPED"
 			fi
 		else
-			echo "DELUGE NOT INSTALLED"
+			logger -t seedboxCronTasks "DELUGE NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Deluge.*
 		fi
 	fi
@@ -629,17 +629,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/LetsEncrypt.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d letsencrypt )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
 				rm -rf /home/${f%.info}/services/LetsEncrypt.*
-				echo "LETSENCRYPT STOPPED"
+				logger -t seedboxCronTasks "LETSENCRYPT STOPPED"
 				/etc/seedbox-from-scratch/stopLetsEncryptUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY STOPPED"
+				logger -t seedboxCronTasks "PLEX ALREADY STOPPED"
 			fi			
 		else
-			echo "LETSENCRYPT NOT INSTALLED"
+			logger -t seedboxCronTasks "LETSENCRYPT NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/LetsEncrypt.*
 		fi
 	fi
@@ -647,18 +647,18 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/MySQL.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d mysql )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
 			
 				rm -rf /home/${f%.info}/services/MySQL.*
-				echo "MYSQL STOPPED"
+				logger -t seedboxCronTasks "MYSQL STOPPED"
 				/etc/seedbox-from-scratch/stopMySQLUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY STOPPED"
+				logger -t seedboxCronTasks "PLEX ALREADY STOPPED"
 			fi			
 		else
-			echo "MYSQL NOT INSTALLED"
+			logger -t seedboxCronTasks "MYSQL NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/MySQL.*
 		fi
 	fi
@@ -666,17 +666,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/RapidLeech.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rapidleech )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
 				rm -rf /home/${f%.info}/services/RapidLeech.*
-				echo "RAPIDLEECH STOPPED"
+				logger -t seedboxCronTasks "RAPIDLEECH STOPPED"
 				/etc/seedbox-from-scratch/stopRapidLeechUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY STOPPED"
+				logger -t seedboxCronTasks "PLEX ALREADY STOPPED"
 			fi			
 		else
-			echo "RAPIDLEECH NOT INSTALLED"
+			logger -t seedboxCronTasks "RAPIDLEECH NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/RapidLeech.*
 		fi
 	fi
@@ -684,17 +684,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/RTorrent.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
 				rm -rf /home/${f%.info}/services/RTorrent.*
-				echo "RTORRENT STOPPED"
+				logger -t seedboxCronTasks "RTORRENT STOPPED"
 				/etc/seedbox-from-scratch/stopRTorrentUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY STOPPED"
+				logger -t seedboxCronTasks "PLEX ALREADY STOPPED"
 			fi			
 		else
-			echo "RTORRENT NOT INSTALLED"
+			logger -t seedboxCronTasks "RTORRENT NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/RTorrent.*
 		fi
 	fi
@@ -702,17 +702,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Sabnzbd.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sabnzbd )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
 				rm -rf /home/${f%.info}/services/Sabnzbd.*
-				echo "SABNZBD STOPPED"
+				logger -t seedboxCronTasks "SABNZBD STOPPED"
 				/etc/seedbox-from-scratch/stopSabnzbdUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY STOPPED"
+				logger -t seedboxCronTasks "PLEX ALREADY STOPPED"
 			fi			
 		else
-			echo "SABNZBD NOT INSTALLED"
+			logger -t seedboxCronTasks "SABNZBD NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Sabnzbd.*
 		fi
 	fi
@@ -720,17 +720,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Sickbeard.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickbeard )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
 				rm -rf /home/${f%.info}/services/Sickbeard.*
-				echo "SICKBEARD STOPPED"
+				logger -t seedboxCronTasks "SICKBEARD STOPPED"
 				/etc/seedbox-from-scratch/stopSickbeardUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY STOPPED"
+				logger -t seedboxCronTasks "PLEX ALREADY STOPPED"
 			fi			
 		else
-			echo "SICKBEARD NOT INSTALLED"
+			logger -t seedboxCronTasks "SICKBEARD NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Sickbeard.*
 		fi
 	fi
@@ -738,17 +738,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Sickrage.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickrage )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
 				rm -rf /home/${f%.info}/services/Sickrage.*
-				echo "SICKRAGE STOPPED"
+				logger -t seedboxCronTasks "SICKRAGE STOPPED"
 				/etc/seedbox-from-scratch/stopSickrageUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY STOPPED"
+				logger -t seedboxCronTasks "PLEX ALREADY STOPPED"
 			fi			
 		else
-			echo "SICKRAGE NOT INSTALLED"
+			logger -t seedboxCronTasks "SICKRAGE NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Sickrage.*
 		fi
 	fi
@@ -756,17 +756,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Ubooquity.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d ubooquity )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
 				rm -rf /home/${f%.info}/services/Ubooquity.*
-				echo "UBOOQUITY STOPPED"
+				logger -t seedboxCronTasks "UBOOQUITY STOPPED"
 				/etc/seedbox-from-scratch/stopUbooquityUserDocker -u ${f%.info}
 			else
-				echo "PLEX ALREADY STOPPED"
+				logger -t seedboxCronTasks "PLEX ALREADY STOPPED"
 			fi		
 		else
-		 	echo "UBOOQUITY NOT INSTALLED"
+		 	logger -t seedboxCronTasks "UBOOQUITY NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Ubooquity.*
 		fi
 	fi
@@ -775,17 +775,17 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	if [ -f "/home/${f%.info}/services/Plex.update" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d plex )
-		echo ${TASKCHECK}
+		logger -t seedboxCronTasks ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
 				rm -rf /home/${f%.info}/services/Plex.*
-				echo "PLEX STOPPED"
+				logger -t seedboxCronTasks "PLEX STOPPED"
 				/etc/seedbox-from-scratch/updatePlexUserDocker -u ${f%.info} 
 			else
-				echo "PLEX ALREADY STOPPED"
+				logger -t seedboxCronTasks "PLEX ALREADY STOPPED"
 			fi
 		else
-			echo "PLEX NOT INSTALLED"
+			logger -t seedboxCronTasks "PLEX NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Plex.*
 		fi 
 	fi

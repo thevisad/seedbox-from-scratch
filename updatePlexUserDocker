@@ -26,9 +26,13 @@ esac
 shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
+logger -t updatePlexUserDocker "Processing update for ${USERNAME}_plex"
 sudo docker exec -i -t ${USERNAME}_plex /plexupdate/plexupdate.sh -a
 if [[ -n $1 ]]; then
-    echo "Last line of file specified as non-opt/last argument:"
+    logger -t updatePlexUserDocker "Last line of file specified as non-opt/last argument:"
     tail -1 $1
 fi
-sudo docker restart ${USERNAME}_plex
+logger -t updatePlexUserDocker "Processing stop for ${USERNAME}_plex"
+sudo docker stop ${USERNAME}_plex
+logger -t updatePlexUserDocker "Processing start for ${USERNAME}_plex"
+sudo docker start ${USERNAME}_plex
