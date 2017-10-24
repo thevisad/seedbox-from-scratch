@@ -456,6 +456,7 @@ echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/sfsDecryptTemporar
 echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/sfsEncryptTemporaryEncryptedText" | tee -a /etc/sudoers > /dev/null
 echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/sfsGenerateRandomPasswordString" | tee -a /etc/sudoers > /dev/null
 echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/sfsRunningUserDockerInfo" | tee -a /etc/sudoers > /dev/null
+echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/updatePlexUserDocker" | tee -a /etc/sudoers > /dev/null
 
 cp /etc/seedbox-from-scratch/favicon.ico /var/www/
 
