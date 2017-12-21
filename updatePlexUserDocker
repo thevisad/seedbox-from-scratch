@@ -5,10 +5,6 @@
 # some arguments don't have a corresponding value to go with it such
 # as in the --default example).
 # note: if this is set to -gt 0 the /etc/hosts part is not recognized ( may be a bug )
-if [[ $EUID -ne 0 ]]; then
-  echo "This script must be run as root" 1>&2
-  exit 1
-fi
 
 while [[ $# -gt 1 ]]
 do
@@ -26,13 +22,8 @@ esac
 shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
-logger -t updatePlexUserDocker "Processing update for ${USERNAME}_plex"
 sudo docker exec -i -t ${USERNAME}_plex /plexupdate/plexupdate.sh -a
 if [[ -n $1 ]]; then
-    logger -t updatePlexUserDocker "Last line of file specified as non-opt/last argument:"
+    echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
 fi
-logger -t updatePlexUserDocker "Processing stop for ${USERNAME}_plex"
-sudo docker stop ${USERNAME}_plex
-logger -t updatePlexUserDocker "Processing start for ${USERNAME}_plex"
-sudo docker start ${USERNAME}_plex
