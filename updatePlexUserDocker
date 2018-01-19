@@ -22,7 +22,9 @@ esac
 shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
+logger -t seedboxCronTasks "PLEX STOPPED"
 sudo docker exec -i -t ${USERNAME}_plex /plexupdate/plexupdate.sh -a
+logger -t seedboxCronTasks "PLEX STARTED"
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
