@@ -9,11 +9,12 @@ When I originally started playing with this script it was one of the few that ac
 * A true multi-user enviroment built around core technologies on the server.
 * Docker container services for all user service requirements.
 * Linux Quota, to control how much space every user can use in your box.
-* Central management system to handle user install and remove functions.
+* Central Web Management system to handle user install/removal/update functionality.
 
 
 ## Core Server Software
 
+* Web interface for user service interaction
 * Fail2ban - to avoid apache and ssh exploits. Fail2ban bans IPs that show malicious signs (disabled by default)
 * Apache (SSL)
 * OpenVPN 
