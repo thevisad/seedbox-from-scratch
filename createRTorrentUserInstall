@@ -33,11 +33,11 @@ HTPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateUserHtpassword -u ${USERNAM
 if [ ! -d "/home/${USERNAME}/rtorrent/config" ]; then
   mkdir -p /home/${USERNAME}/rtorrent/config/rtorrent
   cp /etc/seedbox-from-scratch/templates/docker.rtorrent.rc.template /home/${USERNAME}/rtorrent/config/rtorrent/rtorrent.rc
-  perl -pi -e "s/USERPORT/${SERVERPORT}/g" /home/${USERNAME}/rtorrent/config/rtorrent/rtorrent.rc
+  perl -pi -e "s/51413/${SERVERPORT}/g" /home/${USERNAME}/rtorrent/config/rtorrent/rtorrent.rc
   chown ${USERNAME}:${USERNAME} /home/${USERNAME}/rtorrent/ -R
 fi
 
-docker run --restart=always -d --name ${USERNAME}_rutorrent -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSSLSERVERPORT}:443 -p ${WEBSERVERPORT}:80 -p ${OTHERPORTCD }:5000 -p ${SERVERPORT}:51413 -p ${UDPPORT}:6881 -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro linuxserver/rutorrent
+docker run --restart=always -d --name ${USERNAME}_rutorrent -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSSLSERVERPORT}:443 -p ${WEBSERVERPORT}:80 -p ${OTHERPORT}:5000 -p ${SERVERPORT}:${SERVERPORT} -p ${UDPPORT}:6881 -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro linuxserver/rutorrent
 
 echo ${HTPASSWDGENED} > /tmp/temp.htpasswd
 docker cp /tmp/temp.htpasswd ${USERNAME}_rutorrent:/usr/share/webapps/.htpasswd
@@ -47,11 +47,15 @@ sleep 5
 
 CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d rutorrent | tr -cd '[[:alnum:]]._-' )
 if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
-
 	echo "SERVICE: RTORRENT" > /home/${USERNAME}/private/rutorrent.serviceinfo
 	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 	echo "ACCESSURL: https://$SYSTEMHOSTNAME:$WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 	echo "WEBSSLSERVERPORT: $WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	echo "OTHERPORT: $OTHERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 	echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
 	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 	
