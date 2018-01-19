@@ -10,6 +10,11 @@
 #  sudo git stash; sudo git pull
 #
 
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root" 1>&2
+  exit 1
+fi
+
 SBFSCURRENTVERSION1=16.00
 SBSINTERNALVERSION=0.0.1.1
 OS1=$(lsb_release -si)
@@ -97,11 +102,6 @@ function getString
   eval $RETURN=\$NEWVAR1
 }
 # 0.
-
-if [[ $EUID -ne 0 ]]; then
-  echo "This script must be run as root" 1>&2
-  exit 1
-fi
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -451,12 +451,13 @@ cp /etc/seedbox-from-scratch/templates/action.php.template /var/www/rutorrent/pl
 
 groupadd admin
 
-echo "www-data ALL=(root) NOPASSWD: /usr/sbin/repquota" | tee -a /etc/sudoers > /dev/null
-echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText" | tee -a /etc/sudoers > /dev/null
-echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/sfsEncryptTemporaryEncryptedText" | tee -a /etc/sudoers > /dev/null
-echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/sfsGenerateRandomPasswordString" | tee -a /etc/sudoers > /dev/null
-echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/sfsRunningUserDockerInfo" | tee -a /etc/sudoers > /dev/null
-echo "www-data ALL=(root) NOPASSWD: /etc/seedbox-from-scratch/updatePlexUserDocker" | tee -a /etc/sudoers > /dev/null
+echo "www-data ALL=(ALL) NOPASSWD: /usr/sbin/repquota" | tee -a /etc/sudoers > /dev/null
+echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText" | tee -a /etc/sudoers > /dev/null
+echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsEncryptTemporaryEncryptedText" | tee -a /etc/sudoers > /dev/null
+echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsGenerateRandomPasswordString" | tee -a /etc/sudoers > /dev/null
+echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsRunningUserDockerInfo" | tee -a /etc/sudoers > /dev/null
+echo "www-data ALL=(ALL) NOPASSWD: /usr/bin/docker" | tee -a /etc/sudoers > /dev/null
+echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updatePlexUserDocker" | tee -a /etc/sudoers > /dev/null
 echo "www-data ALL=(ALL) NOPASSWD: /usr/bin/docker" | tee -a /etc/sudoers > /dev/null
 cp /etc/seedbox-from-scratch/favicon.ico /var/www/
 

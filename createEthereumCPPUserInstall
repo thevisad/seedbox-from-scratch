@@ -1,0 +1,53 @@
+#!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+
+docker pull ethereum/client-go
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -u|--username)
+    USERNAME="$2"
+    shift # past argument
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
+PORT1=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 30304 -ep 30403)
+PORT2=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8546 -ep 8645)
+USERUID=$(id -u ${USERNAME})
+USERGID=$(id -g ${USERNAME})
+
+if [ ! -d "/home/${USERNAME}/.ethereum" ]; then
+  mkdir -p /home/${USERNAME}/.ethereum
+fi
+
+if [ ! -d "/home/${USERNAME}/.web3" ]; then
+  mkdir -p /home/${USERNAME}/.web3
+fi
+
+docker run --restart=always -d --name ${USERNAME}_ethereumcpp -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/.ethereum:/root/.ethereum -v /home/${USERNAME}/.web3:/.web3 -p ${PORT1}:30303 -p ${PORT2}:8545 ethereum/client-go
+
+sleep 5
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d ethereumcpp | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
+	echo "SERVICE: ethereumcpp" > /home/${USERNAME}/private/ethereumcpp.serviceinfo
+	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/ethereumcpp.serviceinfo
+	echo "PORT1: $PORT1" >> /home/${USERNAME}/private/ethereumcpp.serviceinfo
+	echo "PORT2: $PORT2" >> /home/${USERNAME}/private/ethereumcpp.serviceinfo
+	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
+fi
+
+if [[ -n $1 ]]; then
+    echo "Last line of file specified as non-opt/last argument:"
+    tail -1 $1
+fi
