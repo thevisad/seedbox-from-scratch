@@ -6,6 +6,7 @@
 # as in the --default example).
 # note: if this is set to -gt 0 the /etc/hosts part is not recognized ( may be a bug )
 
+
 while [[ $# -gt 1 ]]
 do
 key="$1"
@@ -23,7 +24,8 @@ shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
 logger -t seedboxCronTasks "PLEX STOPPED"
-sudo docker exec -i -t ${USERNAME}_plex /plexupdate/plexupdate.sh -a
+RETURN=$(sudo docker exec -i -t thevisad_plex /plexupdate/plexupdate.sh -a)
+logger -t seedboxCronTasks ${RETURN}
 logger -t seedboxCronTasks "PLEX STARTED"
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
