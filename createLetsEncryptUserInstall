@@ -57,7 +57,7 @@ if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; t
 
 	echo "SERVICE: LETSENCRYPT" > /home/${USERNAME}/private/letsencrypt.serviceinfo
 	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/letsencrypt.serviceinfo
-	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERSSLPORT" >> /home/${USERNAME}/private/letsencrypt.serviceinfo
+	echo "ACCESSURL: https://$SYSTEMHOSTNAME:$WEBSERVERSSLPORT" >> /home/${USERNAME}/private/letsencrypt.serviceinfo
 	echo "WEBSERVERSSLPORT: $WEBSERVERSSLPORT" >> /home/${USERNAME}/private/letsencrypt.serviceinfo
 	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 fi

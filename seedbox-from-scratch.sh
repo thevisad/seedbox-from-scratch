@@ -586,11 +586,6 @@ fi
 #  createSeedboxUser <username> <password> <user jailed?> <ssh access?> <?>
 bash /etc/seedbox-from-scratch/createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YES NO
 
-
-# 38 Implement HNSeedbox begin the process to build the dockers (not needed)
-
-#bash /etc/seedbox-from-scratch/implementHNSeedbaseDockerImageSettings
-
 #38.1 Pull down required docker images
 docker pull timhaak/plex
 

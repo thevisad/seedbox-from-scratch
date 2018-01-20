@@ -104,7 +104,7 @@
     Options Indexes FollowSymLinks MultiViews
     IndexOptions +FancyIndexing +SuppressDescription
     AuthType Digest
-    AuthName "private"
+    AuthName "documentroot"
     AuthDigestDomain /var/www/private
     AuthDigestProvider file
     AuthUserFile /etc/apache2/htpasswd
@@ -131,7 +131,7 @@
   CustomLog /var/log/apache2/access.log combined
   <Directory /var/www/rutorrent>
     AuthType Digest
-    AuthName "rutorrent"
+    AuthName "private"
     AuthDigestDomain /var/www/rutorrent/ https://<servername>/rutorrent
     AuthDigestProvider file
     AuthUserFile /etc/apache2/htpasswd

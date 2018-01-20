@@ -22,7 +22,7 @@ perl -pi -e "s/<servername>/${IPADDRESS1}/g" /etc/seedbox-from-scratch/ssl/CA/ca
 openssl req -new -x509 -extensions v3_ca -keyout private/cakey.pem -nodes -passout pass:${CERTPASS1} -out cacert.pem -days 3650 -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
 openssl req -new -nodes -out /etc/seedbox-from-scratch/ssl/CA/req.pem -nodes -passout pass:${CERTPASS1} -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf
 openssl ca -batch -out /etc/seedbox-from-scratch/ssl/CA/cert.pem -config /etc/seedbox-from-scratch/ssl/CA/caconfig.cnf -passin pass:${CERTPASS1} -infiles /etc/seedbox-from-scratch/ssl/CA/req.pem
-mv /etc/seedbox-from-scratch/ssl/CA/cert.pem /etc/seedbox-from-scratch/ssl/CA/tmp.pem
+cp /etc/seedbox-from-scratch/ssl/CA/cert.pem /etc/seedbox-from-scratch/ssl/CA/tmp.pem
 openssl x509 -in /etc/seedbox-from-scratch/ssl/CA/tmp.pem -out /etc/seedbox-from-scratch/ssl/CA/cert.pem
 cat /etc/seedbox-from-scratch/ssl/CA/key.pem /etc/seedbox-from-scratch/ssl/CA/cert.pem > /etc/seedbox-from-scratch/ssl/CA/key-cert.pem
 

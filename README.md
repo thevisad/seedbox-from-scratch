@@ -42,11 +42,6 @@ Pending Removal
 * ruTorrent 3.7 + official plugins
 * rTorrent 0.8.9, 0.9.2, 0.9.3 or 0.9.6
 * libTorrrent 0.13.3, 0.13.4 or 0.13.6
-* mktorrent
-* SiCKRAGE
-* Subsonic
-* ZNC
-* sabnzbd (http://sabnzbd.org)
 * IRSSI
 
 
