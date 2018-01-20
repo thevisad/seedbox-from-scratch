@@ -34,7 +34,7 @@ SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 
-docker run --restart=always -d --name ${USERNAME}_mysql -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/mysql:/var/lib/mysql -v /home/${USERNAME}/mysql/my.cnf:/etc/my.cnf -e PGID=${USERGID} -e PUID=${USERUID} -p ${SERVERPORT}:3306 -e MYSQL_ROOT_HOST=172.17.0.1 -e MYSQL_ROOT_PASSWORD=${ROOTPASSWORD} -v /etc/localtime:/etc/localtime:ro mysql-docker${VERSION}
+docker run --restart=always -d --name ${USERNAME}_mysql -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/mysql:/var/lib/mysql -v /home/${USERNAME}/mysql/my.cnf:/etc/my.cnf -e PGID=${USERGID} -e PUID=${USERUID} -p ${SERVERPORT}:3306 -e MYSQL_ROOT_HOST=172.17.0.1 -e MYSQL_ROOT_PASSWORD=${ROOTPASSWORD} -v /etc/localtime:/etc/localtime:ro mysql:${VERSION}
 
 sleep 5
 

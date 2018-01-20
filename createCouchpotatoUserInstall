@@ -26,7 +26,7 @@ SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 
-docker run --restart=always -d --name ${USERNAME}_couchpotato -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/couchpotato/config:/config -v /home/${USERNAME}/downloads:/data -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:5050 -v /etc/localtime:/etc/localtime:ro docker-couchpotato
+docker run --restart=always -d --name ${USERNAME}_couchpotato -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/couchpotato/config:/config -v /home/${USERNAME}/downloads:/data -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:5050 -v /etc/localtime:/etc/localtime:ro linuxserver/couchpotato
 
 sleep 5
 

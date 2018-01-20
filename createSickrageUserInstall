@@ -27,7 +27,7 @@ USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 
 
-docker run --restart=always -d --name ${USERNAME}_sickrage -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/data -v /home/${USERNAME}/sickrage/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8081  -v /etc/localtime:/etc/localtime:ro docker-sickrage
+docker run --restart=always -d --name ${USERNAME}_sickrage -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/data -v /home/${USERNAME}/sickrage/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8081 -v /etc/localtime:/etc/localtime:ro linuxserver/sickrage
 
 sleep 5
 
