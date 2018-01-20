@@ -22,6 +22,7 @@ done
 echo USERNAME  = "${USERNAME}"
 sudo docker rm -f ${USERNAME}_mysql
 rm -rf /home/${USERNAME}/private/mysql.serviceinfo
+
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

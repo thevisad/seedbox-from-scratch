@@ -1,0 +1,8 @@
+#!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+
+sudo systemctl stop docker
+mv /var/lib/docker/ /home/
+ln -s /home/docker /var/lib/docker
+systemctl start docker
