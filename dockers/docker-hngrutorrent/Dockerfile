@@ -211,6 +211,7 @@ wget -qO- https://github.com/rakshasa/rtorrent/archive/${RTORRENT_VER}.tar.gz | 
  patch < /defaults/patches/snoopy.patch && \
  sed -i "s#/var/log/messages {}.*# #g" /etc/logrotate.conf && \
  rm -rf \
+	/etc/nginx/conf.d/default.conf \
 	/tmp/*
 
 # add local files

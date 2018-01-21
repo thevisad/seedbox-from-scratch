@@ -36,7 +36,7 @@ screen -d -m -S rtorrent rtorrent
 sleep 2
 echo "Starting IRSSI..."
 screen -d -m -S irssi irssi
-sleep 1
+
 screen -S irssi -p 0 -X stuff '/autodl update^M'
 
 echo "Starting tached..."
