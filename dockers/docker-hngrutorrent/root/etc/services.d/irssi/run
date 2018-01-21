@@ -1,0 +1,4 @@
+kill -9 `ps aux | grep root | grep irssi | grep -v grep | awk '{print $1}' | cut -d. -f 1` &> /dev/null
+screen -wipe
+screen -d -m -S irssi irssi
+screen -S irssi -p 0 -X stuff '/autodl update^M'
