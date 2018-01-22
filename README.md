@@ -1,13 +1,23 @@
 ## The Seedbox From Scratch Mod 2 Script
 
-Donate by buying me a Beer : paypal address: visad@yahoo.com
+Donate by buying me a Beer via paypal: paypal address: visad@yahoo.com
 
-Donate by buying me a Beer : ETH address: 0x3eA5719D684F8F0cb6b08a65dBd315AC53720D60
+Donate by buying me a Beer via ETH : ETH address: 0x3eA5719D684F8F0cb6b08a65dBd315AC53720D60
 
-When I originally started playing with this script it was one of the few that actually setup an environment properly for multiple users. I learned what was needed to get it operational and I am now in the process of eliminating all aspects that are usercentric. The script should be designed to install into a machine and then have docker services that are geared specifically towards the needs of each user. This script has been heavily modified from the original, but you can upgrade from the original to this version with a little effort. A script may be created later to handle the upgrade process.
+## Read the Wiki on how to handle certain tasks
+https://github.com/thevisad/seedbox-from-scratch/wiki
 
+
+## Inspiration
+
+When I originally started playing with this script it was one of the few that actually setup an environment properly for multiple users. I learned what was needed to get it operational and I am now in the process of eliminating all aspects that are server specific. The script should be designed to install into a machine and then have docker services that are geared specifically towards the needs of each user. This script has been heavily modified from the original, but you can upgrade from the original to this version with a little effort. A script may be created later to handle the upgrade process.
+
+
+## Core Server Features
+
+* Automatic Update system tied to Github Repository
 * A true multi-user enviroment built around core technologies on the server.
-* Docker container services for all user service requirements.
+* Docker container services for all user service environments
 * Linux Quota, to control how much space every user can use in your box.
 * Central Web Management system to handle user install/removal/update functionality.
 
@@ -24,18 +34,20 @@ When I originally started playing with this script it was one of the few that ac
 * vsftpd (Very Secure FTP Deamon)
 * Webmin (use it to manage your users quota)
 
+
+
 ## Supported Docker Containers
-* Docker Plex (https://github.com/timhaak/docker-plex)
-* Docker MySQL https://github.com/linuxserver/docker-mysql (buggy atm)
-* Docker Deluge https://github.com/linuxserver/docker-deluge
-* Docker RuTorrent https://github.com/linuxserver/docker-rutorrent (buggy atm)
-* Docker Ubooquity https://github.com/linuxserver/docker-ubooquity
-* https://github.com/linuxserver/docker-letsencrypt
-* Docker Rapidleech (HN Docker)
-* Docker sabnzbd https://github.com/timhaak/docker-sabnzbd
-* https://github.com/timhaak/docker-sickbeard
-* https://github.com/timhaak/docker-couchpotato
-* https://github.com/timhaak/docker-sickrage
+* Docker Plex - https://github.com/timhaak/docker-plex
+* Docker MySQL - https://github.com/linuxserver/docker-mysql - (buggy atm) not recommended
+* Docker Deluge - https://github.com/linuxserver/docker-deluge
+* Docker RuTorrent - https://github.com/thevisad/seedbox-from-scratch/tree/v16.00/dockers/docker-hngrutorrent
+* Docker Ubooquity - https://github.com/linuxserver/docker-ubooquity
+* Docker sabnzbd - https://github.com/linuxserver/docker-letsencrypt
+* Docker - Rapidleech
+* Docker sabnzbd - https://github.com/timhaak/docker-sabnzbd
+* Docker sabnzbd - https://github.com/timhaak/docker-sickbeard
+* Docker sabnzbd - https://github.com/timhaak/docker-couchpotato
+* Docker sabnzbd - https://github.com/timhaak/docker-sickrage
 
 
 Pending Removal
@@ -51,13 +63,18 @@ Pending Removal
 
 
 ## Support
-**** Note this is for the older version of the script, which this still leverages to some aspect. Be careful attempting any fixes from these forums ****
+**** Note this is for the older version of the script, which this still leverage's to some aspect. Be careful attempting any fixes from these forums as it likely will have a negative impact on this install. ****
 There is no real support for this script, but nerds are talking a lot about it [HERE](http://www.torrent-invites.com/showthread.php?t=272859) and you may find solutions for your problems in that thread.
 
 
 
 ## Changelog
 
+Version 16.01.0 (Internal Revision)
+  May 15 2017 12:34 GMT-5
+   - Additional cleanups on the environment installs 
+   - Updated dockers to the latest versions
+     
 Version 16.00.3 (Internal Revision)
   May 15 2017 12:34 GMT-5
    - Major clean up on primary OS install, central server should only contain the applications needed to actually run all docker containers.

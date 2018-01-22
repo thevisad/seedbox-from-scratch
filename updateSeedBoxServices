@@ -1,0 +1,44 @@
+#!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+exec 1> >(logger -s -t $(basename $0)) 2>&1 
+
+if grep -q "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText" "/etc/sudoers"; then
+  echo "Nothing to do" > /dev/nul
+  else
+  echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText" | tee -a /etc/sudoers > /dev/null
+fi
+
+if grep -q "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsEncryptTemporaryEncryptedText" "/etc/sudoers"; then
+  echo "Nothing to do" > /dev/nul
+  else
+  echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsEncryptTemporaryEncryptedText" | tee -a /etc/sudoers > /dev/null
+fi
+
+if grep -q "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsGenerateRandomPasswordString" "/etc/sudoers"; then
+  echo "Nothing to do" > /dev/nul
+  else
+  echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsGenerateRandomPasswordString" | tee -a /etc/sudoers > /dev/null
+fi
+
+if grep -q "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsRunningUserDockerInfo" "/etc/sudoers"; then
+  echo "Nothing to do" > /dev/nul
+  else
+  echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsRunningUserDockerInfo" | tee -a /etc/sudoers > /dev/null
+fi
+
+if grep -q "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updatePlexUserDocker" "/etc/sudoers"; then
+  echo "Nothing to do" > /dev/nul
+  else
+  echo "www-data ALL=(ALL) NOPASSWD: /usr/bin/docker" | tee -a /etc/sudoers > /dev/null
+fi
+
+if grep -q "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updateSeedboxUser" "/etc/sudoers"; then
+  echo "Nothing to do" > /dev/nul
+  else
+  echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updatePlexUserDocker" | tee -a /etc/sudoers > /dev/null
+fi
+
+if [[ "$(docker images -q docker-hngrutorrent 2> /dev/null)" == "" ]]; then
+  docker build -t docker-hngrutorrent /etc/seedbox-from-scratch/dockers/docker-hngrutorrent/
+fi

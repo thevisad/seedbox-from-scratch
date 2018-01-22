@@ -3,7 +3,7 @@
 # No commercial usage without authorization
 exec 1> >(logger -s -t $(basename $0)) 2>&1 
 
-
+/opt/seedbox-from-scratch/updateSeedBoxServices
 /opt/seedbox-from-scratch/updateInstalledScripts
 
 for f in /etc/seedbox-from-scratch/users/*.info; do
