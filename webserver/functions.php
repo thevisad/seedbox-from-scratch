@@ -112,6 +112,18 @@
 		} 
 	}
 	
+	function displayDockerInstall($service){
+		$user = $_SERVER['PHP_AUTH_USER'];
+		$output = shell_exec('sudo /etc/seedbox-from-scratch/sfsInstalledDockerInfo -d ' . escapeshellarg($service) . ' 2>&1');
+		$output = preg_replace("/[^A-Za-z0-9 ]/", '', $output);
+		if ($output == "NOTINSTALLED"){
+			echo "<img src='red-32px.png' height='16' /><br>";
+		} 
+		elseif ($output == "INSTALLED"){
+			echo "<img src='green-32px.png' height='16' /><br>"; 
+		} 
+	}
+	
 	function makelink($input) {
 		$parse = explode(' ', $input);
 		$input = "";

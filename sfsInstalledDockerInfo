@@ -1,0 +1,27 @@
+#!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+	-d|--docker)
+    DOCKER="$2"
+    shift # past argument
+    ;;
+    *)
+    # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+EXISTS=$(docker images -q docker-hngrutorrent 2> /dev/null)
+
+if [ ${#EXISTS} -ge 5 ]; then
+echo "INSTALLED"
+else
+echo "NOTINSTALLED"
+fi

@@ -30,15 +30,17 @@ fi
 if grep -q "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updatePlexUserDocker" "/etc/sudoers"; then
   echo "Nothing to do" > /dev/nul
   else
-  echo "www-data ALL=(ALL) NOPASSWD: /usr/bin/docker" | tee -a /etc/sudoers > /dev/null
+  echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updatePlexUserDocker" | tee -a /etc/sudoers > /dev/null
 fi
 
 if grep -q "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updateSeedboxUser" "/etc/sudoers"; then
   echo "Nothing to do" > /dev/nul
   else
-  echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updatePlexUserDocker" | tee -a /etc/sudoers > /dev/null
+  echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updateSeedboxUser" | tee -a /etc/sudoers > /dev/null
 fi
 
-if [[ "$(docker images -q docker-hngrutorrent 2> /dev/null)" == "" ]]; then
-  docker build -t docker-hngrutorrent /etc/seedbox-from-scratch/dockers/docker-hngrutorrent/
+if grep -q "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsInstalledDockerInfo" "/etc/sudoers"; then
+  echo "Nothing to do" > /dev/nul
+  else
+  echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsInstalledDockerInfo" | tee -a /etc/sudoers > /dev/null
 fi
