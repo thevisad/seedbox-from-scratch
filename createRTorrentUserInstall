@@ -33,8 +33,9 @@ UDPPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 6882 -ep 6982)
 OTHERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 5001 -ep 5999)
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
+HTPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateUserHtpassword -u ${USERNAME})
 
-docker run --restart=always -d --name ${USERNAME}_rutorrent -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSSLSERVERPORT}:443 -p ${WEBSERVERPORT}:80 -p ${SERVERPORT}:${SERVERPORT} -p ${UDPPORT}:6881 -p ${OTHERPORT}:${OTHERPORT} -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro docker-hngrutorrent
+docker run --restart=always -d --name ${USERNAME}_rutorrent -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSSLSERVERPORT}:443 -p ${WEBSERVERPORT}:80 -p ${SERVERPORT}:${SERVERPORT} -p ${UDPPORT}:6881 -p ${OTHERPORT}:${OTHERPORT} -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro thevisad/rutorrent
 
 
 CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d rutorrent | tr -cd '[[:alnum:]]._-' )
@@ -83,7 +84,7 @@ if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; t
 	docker cp /tmp/rtorrentinstalltemp/.irssi/* ${USERNAME}_rutorrent:/root/.irssi
 	docker cp /tmp/rtorrentinstalltemp/.autodl/* ${USERNAME}_rutorrent:/root/.autodl
 
-	perl -pi -e "s/51415/${SERVERPORT}/g" /home/${USERNAME}/rtorrent/config/rtorrent/rtorrent.rc
+	perl -pi -e "s/51413/${SERVERPORT}/g" /home/${USERNAME}/rtorrent/config/rtorrent/rtorrent.rc
 	chown ${USERNAME}:${USERNAME} /home/${USERNAME}/rtorrent/ -R
 	  
 	echo ${HTPASSWDGENED} > /tmp/temp.htpasswd

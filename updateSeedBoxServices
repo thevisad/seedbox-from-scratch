@@ -3,6 +3,13 @@
 # No commercial usage without authorization
 exec 1> >(logger -s -t $(basename $0)) 2>&1 
 
+COUNT=$(grep -o "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updatePlexUserDocker" "/etc/sudoers"| wc -l)
+if [[ $COUNT -gt 1 ]] ; then
+	sed -i "/www-data ALL=(ALL) NOPASSWD: \/etc\/seedbox-from-scratch\/updatePlexUserDocker/d" /etc/sudoers
+	else
+	echo "Nothing to do" > /dev/nul
+fi
+
 if grep -q "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText" "/etc/sudoers"; then
   echo "Nothing to do" > /dev/nul
   else
