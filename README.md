@@ -40,7 +40,7 @@ When I originally started playing with this script it was one of the few that ac
 * Docker Plex - https://github.com/timhaak/docker-plex
 * Docker MySQL - https://github.com/linuxserver/docker-mysql - (buggy atm) not recommended
 * Docker Deluge - https://github.com/linuxserver/docker-deluge
-* Docker RuTorrent - https://github.com/thevisad/seedbox-from-scratch/tree/v16.00/dockers/docker-hngrutorrent
+* Docker RuTorrent - https://hub.docker.com/r/thevisad/rutorrent/
 * Docker Ubooquity - https://github.com/linuxserver/docker-ubooquity
 * Docker sabnzbd - https://github.com/linuxserver/docker-letsencrypt
 * Docker - Rapidleech
