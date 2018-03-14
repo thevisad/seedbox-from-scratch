@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash
 # Hellish Tech
 # No commercial usage without authorization
 exec 1> >(logger -s -t $(basename $0)) 2>&1 
@@ -189,7 +189,6 @@ IPADDRESS1=`cat /etc/seedbox-from-scratch/hostname.info`
 SBFSCURRENTVERSION=`cat /etc/seedbox-from-scratch/version.info`
 NEWFTPPORT1=`cat /etc/seedbox-from-scratch/ftp.info`
 NEWSSHPORT1=`cat /etc/seedbox-from-scratch/ssh.info`
-DELUGEINSTALLED1=`cat /etc/seedbox-from-scratch/deluge.info`
 MAINUSER1=`cat /etc/seedbox-from-scratch/mainuser.info`
 
 # 3.2
@@ -437,43 +436,6 @@ fi
 
 # 26.
 
-if [ -f /etc/seedbox-from-scratch/sabnzbd/SABnzbd.py ]; then
-  sudo su --login --command "/etc/seedbox-from-scratch/sabnzbd/SABnzbd.py --server localhost:$SABNZBDHTTPPORT1 --https $SABNZBDHTTPSPORT1 --daemon --config-file=$HOMEJAILED1/.sabnzbd/sabnzbd.ini --logging 2" $NEWUSER1
-  sleep 5
-  sudo kill -9 `sudo ps aux | grep $NEWUSER1 | grep SABnzbd | grep -v grep | awk '{print $2}' | cut -d. -f 1` &> /dev/null
-
-  sudo rm -r $HOMEJAILED1/Downloads
-  sudo cp /root/CA/sabnzbd.cert $HOMEJAILED1/.sabnzbd/admin/
-  sudo cp /root/CA/sabnzbd.key $HOMEJAILED1/.sabnzbd/admin/
-  sudo cp /root/CA/sabnzbd.pem $HOMEJAILED1/.sabnzbd/admin/
-
-  sudo perl -pi -e "s/username = \"\"/username = \"$NEWUSER1\"/g" $HOMEJAILED1/.sabnzbd/sabnzbd.ini
-# sudo perl -pi -e "s/password = \"\"/password = \"$PASSWORD1\"/g" $HOMEJAILED1/.sabnzbd/sabnzbd.ini ############### now you can just run changeUserPassword if you forget it :)
-  sudo perl -pi -e "s/host = localhost/host = 0.0.0.0/g" $HOMEJAILED1/.sabnzbd/sabnzbd.ini
-  sudo perl -pi -e "s/https_cert = server\.cert/https_cert = sabnzbd\.pem/g" $HOMEJAILED1/.sabnzbd/sabnzbd.ini
-  sudo perl -pi -e "s/https_key = server.key/https_key = sabnzbd.key/g" $HOMEJAILED1/.sabnzbd/sabnzbd.ini
-  sudo perl -pi -e "s/https_port = 9090/https_port = $SABNZBDHTTPSPORT1/g" $HOMEJAILED1/.sabnzbd/sabnzbd.ini
-  sudo perl -pi -e "s/port = 8080/port = $SABNZBDHTTPPORT1/g" $HOMEJAILED1/.sabnzbd/sabnzbd.ini
-  sudo perl -pi -e "s/download_dir = Downloads\/incomplete/download_dir = $HOMEJAILED1_ESCAPED\/downloads\/sabnzbd\/incomplete/g" $HOMEJAILED1/.sabnzbd/sabnzbd.ini
-  sudo perl -pi -e "s/complete_dir = Downloads\/complete/complete_dir = $HOMEJAILED1_ESCAPED\/downloads\/sabnzbd\/complete/g" $HOMEJAILED1/.sabnzbd/sabnzbd.ini
-  sudo perl -pi -e "s/web_color = \"\"/web_color = Gold/g" $HOMEJAILED1/.sabnzbd/sabnzbd.ini
-  sudo perl -pi -e "s/tv_categories = \"\"/tv_categories = \,/g" $HOMEJAILED1/.sabnzbd/sabnzbd.ini
-
-  sudo rm -r $HOMEJAILED1/.sabnzbd/Downloads
-
-  sudo cp /etc/seedbox-from-scratch/ssl/sabnzbd.cert $HOMEJAILED1/.sabnzbd/admin/
-  sudo cp /etc/seedbox-from-scratch/ssl/sabnzbd.key $HOMEJAILED1/.sabnzbd/admin/
-  sudo cp /etc/seedbox-from-scratch/ssl/sabnzbd.pem $HOMEJAILED1/.sabnzbd/admin/
-
-  mkdir -p $HOMEJAILED1/downloads/sabnzbd/incomplete
-  mkdir -p $HOMEJAILED1/downloads/sabnzbd/complete
-
-  sudo chown $NEWUSER1: $HOMEJAILED1/.sabnzbd/admin/*
-  sudo chown $NEWUSER1: $HOMEJAILED1/.sabnzbd/admin/*
-
-  sudo chown -R $NEWUSER1: $HOMEJAILED1/downloads
-fi
-
 if [ "$DELUGEINSTALLED1" == "YES" ]; then
   if [ "$NEWUSER1" = "$MAINUSER1" ]; then
     sudo kill -9 `sudo ps aux | grep deluge | grep -v grep | awk '{print $2}' | cut -d. -f 1` &> /dev/null
@@ -565,9 +527,8 @@ sudo chown -R $NEWUSER1: $HOMEJAILED1/.irssi
 
 # 29.3
 
-sudo cp /etc/seedbox-from-scratch/templates/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template  /var/www/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
-sudo perl -pi -e "s/<PASSWORD>/$IRSSIPASSWORD1/g"  /var/www/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
-sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g" /var/www/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi/conf.php
+
++
 
 sudo cp /etc/seedbox-from-scratch/templates/rutorrent.conf.users.plugins.fileupload.conf.php.template  /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload/config.php > /dev/null
 sudo chown -R www-data:www-data /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload/
@@ -594,7 +555,7 @@ echo "User personal info" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER
 echo "-------------------" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "Username: $NEWUSER1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "Password: $PASSWORD1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-echo "RPC: $NEWRPC1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
+
 echo "IRSSI Password: $IRSSIPASSWORD1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "SSH: $USERHASSSHACCESS1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "Sudo powers: $USERINSUDOERS1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
@@ -614,46 +575,23 @@ echo "-----" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "SSH port: $NEWSSHPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "SFTP port: $NEWSSHPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "vsftp port: $NEWFTPPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-echo "IRSSI Port: $IRSSIPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-echo "SCGI Port: $SCGIPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-echo "RTorrent network port: $NETWORKPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-if [ -f /etc/seedbox-from-scratch/sabnzbd/SABnzbd.py ]; then
-  echo "SABNZBD HTTPS port: $SABNZBDHTTPSPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-  echo "SABNZBD HTTP port: $SABNZBDHTTPPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-fi
-if [ "$DELUGEINSTALLED1" == "YES" ]; then
-  echo "Deluge daemon port: $DEAMONPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-  echo "Deluge web port: $WEBPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-fi
 
 echo "" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "Links" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "-----" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-if [ -f /etc/seedbox-from-scratch/sabnzbd/SABnzbd.py ]; then
-  echo "SABnzbd: https://$IPADDRESS1:$SABNZBDHTTPSPORT1/sabnzbd/" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-fi
 
-echo "ruTorrent: https://$IPADDRESS1/rutorrent/" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "Downloads Directory: http://$IPADDRESS1/private/Downloads" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
 echo "Webmin: https://$IPADDRESS1:10000" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "FTP: ftp://$IPADDRESS1:$NEWFTPPORT1/" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-if [ -f /etc/seedbox-from-scratch/rapidleech.info ]; then
-  echo "Rapidleech: https://$IPADDRESS1/rapidleech" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-fi
-if [ "$DELUGEINSTALLED1" == "YES" ]; then
-  echo "Deluge: http://$IPADDRESS1:$WEBPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-fi
-echo "OpenVPN config: https://$IPADDRESS1/rutorrent/client.zip" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
+
+echo "OpenVPN config: https://$IPADDRESS1/private/client.zip" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
 echo "" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-echo "Starting and restartring commands" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
+echo "User commands" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "---------------------------------" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "Restarting seedbox logged as $NEWUSER1: $HOMEJAILED1/restartSeedbox" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo "Restarting seedbox as any other user: sudo su --login --command \"$HOMEJAILED1/restartSeedbox\" $NEWUSER1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-echo "Starting RTorrent: screen -d -m -S rtorrent rtorrent" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-echo "Starting IRSSI: screen -d -m -S irssi irssi" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-echo "Starting sabnzbdplus: screen -dmS sabnzbd sabnzbdplus" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
 sudo mkdir $HOMEJAILED1/private
 sudo cp /etc/seedbox-from-scratch/users/$NEWUSER1.info $HOMEJAILED1/private/SBinfo.txt

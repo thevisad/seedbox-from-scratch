@@ -129,12 +129,6 @@ getString NO  "OpenVPN port: " OPENVPNPORT1 31195
 getString NO  "Install Webmin? " INSTALLWEBMIN1 YES
 getString NO  "Install Fail2ban? " INSTALLFAIL2BAN1 NO
 getString NO  "Install OpenVPN? " INSTALLOPENVPN1 NO
-getString NO  "Which version of RTorrent would you like to install? '0.8.9', '0.9.2', '0.9.3', '0.9.6'? " RTORRENT1 0.9.6
-
-if [ "$RTORRENT1" != "0.9.3" ] && [ "$RTORRENT1" != "0.9.2" ] && [ "$RTORRENT1" != "0.9.6" ] && [ "$RTORRENT1" != "0.8.9" ]; then
-  echo "$RTORRENT1 typed is not 0.8.9, 0.9.2, 0.9.3 or 0.9.6!"
-  exit 1
-fi
 
 apt-get --yes update
 apt-get --yes install whois sudo makepasswd git
@@ -433,22 +427,6 @@ cd xmlrpc-c-1.39.12
 make
 make install
 
-# 21.
-
-bash /etc/seedbox-from-scratch/installRTorrent $RTORRENT1
-
-# 22.
-cd /var/www
-rm -f -r rutorrent
-git clone https://github.com/Novik/ruTorrent
-mv ruTorrent rutorrent
-#svn checkout http://rutorrent.googlecode.com/svn/trunk/rutorrent
-#svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins
-#rm -r -f rutorrent/plugins
-#mv plugins rutorrent/
-
-cp /etc/seedbox-from-scratch/templates/action.php.template /var/www/rutorrent/plugins/diskspace/action.php
-
 groupadd admin
 
 echo "www-data ALL=(ALL) NOPASSWD: /usr/sbin/repquota" | tee -a /etc/sudoers > /dev/null
@@ -458,24 +436,8 @@ echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsGenerateRandomPa
 echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsRunningUserDockerInfo" | tee -a /etc/sudoers > /dev/null
 echo "www-data ALL=(ALL) NOPASSWD: /usr/bin/docker" | tee -a /etc/sudoers > /dev/null
 echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updatePlexUserDocker" | tee -a /etc/sudoers > /dev/null
-echo "www-data ALL=(ALL) NOPASSWD: /usr/bin/docker" | tee -a /etc/sudoers > /dev/null
 cp /etc/seedbox-from-scratch/favicon.ico /var/www/
 
-# 26.
-cd /tmp
-wget https://superb-sea2.dl.sourceforge.net/project/mediainfo/binary/mediainfo/0.7.94/MediaInfo_CLI_0.7.94_GNU_FromSource.tar.bz2
-tar jxvf MediaInfo_CLI_0.7.94_GNU_FromSource.tar.bz2
-cd MediaInfo_CLI_GNU_FromSource/
-sh CLI_Compile.sh
-cd MediaInfo/Project/GNU/CLI
-make install
-
-cd /var/www/rutorrent/plugins
-svn co https://autodl-irssi.svn.sourceforge.net/svnroot/autodl-irssi/trunk/rutorrent/autodl-irssi
-cd autodl-irssi
-perl -pi -e "s/if \(\\$.browser.msie\)/if \(navigator.appName == 'Microsoft Internet Explorer' && navigator.userAgent.match\(\/msie 6\/i\)\)/g" /var/www/rutorrent/plugins/autodl-irssi/AutodlFilesDownloader.js
-perl -pi -e "s/&$homeBase/$homeBase/g" /var/www/rutorrent/plugins/diskspace/action.php
-perl -pi -e "s/&$homeUser/$homeUser/g" /var/www/rutorrent/plugins/diskspace/action.php
 
 # 30.
 
@@ -484,71 +446,7 @@ echo "" | tee -a /etc/jailkit/jk_init.ini >> /dev/null
 bash /etc/seedbox-from-scratch/updatejkinit
 
 
-# 32.
-
-# Installing poweroff button on ruTorrent
-
-cd /var/www/rutorrent/plugins/
-wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/rutorrent-logoff/logoff-1.3.tar.gz
-tar -zxf logoff-1.3.tar.gz
-rm -f logoff-1.3.tar.gz
-
-# Installing File Manager and MediaStream, File Share and File Upload
-
-rm -f -R /var/www/rutorrent/plugins/filemanager
-rm -f -R /var/www/rutorrent/plugins/fileupload
-rm -f -R /var/www/rutorrent/plugins/mediastream
-rm -f -R /var/www/stream
-
-cd /var/www/rutorrent/plugins/
-git clone https://github.com/nelu/rutorrent-thirdparty-plugins /tmp/plugins/
-mv /tmp/plugins/* .
-
-
-cp /etc/seedbox-from-scratch/templates/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php
-
-mkdir -p /var/www/stream/
-ln -s /var/www/rutorrent/plugins/mediastream/view.php /var/www/stream/view.php
-chown www-data: /var/www/stream
-chown www-data: /var/www/stream/view.php
-
-echo "<?php \$streampath = 'http://$IPADDRESS1/stream/view.php'; ?>" | tee /var/www/rutorrent/plugins/mediastream/conf.php > /dev/null
-
-
-# 32.2
-chown -R www-data:www-data /var/www/rutorrent
-chmod -R 755 /var/www/rutorrent
-
-#32.3
-
-perl -pi -e "s/\\\$topDirectory\, \\\$fm/\\\$homeDirectory\, \\\$topDirectory\, \\\$fm/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
-perl -pi -e "s/\\\$this\-\>userdir \= addslash\(\\\$topDirectory\)\;/\\\$this\-\>userdir \= \\\$homeDirectory \? addslash\(\\\$homeDirectory\) \: addslash\(\\\$topDirectory\)\;/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
-perl -pi -e "s/\\\$topDirectory/\\\$homeDirectory/g" /var/www/rutorrent/plugins/filemanager/settings.js.php
-
-#32.4
-unzip /etc/seedbox-from-scratch/installs/rutorrent-oblivion.zip -d /var/www/rutorrent/plugins/
-echo "" | tee -a /var/www/rutorrent/css/style.css > /dev/null
-echo "/* for Oblivion */" | tee -a /var/www/rutorrent/css/style.css > /dev/null
-echo ".meter-value-start-color { background-color: #E05400 }" | tee -a /var/www/rutorrent/css/style.css > /dev/null
-echo ".meter-value-end-color { background-color: #8FBC00 }" | tee -a /var/www/rutorrent/css/style.css > /dev/null
-echo "::-webkit-scrollbar {width:12px;height:12px;padding:0px;margin:0px;}" | tee -a /var/www/rutorrent/css/style.css > /dev/null
-perl -pi -e "s/\$defaultTheme \= \"\"\;/\$defaultTheme \= \"Oblivion\"\;/g" /var/www/rutorrent/plugins/theme/conf.php
-
 ln -s /etc/seedbox-from-scratch/templates/seedboxInfo.php.template /var/www/seedboxInfo.php
-
-# 32.5
-#handled in he git upload from above no need to handle this any longer here, we just need to link the files that are downloaded
-#cd /var/www/rutorrent/plugins/
-#rm -r /var/www/rutorrent/plugins/fileshare
-#rm -r /var/www/share
-#svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileshare
-#mkdir /var/www/share
-ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/share.php
-ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/index.php
-chown -R www-data:www-data /var/www/share
-cp /etc/seedbox-from-scratch/templates/rutorrent.plugins.fileshare.conf.php.template /var/www/rutorrent/plugins/fileshare/conf.php
-perl -pi -e "s/<servername>/$IPADDRESS1/g" /var/www/rutorrent/plugins/fileshare/conf.php
-cp /etc/seedbox-from-scratch/templates/Snoopy.class.inc.template /var/www/rutorrent/php/Snoopy.class.inc 
 
 # 32.6
 # Handle the user file limits
@@ -586,8 +484,6 @@ fi
 #  createSeedboxUser <username> <password> <user jailed?> <ssh access?> <?>
 bash /etc/seedbox-from-scratch/createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YES NO
 
-#38.1 Pull down required docker images
-docker pull timhaak/plex
 
 # 39 Insert Crontab task 
 (crontab -l 2>/dev/null; echo "*/1 * * * * /etc/seedbox-from-scratch/cronTasks >/dev/null 2>&1") | crontab - 
