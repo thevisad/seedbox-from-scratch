@@ -35,7 +35,6 @@ When I originally started playing with this script it was one of the few that ac
 * Webmin (use it to manage your users quota)
 
 
-
 ## Supported Docker Containers
 * Docker Plex - https://github.com/timhaak/docker-plex
 * Docker MySQL - https://github.com/linuxserver/docker-mysql - (buggy atm) not recommended
@@ -50,13 +49,6 @@ When I originally started playing with this script it was one of the few that ac
 * Docker sabnzbd - https://github.com/timhaak/docker-sickrage
 
 
-Pending Removal
-* ruTorrent 3.7 + official plugins
-* rTorrent 0.8.9, 0.9.2, 0.9.3 or 0.9.6
-* libTorrrent 0.13.3, 0.13.4 or 0.13.6
-* IRSSI
-
-
 ## Tested servers (should work on any system support debian commands)
 * Ubuntu Server 16.04 - 32 and 64 bit
 * Ubuntu Server 16.10 - 32 and 64 bit
@@ -69,6 +61,14 @@ There is no real support for this script, but nerds are talking a lot about it [
 
 
 ## Changelog
+
+Version 16.21.0 (Internal Revision)
+  March 14 2018 19:21 GMT-5
+	Removal if the last of the settings locking the core server into usage. 
+	* ruTorrent 3.7 + official plugins
+	* rTorrent 0.8.9, 0.9.2, 0.9.3 or 0.9.6
+	* libTorrrent 0.13.3, 0.13.4 or 0.13.6
+	* IRSSI
 
 Version 16.01.0 (Internal Revision)
   May 15 2017 12:34 GMT-5

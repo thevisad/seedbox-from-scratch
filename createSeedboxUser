@@ -4,7 +4,7 @@
 exec 1> >(logger -s -t $(basename $0)) 2>&1 
 
 
-trlt="$(curl -s https://api.github.com/repos/autodl-community/autodl-trackers/releases/latest | sed -rn 's/(.*)"tag_name": "community-v(.*)",/\2/p')"
+trlt="$(curl -s https://api.github.com/repos/autodl-community/autodl-trackers/releases/latest | sed -rn 's/(.*)"tag_name": "v(.*)",/\2/p')"
 dltrkrs="https://github.com/autodl-community/autodl-trackers/releases/download/community-v$trlt/autodl-trackers-v$trlt.zip"
 function getString
 {
@@ -242,8 +242,6 @@ if [ "$CHROOTJAIL1" == "YES" ]; then
   sudo jk_cp -j $JAILDIR1 /lib/`uname -m`-linux-gnu/libnss_compat.so.2
   sudo jk_cp -j $JAILDIR1 /lib/`uname -m`-linux-gnu/libnss_dns.so.2
   sudo jk_cp -j $JAILDIR1 /lib/`uname -m`-linux-gnu/libnss_files.so.2
-  sudo jk_cp -j $JAILDIR1 /usr/bin/rtorrent
-  sudo jk_cp -j $JAILDIR1 /usr/bin/irssi
   sudo jk_cp -j $JAILDIR1 /dev/tty*
   sudo cp /etc/skel/.bashrc $HOMEJAILED1
   sudo cp /usr/sbin/jk_lsh $JAILDIR1/usr/sbin/jk_lsh
@@ -274,12 +272,6 @@ if [ "$CHROOTJAIL1" == "YES" ]; then
   sudo mkdir $JAILDIR1/tmp
   sudo chmod 1777 $JAILDIR1/tmp
   sudo mount --bind /tmp $JAILDIR1/tmp
-  sudo mkdir -p $JAILDIR1/var/www/rutorrent
-  sudo chmod 1777 $JAILDIR1/var/www/rutorrent
-  sudo mount --bind /var/www/rutorrent $JAILDIR1/var/www/rutorrent
-  sudo mkdir -p /var/www/rutorrent/share/users/$NEWUSER1/torrents
-  sudo mkdir -p /var/www/rutorrent/share/users/$NEWUSER1/settings
-  sudo chmod -R 777 /var/www/rutorrent/share/users/$NEWUSER1
   sudo chmod a-w $HOMEJAILED1
   chown -R $NEWUSER1:$NEWUSER1 /home/$NEWUSER1
   chown root:$NEWUSER1 /home/$NEWUSER1
@@ -323,24 +315,11 @@ sudo perl -pi -e "s/^$NETWORKPORT1.*\n$//g" /etc/seedbox-from-scratch/ports.txt
 
 IRSSIPASSWORD1=`makepasswd`
 
-SABNZBDHTTPSPORT1=`head -n 1 /etc/seedbox-from-scratch/ports.txt | tail -n 1`
-sudo perl -pi -e "s/^$SABNZBDHTTPSPORT1.*\n$//g" /etc/seedbox-from-scratch/ports.txt
-
-SABNZBDHTTPPORT1=`head -n 1 /etc/seedbox-from-scratch/ports.txt | tail -n 1`
-sudo perl -pi -e "s/^$SABNZBDHTTPPORT1.*\n$//g" /etc/seedbox-from-scratch/ports.txt
-
 # 12.
 
 sudo bash /etc/seedbox-from-scratch/changeUserPassword $NEWUSER1 $PASSWORD1 rutorrent
 sudo bash /etc/seedbox-from-scratch/changeUserPassword $NEWUSER1 $PASSWORD1 private
-# 19.
-sudo cp /etc/seedbox-from-scratch/templates/rtorrent.rc.template  $HOMEJAILED1/.rtorrent.rc > /dev/null
 
-sudo perl -pi -e "s/<username>/$NEWUSER1$ADDHOME1/g" $HOMEJAILED1/.rtorrent.rc
-sudo perl -pi -e "s/5995/$SCGIPORT1/g" $HOMEJAILED1/.rtorrent.rc
-sudo perl -pi -e "s/99888/$NETWORKPORT1/g" $HOMEJAILED1/.rtorrent.rc
-
-sudo chown $NEWUSER1:$NEWUSER1 $HOMEJAILED1/.rtorrent.rc
 
 # 20.
 sudo mkdir -p $HOMEJAILED1/downloads/auto
@@ -363,191 +342,7 @@ sudo chown $NEWUSER1: $HOMEJAILED1/log
 sudo chown www-data:www-data $HOMEJAILED1/services/
 sudo chmod 770 $HOMEJAILED1/log
 
-
-
-# 21.
-
-if [ "$CHROOTJAIL1" == "YES" ]; then
-  sudo cp /etc/seedbox-from-scratch/templates/rtorrent.jailed.conf.template /etc/init/rtorrent.$NEWUSER1.conf
-else
-  sudo cp /etc/seedbox-from-scratch/templates/rtorrent.conf.template /etc/init/rtorrent.$NEWUSER1.conf
-  sudo perl -pi -e "s/<username>/$NEWUSER1/g" /etc/init/rtorrent.$NEWUSER1.conf
-fi
-sudo perl -pi -e "s/<homedir>/$HOMEJAILED1_ESCAPED/g" /etc/init/rtorrent.$NEWUSER1.conf
-sudo perl -pi -e "s/<username>/$NEWUSER1/g" /etc/init/rtorrent.$NEWUSER1.conf
-sudo perl -pi -e "s/<jaildir>/$JAILDIR1_ESCAPED/g" /etc/init/rtorrent.$NEWUSER1.conf
-sudo cp /etc/seedbox-from-scratch/templates/user.restartSeedbox.template $HOMEJAILED1/restartSeedbox
-sudo perl -pi -e "s/<homedir>/$HOMEJAILED1_ESCAPED/g" $HOMEJAILED1/restartSeedbox
-sudo perl -pi -e "s/<username>/$NEWUSER1/g" $HOMEJAILED1/restartSeedbox
-sudo perl -pi -e "s/<https_port>/$SABNZBDHTTPSPORT1/g" $HOMEJAILED1/restartSeedbox
-sudo perl -pi -e "s/<http_port>/$SABNZBDHTTPPORT1/g" $HOMEJAILED1/restartSeedbox
-sudo chown $NEWUSER1: $HOMEJAILED1/restartSeedbox
-sudo chmod 550 $HOMEJAILED1/restartSeedbox
-
-# 22.
-# prepare the tree
-sudo mkdir -p /var/www/rutorrent/conf/users/$NEWUSER1/plugins/autodl-irssi
-sudo mkdir -p /var/www/rutorrent/conf/users/$NEWUSER1/plugins/diskspace
-sudo mkdir -p /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload
-
-echo '<?php $topDirectory = "/home"; ?>' | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins/diskspace/conf.php
-
-# 23. Chroot this User
-
-
-#some of those files will be changed later in this script
-sudo cp /var/www/rutorrent/conf/access.ini   /var/www/rutorrent/conf/users/$NEWUSER1/
-sudo cp /var/www/rutorrent/conf/config.php  /var/www/rutorrent/conf/users/$NEWUSER1/
-sudo cp /var/www/rutorrent/conf/plugins.ini   /var/www/rutorrent/conf/users/$NEWUSER1/
-
-# 24.
-
-sudo cp /etc/seedbox-from-scratch/templates/rutorrent.conf.users.config.php.template /var/www/rutorrent/conf/users/$NEWUSER1/config.php
-
-sudo perl -pi -e "s/5995/$SCGIPORT1/g" /var/www/rutorrent/conf/users/$NEWUSER1/config.php
-sudo perl -pi -e "s/RPC123/$NEWRPC1/g" /var/www/rutorrent/conf/users/$NEWUSER1/config.php
-sudo perl -pi -e "s/<username>/$NEWUSER1/g" /var/www/rutorrent/conf/users/$NEWUSER1/config.php
-sudo perl -pi -e "s/<homedir>/$HOMEJAILED1_ESCAPED/g" /var/www/rutorrent/conf/users/$NEWUSER1/config.php
-
-# 25.
-
-sudo cp /etc/seedbox-from-scratch/templates/rutorrent.conf.users.plugins.ini.template /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-if [ "$CHROOTJAIL1" == "YES" ]; then
-  echo "" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "[fileupload]" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "enabled = no" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "[mediastream]" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "enabled = no" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "[filemanager]" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "enabled = no" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-else
-  echo "" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "[fileupload]" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "enabled = yes" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "[mediastream]" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "enabled = yes" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "[filemanager]" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-  echo "enabled = user-defined" | sudo tee -a /var/www/rutorrent/conf/users/$NEWUSER1/plugins.ini
-fi
-
-# 26.
-
-if [ "$DELUGEINSTALLED1" == "YES" ]; then
-  if [ "$NEWUSER1" = "$MAINUSER1" ]; then
-    sudo kill -9 `sudo ps aux | grep deluge | grep -v grep | awk '{print $2}' | cut -d. -f 1` &> /dev/null
-  fi
-
-  sudo su --login --command "deluged" $NEWUSER1
-  sleep 5
-  sudo kill -9 `sudo ps aux | grep $NEWUSER1 | grep deluge | grep -v grep | awk '{print $2}' | cut -d. -f 1` &> /dev/null
-
-  sudo cp /etc/seedbox-from-scratch/templates/home.user.config.deluge.core.conf.template $HOMEJAILED1/.config/deluge/core.conf
-  sudo cp /etc/seedbox-from-scratch/templates/home.user.config.deluge.web.conf.template $HOMEJAILED1/.config/deluge/web.conf
-  sudo cp /etc/seedbox-from-scratch/templates/home.user.config.deluge.hostlist.conf.1.2.template $HOMEJAILED1/.config/deluge/hostlist.conf.1.2
-
-  SALT1=$(genPasswd 32)
-  SHAPASSWORD1=`python /etc/seedbox-from-scratch/deluge.password.py $PASSWORD1 $SALT1`
-
-  mkdir $HOMEJAILED1/downloads/deluge.torrents
-  mkdir $HOMEJAILED1/downloads/deluge.files
-  mkdir $HOMEJAILED1/downloads/deluge.watch
-
-  WEBPORT1=`head -n 1 /etc/seedbox-from-scratch/ports.txt | tail -n 1`
-  sudo perl -pi -e "s/^$WEBPORT1.*\n$//g" /etc/seedbox-from-scratch/ports.txt
-
-  DEAMONPORT1=`head -n 1 /etc/seedbox-from-scratch/ports.txt | tail -n 1`
-  sudo perl -pi -e "s/^$DEAMONPORT1.*\n$//g" /etc/seedbox-from-scratch/ports.txt
-
-  LISTENPORTSTART1=`head -n 1 /etc/seedbox-from-scratch/ports.txt | tail -n 1`
-  sudo perl -pi -e "s/^$LISTENPORTSTART1.*\n$//g" /etc/seedbox-from-scratch/ports.txt
-
-  for i in $(seq 1 10)
-  do
-    LISTENPORTEND1=`head -n 1 /etc/seedbox-from-scratch/ports.txt | tail -n 1`
-    sudo perl -pi -e "s/^$LISTENPORTEND1.*\n$//g" /etc/seedbox-from-scratch/ports.txt
-  done
-
-  sudo perl -pi -e "s/<home>/$HOMEJAILED1_ESCAPED/g" $HOMEJAILED1/.config/deluge/core.conf
-  sudo perl -pi -e "s/<home>/$HOMEJAILED1_ESCAPED/g" $HOMEJAILED1/.config/deluge/web.conf
-
-  sudo perl -pi -e "s/<sha-password>/$SHAPASSWORD1/g" $HOMEJAILED1/.config/deluge/core.conf
-  sudo perl -pi -e "s/<sha-password>/$SHAPASSWORD1/g" $HOMEJAILED1/.config/deluge/web.conf
-
-  sudo perl -pi -e "s/<salt>/$SALT1/g" $HOMEJAILED1/.config/deluge/core.conf
-  sudo perl -pi -e "s/<salt>/$SALT1/g" $HOMEJAILED1/.config/deluge/web.conf
-
-  sudo perl -pi -e "s/<web-port>/$WEBPORT1/g" $HOMEJAILED1/.config/deluge/core.conf
-  sudo perl -pi -e "s/<web-port>/$WEBPORT1/g" $HOMEJAILED1/.config/deluge/web.conf
-
-  sudo perl -pi -e "s/<deamon-port>/$DEAMONPORT1/g" $HOMEJAILED1/.config/deluge/core.conf
-  sudo perl -pi -e "s/<deamon-port>/$DEAMONPORT1/g" $HOMEJAILED1/.config/deluge/web.conf
-  sudo perl -pi -e "s/<deamon-port>/$DEAMONPORT1/g" $HOMEJAILED1/.config/deluge/hostlist.conf.1.2
-
-  sudo perl -pi -e "s/<listen-ports-start>/$LISTENPORTSTART1/g" $HOMEJAILED1/.config/deluge/core.conf
-  sudo perl -pi -e "s/<listen-ports-start>/$LISTENPORTSTART1/g" $HOMEJAILED1/.config/deluge/web.conf
-
-  sudo perl -pi -e "s/<listen-ports-end>/$LISTENPORTEND1/g" $HOMEJAILED1/.config/deluge/core.conf
-  sudo perl -pi -e "s/<listen-ports-end>/$LISTENPORTEND1/g" $HOMEJAILED1/.config/deluge/web.conf
-
-  sudo chown -R $NEWUSER1:$NEWUSER1  $HOMEJAILED1/.config/
-  sudo chown -R $NEWUSER1:$NEWUSER1  $HOMEJAILED1/downloads/
-fi
-
-# 29.1 ---- Main Trunk of AutodlIrssi ---- Not maintained by developers anymore
-
-
-# 29.2   ---- New Trunk of AutodlIrssi ---- by thebigmunch
-#        ---- Based on https://github.com/autodl-irssi-community/autodl-irssi
-#        ---- what/forums.php?action=viewthread&threadid=151523
-#        ---- commit log: https://github.com/autodl-irssi-community/autodl-irssi/commits/master
-
-sudo rm -R $HOMEJAILED1/.irssi
-sudo git clone https://github.com/autodl-community/autodl-irssi.git $HOMEJAILED1/.irssi/scripts/
-sudo mkdir -p $HOMEJAILED1/.irssi/scripts/autorun
-#sudo git clone https://github.com/autodl-community/autodl-trackers.git $HOMEJAILED1/.irssi/scripts/AutodlIrssi/trackers
-#Testing script starts
-sudo wget -qO $HOMEJAILED1/autodl-trackers.zip "$dltrkrs"
-sudo unzip -qo $HOMEJAILED1/autodl-trackers.zip -d $HOMEJAILED1/.irssi/scripts/AutodlIrssi/trackers/
-##sudo wget --quiet -O $HOMEJAILED1/.irssi/scripts/autodl-trackers.zip https://github.com/autodl-community/autodl-trackers/archive/master.zip
-##unzip -q -o $HOMEJAILED1/.irssi/scripts/autodl-trackers.zip
-##sudo rm $HOMEJAILED1/.irssi/scripts/autodl-trackers.zip
-##sudo mv $HOMEJAILED1/.irssi/scripts/autodl-trackers-master/*.tracker $HOMEJAILED1/.irssi/scripts/AutodlIrssi/trackers/
-##sudo rm -r $HOMEJAILED1/.irssi/scripts/autodl-trackers-master
-#Testing script ends
-cd $HOMEJAILED1/.irssi/scripts
-sudo cp autodl-irssi.pl autorun/
-sudo mkdir -p $HOMEJAILED1/.autodl
-sudo touch $HOMEJAILED1/.autodl/autodl.cfg
-sudo rm -f $HOMEJAILED1/autodl-{irssi,trackers}.zip $HOMEJAILED1/.irssi/scripts/{README*,*.md,autodl-irssi.pl}
-sudo chown -R $NEWUSER1: $HOMEJAILED1/.irssi
-
 # 29.3
-
-
-+
-
-sudo cp /etc/seedbox-from-scratch/templates/rutorrent.conf.users.plugins.fileupload.conf.php.template  /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload/config.php > /dev/null
-sudo chown -R www-data:www-data /var/www/rutorrent/conf/users/$NEWUSER1/plugins/fileupload/
-
-sudo cp /etc/seedbox-from-scratch/templates/home.user.autodl.autodl.cfg.template  $HOMEJAILED1/.autodl/autodl.cfg
-
-sudo perl -pi -e "s/<PASSWORD>/$IRSSIPASSWORD1/g"  $HOMEJAILED1/.autodl/autodl.cfg
-sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g"  $HOMEJAILED1/.autodl/autodl.cfg
-sudo perl -pi -e "s/use Digest\:\:SHA1 qw/use Digest\:\:SHA qw/g" $HOMEJAILED1/.irssi/scripts/AutodlIrssi/MatchedRelease.pm
-
-if [ "$CHROOTJAIL1" == "YES" ]; then
-  sudo jk_chrootlaunch -u $NEWUSER1 -j $JAILDIR1 -x /bin/bash -- /restartSeedbox
-else
-  sudo su --login --command "$HOMEJAILED1/restartSeedbox" $NEWUSER1
-fi
-
-sudo chown -R $NEWUSER1:$NEWUSER1  $HOMEJAILED1/.autodl
-sudo chown -R $NEWUSER1:$NEWUSER1  $HOMEJAILED1/.irssi
-
 echo "http://$IPADDRESS1/private/SBinfo.txt" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
 echo "" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
@@ -596,17 +391,13 @@ echo "Restarting seedbox as any other user: sudo su --login --command \"$HOMEJAI
 sudo mkdir $HOMEJAILED1/private
 sudo cp /etc/seedbox-from-scratch/users/$NEWUSER1.info $HOMEJAILED1/private/SBinfo.txt
 
-if [ "$NEWUSER1" = "$MAINUSER1" ]; then
-  (crontab -u "$NEWUSER1" -l; echo "@reboot ~/bin/rtcheck" ) | crontab -u "$NEWUSER1" -
-fi
-
 cd $HOMEJAILED1/private
 sudo ln -s $HOMEJAILED1/downloads/manual Downloads
 cd ..
 sudo chown -v -R $NEWUSER1: private
 #sudo chmod 400 $HOMEJAILED1/$NEWUSER1.info
 cd $HOMEJAILED1/
-sudo cp /etc/seedbox-from-scratch/templates/crontabentries.template $HOMEJAILED1/
+sudo cp /etc/seedbox-from-scratch/templates/crontabentries.template $HOMEJAILED1/crontabentries
 sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/crontabentries
 sudo chmod +x $HOMEJAILED1/crontabentries
 sudo bash $HOMEJAILED1/crontabentries
@@ -621,24 +412,14 @@ sudo echo "alias vcsd10='vcs *.mp4 -U0 -i 10m -c 3 -H 200 -a 300/200 -o ~/moviei
 sudo echo "alias vcsd15='vcs *.mp4 -U0 -i 15m -c 3 -H 200 -a 300/200 -o ~/movieinfo/save-filename.jpg'      " | sudo tee -a $HOMEJAILED1/.bashrc
 
 
-#if [ "$NEWUSER1" = "$MAINUSER1" ]; then
-#  sudo echo "$NEWUSER1 soft nofile 300000" >>/etc/security/limits.conf
-#  sudo echo "$NEWUSER1 hard nofile 300000" >>/etc/security/limits.conf
-#fi
-#Installing Font for MTN
-#cd
-#wget http://ftp.us.debian.org/debian/pool/main/f/fonts-liberation/fonts-liberation_1.07.4-1_all.deb && ar x fonts-liberation_1.07.4-1_all.deb && tar xf data.tar.xz
-#rm mtn.tar.gz control.tar.gz  data.tar.xz  debian-binary  fonts-liberation_1.07.4-1_all.deb
-
 sudo mkdir $HOMEJAILED1/bin
 cd $HOMEJAILED1/bin
-sudo cp /etc/seedbox-from-scratch/templates/rtcheck $HOMEJAILED1/bin
 sudo cp /etc/seedbox-from-scratch/templates/mtn.sh $HOMEJAILED1/bin
-sudo chmod +x rtcheck
 sudo chmod +x mtn.sh
 sudo rm $HOMEJAILED1/crontabentries
 sudo cp $HOMEJAILED1/restartSeedbox $HOMEJAILED1/bin/
 sudo chown $NEWUSER1: -R $HOMEJAILED1/bin
+sudo chown $NEWUSER1: -R $HOMEJAILED1/private/
 
 sudo service webmin restart
 set +x verbose

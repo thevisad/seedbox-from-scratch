@@ -16,7 +16,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 SBFSCURRENTVERSION1=16.00
-SBSINTERNALVERSION=0.0.1.1
+SBSINTERNALVERSION=0.21.0
 OS1=$(lsb_release -si)
 
 function getString
@@ -231,22 +231,6 @@ if [ "$OS1" = "Debian" ]; then
   echo 'Yes, do as I say!' | apt-get -y --force-yes install upstart
 fi
 
-# 8.2 Install NO-IP Linux Dynamic Update Client on Ubuntu
-
-#cd /usr/local/src/
-#sudo wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
-#sudo tar xf noip-duc-linux.tar.gz
-#cd noip-2.1.9-1/
-#printf '0\nysgfuoslkgieu\n' | sudo make install 
-
-
-#printf 'y\ny\ny\n'
-#echo '3EFE/o1OplU,Y1k3C,.~z7Pdfu9c4SIW' | echo ysgfuoslkgieu | sudo make install 
-
-#/usr/local/bin/noip2 -C
-#/usr/local/bin/noip2
-
-
 # 8.3 Generate our lists of ports and RPC and create variables
 
 #permanently adding scripts to PATH to all users and root
@@ -405,27 +389,22 @@ a2ensite default.conf
 a2dissite 000-default.conf
 a2dissite default-ssl.conf
 sudo a2enmod rewrite
-#sudo a2dismod userdir
 apache service reload
 apache service restart
 
-#14.1
-#ln -s /etc/apache2/mods-available/scgi.load /etc/apache2/mods-enabled/scgi.load
-#service apache2 restart
-#apt-get --yes install libxmlrpc-core-c3-dev
-
+#Removing XML-RPC from the install of the server. 
 # 15.
-tar xvfz /etc/seedbox-from-scratch/installs/xmlrpc-c-1.39.12.tgz -C /etc/seedbox-from-scratch/source/
-cd /etc/seedbox-from-scratch/source/
+#tar xvfz /etc/seedbox-from-scratch/installs/xmlrpc-c-1.39.12.tgz -C /etc/seedbox-from-scratch/source/
+#cd /etc/seedbox-from-scratch/source/
 # unzip ../xmlrpc-c-1.31.06.zip
 
 # 16.
-#cd xmlrpc-c-1.16.42 ### old, but stable, version, needs a missing old types.h file
+
 #ln -s /usr/include/curl/curl.h /usr/include/curl/types.h
-cd xmlrpc-c-1.39.12
-./configure --prefix=/usr --enable-libxml2-backend --disable-libwww-client --disable-wininet-client --disable-abyss-server --disable-cgi-server
-make
-make install
+#cd xmlrpc-c-1.39.12
+#./configure --prefix=/usr --enable-libxml2-backend --disable-libwww-client --disable-wininet-client --disable-abyss-server --disable-cgi-server
+#make
+#make install
 
 groupadd admin
 
