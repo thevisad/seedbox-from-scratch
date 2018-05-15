@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash
 # Hellish Tech
 # No commercial usage without authorization
 exec 1> >(logger -s -t $(basename $0)) 2>&1 

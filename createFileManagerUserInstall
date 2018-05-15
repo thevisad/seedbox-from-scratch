@@ -1,0 +1,48 @@
+#!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+exec 1> >(logger -s -t $(basename $0)) 2>&1 
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -u|--username)
+    USERNAME="$2"
+    shift # past argument 
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+USERPASSWORD=$(echo "$(cat /etc/seedbox-from-scratch/users/${USERNAME}.info)" | grep "Password: " | head -n1 | awk '{print $2}')
+SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
+WEBSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8180)
+USERUID=$(id -u ${USERNAME})
+USERGID=$(id -g ${USERNAME})
+
+mkdir /home/${USERNAME}/filemanager
+cp /etc/seedbox-from-scratch/templates/filemanager.config.json.template /home/${USERNAME}/filemanager/config.json
+chown ${USERNAME}:${USERNAME} -R /home/${USERNAME}/filemanager
+
+docker run --restart=always -d --name ${USERNAME}_filebrowser -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}:/srv -v /home/${USERNAME}/filemanager/config.json:/config.json -v /home/${USERNAME}/filemanager/database.db:/database.db -p ${WEBSERVERPORT}:80 -e PGID=${USERGID} -e PUID=${USERUID} -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro hacdias/filebrowser
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d rutorrent | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then	
+
+	echo "SERVICE: FILEMANAGER" > /home/${USERNAME}/private/filemanager.serviceinfo
+	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/filemanager.serviceinfo
+	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/filemanager.serviceinfo
+	echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/filemanager.serviceinfo
+	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
+
+fi
+
+if [[ -n $1 ]]; then
+    echo "Last line of file specified as non-opt/last argument:"
+    tail -1 $1
+fi

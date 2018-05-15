@@ -135,6 +135,31 @@ doWork();
 		<td>
 		</td>
 	</tr>
+	<tr>
+		<td>FileManager</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="FileManager" value="Install" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="FileManager" value="Delete" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="FileManager" value="Stop" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="FileManager" value="Start" />
+			</form>
+		</td>
+		<td>
+		</td>
+	</tr>
 		<tr>
 		<td>Couchpotato</td>
 		<td>

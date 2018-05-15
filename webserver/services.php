@@ -51,6 +51,8 @@
 			<tr>
 				<td>ubooquity</td>
 				<td><?php $seedbox_site_functions->displayServiceDetails("ubooquity"); ?></td>
+				<td>filemanager</td>
+				<td><?php $seedbox_site_functions->displayServiceDetails("filemanager"); ?></td>
 			</tr>
 		</table>
 	</body>
