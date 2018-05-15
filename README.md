@@ -37,16 +37,17 @@ When I originally started playing with this script it was one of the few that ac
 
 ## Supported Docker Containers
 * Docker Plex - https://github.com/timhaak/docker-plex
-* Docker MySQL - https://github.com/linuxserver/docker-mysql - (buggy atm) not recommended
-* Docker Deluge - https://github.com/linuxserver/docker-deluge
+*## Docker MySQL - https://github.com/linuxserver/docker-mysql - (buggy atm) not recommended
+* Docker Deluge - https://hub.docker.com/r/binhex/arch-deluge/
 * Docker RuTorrent - https://hub.docker.com/r/thevisad/rutorrent/
-* Docker Ubooquity - https://github.com/linuxserver/docker-ubooquity
-* Docker sabnzbd - https://github.com/linuxserver/docker-letsencrypt
-* Docker - Rapidleech
-* Docker sabnzbd - https://github.com/timhaak/docker-sabnzbd
-* Docker sabnzbd - https://github.com/timhaak/docker-sickbeard
-* Docker sabnzbd - https://github.com/timhaak/docker-couchpotato
-* Docker sabnzbd - https://github.com/timhaak/docker-sickrage
+* Docker Ubooquity - https://hub.docker.com/r/linuxserver/ubooquity/
+*** Docker LetsEncrypt - https://github.com/linuxserver/docker-letsencrypt (not working)
+* Docker Rapidleech - https://hub.docker.com/r/wpzzz/rapidleech/
+* Docker sabnzbd - https://hub.docker.com/r/linuxserver/sabnzbd/
+* Docker Sickbeard - https://hub.docker.com/r/linuxserver/sickbeard/
+* Docker CouchPotato - https://hub.docker.com/r/linuxserver/couchpotato/
+* Docker SickRage - https://hub.docker.com/r/linuxserver/sickrage/
+* Docker FileManager  - https://hub.docker.com/r/hacdias/filemanager/
 
 
 ## Tested servers (should work on any system support debian commands)
@@ -61,7 +62,10 @@ There is no real support for this script, but nerds are talking a lot about it [
 
 
 ## Changelog
-
+Version 16.31.0 (Internal Revision)
+  March 14 2018 19:21 GMT-5
+	* Docker FileManager - https://hub.docker.com/r/hacdias/filemanager/
+  
 Version 16.21.0 (Internal Revision)
   March 14 2018 19:21 GMT-5
 	Removal if the last of the settings locking the core server into usage. 
