@@ -131,7 +131,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	
 	if [ -f "/home/${f%.info}/services/FileManager.install" ]
 	then
-		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d filemanager )
 		echo  ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			echo "FILEMANAGER ALREADY INSTALLED"
@@ -317,7 +317,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	
 	if [ -f "/home/${f%.info}/services/FileManager.delete" ]
 	then
-		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d filemanager )
 		echo  ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/FileManager.*
@@ -529,7 +529,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	
 	if [ -f "/home/${f%.info}/services/FileManager.start" ]
 	then
-		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d filemanager )
 		echo  ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "STOPPED" ]; then 
@@ -751,7 +751,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	
 	if [ -f "/home/${f%.info}/services/FileManager.stop" ]
 	then
-		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d filemanager )
 		echo  ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
