@@ -140,7 +140,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		else
 			rm -rf /home/${f%.info}/services/FileManager.*
 			echo "FILEMANAGER INSTALLED"
-			/etc/seedbox-from-scratch/createRTorrentUserInstall -u ${f%.info} 
+			/etc/seedbox-from-scratch/createFileManagerUserInstall -u ${f%.info} 
 		fi
 	fi
 	
@@ -322,7 +322,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/FileManager.*
 			echo "FileManager DELETED"
-			/etc/seedbox-from-scratch/deleteRTorrentUserDocker -u ${f%.info} 
+			/etc/seedbox-from-scratch/deleteFileManagerUserDocker -u ${f%.info} 
 		
 			
 		else
@@ -535,7 +535,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			if [ ${TASKCHECK} == "STOPPED" ]; then 
 				rm -rf /home/${f%.info}/services/FileManager.*
 				echo "FileManager STARTED"
-				/etc/seedbox-from-scratch/startRTorrentUserDocker -u ${f%.info} 
+				/etc/seedbox-from-scratch/startFileManagerUserDocker -u ${f%.info} 
 			else
 				echo "PLEX ALREADY RUNNING"
 			fi			
@@ -757,7 +757,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			if [ ${TASKCHECK} == "RUNNING" ]; then 
 				rm -rf /home/${f%.info}/services/FileManager.*
 				echo "FileManager STOPPED"
-				/etc/seedbox-from-scratch/stopRTorrentUserDocker -u ${f%.info} 
+				/etc/seedbox-from-scratch/stopFileManagerUserDocker -u ${f%.info} 
 			else
 				echo "PLEX ALREADY STOPPED"
 			fi			
