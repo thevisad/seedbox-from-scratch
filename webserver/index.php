@@ -44,22 +44,6 @@ doWork();
 		<th></th>
 		<th></th>
 	</tr>
-		<tr>
-		<td>SeedBox Services</td>
-		<td>
-			<form action="handleactions.php" method="post">
-			<input type="submit" name="SeedBox" value="Restart" />
-			</form>
-		</td>
-		<td>
-		</td>
-		<td>
-		</td>
-		<td>
-		</td>
-		<td>
-		</td>
-	</tr>
 	<tr>
 		<td>RapidLeech</td>
 		<td>

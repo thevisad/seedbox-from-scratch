@@ -36,20 +36,7 @@
     AuthDigestProvider file
     AuthUserFile /etc/apache2/htpasswd
     Require valid-user
-  </Location>
-
-  <Directory /var/www/share/>
-    Order Deny,Allow
-    Allow from all
-    Satisfy any
-  </Directory>
-
-  <Directory /var/www/stream/>
-    Order Deny,Allow
-    Allow from all
-    Satisfy any
-  </Directory>
-  
+  </Location> 
 
   ErrorLog /var/log/apache2/error.log
 
@@ -59,16 +46,6 @@
   LogLevel warn
 
   CustomLog /var/log/apache2/access.log combined
-
-  <Directory /var/www/rutorrent>
-    AuthType Digest
-    AuthName "rutorrent"
-    AuthDigestDomain /var/www/rutorrent/ http://<servername>/rutorrent
-    AuthDigestProvider file
-    AuthUserFile /etc/apache2/htpasswd
-    Require valid-user
-    SetEnv R_ENV "/var/www/rutorrent"
-  </Directory>
 </VirtualHost>
 
 <VirtualHost *:443>
@@ -104,24 +81,12 @@
     Options Indexes FollowSymLinks MultiViews
     IndexOptions +FancyIndexing +SuppressDescription
     AuthType Digest
-    AuthName "documentroot"
+    AuthName "private"
     AuthDigestDomain /var/www/private
     AuthDigestProvider file
     AuthUserFile /etc/apache2/htpasswd
     Require valid-user
   </Location>
-
-  <Directory /var/www/share/>
-    Order Deny,Allow
-    Allow from all
-    Satisfy any
-  </Directory>
-
-  <Directory /var/www/stream/>
-    Order Deny,Allow
-    Allow from all
-    Satisfy any
-  </Directory>
 
   ErrorLog /var/log/apache2/error.log
   # Possible values include: debug, info, notice, warn, error, crit,
@@ -129,13 +94,4 @@
   LogLevel warn
   
   CustomLog /var/log/apache2/access.log combined
-  <Directory /var/www/rutorrent>
-    AuthType Digest
-    AuthName "private"
-    AuthDigestDomain /var/www/rutorrent/ https://<servername>/rutorrent
-    AuthDigestProvider file
-    AuthUserFile /etc/apache2/htpasswd
-    Require valid-user
-    SetEnv R_ENV "/var/www/rutorrent"
-  </Directory>
 </VirtualHost>

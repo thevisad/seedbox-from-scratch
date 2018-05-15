@@ -37,7 +37,6 @@ sudo perl -pi -e "s/^$NEWUSER1\:.*\n$//g" /etc/apache2/htpasswd
 sudo rm /etc/init/rtorrent.$NEWUSER1.conf
 
 # 29.
-sudo rm -r /var/www/rutorrent/conf/users/$NEWUSER1
 
 sudo rm /etc/seedbox-from-scratch/users/$NEWUSER1.info
 echo ""

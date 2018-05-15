@@ -59,8 +59,8 @@ newclient "$CLIENT"
 
 echo ""
 echo "$CLIENT.ovpn is zipped into $CLIENT.zip"
-echo "Client $CLIENT added, cert available at https://$IPADDRESS1/rutorrent/$CLIENT.zip to use in any OpenVPN client"
-sudo chown --reference=restartSeedbox *.ovpn
+echo "Client $CLIENT added, cert available at https://$IPADDRESS1/private/$CLIENT.zip to use in any OpenVPN client"
+sudo chown $CLIENT:$CLIENT *.ovpn
 zip $CLIENT.zip ~/$CLIENT.ovpn
 sudo mv $CLIENT.zip /home/$CLIENT/private
 exit
@@ -196,10 +196,10 @@ echo ""
 echo "Finished!"
 echo ""
 echo "$CLIENT.ovpn is zipped into $CLIENT.zip"
-echo "Client $CLIENT added, cert available at https://$IPADDRESS1/rutorrent/$CLIENT.zip to use in any OpenVPN client"
+echo "Client $CLIENT added, cert available at https://$IPADDRESS1/private/$CLIENT.zip to use in any OpenVPN client"
 echo ""
 echo "If you want to add more clients, you simply need to run this script another time!"
-sudo chown --reference=restartSeedbox *.ovpn
+sudo chown $CLIENT:$CLIENT *.ovpn
 zip client.zip ~/client.ovpn
 sudo mv client.zip /var/www
 fi

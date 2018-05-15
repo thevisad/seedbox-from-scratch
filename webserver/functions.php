@@ -28,12 +28,6 @@
 		file_put_contents($filepath, $current);
 	}
 	
-	function restartSeedboxService($servicename){
-		$current="FOO";
-		$filepath="../services/" . $servicename . '.restart';
-		file_put_contents($filepath, $current);
-	}
-	
 	function installPlexService($plexusername){
 		$current="FOO";
 		$encpassword = shell_exec('sudo /etc/seedbox-from-scratch/sfsGenerateRandomPasswordString');

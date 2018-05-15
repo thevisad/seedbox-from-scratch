@@ -8,4 +8,4 @@ read -p "What is your domain name ? (without the http://): " DOMAIN
 
 sudo sed -i 's/$IPADDRESS1/$DOMAIN/g' /etc/apache2/sites-available/000-default.conf
 
-echo "Thats it, login to https://$DOMAIN/rutorrent "
+echo "Thats it, login to https://$DOMAIN/ "

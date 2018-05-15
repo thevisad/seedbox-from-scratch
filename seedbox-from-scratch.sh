@@ -16,7 +16,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 SBFSCURRENTVERSION1=16.00
-SBSINTERNALVERSION=0.21.0
+SBSINTERNALVERSION=0.31.0
 OS1=$(lsb_release -si)
 
 function getString

@@ -383,10 +383,6 @@ echo "FTP: ftp://$IPADDRESS1:$NEWFTPPORT1/" | sudo tee -a /etc/seedbox-from-scra
 echo "OpenVPN config: https://$IPADDRESS1/private/client.zip" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
 echo "" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-echo "User commands" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-echo "---------------------------------" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-echo "Restarting seedbox logged as $NEWUSER1: $HOMEJAILED1/restartSeedbox" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-echo "Restarting seedbox as any other user: sudo su --login --command \"$HOMEJAILED1/restartSeedbox\" $NEWUSER1" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
 sudo mkdir $HOMEJAILED1/private
 sudo cp /etc/seedbox-from-scratch/users/$NEWUSER1.info $HOMEJAILED1/private/SBinfo.txt
@@ -397,10 +393,6 @@ cd ..
 sudo chown -v -R $NEWUSER1: private
 #sudo chmod 400 $HOMEJAILED1/$NEWUSER1.info
 cd $HOMEJAILED1/
-sudo cp /etc/seedbox-from-scratch/templates/crontabentries.template $HOMEJAILED1/crontabentries
-sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/crontabentries
-sudo chmod +x $HOMEJAILED1/crontabentries
-sudo bash $HOMEJAILED1/crontabentries
 
 sudo cp /etc/seedbox-from-scratch/webserver/* $HOMEJAILED1/private/
 
@@ -416,8 +408,6 @@ sudo mkdir $HOMEJAILED1/bin
 cd $HOMEJAILED1/bin
 sudo cp /etc/seedbox-from-scratch/templates/mtn.sh $HOMEJAILED1/bin
 sudo chmod +x mtn.sh
-sudo rm $HOMEJAILED1/crontabentries
-sudo cp $HOMEJAILED1/restartSeedbox $HOMEJAILED1/bin/
 sudo chown $NEWUSER1: -R $HOMEJAILED1/bin
 sudo chown $NEWUSER1: -R $HOMEJAILED1/private/
 

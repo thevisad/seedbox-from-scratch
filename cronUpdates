@@ -12,6 +12,6 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 	\cp /etc/seedbox-from-scratch/webserver/* /home/${f%.info}/private/
 	
 	#update scripts for power users (to be removed)
-	\cp /opt/seedbox-from-scratch/templates/user.restartSeedbox.template /home/${f%.info}/restartSeedbox
-	chmod +x /home/${f%.info}/restartSeedbox
+	#\cp /opt/seedbox-from-scratch/templates/user.restartSeedbox.template /home/${f%.info}/restartSeedbox
+	#chmod +x /home/${f%.info}/restartSeedbox
 done
