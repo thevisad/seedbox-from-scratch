@@ -55,15 +55,15 @@ function getString
 
     if [ ! -z "$DEFAULT" ]; then
       if grep -q "$DEFAULT" <<< "$YESNO"; then
-        if grep -q "$NEWVAR1" <<< "$YESNO"; then
-          if grep -q "$NEWVAR1" <<< "$YESYES"; then
-            NEWVAR1=YES
-          else
-            NEWVAR1=NO
-          fi
-        else
-          NEWVAR1=a
-        fi
+	if grep -q "$NEWVAR1" <<< "$YESNO"; then
+	  if grep -q "$NEWVAR1" <<< "$YESYES"; then
+	    NEWVAR1=YES
+	  else
+	    NEWVAR1=NO
+	  fi
+	else
+	  NEWVAR1=a
+	fi
       fi
     fi
 
@@ -71,29 +71,29 @@ function getString
       NEWVAR2=$NEWVAR1
     else
       if [ "$ISPASSWORD" == "YES" ]; then
-        echo
-        read -s -p "Retype: " NEWVAR2
+	echo
+	read -s -p "Retype: " NEWVAR2
       else
-        read -p "Retype: " NEWVAR2
+	read -p "Retype: " NEWVAR2
       fi
       if [ -z "$NEWVAR2" ]; then
-        NEWVAR2=b
-        continue
+	NEWVAR2=b
+	continue
       fi
     fi
 
 
     if [ ! -z "$DEFAULT" ]; then
       if grep -q "$DEFAULT" <<< "$YESNO"; then
-        if grep -q "$NEWVAR2" <<< "$YESNO"; then
-          if grep -q "$NEWVAR2" <<< "$YESYES"; then
-            NEWVAR2=YES
-          else
-            NEWVAR2=NO
-          fi
-        else
-          NEWVAR2=a
-        fi
+	if grep -q "$NEWVAR2" <<< "$YESNO"; then
+	  if grep -q "$NEWVAR2" <<< "$YESYES"; then
+	    NEWVAR2=YES
+	  else
+	    NEWVAR2=NO
+	  fi
+	else
+	  NEWVAR2=a
+	fi
       fi
     fi
     echo "---> $NEWVAR2"
@@ -389,8 +389,8 @@ a2ensite default.conf
 a2dissite 000-default.conf
 a2dissite default-ssl.conf
 sudo a2enmod rewrite
-apache service reload
-apache service restart
+service apache2  reload
+service apache2  restart
 
 #Removing XML-RPC from the install of the server. 
 # 15.

@@ -35,15 +35,15 @@ function getString
 
     if [ ! -z "$DEFAULT" ]; then
       if grep -q "$DEFAULT" <<< "$YESNO"; then
-        if grep -q "$NEWVAR1" <<< "$YESNO"; then
-          if grep -q "$NEWVAR1" <<< "$YESYES"; then
-            NEWVAR1=YES
-          else
-            NEWVAR1=NO
-          fi
-        else
-          NEWVAR1=a
-        fi
+	if grep -q "$NEWVAR1" <<< "$YESNO"; then
+	  if grep -q "$NEWVAR1" <<< "$YESYES"; then
+	    NEWVAR1=YES
+	  else
+	    NEWVAR1=NO
+	  fi
+	else
+	  NEWVAR1=a
+	fi
       fi
     fi
 
@@ -52,29 +52,29 @@ function getString
       NEWVAR2=$NEWVAR1
     else
       if [ "$ISPASSWORD" == "YES" ]; then
-        echo
-        read -s -p "Retype: " NEWVAR2
+	echo
+	read -s -p "Retype: " NEWVAR2
       else
-        read -p "Retype: " NEWVAR2
+	read -p "Retype: " NEWVAR2
       fi
       if [ -z "$NEWVAR2" ]; then
-        NEWVAR2=b
-        continue
+	NEWVAR2=b
+	continue
       fi
     fi
 
 
     if [ ! -z "$DEFAULT" ]; then
       if grep -q "$DEFAULT" <<< "$YESNO"; then
-        if grep -q "$NEWVAR2" <<< "$YESNO"; then
-          if grep -q "$NEWVAR2" <<< "$YESYES"; then
-            NEWVAR2=YES
-          else
-            NEWVAR2=NO
-          fi
-        else
-          NEWVAR2=a
-        fi
+	if grep -q "$NEWVAR2" <<< "$YESNO"; then
+	  if grep -q "$NEWVAR2" <<< "$YESYES"; then
+	    NEWVAR2=YES
+	  else
+	    NEWVAR2=NO
+	  fi
+	else
+	  NEWVAR2=a
+	fi
       fi
     fi
     echo "---> $NEWVAR2"
@@ -382,8 +382,6 @@ echo "FTP: ftp://$IPADDRESS1:$NEWFTPPORT1/" | sudo tee -a /etc/seedbox-from-scra
 
 echo "OpenVPN config: https://$IPADDRESS1/private/client.zip" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
 
-echo "" | sudo tee -a /etc/seedbox-from-scratch/users/$NEWUSER1.info
-
 sudo mkdir $HOMEJAILED1/private
 sudo cp /etc/seedbox-from-scratch/users/$NEWUSER1.info $HOMEJAILED1/private/SBinfo.txt
 
@@ -393,6 +391,10 @@ cd ..
 sudo chown -v -R $NEWUSER1: private
 #sudo chmod 400 $HOMEJAILED1/$NEWUSER1.info
 cd $HOMEJAILED1/
+sudo cp /etc/seedbox-from-scratch/templates/crontabentries.template $HOMEJAILED1/crontabentries
+sudo perl -pi -e "s/USERNAME/$NEWUSER1/g" $HOMEJAILED1/crontabentries
+sudo chmod +x $HOMEJAILED1/crontabentries
+sudo bash $HOMEJAILED1/crontabentries
 
 sudo cp /etc/seedbox-from-scratch/webserver/* $HOMEJAILED1/private/
 
@@ -408,6 +410,7 @@ sudo mkdir $HOMEJAILED1/bin
 cd $HOMEJAILED1/bin
 sudo cp /etc/seedbox-from-scratch/templates/mtn.sh $HOMEJAILED1/bin
 sudo chmod +x mtn.sh
+sudo rm $HOMEJAILED1/crontabentries
 sudo chown $NEWUSER1: -R $HOMEJAILED1/bin
 sudo chown $NEWUSER1: -R $HOMEJAILED1/private/
 

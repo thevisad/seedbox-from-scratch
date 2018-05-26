@@ -1,0 +1,128 @@
+#!/bin/bash
+# Hellish Tech
+exec 1> >(logger -s -t $(basename $0)) 2>&1 
+
+OS1=$(lsb_release -si)
+
+IPADDRESS1=`cat /etc/seedbox-from-scratch/hostname.info`
+
+NEWFTPPORT1=`cat /etc/seedbox-from-scratch/ftp.info`
+NEWSSHPORT1=`cat /etc/seedbox-from-scratch/ssh.info`
+
+#######################################################################################################
+
+
+###################################################################################################
+
+for f in /etc/seedbox-from-scratch/users/*.info; do
+	f=${f##*/}
+	
+	TEMPUSERHASSSHACCESS1=`grep ${f%.info} /etc/passwd`
+	TEMPUSERINSUDOERS1=`sudo -v`
+
+	if [[ $TEMPUSERHASSSHACCESS1 = *"/bin/bash"* ]]; then
+	  USERHASSSHACCESS1="TRUE"
+	fi
+
+	if [[ $TEMPUSERINSUDOERS1 = *""* ]]; then
+	  USERINSUDOERS1="TRUE"
+	fi
+
+	TEMPUSERPASSWORD=`cat /etc/seedbox-from-scratch/users/${f%.info}.info | grep 'Password' | grep -v 'IRSSI' | sed -e 's/Password: //'`
+	ENCRYPTPASSWORD=$(/etc/seedbox-from-scratch/sfsGenerateRandomPasswordString)
+	ENCRYPTEDUSERNAME=$(/etc/seedbox-from-scratch/sfsEncryptTemporaryEncryptedText -t ${f%.info} -p ${ENCRYPTPASSWORD})
+	ENCRYPTEDPASSWORD=$(/etc/seedbox-from-scratch/sfsEncryptTemporaryEncryptedText -t ${TEMPUSERPASSWORD} -p ${ENCRYPTPASSWORD})
+	DECRYPTEDUSERNAME=$(/etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText -t ${ENCRYPTEDUSERNAME} -p ${ENCRYPTPASSWORD})
+	DECRYPTEDPASSWORD=$(/etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText -t ${ENCRYPTEDPASSWORD} -p ${ENCRYPTPASSWORD})
+# encrypt password	
+
+
+
+if [ /etc/seedbox-from-scratch/users/${f%.info}.ep ]; then
+  echo ${ENCRYPTPASSWORD} | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.ep
+fi
+
+if [ /etc/seedbox-from-scratch/users/${f%.info}.un ]; then
+  ENCRYPTEDUSERNAME=$(/etc/seedbox-from-scratch/sfsEncryptTemporaryEncryptedText -t ${f%.info} -p ${ENCRYPTPASSWORD})
+  echo ${ENCRYPTEDUSERNAME} | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.un
+fi
+
+if [ /etc/seedbox-from-scratch/users/${f%.info}.up ]; then
+  ENCRYPTEDPASSWORD=$(/etc/seedbox-from-scratch/sfsEncryptTemporaryEncryptedText -t ${TEMPUSERPASSWORD} -p ${ENCRYPTPASSWORD})
+  echo ${ENCRYPTEDPASSWORD} | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.up
+fi
+
+
+# decrypt password
+DECRYPTEDUSERNAME=$(/etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText -t ${ENCRYPTEDUSERNAME} -p ${ENCRYPTPASSWORD})
+DECRYPTEDPASSWORD=$(/etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText -t ${ENCRYPTEDPASSWORD} -p ${ENCRYPTPASSWORD})
+rm -rf /etc/seedbox-from-scratch/users/${f%.info}.info
+
+echo "http://$IPADDRESS1/private/SBinfo.txt" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+
+echo "" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+
+sudo cp /etc/seedbox-from-scratch/webserver/* /home/${f%.info}/private/
+
+echo "" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "User personal info" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "-------------------" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "Username: ${f%.info}" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "Password: $DECRYPTEDPASSWORD" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+
+echo "SSH: $USERHASSSHACCESS1" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "Sudo powers: $USERINSUDOERS1" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "Jailed: $CHROOTJAIL1" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+
+echo "" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "Directories" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "-----" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "Home base: /home/${f%.info}" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "Private dir: /home/${f%.info}/private" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "Downloads dir: /home/${f%.info}/downloads/manual" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "Media dir: /home/${f%.info}/media" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+
+echo "" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "Ports" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "-----" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "SSH port: $NEWSSHPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "SFTP port: $NEWSSHPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "vsftp port: $NEWFTPPORT1" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+
+echo "" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "Links" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "-----" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+
+echo "Downloads Directory: http://$IPADDRESS1/private/Downloads" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+
+echo "Webmin: https://$IPADDRESS1:10000" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+echo "FTP: ftp://$IPADDRESS1:$NEWFTPPORT1/" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+
+echo "OpenVPN config: https://$IPADDRESS1/private/client.zip" | sudo tee -a /etc/seedbox-from-scratch/users/${f%.info}.info
+
+sudo cp /etc/seedbox-from-scratch/users/${f%.info}.info /home/${f%.info}/private/SBinfo.txt
+sudo cp /etc/seedbox-from-scratch/webserver/* /home/${f%.info}/private/
+
+mkdir /home/${f%.info}/services
+sudo mkdir -p /home/${f%.info}/downloads/auto
+sudo mkdir -p /home/${f%.info}/downloads/manual
+sudo mkdir -p /home/${f%.info}/services/
+sudo mkdir -p /home/${f%.info}/media/
+sudo mkdir -p /home/${f%.info}/media/comics
+sudo mkdir -p /home/${f%.info}/media/books
+sudo mkdir -p /home/${f%.info}/media/files
+sudo mkdir -p /home/${f%.info}/media/music
+sudo mkdir -p /home/${f%.info}/media/photos
+sudo mkdir -p /home/${f%.info}/media/movies
+sudo mkdir -p /home/${f%.info}/media/tvshows
+sudo mkdir -p /home/${f%.info}/downloads/watch
+sudo mkdir -p /home/${f%.info}/downloads/.session
+sudo chown -R ${f%.info}:${f%.info} /home/${f%.info}/downloads
+sudo chown -R ${f%.info}:${f%.info} /home/${f%.info}/media
+sudo mkdir /home/${f%.info}/log
+sudo chown ${f%.info}: /home/${f%.info}/log
+sudo chown www-data:www-data /home/${f%.info}/services/
+sudo chown ${f%.info}: -R /home/${f%.info}/bin
+sudo chown ${f%.info}: -R /home/${f%.info}/private/
+
+done
