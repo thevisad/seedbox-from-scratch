@@ -416,7 +416,7 @@ echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsRunningUserDocke
 echo "www-data ALL=(ALL) NOPASSWD: /usr/bin/docker" | tee -a /etc/sudoers > /dev/null
 echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updatePlexUserDocker" | tee -a /etc/sudoers > /dev/null
 cp /etc/seedbox-from-scratch/favicon.ico /var/www/
-
+cp /etc/seedbox-from-scratch/templates/index.html.template /var/www/index.html
 
 # 30.
 

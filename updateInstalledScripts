@@ -8,6 +8,7 @@ git stash
 git pull
 
 rsync -avz --exclude='/.git' /opt/seedbox-from-scratch/ /etc/seedbox-from-scratch/
+cp /etc/seedbox-from-scratch/templates/index.html.template /var/www/index.html
 
 for f in /etc/seedbox-from-scratch/users/*.info; do
 	f=${f##*/}

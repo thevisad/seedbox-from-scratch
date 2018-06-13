@@ -61,6 +61,7 @@ echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/sfsRunningUserDocke
 echo "www-data ALL=(ALL) NOPASSWD: /usr/bin/docker" | tee -a /etc/sudoers > /dev/null
 echo "www-data ALL=(ALL) NOPASSWD: /etc/seedbox-from-scratch/updatePlexUserDocker" | tee -a /etc/sudoers > /dev/null
 cp /etc/seedbox-from-scratch/favicon.ico /var/www/
+cp /etc/seedbox-from-scratch/templates/index.html.template /var/www/index.html
 
 (crontab -l 2>/dev/null; echo "*/1 * * * * /etc/seedbox-from-scratch/cronTasks >/dev/null 2>&1") | crontab - 
 (crontab -l 2>/dev/null; echo "* */1 * * * /etc/seedbox-from-scratch/cronUpdates >/dev/null 2>&1") | crontab - 
