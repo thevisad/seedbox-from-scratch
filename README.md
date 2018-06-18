@@ -48,7 +48,8 @@ When I originally started playing with this script it was one of the few that ac
 * Docker CouchPotato - https://hub.docker.com/r/linuxserver/couchpotato/
 * Docker SickRage - https://hub.docker.com/r/linuxserver/sickrage/
 * Docker FileManager  - https://hub.docker.com/r/hacdias/filemanager/
-
+* Docker Radarr - https://hub.docker.com/r/linuxserver/radarr/
+* Docker Sonarr - https://hub.docker.com/r/linuxserver/sonarr/
 
 ## Tested servers (should work on any system support debian commands)
 * Ubuntu Server 16.04 - 32 and 64 bit
@@ -62,6 +63,12 @@ There is no real support for this script, but nerds are talking a lot about it [
 
 
 ## Changelog
+Version 16.35.0 (Internal Revision)
+  June 18 2018 10:48 GMT-5
+	* Docker Radarr - https://hub.docker.com/r/linuxserver/radarr/
+	* Docker Sonarr - https://hub.docker.com/r/linuxserver/sonarr/
+	* Minor changes in web servers and application support
+  
 Version 16.31.0 (Internal Revision)
   March 14 2018 19:21 GMT-5
 	* Docker FileManager - https://hub.docker.com/r/hacdias/filemanager/
