@@ -348,6 +348,57 @@ doWork();
 		<td>
 		</td>
 	</tr>
+	
+	<tr>
+		<td>Radarr</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="Radarr" value="Install" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="Radarr" value="Delete" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="Radarr" value="Stop" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="Radarr" value="Start" />
+			</form>
+		</td>
+		<td>
+		</td>
+	</tr>
+	<tr>
+		<td>Sonarr</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="Sonarr" value="Install" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="Sonarr" value="Delete" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="Sonarr" value="Stop" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="Sonarr" value="Start" />
+			</form>
+		</td>
+		<td>
+		</td>
+	</tr>
 </table>
 </div>
 </body>

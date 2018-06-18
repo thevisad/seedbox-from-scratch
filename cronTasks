@@ -4,10 +4,12 @@
 exec 1> >(logger -s -t $(basename $0)) 2>&1 
 
 for f in /etc/seedbox-from-scratch/users/*.info; do
+
 	f=${f##*/}
-	#
+	
+	###################################################
 	# install tasks
-	#
+	###################################################
 
 	if [ -f "/home/${f%.info}/services/SeedBox.restart" ]
 	then
@@ -187,8 +189,8 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			echo "SICKRAGE INSTALLED"
 			/etc/seedbox-from-scratch/createSickrageUserInstall -u ${f%.info} 
 		fi
-	fi
-	
+	fi	
+
 	if [ -f "/home/${f%.info}/services/Ubooquity.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d ubooquity )
@@ -203,10 +205,41 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			/etc/seedbox-from-scratch/createUbooquityUserInstall -u ${f%.info} 
 		fi
 	fi
+	
+	if [ -f "/home/${f%.info}/services/Sonarr.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sonarr )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "SONARR ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/Sonarr.*
+			
+		else
+			rm -rf /home/${f%.info}/services/Sonarr.*
+			echo "SONARR INSTALLED"
+			/etc/seedbox-from-scratch/createSonarrUserInstall -u ${f%.info} 
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Radarr.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d radarr )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "RADARR ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/Radarr.*
+			
+		else
+			rm -rf /home/${f%.info}/services/Radarr.*
+			echo "RADARR INSTALLED"
+			/etc/seedbox-from-scratch/createRadarrUserInstall -u ${f%.info} 
+		fi
+	fi
+	
 
-	#
+	###################################################
 	# delete tasks
-	#
+	###################################################
 	
 	if [ -f "/home/${f%.info}/services/Plex.delete" ]
 	then
@@ -393,11 +426,43 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		 	echo "UBOOQUITY ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/Ubooquity.*
 		fi
+	fi	
+	
+	if [ -f "/home/${f%.info}/services/Sonarr.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sonarr )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/Sonarr.*
+			echo "SONARR DELETED"
+			/etc/seedbox-from-scratch/deleteSonarrUserDocker -u ${f%.info}
+		
+			
+		else
+		 	echo "SONARR ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/Sonarr.*
+		fi
 	fi
 	
-	#
+	if [ -f "/home/${f%.info}/services/Radarr.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d radarr )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/Radarr.*
+			echo "RADARR DELETED"
+			/etc/seedbox-from-scratch/deleteRadarrUserDocker -u ${f%.info}
+		
+			
+		else
+		 	echo "RADARR ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/Radarr.*
+		fi
+	fi
+	
+	###################################################
 	# start tasks
-	#
+	###################################################
 	
 	if [ -f "/home/${f%.info}/services/Plex.start" ]
 	then
@@ -617,9 +682,45 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	#
+	if [ -f "/home/${f%.info}/services/Sonarr.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sonarr )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+				rm -rf /home/${f%.info}/services/Sonarr.*
+				echo "SONARR STARTED"
+				/etc/seedbox-from-scratch/startSonarrUserDocker -u ${f%.info}
+			else
+				echo "SONARR ALREADY RUNNING"
+			fi		
+		else
+		 	echo "SONARR NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Sonarr.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Radarr.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d radarr )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+				rm -rf /home/${f%.info}/services/Radarr.*
+				echo "RADARR STARTED"
+				/etc/seedbox-from-scratch/startRadarrUserDocker -u ${f%.info}
+			else
+				echo "RADARR ALREADY RUNNING"
+			fi		
+		else
+		 	echo "RADARR NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Radarr.*
+		fi
+	fi
+	
+	###################################################
 	# stop tasks 
-	#
+	###################################################
 	
 	if [ -f "/home/${f%.info}/services/Plex.stop" ]
 	then
@@ -839,7 +940,46 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
+	if [ -f "/home/${f%.info}/services/Sonarr.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sonarr )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/Sonarr.*
+				echo "SONARR STOPPED"
+				/etc/seedbox-from-scratch/stopSonarrUserDocker -u ${f%.info}
+			else
+				echo "SONARR ALREADY STOPPED"
+			fi		
+		else
+		 	echo "SONARR NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Sonarr.*
+		fi
+	fi
+	
+	if [ -f "/home/${f%.info}/services/Radarr.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d radarr )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/Radarr.*
+				echo "RADARR STOPPED"
+				/etc/seedbox-from-scratch/stopRadarrUserDocker -u ${f%.info}
+			else
+				echo "RADARR ALREADY STOPPED"
+			fi		
+		else
+		 	echo "RADARR NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/Radarr.*
+		fi
+	fi
+	
+	###################################################
 	# Update Dockers
+	###################################################
+	
 	if [ -f "/home/${f%.info}/services/Plex.update" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d plex )
