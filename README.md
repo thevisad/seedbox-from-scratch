@@ -37,11 +37,9 @@ When I originally started playing with this script it was one of the few that ac
 
 ## Supported Docker Containers
 * Docker Plex - https://github.com/timhaak/docker-plex
-*## Docker MySQL - https://github.com/linuxserver/docker-mysql - (buggy atm) not recommended
 * Docker Deluge - https://hub.docker.com/r/binhex/arch-deluge/
 * Docker RuTorrent - https://hub.docker.com/r/thevisad/rutorrent/
 * Docker Ubooquity - https://hub.docker.com/r/linuxserver/ubooquity/
-*** Docker LetsEncrypt - https://github.com/linuxserver/docker-letsencrypt (not working)
 * Docker Rapidleech - https://hub.docker.com/r/wpzzz/rapidleech/
 * Docker sabnzbd - https://hub.docker.com/r/linuxserver/sabnzbd/
 * Docker Sickbeard - https://hub.docker.com/r/linuxserver/sickbeard/
@@ -50,6 +48,10 @@ When I originally started playing with this script it was one of the few that ac
 * Docker FileManager  - https://hub.docker.com/r/hacdias/filemanager/
 * Docker Radarr - https://hub.docker.com/r/linuxserver/radarr/
 * Docker Sonarr - https://hub.docker.com/r/linuxserver/sonarr/
+
+## Buggy Docker Containers
+* Docker LetsEncrypt - https://github.com/linuxserver/docker-letsencrypt (not working)
+* Docker MySQL - https://github.com/linuxserver/docker-mysql - (buggy atm) not recommended
 
 ## Tested servers (should work on any system support debian commands)
 * Ubuntu Server 16.04 - 32 and 64 bit
