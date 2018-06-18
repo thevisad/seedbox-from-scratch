@@ -41,6 +41,7 @@ if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; t
 	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/sonarr.serviceinfo
 	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/sonarr.serviceinfo
 	echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/sonarr.serviceinfo
+	echo "Please log in and create a username and password, admins are not responsible for user failure to secure the system." >> /home/${USERNAME}/private/sonarr.serviceinfo
 	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 fi
 

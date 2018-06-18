@@ -54,6 +54,12 @@
 				<td>filemanager</td>
 				<td><?php $seedbox_site_functions->displayServiceDetails("filemanager"); ?></td>
 			</tr>
+						<tr>
+				<td>sonarr</td>
+				<td><?php $seedbox_site_functions->displayServiceDetails("sonarr"); ?></td>
+				<td>radarr</td>
+				<td><?php $seedbox_site_functions->displayServiceDetails("radarr"); ?></td>
+			</tr>
 		</table>
 	</body>
 </html>
