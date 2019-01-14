@@ -1,7 +1,0 @@
-#!/bin/bash
-# Hellish Tech
-# No commercial usage without authorization
-exec 1> >(logger -s -t $(basename $0)) 2>&1 
-
-sudo cp /home/thevisad/web/*.* /home/thevisad/private/
-sudo chown www-data:www-data /home/thevisad/private/*.php

@@ -67,21 +67,21 @@ There is no real support for this script, but nerds are talking a lot about it [
 ## Changelog
 Version 16.35.0 (Internal Revision)
   June 18 2018 10:48 GMT-5
-	* Docker Radarr - https://hub.docker.com/r/linuxserver/radarr/
-	* Docker Sonarr - https://hub.docker.com/r/linuxserver/sonarr/
-	* Minor changes in web servers and application support
+	- Docker Radarr - https://hub.docker.com/r/linuxserver/radarr/
+	- Docker Sonarr - https://hub.docker.com/r/linuxserver/sonarr/
+	- Minor changes in web servers and application support
   
 Version 16.31.0 (Internal Revision)
   March 14 2018 19:21 GMT-5
-	* Docker FileManager - https://hub.docker.com/r/hacdias/filemanager/
+	- Docker FileManager - https://hub.docker.com/r/hacdias/filemanager/
   
 Version 16.21.0 (Internal Revision)
   March 14 2018 19:21 GMT-5
 	Removal if the last of the settings locking the core server into usage. 
-	* ruTorrent 3.7 + official plugins
-	* rTorrent 0.8.9, 0.9.2, 0.9.3 or 0.9.6
-	* libTorrrent 0.13.3, 0.13.4 or 0.13.6
-	* IRSSI
+	- ruTorrent 3.7 + official plugins
+	- rTorrent 0.8.9, 0.9.2, 0.9.3 or 0.9.6
+	- libTorrrent 0.13.3, 0.13.4 or 0.13.6
+	- IRSSI
 
 Version 16.01.0 (Internal Revision)
   May 15 2017 12:34 GMT-5
