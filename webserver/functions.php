@@ -42,17 +42,11 @@
 		file_put_contents($encryptfilepath, $encpassword);
 	}
 	
-	function installMySQLService($mysqlversion, $rootpassword){
+	function installMySQLService($mysqlversion){
 		$current=$mysqlversion;
 		//$encpassword="PkrhPDwoxmy2tbshRmtg5wTt70luKZyY";
-		$encpassword = shell_exec('sudo /etc/seedbox-from-scratch/sfsGenerateRandomPasswordString');
-		$encrootpassword = shell_exec('sudo /etc/seedbox-from-scratch/sfsEncryptTemporaryEncryptedText -t ' . escapeshellarg($rootpassword) . ' -p ' . $encpassword);
 		$filepath="../services/MySQL.install";
-		$passfilepath="../services/MySQL.encyptedrootpass";
-		$encryptfilepath="../services/MySQL.encrypt";
 		file_put_contents($filepath, $current);
-		file_put_contents($passfilepath, $encrootpassword);
-		file_put_contents($encryptfilepath, $encpassword);
 	}
 	
 	function installLetsEncryptService($letsencryptuseremail, $letsencryptsubdomainlist, $letsencryptdhlevel){

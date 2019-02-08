@@ -90,14 +90,11 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			rm -rf /home/${f%.info}/services/MySQL.*
 			
 		else
-			DECRYPTPASS=`cat /home/${f%.info}/services/MySQL.encrypt`
 			VERSION=`cat /home/${f%.info}/services/MySQL.install`
-			ENCRYPTEDPASSWORD=`cat /home/${f%.info}/services/MySQL.encyptedrootpass`
-			DECRYPTEDPASSWORD=$(/etc/seedbox-from-scratch/sfsDecryptTemporaryEncryptedText -t ${ENCRYPTEDPASSWORD} -p ${DECRYPTPASS})
 			
 			rm -rf /home/${f%.info}/services/MySQL.*
 			echo "MYSQL INSTALLED"
-			/etc/seedbox-from-scratch/createMySQLUserInstall -u ${f%.info} -rp ${DECRYPTEDPASSWORD} -v ${VERSION}
+			/etc/seedbox-from-scratch/createMySQLUserInstall -u ${f%.info} -v ${VERSION}
 		fi
 	fi
 	

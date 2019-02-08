@@ -13,10 +13,6 @@ case $key in
     USERNAME="$2"
     shift # past argument 
     ;;
-	-rp|--rootpassword)
-    ROOTPASSWORD="$2"
-    shift # past argument
-    ;;
 	-v|--version)
     VERSION="$2"
     shift # past argument 
@@ -29,21 +25,21 @@ shift # past argument or value
 done
 
 SERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 3307 -ep 3406)
+USERPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateRandomPasswordString)
+ROOTPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateRandomPasswordString)
 SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 
-USERUID=$(id -u ${USERNAME})
-USERGID=$(id -g ${USERNAME})
-
-docker run --restart=always -d --name ${USERNAME}_mysql -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/mysql:/var/lib/mysql -v /home/${USERNAME}/mysql/my.cnf:/etc/my.cnf -e PGID=${USERGID} -e PUID=${USERUID} -p ${SERVERPORT}:3306 -e MYSQL_ROOT_HOST=172.17.0.1 -e MYSQL_ROOT_PASSWORD=${ROOTPASSWORD} -v /etc/localtime:/etc/localtime:ro mysql:${VERSION}
+docker run --restart=always -d --name ${USERNAME}_mysql -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/mysql:/docker-entrypoint-initdb.d/ -p ${SERVERPORT}:3306 -e MYSQL_ROOT_PASSWORD=${ROOTPASSWDGENED} -e MYSQL_USER=${USERNAME} -e MYSQL_PASSWORD=${USERPASSWDGENED} -v /etc/localtime:/etc/localtime:ro mysql:${VERSION}
 
 sleep 5
 
 CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d mysql | tr -cd '[[:alnum:]]._-' )
 if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
 	echo "SERVICE: MYSQL" > /home/${USERNAME}/private/mysql.serviceinfo
-	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/mysql.serviceinfo
 	echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/mysql.serviceinfo
-	echo "ROOTPASSWORD: $ROOTPASSWORD" >> /home/${USERNAME}/private/mysql.serviceinfo
+	echo "ROOTPASSWORD: $ROOTPASSWDGENED" >> /home/${USERNAME}/private/mysql.serviceinfo
+	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/mysql.serviceinfo
+	echo "USERPASSWORD: $USERPASSWDGENED" >> /home/${USERNAME}/private/mysql.serviceinfo
 	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 
 	if [ ! -d "/home/${USERNAME}/mysql" ]; then
