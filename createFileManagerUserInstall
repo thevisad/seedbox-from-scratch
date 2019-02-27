@@ -25,6 +25,8 @@ WEBSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8180)
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 
+docker pull hacdias/filebrowser
+
 docker run --restart=always -d --name ${USERNAME}_filemanager -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}:/srv -p ${WEBSERVERPORT}:80 -e PGID=${USERGID} -e PUID=${USERUID} -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro hacdias/filebrowser
 
 CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d filemanager | tr -cd '[[:alnum:]]._-' )

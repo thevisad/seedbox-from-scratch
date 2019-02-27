@@ -28,16 +28,18 @@
 		file_put_contents($filepath, $current);
 	}
 	
-	function installPlexService($plexusername){
+	function installPlexService($plexusername,$plexpass){
 		$current="FOO";
 		$encpassword = shell_exec('sudo /etc/seedbox-from-scratch/sfsGenerateRandomPasswordString');
 		//$encpassword="SkKNNotT9QEDElD4wDAQlkQgWEDZlJAI";
 		$encplexusername = shell_exec('sudo /etc/seedbox-from-scratch/sfsEncryptTemporaryEncryptedText -t ' . escapeshellarg($plexusername) . ' -p ' . $encpassword);
 		$filepath="../services/Plex.install";
 		$userfilepath="../services/Plex.encrypteduser";
+		$plexpassfilepath="../services/Plex.pass";
 		$passfilepath="../services/Plex.encryptedpass";
 		$encryptfilepath="../services/Plex.encrypt";
 		file_put_contents($filepath, $current);
+		file_put_contents($plexpassfilepath, $plexpass);
 		file_put_contents($userfilepath, $encplexusername);
 		file_put_contents($encryptfilepath, $encpassword);
 	}

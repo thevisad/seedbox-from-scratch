@@ -27,6 +27,8 @@ SERVERTORRENTPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 58947 -ep 
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 
+docker pull binhex/arch-deluge
+
 docker run --restart=always -d --name ${USERNAME}_deluge -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/downloads -v /home/${USERNAME}/deluge/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8112 -p ${SERVERDAEMONPORT}:58846 -p ${SERVERTORRENTPORT}:58946 -v /etc/localtime:/etc/localtime:ro binhex/arch-deluge
 
 sleep 5

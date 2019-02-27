@@ -25,6 +25,8 @@ SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 
+docker pull linuxserver/ubooquity
+
 docker run --restart=always -d --name=${USERNAME}_ubooquity -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/ubooquity/config:/config -v /home/${USERNAME}/media/books:/books -v /home/${USERNAME}/media/comics:/comics -v /home/${USERNAME}/media/files:/files -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:2202  -p ${WEBSERVERSSLPORT}:2203 linuxserver/ubooquity -webadmin
 
 sleep 5

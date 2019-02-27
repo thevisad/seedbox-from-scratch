@@ -29,7 +29,9 @@ USERPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateRandomPasswordString)
 ROOTPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateRandomPasswordString)
 SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 
-docker run --restart=always -d --name ${USERNAME}_mysql -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/mysql:/docker-entrypoint-initdb.d/ -p ${SERVERPORT}:3306 -e MYSQL_ROOT_PASSWORD=${ROOTPASSWDGENED} -e MYSQL_USER=${USERNAME} -e MYSQL_PASSWORD=${USERPASSWDGENED} -v /etc/localtime:/etc/localtime:ro mysql:${VERSION}
+docker pull mysql:${VERSION}
+
+docker create --restart=always -d --name ${USERNAME}_mysql -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/mysql:/docker-entrypoint-initdb.d/ -p ${SERVERPORT}:3306 -e MYSQL_ROOT_PASSWORD=${ROOTPASSWDGENED} -e MYSQL_USER=${USERNAME} -e MYSQL_PASSWORD=${USERPASSWDGENED} -v /etc/localtime:/etc/localtime:ro mysql:${VERSION}
 
 sleep 5
 
@@ -52,6 +54,8 @@ if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; t
 		chown ${USERNAME}:${USERNAME} /home/${USERNAME}/mysql/ -R
 	fi
 fi
+
+docker start --name ${USERNAME}_mysql
 
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"

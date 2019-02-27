@@ -19,7 +19,7 @@ esac
 shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
-sudo docker exec -i ${USERNAME}_plex_plex /plexupdate/plexupdate.sh -a
+sudo docker exec -i ${USERNAME}_plex_plex /installBinary.sh
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

@@ -4,17 +4,24 @@
     if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['Plex']))
     {
 		$plexusername=htmlspecialchars($_POST["plexusername"]);	
-		$seedbox_site_functions->installPlexService($plexusername);
+		if(isset($_POST['plexpass']) && $_POST['plexpass'] == 'yes') 
+		{
+			$seedbox_site_functions->installPlexService($plexusername,"yes");
+		} else {
+			$seedbox_site_functions->installPlexService($plexusername,"no");
+		}
+		
 		header( 'Location: index.php' ) ;
 	} else {
 		?>
 		<html>
-		<a href="https://support.plex.tv/hc/en-us/articles/204059436-Finding-your-account-token-X-Plex-Token" target=_blank> Find your plex token</a>
+		<a href="https://www.plex.tv/claim/" target=_blank> Get your Plex claim token</a>
 		<form action="plex.php" method="post">
 		  <fieldset>
 			<legend>Plex Login Information:</legend>
-			Token:<br>
+			Claim Token:<br>
 			<input type="text" name="plexusername"><br>
+			<input type="checkbox" name="plexpass" value="yes" />
 			<input type="submit" name="Plex" value="Install">
 		  </fieldset>
 		</form>
