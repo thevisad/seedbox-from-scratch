@@ -25,6 +25,10 @@
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
 			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->configureService($servicename);
@@ -54,6 +58,10 @@
 			case "Stop":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
+			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
 			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
@@ -86,6 +94,10 @@
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
 			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->configureService($servicename);
@@ -117,6 +129,10 @@
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
 			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->configureService($servicename);
@@ -146,6 +162,10 @@
 			case "Stop":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
+			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
 			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
@@ -178,6 +198,10 @@
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
 			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->configureService($servicename);
@@ -208,6 +232,10 @@
 			case "Stop":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
+			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
 			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
@@ -244,6 +272,10 @@
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->updateService($servicename);
 			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->configureService($servicename);
@@ -274,6 +306,10 @@
 			case "Stop":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
+			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
 			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
@@ -306,6 +342,10 @@
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
 			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->configureService($servicename);
@@ -337,6 +377,10 @@
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
 			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->configureService($servicename);
@@ -367,6 +411,10 @@
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
 			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
 			case "Configure":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->configureService($servicename);
@@ -393,6 +441,10 @@
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->startService($servicename);
 			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
 			case "Stop":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->stopService($servicename);
@@ -418,6 +470,10 @@
 			case "Start":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
 			  $seedbox_site_functions->startService($servicename);
+			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
 			break;
 			case "Stop":
 			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';

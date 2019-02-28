@@ -3,6 +3,7 @@
 # No commercial usage without authorization
 exec 1> >(logger -s -t $(basename $0)) 2>&1 
 
+
 while [[ $# -gt 1 ]]
 do
 key="$1"
@@ -19,8 +20,7 @@ esac
 shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
-sudo docker rm -f ${USERNAME}_plex
-rm -rf /home/${USERNAME}/private/plex.serviceinfo
+sudo docker restart ${USERNAME}_rutorrent
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

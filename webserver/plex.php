@@ -21,6 +21,7 @@
 			<legend>Plex Login Information:</legend>
 			Claim Token:<br>
 			<input type="text" name="plexusername"><br>
+			Plexpass Version:<br>
 			<input type="checkbox" name="plexpass" value="yes" />
 			<input type="submit" name="Plex" value="Install">
 		  </fieldset>

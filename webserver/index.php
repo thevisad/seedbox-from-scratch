@@ -66,6 +66,9 @@ doWork();
 			<input type="submit" name="RapidLeech" value="Start" />
 			</form>
 		</td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="RapidLeech" value="Restart" />
+			</form>
 		<td>
 		</td>
 	</tr>
@@ -92,6 +95,9 @@ doWork();
 			</form>
 		</td>
 		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="Deluge" value="Restart" />
+			</form>
 		</td>
 	</tr>
 		<tr>
@@ -117,6 +123,9 @@ doWork();
 			</form>
 		</td>
 		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="RTorrent" value="Restart" />
+			</form>
 		</td>
 	</tr>
 	<tr>
@@ -142,6 +151,9 @@ doWork();
 			</form>
 		</td>
 		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="FileManager" value="Restart" />
+			</form>
 		</td>
 	</tr>
 		<tr>
@@ -167,6 +179,9 @@ doWork();
 			</form>
 		</td>
 		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="Couchpotato" value="Restart" />
+			</form>
 		</td>
 	</tr>
 		<tr>
@@ -192,6 +207,9 @@ doWork();
 			</form>
 		</td>
 		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="LetsEncrypt" value="Restart" />
+			</form>
 		</td>
 	</tr>
 		<tr>
@@ -217,9 +235,12 @@ doWork();
 			</form>
 		</td>
 		<td>
-			
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="MySQL" value="Restart" />
+			</form>
 		</td>
 	</tr>
+		<tr>
 		<tr>
 		<td>Plex</td>
 		<td>
@@ -244,7 +265,7 @@ doWork();
 		</td>
 		<td>
 			<form action="handleactions.php" method="post">
-			<input type="submit" name="Plex" value="Update" />
+			<input type="submit" name="Plex" value="Restart" />
 			</form>
 		</td>
 	</tr>
@@ -271,6 +292,9 @@ doWork();
 			</form>
 		</td>
 		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="Sabnzbd" value="Restart" />
+			</form>
 		</td>
 	</tr>
 		<tr>
@@ -296,6 +320,9 @@ doWork();
 			</form>
 		</td>
 		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="Sickbeard" value="Restart" />
+			</form>
 		</td>
 	</tr>
 		<tr>
@@ -321,6 +348,9 @@ doWork();
 			</form>
 		</td>
 		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="Sickrage" value="Restart" />
+			</form>
 		</td>
 	</tr>
 		<tr>
@@ -346,6 +376,9 @@ doWork();
 			</form>
 		</td>
 		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="Ubooquity" value="Restart" />
+			</form>
 		</td>
 	</tr>
 	
@@ -372,6 +405,9 @@ doWork();
 			</form>
 		</td>
 		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="Radarr" value="Restart" />
+			</form>
 		</td>
 	</tr>
 	<tr>
@@ -397,6 +433,9 @@ doWork();
 			</form>
 		</td>
 		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="Sonarr" value="Restart" />
+			</form>
 		</td>
 	</tr>
 </table>

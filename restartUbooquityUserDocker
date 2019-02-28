@@ -3,6 +3,7 @@
 # No commercial usage without authorization
 exec 1> >(logger -s -t $(basename $0)) 2>&1 
 
+
 while [[ $# -gt 1 ]]
 do
 key="$1"
@@ -19,9 +20,8 @@ esac
 shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
-sudo docker exec -i ${USERNAME}_plex_plex /installBinary.sh
+sudo docker start ${USERNAME}_ubooquity
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
 fi
-sudo docker restart ${USERNAME}_plex
