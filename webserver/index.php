@@ -66,10 +66,10 @@ doWork();
 			<input type="submit" name="RapidLeech" value="Start" />
 			</form>
 		</td>
-		<form action="handleactions.php" method="post">
+		<td>
+				<form action="handleactions.php" method="post">
 			<input type="submit" name="RapidLeech" value="Restart" />
 			</form>
-		<td>
 		</td>
 	</tr>
 		<tr>
