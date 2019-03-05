@@ -1,3 +1,7 @@
+/*
+# Hellish Tech
+# No commercial usage without authorization, just ask, seriously! 
+*/
 <?php 
 	class seedbox_site_functions{
 

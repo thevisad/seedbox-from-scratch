@@ -15,12 +15,13 @@ When I originally started playing with this script it was one of the few that ac
 
 ## Core Server Features
 
-* Automatic Update system tied to Github Repository
-* A true multi-user enviroment built around core technologies on the server.
-* Docker container services for all user service environments
-* Linux Quota, to control how much space every user can use in your box.
-* Central Web Management system to handle user install/removal/update functionality.
-
+* Security built into the multiuser web system. Users can only restart their own services and have no access to the system themselves. 
+* Backend cron system to handle installation, deletion and service management for all dockers.
+* Automatic Update system tied to Github Repository, obtain a patch within minutes of it being deployed.
+* A true multi-user enviroment built around core technologies on the server, without actually accessing the server itself. 
+* Invidualized docker container services for all user service environments.
+* Linux Quota, to control how much space every user can use in your box (disabled by default)
+* Central Web Management system to handle user service install/removal/update functionality. 
 
 ## Core Server Software
 
@@ -36,7 +37,7 @@ When I originally started playing with this script it was one of the few that ac
 
 
 ## Supported Docker Containers
-* Docker Plex - https://github.com/timhaak/docker-plex
+* Docker Plex - https://hub.docker.com/r/plexinc/pms-docker/dockerfile
 * Docker Deluge - https://hub.docker.com/r/binhex/arch-deluge/
 * Docker RuTorrent - https://hub.docker.com/r/thevisad/rutorrent/
 * Docker Ubooquity - https://hub.docker.com/r/linuxserver/ubooquity/
@@ -48,23 +49,29 @@ When I originally started playing with this script it was one of the few that ac
 * Docker FileManager  - https://hub.docker.com/r/hacdias/filemanager/
 * Docker Radarr - https://hub.docker.com/r/linuxserver/radarr/
 * Docker Sonarr - https://hub.docker.com/r/linuxserver/sonarr/
+* Docker MySQL - https://hub.docker.com/_/mysql
 
 ## Buggy Docker Containers
 * Docker LetsEncrypt - https://github.com/linuxserver/docker-letsencrypt (not working)
-* Docker MySQL - https://github.com/linuxserver/docker-mysql - (buggy atm) not recommended
 
 ## Tested servers (should work on any system support debian commands)
 * Ubuntu Server 16.04 - 32 and 64 bit
 * Ubuntu Server 16.10 - 32 and 64 bit
-
 
 ## Support
 **** Note this is for the older version of the script, which this still leverage's to some aspect. Be careful attempting any fixes from these forums as it likely will have a negative impact on this install. ****
 There is no real support for this script, but nerds are talking a lot about it [HERE](http://www.torrent-invites.com/showthread.php?t=272859) and you may find solutions for your problems in that thread.
 
 
-
 ## Changelog
+Version 16.50.0 (Internal Revision)
+  February 27th 20:25 GMT-5
+  - Docker MySQL - https://hub.docker.com/_/mysql
+  - Docker Plex - https://hub.docker.com/r/plexinc/pms-docker/dockerfile
+  - Corrected issue with Plex docker that was preventing an update past a certain version. This entailed switching to the original plex docker and moving to a more secure connection process using the https://plex.tv/link option instead of trying to figure out how to obtain a token or using a username and password. 
+  - Added restart option for Dockers to Web Control Panel 
+  
+  
 Version 16.35.0 (Internal Revision)
   June 18 2018 10:48 GMT-5
 	- Docker Radarr - https://hub.docker.com/r/linuxserver/radarr/

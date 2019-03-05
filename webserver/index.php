@@ -1,3 +1,7 @@
+/*
+# Hellish Tech
+# No commercial usage without authorization, just ask, seriously! 
+*/
 <?php
 	ob_start("ob_gzhandler");
 	require_once('./functions.php');

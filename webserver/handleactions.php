@@ -1,3 +1,7 @@
+/*
+# Hellish Tech
+# No commercial usage without authorization, just ask, seriously! 
+*/
 <?php
 	require_once('./functions.php');
 	$seedbox_site_functions = new seedbox_site_functions();
