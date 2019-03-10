@@ -1,0 +1,58 @@
+#!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+exec 1> >(logger -s -t $(basename $0)) 2>&1 
+
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -u|--username)
+    USERNAME="$2"
+    shift # past argument 
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
+LISTENINGPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 22001 -ep 22101)
+PROTOCOLPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 21028 -ep 21128)
+WEBSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8385 -ep 8485)
+USERUID=$(id -u ${USERNAME})
+USERGID=$(id -g ${USERNAME})
+
+docker image prune
+docker pull linuxserver/syncthing:latest
+
+docker run --restart=always -d --name ${USERNAME}_syncthing -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/media:/data1 -v /home/${USERNAME}/downloads:/data2 -v /home/${USERNAME}/syncthing/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8989 -v /etc/localtime:/etc/localtime:ro linuxserver/syncthing:latest
+
+sleep 5
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d syncthing | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
+	if [ ! -d "/home/${USERNAME}/syncthing" ]; then
+	  mkdir /home/${USERNAME}/syncthing
+	  mkdir /home/${USERNAME}/syncthing/config
+	  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/syncthing/ -R
+	fi
+
+	echo "SERVICE: syncthing" > /home/${USERNAME}/private/syncthing.serviceinfo
+	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/syncthing.serviceinfo
+	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/syncthing.serviceinfo
+	echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/syncthing.serviceinfo
+	echo "LISTENINGPORT: $LISTENINGPORT" >> /home/${USERNAME}/private/syncthing.serviceinfo
+	echo "PROTOCOLPORT: $PROTOCOLPORT" >> /home/${USERNAME}/private/syncthing.serviceinfo
+	echo "Please log in and create a username and password, admins are not responsible for a users failure to secure the system." >> /home/${USERNAME}/private/syncthing.serviceinfo
+	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
+fi
+
+if [[ -n $1 ]]; then
+    echo "Last line of file specified as non-opt/last argument:"
+    tail -1 $1
+fi

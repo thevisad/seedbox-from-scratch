@@ -29,6 +29,7 @@ HTPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateUserHtpassword -u ${USERNAM
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 
+docker image prune
 docker pull wpzzz/rapidleech
 
 docker run --restart=always -d --name ${USERNAME}_rapidleech -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/:/downloads -v /home/${USERNAME}/rapidleech/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:80 -p ${WEBSERVERSSLPORT}:443 -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro wpzzz/rapidleech

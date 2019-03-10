@@ -36,6 +36,7 @@ if [ ! -d "/home/${USERNAME}/.web3" ]; then
   mkdir -p /home/${USERNAME}/.web3
 fi
 
+docker image prune
 docker pull ethereum/client-go
 
 docker run --restart=always -d --name ${USERNAME}_ethereumcpp -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/.ethereum:/root/.ethereum -v /home/${USERNAME}/.web3:/.web3 -p ${PORT1}:30303 -p ${PORT2}:8545 ethereum/client-go

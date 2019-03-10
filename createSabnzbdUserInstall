@@ -26,6 +26,7 @@ SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 
+docker image prune
 docker pull linuxserver/sabnzbd
 
 docker run --restart=always -d --name ${USERNAME}_sabnzbd -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/data -v /home/${USERNAME}/sabnzbd/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8080  -p ${WEBSERVERSSLPORT}:9090 -v /etc/localtime:/etc/localtime:ro linuxserver/sabnzbd

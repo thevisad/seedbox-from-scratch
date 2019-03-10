@@ -42,7 +42,10 @@ SUBZONESONLYVAR=false
 if [ ${SUBZONEONLY} = "true"]; then
 	SUBZONESONLYVAR=true
 fi
+
+docker image prune
 docker pull linuxserver/letsencrypt
+
 docker run --restart=always -d --name ${USERNAME}_letsencrypt -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/letsencrypt/config:/config -e PGID=${USERGID} -e URL=${SYSTEMHOSTNAME} -e SUBDOMAINS=${SUBDOMAINSLIST} -e EMAIL=${USEREMAIL} -e PUID=${USERUID} -p ${WEBSERVERSSLPORT}:443 -e DHLEVEL=${DHLEVEL} -v /etc/localtime:/etc/localtime:ro linuxserver/letsencrypt -e ONLY_SUBDOMAINS=${SUBZONESONLYVAR}
 
 sleep 5
