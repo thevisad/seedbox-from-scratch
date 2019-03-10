@@ -59,7 +59,11 @@ When I originally started playing with this script it was one of the few that ac
 * Ubuntu Server 16.10 - 32 and 64 bit
 
 ## Support
-**** Note this is for the older version of the script, which this still leverage's to some aspect. Be careful attempting any fixes from these forums as it likely will have a negative impact on this install. ****
+Support for this version of the script can be obtained [From This Link HERE](https://www.torrent-invites.com/forum/seedboxes/seedbox-tutorials/270973-multiuser-dockerized-seedbox-from-scratch) While this is based off of the original Seed Box from Scratch it is no longer the same software and the previous support channel will not be able to assist you.
+
+
+**** Note this is for the older version of the script, which this still leverage's very little. Be careful attempting any fixes from these forums as it likely will have a negative impact on this install. ****
+
 There is no real support for this script, but nerds are talking a lot about it [HERE](http://www.torrent-invites.com/showthread.php?t=272859) and you may find solutions for your problems in that thread.
 
 

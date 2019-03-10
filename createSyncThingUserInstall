@@ -30,7 +30,7 @@ USERGID=$(id -g ${USERNAME})
 
 docker pull linuxserver/syncthing:latest
 
-docker run --restart=always -d --name ${USERNAME}_syncthing -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/media:/data1 -v /home/${USERNAME}/downloads:/data2 -v /home/${USERNAME}/syncthing/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8989 -v /etc/localtime:/etc/localtime:ro linuxserver/syncthing:latest
+docker run --restart=always -d --name ${USERNAME}_syncthing -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/media:/data1 -v /home/${USERNAME}/downloads:/data2 -v /home/${USERNAME}/syncthing/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:8384 -v /etc/localtime:/etc/localtime:ro linuxserver/syncthing:latest
 
 sleep 5
 
