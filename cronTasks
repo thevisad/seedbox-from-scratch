@@ -29,6 +29,22 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi 
 	fi
 	
+	if [ -f "/home/${f%.info}/services/SyncThing.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d syncthing )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "SYNCTHING ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/SyncThing.*
+			
+		else
+			rm -rf /home/${f%.info}/services/SyncThing.*
+			echo "SYNCTHING INSTALLED"
+			/etc/seedbox-from-scratch/createSyncThingUserInstall -u ${f%.info} 
+		fi
+
+	fi
+	
 	if [ -f "/home/${f%.info}/services/Couchpotato.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d couchpotato )
@@ -244,6 +260,21 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			echo "PLEX NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Plex.*
 		fi 
+	fi
+	
+	if [ -f "/home/${f%.info}/services/SyncThing.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d syncthing )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/SyncThing.*
+			echo "SYNCTHING DELETED"
+			/etc/seedbox-from-scratch/deleteSyncThingUserDocker -u ${f%.info} 
+		else
+			echo "SYNCTHING ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/SyncThing.*
+		fi
+
 	fi
 	
 	if [ -f "/home/${f%.info}/services/Couchpotato.delete" ]
@@ -471,6 +502,25 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			echo "PLEX NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Plex.*
 		fi 
+	fi
+	
+	if [ -f "/home/${f%.info}/services/SyncThing.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d syncthing )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 		
+				rm -rf /home/${f%.info}/services/SyncThing.*
+				echo "SYNCTHING STARTED"
+				/etc/seedbox-from-scratch/startSyncThingUserDocker -u ${f%.info}
+			else
+				echo "SYNCTHING ALREADY RUNNING"
+			fi
+		else
+			echo "SYNCTHING NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/SyncThing.*
+		fi
+
 	fi
 	
 	if [ -f "/home/${f%.info}/services/Couchpotato.start" ]
@@ -731,6 +781,25 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi 
 	fi
 	
+	if [ -f "/home/${f%.info}/services/SyncThing.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d syncthing )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 		
+				rm -rf /home/${f%.info}/services/SyncThing.*
+				echo "SYNCTHING STOPPED"
+				/etc/seedbox-from-scratch/stopSyncThingUserDocker -u ${f%.info}
+			else
+				echo "SYNCTHING ALREADY STOPPED"
+			fi
+		else
+			echo "SYNCTHING NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/SyncThing.*
+		fi
+
+	fi
+	
 	if [ -f "/home/${f%.info}/services/Couchpotato.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d couchpotato )
@@ -987,6 +1056,25 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			echo "PLEX NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Plex.*
 		fi 
+	fi
+	
+	if [ -f "/home/${f%.info}/services/SyncThing.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d syncthing )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 		
+				rm -rf /home/${f%.info}/services/SyncThing.*
+				echo "SYNCTHING STOPPED"
+				/etc/seedbox-from-scratch/restartCouchpotatoUserDocker -u ${f%.info}
+			else
+				echo "SYNCTHING ALREADY STOPPED"
+			fi
+		else
+			echo "SYNCTHING NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/SyncThing.*
+		fi
+
 	fi
 	
 	if [ -f "/home/${f%.info}/services/Couchpotato.stop" ]

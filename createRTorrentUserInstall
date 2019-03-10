@@ -35,7 +35,7 @@ USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 HTPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateUserHtpassword -u ${USERNAME})
 
-docker image prune
+
 docker pull thevisad/rutorrent:latest
 
 docker run --restart=always -d --name ${USERNAME}_rutorrent -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSSLSERVERPORT}:443 -p ${WEBSERVERPORT}:80 -p ${SERVERPORT}:${SERVERPORT} -p ${UDPPORT}:6881 -p ${OTHERPORT}:${OTHERPORT} -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro thevisad/rutorrent

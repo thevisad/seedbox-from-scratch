@@ -34,7 +34,7 @@ PLEXPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 32401 -ep 32500)
 USERPASSWORD=$(echo "$(cat /etc/seedbox-from-scratch/users/${USERNAME}.info)" | grep "Password: " | head -n1 | awk '{print $2}')
 OLDPLEXPORT=$(grep -o 'ManualPortMappingPort.*' /home/${USERNAME}/plex/config/Library/Application\ Support/Plex\ Media\ Server/Preferences.xml | cut -d \" -f2)
 
-docker image prune
+
 docker pull plexinc/pms-docker:latest
 docker pull plexinc/pms-docker:plexpass
 

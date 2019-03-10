@@ -25,7 +25,7 @@ WEBSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 7878 -ep 7978)
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
 
-docker image prune
+
 docker pull linuxserver/radarr
 
 docker run --restart=always -d --name ${USERNAME}_radarr -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME}  -v /home/${USERNAME}/downloads:/downloads -v /home/${USERNAME}/media/Movies:/movies -v /home/${USERNAME}/radarr/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:7878 -v /etc/localtime:/etc/localtime:ro linuxserver/radarr
