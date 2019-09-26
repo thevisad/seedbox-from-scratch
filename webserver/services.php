@@ -54,11 +54,17 @@
 				<td>filemanager</td>
 				<td><?php $seedbox_site_functions->displayServiceDetails("filemanager"); ?></td>
 			</tr>
-						<tr>
+			<tr>
 				<td>sonarr</td>
 				<td><?php $seedbox_site_functions->displayServiceDetails("sonarr"); ?></td>
 				<td>radarr</td>
 				<td><?php $seedbox_site_functions->displayServiceDetails("radarr"); ?></td>
+			</tr>
+			<tr>
+				<td>syncthing</td>
+				<td><?php $seedbox_site_functions->displayServiceDetails("syncthing"); ?></td>
+				<td>pending</td>
+				<td></td>
 			</tr>
 		</table>
 	</body>

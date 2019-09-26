@@ -43,11 +43,13 @@ if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; t
 	fi
 
 	echo "SERVICE: DELUGE" > /home/${USERNAME}/private/deluge.serviceinfo
-	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/deluge.serviceinfo
+	echo "PASSWORD: deluge" >> /home/${USERNAME}/private/deluge.serviceinfo
 	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 	echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 	echo "SERVERDAEMONPORT: $SERVERDAEMONPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
 	echo "SERVERTORRENTPORT: $SERVERTORRENTPORT" >> /home/${USERNAME}/private/deluge.serviceinfo
+	echo "Please log in and create a username and password, admins are not responsible for user failure to secure the system." >> /home/${USERNAME}/private/deluge.serviceinfo
+
 	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 fi
 

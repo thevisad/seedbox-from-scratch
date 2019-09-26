@@ -438,6 +438,34 @@ doWork();
 			</form>
 		</td>
 	</tr>
+	<tr>
+		<td>SyncThing</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="SyncThing" value="Install" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="SyncThing" value="Delete" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="SyncThing" value="Stop" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="SyncThing" value="Start" />
+			</form>
+		</td>
+		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="SyncThing" value="Restart" />
+			</form>
+		</td>
+	</tr>
 </table>
 </div>
 </body>

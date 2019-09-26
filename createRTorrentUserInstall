@@ -44,72 +44,71 @@ docker run --restart=always -d --name ${USERNAME}_rutorrent -e LOCAL_USER_ID=${U
 CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d rutorrent | tr -cd '[[:alnum:]]._-' )
 if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
 
-	#echo "<?php \$streampath = 'http://$IPADDRESS1:${WEBSSLSERVERPORT}/stream/view.php'; ?>" | tee /tmp/rutorrent/plugins/mediastream/conf.php > /dev/null
+	sudo docker cp /etc/seedbox-from-scratch/templates/rutorrent.plugins.filemanager.conf.php.template ${USERNAME}_rutorrent:/usr/share/webapps/rutorrent/plugins/filemanager/conf.php
+	sudo docker cp /etc/seedbox-from-scratch/templates/rutorrent.plugins.fileshare.conf.php.template ${USERNAME}_rutorrent:/usr/share/webapps/rutorrent/plugins/fileshare/conf.php
+	sudo docker cp /etc/seedbox-from-scratch/templates/Snoopy.class.inc.template ${USERNAME}_rutorrent:/usr/share/webapps/rutorrent/php/Snoopy.class.inc 
 
-	#cp /etc/seedbox-from-scratch/templates/Snoopy.class.inc.template /tmp/rutorrent/php/Snoopy.class.inc 
-	docker cp /etc/seedbox-from-scratch/templates/rutorrent.plugins.filemanager.conf.php.template ${USERNAME}_rutorrent:/usr/share/webapps/rutorrent/plugins/filemanager/conf.php
-	docker cp /etc/seedbox-from-scratch/templates/rutorrent.plugins.fileshare.conf.php.template ${USERNAME}_rutorrent:/usr/share/webapps/rutorrent/plugins/fileshare/conf.php
-	docker cp /etc/seedbox-from-scratch/templates/Snoopy.class.inc.template ${USERNAME}_rutorrent:/usr/share/webapps/rutorrent/php/Snoopy.class.inc 
-
-	#cp /etc/seedbox-from-scratch/templates/docker.nginx.conf.template /home/${USERNAME}/rtorrent/config/nginx/nginx.conf
-	sudo cp /etc/seedbox-from-scratch/templates/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template /tmp/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template.tmp
-	sudo perl -pi -e "s/<PASSWORD>/$IRSSIPASSWORD1/g" /tmp/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template.tmp
-	sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g" /tmp/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template.tmp
-	docker cp /tmp/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template.tmp ${USERNAME}_rutorrent:/usr/share/webapps/rutorrent/plugins/autodl-irssi/conf.php
-
-	wget https://raw.githubusercontent.com/nelu/rutorrent-thirdparty-plugins/stable/filemanager/flm.class.php -O /tmp/rutorrent.filemanager.flm.class.php
-	wget https://raw.githubusercontent.com/nelu/rutorrent-thirdparty-plugins/stable/filemanager/settings.js.php -O /tmp/rutorrent.filemanager.settings.js.php
-	perl -pi -e "s/\\\$topDirectory/\\\$homeDirectory/g" /tmp/rutorrent.filemanager.settings.js.php
-	perl -pi -e "s/\\\$topDirectory\, \\\$fm/\\\$homeDirectory\, \\\$topDirectory\, \\\$fm/g" /tmp/rutorrent.filemanager.flm.class.php
-	perl -pi -e "s/\\\$this\-\>userdir \= addslash\(\\\$topDirectory\)\;/\\\$this\-\>userdir \= \\\$homeDirectory \? addslash\(\\\$homeDirectory\) \: addslash\(\\\$topDirectory\)\;/g" /tmp/rutorrent.filemanager.flm.class.php
-	docker cp /tmp/rutorrent.filemanager.flm.class.php ${USERNAME}_rutorrent:/usr/share/webapps/rutorrent/plugins/filemanager/flm.class.php
-	docker cp /tmp/rutorrent.filemanager.settings.js.php ${USERNAME}_rutorrent:/usr/share/webapps/rutorrent/plugins/filemanager/settings.js.php
-
-	
+	sudo wget https://raw.githubusercontent.com/nelu/rutorrent-thirdparty-plugins/stable/filemanager/flm.class.php -O /tmp/rutorrent.filemanager.flm.class.php
+	sudo wget https://raw.githubusercontent.com/nelu/rutorrent-thirdparty-plugins/stable/filemanager/settings.js.php -O /tmp/rutorrent.filemanager.settings.js.php
+	sudo perl -pi -e "s/\\\$topDirectory/\\\$homeDirectory/g" /tmp/rutorrent.filemanager.settings.js.php
+	sudo perl -pi -e "s/\\\$topDirectory\, \\\$fm/\\\$homeDirectory\, \\\$topDirectory\, \\\$fm/g" /tmp/rutorrent.filemanager.flm.class.php
+	sudo perl -pi -e "s/\\\$this\-\>userdir \= addslash\(\\\$topDirectory\)\;/\\\$this\-\>userdir \= \\\$homeDirectory \? addslash\(\\\$homeDirectory\) \: addslash\(\\\$topDirectory\)\;/g" /tmp/rutorrent.filemanager.flm.class.php
+	sudo docker cp /tmp/rutorrent.filemanager.flm.class.php ${USERNAME}_rutorrent:/usr/share/webapps/rutorrent/plugins/filemanager/flm.class.php
+	sudo docker cp /tmp/rutorrent.filemanager.settings.js.php ${USERNAME}_rutorrent:/usr/share/webapps/rutorrent/plugins/filemanager/settings.js.php	
 	
 	sudo rm -R /tmp/rtorrentinstalltemp/
-	sudo mkdir -p /tmp/rtorrentinstalltemp/.irssi/
-	sudo git clone https://github.com/autodl-community/autodl-irssi.git /tmp/rtorrentinstalltemp/.irssi/scripts/
-	sudo mkdir -p /tmp/rtorrentinstalltemp/.irssi/scripts/autorun
+	sudo mkdir -p /tmp/rtorrentinstalltemp/.irssi/scripts/
+	sudo curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | sudo xargs wget --quiet -O /tmp/rtorrentinstalltemp/.irssi/scripts/autodl-irssi.zip
+	sudo unzip -o /tmp/rtorrentinstalltemp/.irssi/scripts/autodl-irssi.zip -d /tmp/rtorrentinstalltemp/.irssi/scripts/
+	sudo rm /tmp/rtorrentinstalltemp/.irssi/scripts/autodl-irssi.zip
+	sudo mkdir -p /tmp/rtorrentinstalltemp/.irssi/scripts/autorun/
+	sudo mv /tmp/rtorrentinstalltemp/.irssi/scripts/autodl-irssi.pl /tmp/rtorrentinstalltemp/.irssi/scripts/autorun/
 
-	sudo wget -qO /tmp/rtorrentinstalltemp/autodl-trackers.zip "$dltrkrs"
+	sudo wget -qO /tmp/rtorrentinstalltemp/autodl-trackers.zip $dltrkrs
 	sudo unzip -qo /tmp/rtorrentinstalltemp/autodl-trackers.zip -d /tmp/rtorrentinstalltemp/.irssi/scripts/AutodlIrssi/trackers/
 
-	sudo cp /tmp/rtorrentinstalltemp/.irssi/scripts/autodl-irssi.pl /tmp/rtorrentinstalltemp/.irssi/scripts/autorun/
 	sudo mkdir -p /tmp/rtorrentinstalltemp/.autodl
 	sudo cp /etc/seedbox-from-scratch/templates/home.user.autodl.autodl.cfg.template /tmp/rtorrentinstalltemp/.autodl/autodl.cfg
-	sudo rm -f /tmp/rtorrentinstalltemp/autodl-{irssi,trackers}.zip /tmp/rtorrentinstalltemp/.irssi/scripts/{README*,*.md,autodl-irssi.pl}
 	sudo chown -R root:root /tmp/rtorrentinstalltemp/.irssi
-
 	sudo perl -pi -e "s/<PASSWORD>/$IRSSIPASSWORD1/g"  /tmp/rtorrentinstalltemp/.autodl/autodl.cfg
 	sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g"  /tmp/rtorrentinstalltemp/.autodl/autodl.cfg
 	sudo perl -pi -e "s/use Digest\:\:SHA1 qw/use Digest\:\:SHA qw/g" /tmp/rtorrentinstalltemp/.irssi/scripts/AutodlIrssi/MatchedRelease.pm
-	docker cp /tmp/rtorrentinstalltemp/.irssi/* ${USERNAME}_rutorrent:/root/.irssi
-	docker cp /tmp/rtorrentinstalltemp/.autodl/* ${USERNAME}_rutorrent:/root/.autodl
-
-	perl -pi -e "s/51413/${SERVERPORT}/g" /home/${USERNAME}/rtorrent/config/rtorrent/rtorrent.rc
-	chown ${USERNAME}:${USERNAME} /home/${USERNAME}/rtorrent/ -R
+	sudo docker cp /tmp/rtorrentinstalltemp/.irssi ${USERNAME}_rutorrent:/root/
+	sudo docker cp /tmp/rtorrentinstalltemp/.autodl ${USERNAME}_rutorrent:/root/
+	
+	
+	# Replace this with the new data??>
+	sudo cp /etc/seedbox-from-scratch/templates/docker.nginx.conf.template /home/${USERNAME}/rtorrent/config/nginx/nginx.conf
+	sudo cp /etc/seedbox-from-scratch/templates/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template /tmp/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template.tmp
+	sudo perl -pi -e "s/<PASSWORD>/$IRSSIPASSWORD1/g" /tmp/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template.tmp
+	sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g" /tmp/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template.tmp
+	sudo docker cp /tmp/rutorrent.conf.users.plugins.autodl-irssi.conf.php.template.tmp ${USERNAME}_rutorrent:/usr/share/webapps/rutorrent/plugins/autodl-irssi/conf.php
+	
+	sudo mkdir -p /tmp/rtorrentinstalltemp/rutorrent/plugins/
+	sudo git clone https://github.com/autodl-community/autodl-rutorrent.git /tmp/rtorrentinstalltemp/rutorrent/plugins/autodl-irssi
+	sudo cp /tmp/rtorrentinstalltemp/rutorrent/plugins/autodl-irssi/_conf.php /tmp/rtorrentinstalltemp/rutorrent/plugins/autodl-irssi/conf.php
+	sudo docker cp /tmp/rtorrentinstalltemp/rutorrent/plugins/* ${USERNAME}_rutorrent:/var/www/localhost/rutorrent/plugins
+	sudo rm -R /tmp/rtorrentinstalltemp/
 	  
-	echo ${HTPASSWDGENED} > /tmp/temp.htpasswd
-	docker cp /tmp/temp.htpasswd ${USERNAME}_rutorrent:/usr/share/webapps/.htpasswd
-	rm -rf /tmp/temp.htpasswd
+	sudo echo ${HTPASSWDGENED} > /tmp/temp.htpasswd
+	sudo docker cp /tmp/temp.htpasswd ${USERNAME}_rutorrent:/usr/share/webapps/.htpasswd
+	sudo rm -rf /tmp/temp.htpasswd	
 
+	sudo echo "SERVICE: RTORRENT" > /home/${USERNAME}/private/rutorrent.serviceinfo
+	sudo echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	sudo echo "ACCESSURL: https://$SYSTEMHOSTNAME:$WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	sudo echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	sudo echo "WEBSSLSERVERPORT: $WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	sudo echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	sudo echo "IRSSIPORT1: $IRSSIPORT1" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	sudo echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	sudo echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	sudo echo "OTHERPORT: $OTHERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	sudo echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	sudo echo "IRSSIPASSWORD1: $IRSSIPASSWORD1" >> /home/${USERNAME}/private/rutorrent.serviceinfo
+	sudo chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 	
-
-	echo "SERVICE: RTORRENT" > /home/${USERNAME}/private/rutorrent.serviceinfo
-	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/rutorrent.serviceinfo
-	echo "ACCESSURL: https://$SYSTEMHOSTNAME:$WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
-	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
-	echo "WEBSSLSERVERPORT: $WEBSSLSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
-	echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
-	echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
-	echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
-	echo "OTHERPORT: $OTHERPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
-	echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/rutorrent.serviceinfo
-	echo "IRSSIPASSWORD1: $IRSSIPASSWORD1" >> /home/${USERNAME}/private/rutorrent.serviceinfo
-	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
-	
-	docker restart ${USERNAME}_rutorrent
+	sudo docker restart ${USERNAME}_rutorrent
 fi
 
 if [[ -n $1 ]]; then

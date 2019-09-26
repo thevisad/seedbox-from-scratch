@@ -24,8 +24,12 @@ SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
 LISTENINGPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 22001 -ep 22101)
 PROTOCOLPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 21028 -ep 21128)
 WEBSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8385 -ep 8485)
+USERPASSWORD=`sfsGenerateRandomPasswordString`
 USERUID=$(id -u ${USERNAME})
 USERGID=$(id -g ${USERNAME})
+USERHASH=$(openssl passwd -apr1 ${USERPASSWORD})
+
+grep '${USERNAME}:' | awk '{print $2}'
 
 
 docker pull linuxserver/syncthing:latest
@@ -51,6 +55,11 @@ if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; t
 	echo "Please log in and create a username and password, admins are not responsible for a users failure to secure the system." >> /home/${USERNAME}/private/syncthing.serviceinfo
 	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
 fi
+
+sudo perl -ip -e "s/<user><\/user>/<user>${USERNAME}<\/user>/g" /home/${USERNAME}/syncthing/config/config.xml
+sudo perl -ip -e 's/<password><\/password>/<password>USERHASH<\/password>/g' /home/${USERNAME}/syncthing/config/config.xml
+
+sudo perl -pi -e "s/tls=\"false\"/tls=\"true\"/g" /home/${USERNAME}/syncthing/config/config.xml
 
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"

@@ -1,0 +1,58 @@
+#!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+exec 1> >(logger -s -t $(basename $0)) 2>&1 
+
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -u|--username)
+    USERNAME="$2"
+    shift # past argument 
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
+WEBSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 2121 -ep 2221)
+WEBSERVERPORTSTART=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 31000 -ep 32000)
+WEBSERVERPORTEND=$(($WEBSERVERPORTSTART + 9)) 
+USERPASSWORD=$(echo "$(cat /etc/seedbox-from-scratch/users/${USERNAME}.info)" | grep "Password: " | head -n1 | awk '{print $2}')
+
+USERUID=$(id -u ${USERNAME})
+USERGID=$(id -g ${USERNAME})
+
+docker pull stilliard/pure-ftpd:hardened
+
+docker run --restart=always -d --name ${USERNAME}_pureftpd -e FTP_USER_NAME=${USERNAME} -e FTP_USER_PASS=${USERPASSWORD} -e FTP_USER_HOME=/home/${USERNAME}/pure-ftpd -e FTP_USER_UID=${USERUID} -e FTP_USER_GID=${USERGID} -e "PUBLICHOST=${SYSTEMHOSTNAME}" -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads:/home/${USERNAME}/pure-ftpd -v /home/${USERNAME}/pureftpd/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSERVERPORT}:21 -p ${WEBSERVERPORTSTART}-${WEBSERVERPORTEND}:30000-30009  -v /etc/localtime:/etc/localtime:ro stilliard/pure-ftpd:hardened bash /run.sh -c 5 -C 5 -l puredb:/etc/pure-ftpd/pureftpd.pdb -E -j -R -P ${SYSTEMHOSTNAME} -p 30000:30059
+
+sleep 5
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d pureftpd | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
+	if [ ! -d "/home/${USERNAME}/pureftpd" ]; then
+	  mkdir /home/${USERNAME}/pureftpd
+	  mkdir /home/${USERNAME}/pureftpd/config
+	  chown ${USERNAME}:${USERNAME} /home/${USERNAME}/pureftpd/ -R
+	fi
+
+	echo "SERVICE: Pure-FTPd" > /home/${USERNAME}/private/pureftpd.serviceinfo
+	echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/pureftpd.serviceinfo
+	echo "PASSWORD: Your system password" >> /home/${USERNAME}/private/pureftpd.serviceinfo
+	echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/pureftpd.serviceinfo
+	echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/pureftpd.serviceinfo
+	echo "Please log in and create a username and password, admins are not responsible for user failure to secure the system." >> /home/${USERNAME}/private/pureftpd.serviceinfo
+	chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
+fi
+
+if [[ -n $1 ]]; then
+    echo "Last line of file specified as non-opt/last argument:"
+    tail -1 $1
+fi

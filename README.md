@@ -50,6 +50,9 @@ When I originally started playing with this script it was one of the few that ac
 * Docker Radarr - https://hub.docker.com/r/linuxserver/radarr/
 * Docker Sonarr - https://hub.docker.com/r/linuxserver/sonarr/
 * Docker MySQL - https://hub.docker.com/_/mysql
+* Docker SFTP Server - https://hub.docker.com/r/atmoz/sftp
+* Docker Pure-FTPd - https://hub.docker.com/r/stilliard/pure-ftpd/
+* Docker FileZilla - https://hub.docker.com/r/jlesage/filezilla/
 
 ## Buggy Docker Containers
 * Docker LetsEncrypt - https://github.com/linuxserver/docker-letsencrypt (not working)
@@ -68,6 +71,12 @@ There is no real support for this script, but nerds are talking a lot about it [
 
 
 ## Changelog
+Version 16.60.0 (Internal Revision)
+  September 25th 2019 
+  - Docker SFTP Server - https://hub.docker.com/r/atmoz/sftp
+  - Docker Pure-FTPd - https://hub.docker.com/r/stilliard/pure-ftpd/
+  - Docker FileZilla - https://hub.docker.com/r/jlesage/filezilla/
+  
 Version 16.50.0 (Internal Revision)
   February 27th 20:25 GMT-5
   - Docker MySQL - https://hub.docker.com/_/mysql
