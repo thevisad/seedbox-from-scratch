@@ -1058,7 +1058,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi 
 	fi
 	
-	if [ -f "/home/${f%.info}/services/SyncThing.stop" ]
+	if [ -f "/home/${f%.info}/services/SyncThing.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d syncthing )
 		echo  ${TASKCHECK}
@@ -1066,7 +1066,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			if [ ${TASKCHECK} == "RUNNING" ]; then 		
 				rm -rf /home/${f%.info}/services/SyncThing.*
 				echo "SYNCTHING STOPPED"
-				/etc/seedbox-from-scratch/restartCouchpotatoUserDocker -u ${f%.info}
+				/etc/seedbox-from-scratch/restartSyncThingUserDocker -u ${f%.info}
 			else
 				echo "SYNCTHING ALREADY STOPPED"
 			fi
@@ -1077,7 +1077,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 
 	fi
 	
-	if [ -f "/home/${f%.info}/services/Couchpotato.stop" ]
+	if [ -f "/home/${f%.info}/services/Couchpotato.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d couchpotato )
 		echo  ${TASKCHECK}
@@ -1096,7 +1096,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 
 	fi
 	
-	if [ -f "/home/${f%.info}/services/Deluge.stop" ]
+	if [ -f "/home/${f%.info}/services/Deluge.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d deluge )
 		echo  ${TASKCHECK}
@@ -1114,7 +1114,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/LetsEncrypt.stop" ]
+	if [ -f "/home/${f%.info}/services/LetsEncrypt.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d letsencrypt )
 		echo  ${TASKCHECK}
@@ -1132,7 +1132,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/MySQL.stop" ]
+	if [ -f "/home/${f%.info}/services/MySQL.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d mysql )
 		echo  ${TASKCHECK}
@@ -1151,7 +1151,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/RapidLeech.stop" ]
+	if [ -f "/home/${f%.info}/services/RapidLeech.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rapidleech )
 		echo  ${TASKCHECK}
@@ -1169,7 +1169,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/RTorrent.stop" ]
+	if [ -f "/home/${f%.info}/services/RTorrent.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
 		echo  ${TASKCHECK}
@@ -1187,7 +1187,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/FileManager.stop" ]
+	if [ -f "/home/${f%.info}/services/FileManager.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d filemanager )
 		echo  ${TASKCHECK}
@@ -1205,7 +1205,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/Sabnzbd.stop" ]
+	if [ -f "/home/${f%.info}/services/Sabnzbd.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sabnzbd )
 		echo  ${TASKCHECK}
@@ -1223,7 +1223,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/Sickbeard.stop" ]
+	if [ -f "/home/${f%.info}/services/Sickbeard.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickbeard )
 		echo  ${TASKCHECK}
@@ -1241,7 +1241,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/Sickrage.stop" ]
+	if [ -f "/home/${f%.info}/services/Sickrage.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sickrage )
 		echo  ${TASKCHECK}
@@ -1259,7 +1259,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/Ubooquity.stop" ]
+	if [ -f "/home/${f%.info}/services/Ubooquity.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d ubooquity )
 		echo  ${TASKCHECK}
@@ -1277,7 +1277,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/Sonarr.stop" ]
+	if [ -f "/home/${f%.info}/services/Sonarr.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sonarr )
 		echo  ${TASKCHECK}
@@ -1295,7 +1295,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/Radarr.stop" ]
+	if [ -f "/home/${f%.info}/services/Radarr.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d radarr )
 		echo  ${TASKCHECK}
@@ -1311,6 +1311,282 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		 	echo "RADARR NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/Radarr.*
 		fi
+	fi
+	
+	
+	
+	
+	# Pure FTPd 
+	
+		if [ -f "/home/${f%.info}/services/PureFTPd.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d pureftpd )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "pureftpd ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/PureFTPd.*
+			
+		else
+			rm -rf /home/${f%.info}/services/PureFTPd.*
+			echo "pureftpd INSTALLED"
+			/etc/seedbox-from-scratch/createPureFTPdUserInstall -u ${f%.info} 
+		fi
+
+	fi
+	
+		if [ -f "/home/${f%.info}/services/PureFTPd.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d pureftpd )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/PureFTPd.*
+			echo "pureftpd DELETED"
+			/etc/seedbox-from-scratch/deletePureFTPdUserDocker -u ${f%.info} 
+		else
+			echo "pureftpd ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/PureFTPd.*
+		fi
+
+	fi
+	
+		if [ -f "/home/${f%.info}/services/PureFTPd.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d pureftpd )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 		
+				rm -rf /home/${f%.info}/services/PureFTPd.*
+				echo "pureftpd STARTED"
+				/etc/seedbox-from-scratch/startPureFTPdUserDocker -u ${f%.info}
+			else
+				echo "pureftpd ALREADY RUNNING"
+			fi
+		else
+			echo "pureftpd NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/PureFTPd.*
+		fi
+
+	fi
+	
+		if [ -f "/home/${f%.info}/services/PureFTPd.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d pureftpd )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 		
+				rm -rf /home/${f%.info}/services/PureFTPd.*
+				echo "pureftpd STOPPED"
+				/etc/seedbox-from-scratch/restartPureFTPdUserDocker -u ${f%.info}
+			else
+				echo "pureftpd ALREADY STOPPED"
+			fi
+		else
+			echo "pureftpd NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/PureFTPd.*
+		fi
+
+	fi
+
+	if [ -f "/home/${f%.info}/services/PureFTPd.restart" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d pureftpd )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 		
+				rm -rf /home/${f%.info}/services/PureFTPd.*
+				echo "pureftpd STOPPED"
+				/etc/seedbox-from-scratch/restartPureFTPdUserDocker -u ${f%.info}
+			else
+				echo "pureftpd ALREADY STOPPED"
+			fi
+		else
+			echo "pureftpd NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/PureFTPd.*
+		fi
+
+	fi
+	
+	
+	
+	# FileZilla
+	
+		if [ -f "/home/${f%.info}/services/FileZilla.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d filezilla )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "filezilla ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/FileZilla.*
+			
+		else
+			rm -rf /home/${f%.info}/services/FileZilla.*
+			echo "filezilla INSTALLED"
+			/etc/seedbox-from-scratch/createFileZillaUserInstall -u ${f%.info} 
+		fi
+
+	fi
+	
+		if [ -f "/home/${f%.info}/services/FileZilla.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d filezilla )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/FileZilla.*
+			echo "filezilla DELETED"
+			/etc/seedbox-from-scratch/deleteFileZillaUserDocker -u ${f%.info} 
+		else
+			echo "filezilla ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/FileZilla.*
+		fi
+
+	fi
+	
+		if [ -f "/home/${f%.info}/services/FileZilla.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d filezilla )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 		
+				rm -rf /home/${f%.info}/services/FileZilla.*
+				echo "filezilla STARTED"
+				/etc/seedbox-from-scratch/startFileZillaUserDocker -u ${f%.info}
+			else
+				echo "filezilla ALREADY RUNNING"
+			fi
+		else
+			echo "filezilla NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/FileZilla.*
+		fi
+
+	fi
+	
+		if [ -f "/home/${f%.info}/services/FileZilla.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d filezilla )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 		
+				rm -rf /home/${f%.info}/services/FileZilla.*
+				echo "filezilla STOPPED"
+				/etc/seedbox-from-scratch/restartFileZillaUserDocker -u ${f%.info}
+			else
+				echo "filezilla ALREADY STOPPED"
+			fi
+		else
+			echo "filezilla NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/FileZilla.*
+		fi
+
+	fi
+
+	if [ -f "/home/${f%.info}/services/FileZilla.restart" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d filezilla )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 		
+				rm -rf /home/${f%.info}/services/FileZilla.*
+				echo "filezilla STOPPED"
+				/etc/seedbox-from-scratch/restartFileZillaUserDocker -u ${f%.info}
+			else
+				echo "filezilla ALREADY STOPPED"
+			fi
+		else
+			echo "filezilla NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/FileZilla.*
+		fi
+
+	fi
+	
+	
+	# SFTP
+	
+		if [ -f "/home/${f%.info}/services/SFTP.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sftp )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "sftp ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/SFTP.*
+			
+		else
+			rm -rf /home/${f%.info}/services/SFTP.*
+			echo "sftp INSTALLED"
+			/etc/seedbox-from-scratch/createSFTPUserInstall -u ${f%.info} 
+		fi
+
+	fi
+	
+		if [ -f "/home/${f%.info}/services/SFTP.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sftp )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/SFTP.*
+			echo "sftp DELETED"
+			/etc/seedbox-from-scratch/deleteSFTPUserDocker -u ${f%.info} 
+		else
+			echo "sftp ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/SFTP.*
+		fi
+
+	fi
+	
+		if [ -f "/home/${f%.info}/services/SFTP.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sftp )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 		
+				rm -rf /home/${f%.info}/services/SFTP.*
+				echo "sftp STARTED"
+				/etc/seedbox-from-scratch/startSFTPUserDocker -u ${f%.info}
+			else
+				echo "sftp ALREADY RUNNING"
+			fi
+		else
+			echo "sftp NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/SFTP.*
+		fi
+
+	fi
+	
+		if [ -f "/home/${f%.info}/services/SFTP.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sftp )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 		
+				rm -rf /home/${f%.info}/services/SFTP.*
+				echo "sftp STOPPED"
+				/etc/seedbox-from-scratch/restartSFTPUserDocker -u ${f%.info}
+			else
+				echo "sftp ALREADY STOPPED"
+			fi
+		else
+			echo "sftp NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/SFTP.*
+		fi
+
+	fi
+
+	if [ -f "/home/${f%.info}/services/SFTP.restart" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d sftp )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 		
+				rm -rf /home/${f%.info}/services/SFTP.*
+				echo "sftp STOPPED"
+				/etc/seedbox-from-scratch/restartSFTPUserDocker -u ${f%.info}
+			else
+				echo "sftp ALREADY STOPPED"
+			fi
+		else
+			echo "sftp NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/SFTP.*
+		fi
+
 	fi
 	
 	###################################################

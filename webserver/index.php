@@ -466,6 +466,90 @@ doWork();
 			</form>
 		</td>
 	</tr>
+		<tr>
+		<td>SFTP</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="SFTP" value="Install" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="SFTP" value="Delete" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="SFTP" value="Stop" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="SFTP" value="Start" />
+			</form>
+		</td>
+		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="SFTP" value="Restart" />
+			</form>
+		</td>
+	</tr>
+		<tr>
+		<td>FileZilla</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="FileZilla" value="Install" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="FileZilla" value="Delete" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="FileZilla" value="Stop" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="FileZilla" value="Start" />
+			</form>
+		</td>
+		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="FileZilla" value="Restart" />
+			</form>
+		</td>
+	</tr>
+		<tr>
+		<td>PureFTPd</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="PureFTPd" value="Install" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="PureFTPd" value="Delete" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="PureFTPd" value="Stop" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="PureFTPd" value="Start" />
+			</form>
+		</td>
+		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="PureFTPd" value="Restart" />
+			</form>
+		</td>
+	</tr>
 </table>
 </div>
 </body>

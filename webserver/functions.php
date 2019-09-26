@@ -1,34 +1,51 @@
 <?php 
 	class seedbox_site_functions{
-
 	function __construct(){
 	}
 	
+		private $currentfunctions = array("RapidLeech","Deluge","RTorrent","FileManager","Couchpotato","LetsEncrypt","MySQL",
+	"Plex","Sabnzbd","Sickbeard","Sickrage","Ubooquity","Radarr","Sonarr","SyncThing","SFTP","FileZilla","PureFTPd");
+	
 	function startService($servicename){
+		if (!in_array($servicename, $currentfunctions)) {
+			return;
+		}
 		$current="FOO";
 		$filepath="../services/" . $servicename . '.start';
-		file_put_contents($filepath, $current);
+		file_put_contents($filepath, $current);		
 	}
 	
 	function stopService($servicename){
+		if (!in_array($servicename, $currentfunctions)) {
+			return;
+		}
 		$current="FOO";
 		$filepath="../services/" . $servicename . '.stop';
 		file_put_contents($filepath, $current);
 	}
 
 	function updateService($servicename){
+		if (!in_array($servicename, $currentfunctions)) {
+			return;
+		}
 		$current="FOO";
 		$filepath="../services/" . $servicename . '.update';
 		file_put_contents($filepath, $current);
 	}
 	
 	function installService($servicename){
+		if (!in_array($servicename, $currentfunctions)) {
+			return;
+		}
 		$current="FOO";
 		$filepath="../services/" . $servicename . '.install';
 		file_put_contents($filepath, $current);
 	}
 	
 	function restartService($servicename){
+		if (!in_array($servicename, $currentfunctions)) {
+			return;
+		}
 		$current="FOO";
 		$filepath="../services/" . $servicename . '.restart';
 		file_put_contents($filepath, $current);
@@ -73,6 +90,9 @@
 	}
 	
 	function deleteService($servicename){
+		if (!in_array($servicename, $currentfunctions)) {
+			return;
+		}
 		$current="FOO";
 		$filepath="../services/" . $servicename . '.delete';
 		$file  = realpath("../services/" . $servicename . '.delete') . PHP_EOL;
@@ -80,6 +100,9 @@
 	}
 
 	function checkIfServiceIsRunning($servicename){
+		if (!in_array($servicename, $currentfunctions)) {
+			return;
+		}
 		$file  = realpath("../services/" . $servicename . '.running') . PHP_EOL;
 		if (file_exists($file )) {
 			echo "The file $file exists";
@@ -93,9 +116,12 @@
 		echo "Hello " .$user. "<br>"; 
 	}
 	
-	function displayServiceDetails($service){
+	function displayServiceDetails($servicename){
+		if (!in_array($servicename, $currentfunctions)) {
+			return;
+		}
 		$user = $_SERVER['PHP_AUTH_USER'];
-		$output = shell_exec('sudo /etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ' . escapeshellarg($user) . ' -d ' . escapeshellarg($service) . ' 2>&1');
+		$output = shell_exec('sudo /etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ' . escapeshellarg($user) . ' -d ' . escapeshellarg($servicename) . ' 2>&1');
 		$output = preg_replace("/[^A-Za-z0-9 ]/", '', $output);
 		if ($output == "NOTINSTALLED"){
 			echo "<img src='red-32px.png' height='16' /><br>";
@@ -108,9 +134,12 @@
 		} 
 	}
 	
-	function displayDockerInstall($service){
+	function displayDockerInstall($servicename){
+		if (!in_array($servicename, $currentfunctions)) {
+			return;
+		}
 		$user = $_SERVER['PHP_AUTH_USER'];
-		$output = shell_exec('sudo /etc/seedbox-from-scratch/sfsInstalledDockerInfo -d ' . escapeshellarg($service) . ' 2>&1');
+		$output = shell_exec('sudo /etc/seedbox-from-scratch/sfsInstalledDockerInfo -d ' . escapeshellarg($servicename) . ' 2>&1');
 		$output = preg_replace("/[^A-Za-z0-9 ]/", '', $output);
 		if ($output == "NOTINSTALLED"){
 			echo "<img src='red-32px.png' height='16' /><br>";

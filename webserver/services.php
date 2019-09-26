@@ -63,8 +63,14 @@
 			<tr>
 				<td>syncthing</td>
 				<td><?php $seedbox_site_functions->displayServiceDetails("syncthing"); ?></td>
-				<td>pending</td>
-				<td></td>
+				<td>SFTP</td>
+				<td><?php $seedbox_site_functions->displayServiceDetails("sftp"); ?></td>
+			</tr>
+			<tr>
+				<td>FileZilla</td>
+				<td><?php $seedbox_site_functions->displayServiceDetails("filezilla"); ?></td>
+				<td>PureFTPd</td>
+				<td><?php $seedbox_site_functions->displayServiceDetails("pureftpd"); ?></td>
 			</tr>
 		</table>
 	</body>

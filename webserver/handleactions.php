@@ -512,5 +512,92 @@
 		}
 		header( 'Location: index.php' ) ;
     }
+	if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['SFTP']))
+    {
+		$postvar=htmlspecialchars($_POST["SFTP"]);
+		$servicename="SFTP";
+		switch($postvar)
+		{
+			case "Install":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->installService($servicename);
+			break;
+			case "Delete":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->deleteService($servicename);
+			break;
+			case "Start":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->startService($servicename);
+			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
+			case "Stop":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->stopService($servicename);
+			break;
+		}
+		header( 'Location: index.php' ) ;
+    }
+	if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['FileZilla']))
+    {
+		$postvar=htmlspecialchars($_POST["FileZilla"]);
+		$servicename="FileZilla";
+		switch($postvar)
+		{
+			case "Install":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->installService($servicename);
+			break;
+			case "Delete":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->deleteService($servicename);
+			break;
+			case "Start":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->startService($servicename);
+			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
+			case "Stop":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->stopService($servicename);
+			break;
+		}
+		header( 'Location: index.php' ) ;
+    }
+	if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['PureFTPd']))
+    {
+		$postvar=htmlspecialchars($_POST["PureFTPd"]);
+		$servicename="PureFTPd";
+		switch($postvar)
+		{
+			case "Install":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->installService($servicename);
+			break;
+			case "Delete":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->deleteService($servicename);
+			break;
+			case "Start":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->startService($servicename);
+			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
+			case "Stop":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->stopService($servicename);
+			break;
+		}
+		header( 'Location: index.php' ) ;
+    }
 	header( 'Location: index.php' ) ;
 ?>
