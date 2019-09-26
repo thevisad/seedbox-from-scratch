@@ -1323,12 +1323,10 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d pureftpd )
 		echo  ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "pureftpd ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/PureFTPd.*
 			
 		else
 			rm -rf /home/${f%.info}/services/PureFTPd.*
-			echo "pureftpd INSTALLED"
 			/etc/seedbox-from-scratch/createPureFTPdUserInstall -u ${f%.info} 
 		fi
 
@@ -1340,10 +1338,8 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		echo  ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/PureFTPd.*
-			echo "pureftpd DELETED"
-			/etc/seedbox-from-scratch/deletePureFTPdUserDocker -u ${f%.info} 
+			/etc/seedbox-from-scratch/deletePureFTPDUserDocker -u ${f%.info} 
 		else
-			echo "pureftpd ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/PureFTPd.*
 		fi
 
@@ -1359,10 +1355,8 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 				echo "pureftpd STARTED"
 				/etc/seedbox-from-scratch/startPureFTPdUserDocker -u ${f%.info}
 			else
-				echo "pureftpd ALREADY RUNNING"
 			fi
 		else
-			echo "pureftpd NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/PureFTPd.*
 		fi
 
@@ -1376,12 +1370,10 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			if [ ${TASKCHECK} == "RUNNING" ]; then 		
 				rm -rf /home/${f%.info}/services/PureFTPd.*
 				echo "pureftpd STOPPED"
-				/etc/seedbox-from-scratch/restartPureFTPdUserDocker -u ${f%.info}
+				/etc/seedbox-from-scratch/stopPureFTPDServerUserDocker -u ${f%.info}
 			else
-				echo "pureftpd ALREADY STOPPED"
 			fi
 		else
-			echo "pureftpd NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/PureFTPd.*
 		fi
 
@@ -1397,10 +1389,8 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 				echo "pureftpd STOPPED"
 				/etc/seedbox-from-scratch/restartPureFTPdUserDocker -u ${f%.info}
 			else
-				echo "pureftpd ALREADY STOPPED"
 			fi
 		else
-			echo "pureftpd NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/PureFTPd.*
 		fi
 
@@ -1415,12 +1405,10 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d filezilla )
 		echo  ${TASKCHECK}
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
-			echo "filezilla ALREADY INSTALLED"
 			rm -rf /home/${f%.info}/services/FileZilla.*
 			
 		else
 			rm -rf /home/${f%.info}/services/FileZilla.*
-			echo "filezilla INSTALLED"
 			/etc/seedbox-from-scratch/createFileZillaUserInstall -u ${f%.info} 
 		fi
 
@@ -1435,7 +1423,6 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			echo "filezilla DELETED"
 			/etc/seedbox-from-scratch/deleteFileZillaUserDocker -u ${f%.info} 
 		else
-			echo "filezilla ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/FileZilla.*
 		fi
 
@@ -1451,10 +1438,8 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 				echo "filezilla STARTED"
 				/etc/seedbox-from-scratch/startFileZillaUserDocker -u ${f%.info}
 			else
-				echo "filezilla ALREADY RUNNING"
 			fi
 		else
-			echo "filezilla NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/FileZilla.*
 		fi
 
@@ -1468,12 +1453,10 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			if [ ${TASKCHECK} == "RUNNING" ]; then 		
 				rm -rf /home/${f%.info}/services/FileZilla.*
 				echo "filezilla STOPPED"
-				/etc/seedbox-from-scratch/restartFileZillaUserDocker -u ${f%.info}
+				/etc/seedbox-from-scratch/stopFileZillaUserDocker -u ${f%.info}
 			else
-				echo "filezilla ALREADY STOPPED"
 			fi
 		else
-			echo "filezilla NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/FileZilla.*
 		fi
 
@@ -1489,10 +1472,8 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 				echo "filezilla STOPPED"
 				/etc/seedbox-from-scratch/restartFileZillaUserDocker -u ${f%.info}
 			else
-				echo "filezilla ALREADY STOPPED"
 			fi
 		else
-			echo "filezilla NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/FileZilla.*
 		fi
 
@@ -1511,8 +1492,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			
 		else
 			rm -rf /home/${f%.info}/services/SFTP.*
-			echo "sftp INSTALLED"
-			/etc/seedbox-from-scratch/createSFTPUserInstall -u ${f%.info} 
+			/etc/seedbox-from-scratch/createSFTPServerUserInstall -u ${f%.info} 
 		fi
 
 	fi
@@ -1524,9 +1504,8 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
 			rm -rf /home/${f%.info}/services/SFTP.*
 			echo "sftp DELETED"
-			/etc/seedbox-from-scratch/deleteSFTPUserDocker -u ${f%.info} 
+			/etc/seedbox-from-scratch/deleteSFTPServerUserDocker -u ${f%.info} 
 		else
-			echo "sftp ALREADY DELETED"
 			rm -rf /home/${f%.info}/services/SFTP.*
 		fi
 
@@ -1540,12 +1519,10 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			if [ ${TASKCHECK} == "STOPPED" ]; then 		
 				rm -rf /home/${f%.info}/services/SFTP.*
 				echo "sftp STARTED"
-				/etc/seedbox-from-scratch/startSFTPUserDocker -u ${f%.info}
+				/etc/seedbox-from-scratch/startSFTPServerUserDocker -u ${f%.info}
 			else
-				echo "sftp ALREADY RUNNING"
 			fi
 		else
-			echo "sftp NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/SFTP.*
 		fi
 
@@ -1559,12 +1536,10 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			if [ ${TASKCHECK} == "RUNNING" ]; then 		
 				rm -rf /home/${f%.info}/services/SFTP.*
 				echo "sftp STOPPED"
-				/etc/seedbox-from-scratch/restartSFTPUserDocker -u ${f%.info}
+				/etc/seedbox-from-scratch/stopSFTPServerUserDocker -u ${f%.info}
 			else
-				echo "sftp ALREADY STOPPED"
 			fi
 		else
-			echo "sftp NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/SFTP.*
 		fi
 
@@ -1578,12 +1553,11 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			if [ ${TASKCHECK} == "RUNNING" ]; then 		
 				rm -rf /home/${f%.info}/services/SFTP.*
 				echo "sftp STOPPED"
-				/etc/seedbox-from-scratch/restartSFTPUserDocker -u ${f%.info}
+				/etc/seedbox-from-scratch/restartSFTPServerUserDocker -u ${f%.info}
 			else
 				echo "sftp ALREADY STOPPED"
 			fi
 		else
-			echo "sftp NOT INSTALLED"
 			rm -rf /home/${f%.info}/services/SFTP.*
 		fi
 

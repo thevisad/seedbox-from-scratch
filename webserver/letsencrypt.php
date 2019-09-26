@@ -11,7 +11,7 @@
 	} else {
 		?>
 		<html>
-		<form action="plex.php" method="post">
+		<form action="letsencrypt.php" method="post">
 		  <fieldset>
 			<legend>LetsEncrypt Login Information:</legend>
 			LetsEncrypt Email:<br>
