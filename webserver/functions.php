@@ -7,45 +7,35 @@
 	"Plex","Sabnzbd","Sickbeard","Sickrage","Ubooquity","Radarr","Sonarr","SyncThing","SFTP","FileZilla","PureFTPd");
 	
 	function startService($servicename){
-		if (!in_array($servicename, $currentfunctions)) {
-			return;
-		}
+
 		$current="FOO";
 		$filepath="../services/" . $servicename . '.start';
 		file_put_contents($filepath, $current);		
 	}
 	
 	function stopService($servicename){
-		if (!in_array($servicename, $currentfunctions)) {
-			return;
-		}
+
 		$current="FOO";
 		$filepath="../services/" . $servicename . '.stop';
 		file_put_contents($filepath, $current);
 	}
 
 	function updateService($servicename){
-		if (!in_array($servicename, $currentfunctions)) {
-			return;
-		}
+
 		$current="FOO";
 		$filepath="../services/" . $servicename . '.update';
 		file_put_contents($filepath, $current);
 	}
 	
 	function installService($servicename){
-		if (!in_array($servicename, $currentfunctions)) {
-			return;
-		}
+
 		$current="FOO";
 		$filepath="../services/" . $servicename . '.install';
 		file_put_contents($filepath, $current);
 	}
 	
 	function restartService($servicename){
-		if (!in_array($servicename, $currentfunctions)) {
-			return;
-		}
+
 		$current="FOO";
 		$filepath="../services/" . $servicename . '.restart';
 		file_put_contents($filepath, $current);
@@ -90,9 +80,7 @@
 	}
 	
 	function deleteService($servicename){
-		if (!in_array($servicename, $currentfunctions)) {
-			return;
-		}
+
 		$current="FOO";
 		$filepath="../services/" . $servicename . '.delete';
 		$file  = realpath("../services/" . $servicename . '.delete') . PHP_EOL;
@@ -100,9 +88,7 @@
 	}
 
 	function checkIfServiceIsRunning($servicename){
-		if (!in_array($servicename, $currentfunctions)) {
-			return;
-		}
+
 		$file  = realpath("../services/" . $servicename . '.running') . PHP_EOL;
 		if (file_exists($file )) {
 			echo "The file $file exists";
@@ -117,9 +103,7 @@
 	}
 	
 	function displayServiceDetails($servicename){
-		if (!in_array($servicename, $currentfunctions)) {
-			return;
-		}
+
 		$user = $_SERVER['PHP_AUTH_USER'];
 		$output = shell_exec('sudo /etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ' . escapeshellarg($user) . ' -d ' . escapeshellarg($servicename) . ' 2>&1');
 		$output = preg_replace("/[^A-Za-z0-9 ]/", '', $output);
@@ -135,9 +119,7 @@
 	}
 	
 	function displayDockerInstall($servicename){
-		if (!in_array($servicename, $currentfunctions)) {
-			return;
-		}
+
 		$user = $_SERVER['PHP_AUTH_USER'];
 		$output = shell_exec('sudo /etc/seedbox-from-scratch/sfsInstalledDockerInfo -d ' . escapeshellarg($servicename) . ' 2>&1');
 		$output = preg_replace("/[^A-Za-z0-9 ]/", '', $output);
