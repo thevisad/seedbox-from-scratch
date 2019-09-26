@@ -1355,6 +1355,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 				echo "pureftpd STARTED"
 				/etc/seedbox-from-scratch/startPureFTPdUserDocker -u ${f%.info}
 			else
+			echo "."
 			fi
 		else
 			rm -rf /home/${f%.info}/services/PureFTPd.*
@@ -1372,6 +1373,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 				echo "pureftpd STOPPED"
 				/etc/seedbox-from-scratch/stopPureFTPDServerUserDocker -u ${f%.info}
 			else
+			echo "."
 			fi
 		else
 			rm -rf /home/${f%.info}/services/PureFTPd.*
@@ -1389,6 +1391,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 				echo "pureftpd STOPPED"
 				/etc/seedbox-from-scratch/restartPureFTPdUserDocker -u ${f%.info}
 			else
+			echo "."
 			fi
 		else
 			rm -rf /home/${f%.info}/services/PureFTPd.*
@@ -1438,6 +1441,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 				echo "filezilla STARTED"
 				/etc/seedbox-from-scratch/startFileZillaUserDocker -u ${f%.info}
 			else
+			echo "."
 			fi
 		else
 			rm -rf /home/${f%.info}/services/FileZilla.*
@@ -1455,6 +1459,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 				echo "filezilla STOPPED"
 				/etc/seedbox-from-scratch/stopFileZillaUserDocker -u ${f%.info}
 			else
+			echo "."
 			fi
 		else
 			rm -rf /home/${f%.info}/services/FileZilla.*
@@ -1472,6 +1477,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 				echo "filezilla STOPPED"
 				/etc/seedbox-from-scratch/restartFileZillaUserDocker -u ${f%.info}
 			else
+			echo "."
 			fi
 		else
 			rm -rf /home/${f%.info}/services/FileZilla.*
@@ -1521,6 +1527,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 				echo "sftp STARTED"
 				/etc/seedbox-from-scratch/startSFTPServerUserDocker -u ${f%.info}
 			else
+			echo "."
 			fi
 		else
 			rm -rf /home/${f%.info}/services/SFTP.*
@@ -1538,6 +1545,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 				echo "sftp STOPPED"
 				/etc/seedbox-from-scratch/stopSFTPServerUserDocker -u ${f%.info}
 			else
+			echo "."
 			fi
 		else
 			rm -rf /home/${f%.info}/services/SFTP.*
@@ -1578,8 +1586,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			else
 				echo "PLEX ALREADY STOPPED"
 			fi
-		else
-			echo "PLEX NOT INSTALLED"
+		else			
 			rm -rf /home/${f%.info}/services/Plex.*
 		fi 
 	fi
