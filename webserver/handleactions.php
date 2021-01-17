@@ -107,6 +107,41 @@
     }
 	
 	
+		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['wordpress']))
+    {
+		$postvar=htmlspecialchars($_POST["wordpress"]);
+		$servicename="wordpress";
+		switch($postvar)
+		{
+			case "Install":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->installService($servicename);
+			break;
+			case "Delete":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->deleteService($servicename);
+			break;
+			case "Start":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->startService($servicename);
+			break;
+			case "Stop":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->stopService($servicename);
+			break;
+			case "Restart":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->restartService($servicename);
+			break;
+			case "Configure":
+			  echo 'Hello ' . $servicename . " service current task is to " . $postvar . '!';
+			  $seedbox_site_functions->configureService($servicename);
+			break;
+		}
+		header( 'Location: index.php' ) ;
+    }
+	
+	
 	if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['FileManager']))
     {
 		$postvar=htmlspecialchars($_POST["FileManager"]);

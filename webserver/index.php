@@ -128,6 +128,34 @@ doWork();
 			</form>
 		</td>
 	</tr>
+			<tr>
+		<td>Wordpress</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="wordpress" value="Install" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="wordpress" value="Delete" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="wordpress" value="Stop" />
+			</form>
+		</td>
+		<td>
+			<form action="handleactions.php" method="post">
+			<input type="submit" name="wordpress" value="Start" />
+			</form>
+		</td>
+		<td>
+		<form action="handleactions.php" method="post">
+			<input type="submit" name="wordpress" value="Restart" />
+			</form>
+		</td>
+	</tr>
 	<tr>
 		<td>FileManager</td>
 		<td>

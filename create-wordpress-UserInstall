@@ -1,0 +1,117 @@
+#!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+exec 1> >(logger -s -t $(basename $0)) 2>&1 
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -u|--username)
+    USERNAME="$2"
+    shift # past argument 
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+trlt="$(curl -s https://api.github.com/repos/autodl-community/autodl-trackers/releases/latest | sed -rn 's/(.*)"tag_name": "v(.*)",/\2/p')"
+dltrkrs="https://github.com/autodl-community/autodl-trackers/releases/download/v$trlt/autodl-trackers-v$trlt.zip"
+
+IRSSIPASSWORD1=`sfsGenerateRandomPasswordString`
+USERPASSWORD=$(echo "$(cat /etc/seedbox-from-scratch/users/${USERNAME}.info)" | grep "Password: " | head -n1 | awk '{print $2}')
+SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
+WEBSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8180)
+WEBSSLSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8444 -ep 8543)
+IRSSIPORT1=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 51000 -ep 51999)
+SERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 51414 -ep 51513)
+UDPPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 6882 -ep 6982)
+OTHERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 5001 -ep 5999)
+USERUID=$(id -u ${USERNAME})
+USERGID=$(id -g ${USERNAME})
+HTPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateUserHtpassword -u ${USERNAME})
+
+
+docker pull thevisad/SCRIPTNAME:latest
+
+docker run --restart=always -d --name ${USERNAME}_SCRIPTNAME -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSSLSERVERPORT}:443 -p ${WEBSERVERPORT}:80 -p ${SERVERPORT}:${SERVERPORT} -p ${UDPPORT}:6881 -p ${OTHERPORT}:${OTHERPORT} -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro thevisad/SCRIPTNAME
+
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d SCRIPTNAME | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
+
+	sudo docker cp /etc/seedbox-from-scratch/templates/SCRIPTNAME.plugins.filemanager.conf.php.template ${USERNAME}_SCRIPTNAME:/usr/share/webapps/SCRIPTNAME/plugins/filemanager/conf.php
+	sudo docker cp /etc/seedbox-from-scratch/templates/SCRIPTNAME.plugins.fileshare.conf.php.template ${USERNAME}_SCRIPTNAME:/usr/share/webapps/SCRIPTNAME/plugins/fileshare/conf.php
+	sudo docker cp /etc/seedbox-from-scratch/templates/Snoopy.class.inc.template ${USERNAME}_SCRIPTNAME:/usr/share/webapps/SCRIPTNAME/php/Snoopy.class.inc 
+
+	sudo wget https://raw.githubusercontent.com/nelu/SCRIPTNAME-thirdparty-plugins/stable/filemanager/flm.class.php -O /tmp/SCRIPTNAME.filemanager.flm.class.php
+	sudo wget https://raw.githubusercontent.com/nelu/SCRIPTNAME-thirdparty-plugins/stable/filemanager/settings.js.php -O /tmp/SCRIPTNAME.filemanager.settings.js.php
+	sudo perl -pi -e "s/\\\$topDirectory/\\\$homeDirectory/g" /tmp/SCRIPTNAME.filemanager.settings.js.php
+	sudo perl -pi -e "s/\\\$topDirectory\, \\\$fm/\\\$homeDirectory\, \\\$topDirectory\, \\\$fm/g" /tmp/SCRIPTNAME.filemanager.flm.class.php
+	sudo perl -pi -e "s/\\\$this\-\>userdir \= addslash\(\\\$topDirectory\)\;/\\\$this\-\>userdir \= \\\$homeDirectory \? addslash\(\\\$homeDirectory\) \: addslash\(\\\$topDirectory\)\;/g" /tmp/SCRIPTNAME.filemanager.flm.class.php
+	sudo docker cp /tmp/SCRIPTNAME.filemanager.flm.class.php ${USERNAME}_SCRIPTNAME:/usr/share/webapps/SCRIPTNAME/plugins/filemanager/flm.class.php
+	sudo docker cp /tmp/SCRIPTNAME.filemanager.settings.js.php ${USERNAME}_SCRIPTNAME:/usr/share/webapps/SCRIPTNAME/plugins/filemanager/settings.js.php	
+	
+	sudo rm -R /tmp/rtorrentinstalltemp/
+	sudo mkdir -p /tmp/rtorrentinstalltemp/.irssi/scripts/
+	sudo curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | sudo xargs wget --quiet -O /tmp/rtorrentinstalltemp/.irssi/scripts/autodl-irssi.zip
+	sudo unzip -o /tmp/rtorrentinstalltemp/.irssi/scripts/autodl-irssi.zip -d /tmp/rtorrentinstalltemp/.irssi/scripts/
+	sudo rm /tmp/rtorrentinstalltemp/.irssi/scripts/autodl-irssi.zip
+	sudo mkdir -p /tmp/rtorrentinstalltemp/.irssi/scripts/autorun/
+	sudo mv /tmp/rtorrentinstalltemp/.irssi/scripts/autodl-irssi.pl /tmp/rtorrentinstalltemp/.irssi/scripts/autorun/
+
+	sudo wget -qO /tmp/rtorrentinstalltemp/autodl-trackers.zip $dltrkrs
+	sudo unzip -qo /tmp/rtorrentinstalltemp/autodl-trackers.zip -d /tmp/rtorrentinstalltemp/.irssi/scripts/AutodlIrssi/trackers/
+
+	sudo mkdir -p /tmp/rtorrentinstalltemp/.autodl
+	sudo cp /etc/seedbox-from-scratch/templates/home.user.autodl.autodl.cfg.template /tmp/rtorrentinstalltemp/.autodl/autodl.cfg
+	sudo chown -R root:root /tmp/rtorrentinstalltemp/.irssi
+	sudo perl -pi -e "s/<PASSWORD>/$IRSSIPASSWORD1/g"  /tmp/rtorrentinstalltemp/.autodl/autodl.cfg
+	sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g"  /tmp/rtorrentinstalltemp/.autodl/autodl.cfg
+	sudo perl -pi -e "s/use Digest\:\:SHA1 qw/use Digest\:\:SHA qw/g" /tmp/rtorrentinstalltemp/.irssi/scripts/AutodlIrssi/MatchedRelease.pm
+	sudo docker cp /tmp/rtorrentinstalltemp/.irssi ${USERNAME}_SCRIPTNAME:/root/
+	sudo docker cp /tmp/rtorrentinstalltemp/.autodl ${USERNAME}_SCRIPTNAME:/root/
+	
+	
+	# Replace this with the new data??>
+	sudo cp /etc/seedbox-from-scratch/templates/docker.nginx.conf.template /home/${USERNAME}/rtorrent/config/nginx/nginx.conf
+	sudo cp /etc/seedbox-from-scratch/templates/SCRIPTNAME.conf.users.plugins.autodl-irssi.conf.php.template /tmp/SCRIPTNAME.conf.users.plugins.autodl-irssi.conf.php.template.tmp
+	sudo perl -pi -e "s/<PASSWORD>/$IRSSIPASSWORD1/g" /tmp/SCRIPTNAME.conf.users.plugins.autodl-irssi.conf.php.template.tmp
+	sudo perl -pi -e "s/<PORT>/$IRSSIPORT1/g" /tmp/SCRIPTNAME.conf.users.plugins.autodl-irssi.conf.php.template.tmp
+	sudo docker cp /tmp/SCRIPTNAME.conf.users.plugins.autodl-irssi.conf.php.template.tmp ${USERNAME}_SCRIPTNAME:/usr/share/webapps/SCRIPTNAME/plugins/autodl-irssi/conf.php
+	
+	sudo mkdir -p /tmp/rtorrentinstalltemp/SCRIPTNAME/plugins/
+	sudo git clone https://github.com/autodl-community/autodl-SCRIPTNAME.git /tmp/rtorrentinstalltemp/SCRIPTNAME/plugins/autodl-irssi
+	sudo cp /tmp/rtorrentinstalltemp/SCRIPTNAME/plugins/autodl-irssi/_conf.php /tmp/rtorrentinstalltemp/SCRIPTNAME/plugins/autodl-irssi/conf.php
+	sudo docker cp /tmp/rtorrentinstalltemp/SCRIPTNAME/plugins/* ${USERNAME}_SCRIPTNAME:/var/www/localhost/SCRIPTNAME/plugins
+	sudo rm -R /tmp/rtorrentinstalltemp/
+	  
+	sudo echo ${HTPASSWDGENED} > /tmp/temp.htpasswd
+	sudo docker cp /tmp/temp.htpasswd ${USERNAME}_SCRIPTNAME:/usr/share/webapps/.htpasswd
+	sudo rm -rf /tmp/temp.htpasswd	
+
+	sudo echo "SERVICE: RTORRENT" > /home/${USERNAME}/private/SCRIPTNAME.serviceinfo
+	sudo echo "USERNAME: $USERNAME" >> /home/${USERNAME}/private/SCRIPTNAME.serviceinfo
+	sudo echo "ACCESSURL: https://$SYSTEMHOSTNAME:$WEBSSLSERVERPORT" >> /home/${USERNAME}/private/SCRIPTNAME.serviceinfo
+	sudo echo "ACCESSURL: http://$SYSTEMHOSTNAME:$WEBSERVERPORT" >> /home/${USERNAME}/private/SCRIPTNAME.serviceinfo
+	sudo echo "WEBSSLSERVERPORT: $WEBSSLSERVERPORT" >> /home/${USERNAME}/private/SCRIPTNAME.serviceinfo
+	sudo echo "WEBSERVERPORT: $WEBSERVERPORT" >> /home/${USERNAME}/private/SCRIPTNAME.serviceinfo
+	sudo echo "IRSSIPORT1: $IRSSIPORT1" >> /home/${USERNAME}/private/SCRIPTNAME.serviceinfo
+	sudo echo "SERVERPORT: $SERVERPORT" >> /home/${USERNAME}/private/SCRIPTNAME.serviceinfo
+	sudo echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/SCRIPTNAME.serviceinfo
+	sudo echo "OTHERPORT: $OTHERPORT" >> /home/${USERNAME}/private/SCRIPTNAME.serviceinfo
+	sudo echo "UDPPORT: $UDPPORT" >> /home/${USERNAME}/private/SCRIPTNAME.serviceinfo
+	sudo echo "IRSSIPASSWORD1: $IRSSIPASSWORD1" >> /home/${USERNAME}/private/SCRIPTNAME.serviceinfo
+	sudo chown www-data:www-data  /home/${USERNAME}/private/*.serviceinfo
+	
+	sudo docker restart ${USERNAME}_SCRIPTNAME
+fi
+
+if [[ -n $1 ]]; then
+    echo "Last line of file specified as non-opt/last argument:"
+    tail -1 $1
+fi

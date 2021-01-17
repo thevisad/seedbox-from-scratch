@@ -1,0 +1,52 @@
+#!/bin/bash
+# Hellish Tech
+# No commercial usage without authorization
+exec 1> >(logger -s -t $(basename $0)) 2>&1 
+
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+    -u|--username)
+    USERNAME="$2"
+    shift # past argument 
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+trlt="$(curl -s https://api.github.com/repos/autodl-community/autodl-trackers/releases/latest | sed -rn 's/(.*)"tag_name": "v(.*)",/\2/p')"
+dltrkrs="https://github.com/autodl-community/autodl-trackers/releases/download/v$trlt/autodl-trackers-v$trlt.zip"
+
+IRSSIPASSWORD1=`sfsGenerateRandomPasswordString`
+USERPASSWORD=$(echo "$(cat /etc/seedbox-from-scratch/users/${USERNAME}.info)" | grep "Password: " | head -n1 | awk '{print $2}')
+SYSTEMHOSTNAME=`cat /etc/seedbox-from-scratch/hostname.info`
+WEBSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8081 -ep 8180)
+WEBSSLSERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 8444 -ep 8543)
+IRSSIPORT1=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 51000 -ep 51999)
+SERVERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 51414 -ep 51513)
+UDPPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 6882 -ep 6982)
+OTHERPORT=$(/etc/seedbox-from-scratch/sfsgetAvailablePort -sp 5001 -ep 5999)
+USERUID=$(id -u ${USERNAME})
+USERGID=$(id -g ${USERNAME})
+HTPASSWDGENED=$(/etc/seedbox-from-scratch/sfsGenerateUserHtpassword -u ${USERNAME})
+
+
+docker pull thevisad/wordpress:latest
+
+docker run --restart=always -d --name ${USERNAME}_wordpress -e LOCAL_USER_ID=${USERUID} -h ${SYSTEMHOSTNAME} -v /home/${USERNAME}/downloads/manual:/downloads -v /home/${USERNAME}/rtorrent/config:/config -e PGID=${USERGID} -e PUID=${USERUID} -p ${WEBSSLSERVERPORT}:443 -p ${WEBSERVERPORT}:80 -p ${SERVERPORT}:${SERVERPORT} -p ${UDPPORT}:6881 -p ${OTHERPORT}:${OTHERPORT} -v /etc/seedbox-from-scratch/ssl:/etc/ssl/certs -v /etc/localtime:/etc/localtime:ro thevisad/wordpress
+
+
+CHECKIFRUNNING=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${USERNAME} -d wordpress | tr -cd '[[:alnum:]]._-' )
+if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; then
+	sudo docker restart ${USERNAME}_wordpress
+fi
+
+if [[ -n $1 ]]; then
+    echo "Last line of file specified as non-opt/last argument:"
+    tail -1 $1
+fi

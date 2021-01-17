@@ -138,6 +138,21 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
+		if [ -f "/home/${f%.info}/services/wordpress.install" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d wordpress )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			echo "wordpress ALREADY INSTALLED"
+			rm -rf /home/${f%.info}/services/wordpress.*
+			
+		else
+			rm -rf /home/${f%.info}/services/wordpress.*
+			echo "wordpress INSTALLED"
+			/etc/seedbox-from-scratch/create-wordpress-UserInstall -u ${f%.info} 
+		fi
+	fi
+	
 	if [ -f "/home/${f%.info}/services/FileManager.install" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d filemanager )
@@ -354,7 +369,23 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/RTorrent.delete" ]
+	if [ -f "/home/${f%.info}/services/wordpress.delete" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d wordpress )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			rm -rf /home/${f%.info}/services/wordpress.*
+			echo "wordpress DELETED"
+			/etc/seedbox-from-scratch/delete-wordpress-UserDocker -u ${f%.info} 
+		
+			
+		else
+			echo "wordpress ALREADY DELETED"
+			rm -rf /home/${f%.info}/services/wordpress.*
+		fi
+	fi
+	
+		if [ -f "/home/${f%.info}/services/RTorrent.delete" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
 		echo  ${TASKCHECK}
@@ -615,7 +646,25 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/RTorrent.start" ]
+	if [ -f "/home/${f%.info}/services/wordpress.start" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d wordpress )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "STOPPED" ]; then 
+				rm -rf /home/${f%.info}/services/wordpress.*
+				echo "wordpress STARTED"
+				/etc/seedbox-from-scratch/start-wordpress-UserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY RUNNING"
+			fi			
+		else
+			echo "wordpress NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/wordpress.*
+		fi
+	fi
+	
+		if [ -f "/home/${f%.info}/services/RTorrent.start" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
 		echo  ${TASKCHECK}
@@ -892,7 +941,25 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/RTorrent.stop" ]
+	if [ -f "/home/${f%.info}/services/wordpress.stop" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d wordpress )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/wordpress.*
+				echo "wordpress STOPPED"
+				/etc/seedbox-from-scratch/stop-wordpress-UserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi			
+		else
+			echo "wordpress NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/wordpress.*
+		fi
+	fi
+	
+		if [ -f "/home/${f%.info}/services/RTorrent.stop" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
 		echo  ${TASKCHECK}
@@ -909,6 +976,7 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 			rm -rf /home/${f%.info}/services/RTorrent.*
 		fi
 	fi
+	
 	
 	if [ -f "/home/${f%.info}/services/FileManager.stop" ]
 	then
@@ -1169,7 +1237,25 @@ for f in /etc/seedbox-from-scratch/users/*.info; do
 		fi
 	fi
 	
-	if [ -f "/home/${f%.info}/services/RTorrent.restart" ]
+	if [ -f "/home/${f%.info}/services/wordpress.restart" ]
+	then
+		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d wordpress )
+		echo  ${TASKCHECK}
+		if [[ (${TASKCHECK} == "STOPPED") || (${TASKCHECK} == "RUNNING") ]]; then 
+			if [ ${TASKCHECK} == "RUNNING" ]; then 
+				rm -rf /home/${f%.info}/services/wordpress.*
+				echo "wordpress STOPPED"
+				/etc/seedbox-from-scratch/restart-wordpress-UserDocker -u ${f%.info} 
+			else
+				echo "PLEX ALREADY STOPPED"
+			fi			
+		else
+			echo "wordpress NOT INSTALLED"
+			rm -rf /home/${f%.info}/services/wordpress.*
+		fi
+	fi
+	
+		if [ -f "/home/${f%.info}/services/RTorrent.restart" ]
 	then
 		TASKCHECK=$(/etc/seedbox-from-scratch/sfsRunningUserDockerInfo -u ${f%.info} -d rutorrent )
 		echo  ${TASKCHECK}
