@@ -3,7 +3,6 @@
 # No commercial usage without authorization
 exec 1> >(logger -s -t $(basename $0)) 2>&1 
 
-
 while [[ $# -gt 1 ]]
 do
 key="$1"
@@ -20,7 +19,9 @@ esac
 shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
-sudo docker start ${USERNAME}_SCRIPTNAME
+sudo docker rm -f ${USERNAME}_wordpress
+rm -rf /home/${USERNAME}/private/wordpress.serviceinfo
+rm -rf /home/${USERNAME}/rtorrent/config/rtorrent/rtorrent.rc
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1

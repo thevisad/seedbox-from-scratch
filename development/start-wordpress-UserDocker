@@ -20,7 +20,7 @@ esac
 shift # past argument or value
 done
 echo USERNAME  = "${USERNAME}"
-sudo docker stop ${USERNAME}_SCRIPTNAME
+sudo docker start ${USERNAME}_wordpress
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
     tail -1 $1
