@@ -64,6 +64,8 @@ http {
 				fastcgi_temp_file_write_size    256k;
 				include /etc/nginx/fastcgi_params;
 				fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+				auth_basic           "RuTorrent Area";
+				auth_basic_user_file /usr/share/webapps/.htpasswd; 
 			}
 		}
 
