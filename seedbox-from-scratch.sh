@@ -16,7 +16,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 SBFSCURRENTVERSION1=16.00
-SBSINTERNALVERSION=0.31.0
+SBSINTERNALVERSION=0.85.0
 OS1=$(lsb_release -si)
 
 function getString
@@ -181,8 +181,11 @@ apt-get --yes upgrade
 
 # 8.
 #install all needed packages
+#20.04
+DEBIAN_FRONTEND=noninteractive apt-get --yes install apache2 apache2-utils apt-utils autoconf build-essential ca-certificates comerr-dev curl quota mktorrent dtach htop irssi libapache2-mod-php libcppunit-dev  libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php php-cli php-dev php-curl php-geoip php-gd php-xmlrpc pkg-config  screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl tcpdump docker.io nscd handbrake-cli
 
-DEBIAN_FRONTEND=noninteractive apt-get --yes install apache2 apache2-utils apt-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php php-cli php-dev php-curl php-geoip php-mcrypt php-gd php-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl tcpdump plowshare4 docker.io nscd handbrake-cli
+#16.04 
+#DEBIAN_FRONTEND=noninteractive apt-get --yes install apache2 apache2-utils apt-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php php-cli php-dev php-curl php-geoip php-mcrypt php-gd php-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake flex bison debhelper binutils-gold ffmpeg libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl tcpdump plowshare4 docker.io nscd handbrake-cli
 if [ $? -gt 0 ]; then
   set +x verbose
   echo
