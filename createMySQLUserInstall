@@ -56,7 +56,7 @@ if [[ (${CHECKIFRUNNING} == "STOPPED") || (${CHECKIFRUNNING} == "RUNNING") ]]; t
 	fi
 fi
 
-docker start --name ${USERNAME}_mysql
+docker start ${USERNAME}_mysql
 
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"
